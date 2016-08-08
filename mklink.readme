@@ -91,7 +91,7 @@ mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\report\control
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\report\views\o" "D:\htdocs\_project_ommu_module_reports\modules\report\views\o"
 
 ///support\\\
-mklink /J "D:\htdocs\_client_bpadjogja.info.coe\externals\support" "D:\htdocs\_project_ommu_module_reports\externals\support"
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\externals\support" "D:\htdocs\_project_ommu_module_support\externals\support"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\support\support.yaml" "D:\htdocs\_project_ommu_module_support\modules\support\support.yaml"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\support\LICENSE" "D:\htdocs\_project_ommu_module_support\modules\support\LICENSE"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\support\SupportModule.php" "D:\htdocs\_project_ommu_module_support\modules\support\SupportModule.php"
