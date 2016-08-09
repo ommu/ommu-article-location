@@ -1,9 +1,8 @@
 <?php 
 return array(
 	'modules' => array(
-		'inlis',
+		'article',
 		'report',
-		'sso',
 		'support',
 		'users'
 	),

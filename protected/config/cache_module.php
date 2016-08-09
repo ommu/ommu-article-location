@@ -1,5 +1,4 @@
-inlis
+article
 report
-sso
 support
 users
