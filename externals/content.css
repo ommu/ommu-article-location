@@ -1,0 +1,407 @@
+/** 
+ * content.css
+ * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @copyright Copyright (c) 2015 Ommu Platform (ommu.co)
+ * version: 0.0.1
+ * @link https://github.com/oMMu/Ommu-Bootstrap
+ * @contact (+62)856-299-4114
+ *
+ *	Custom Default
+ *	Main
+ *	Responsive
+ *
+ */
+ 
+/* =Custom Default
+-------------------------------------------------------------- */
+
+
+/* =Main
+-------------------------------------------------------------- */
+#main .boxed {
+	display: table;
+}
+#main .boxed .box {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	display: table-cell;
+	vertical-align: top;
+	background: #fff;
+	width: 33.333333%;
+	padding: 0 0 10px 0;
+	border-left: 5px solid #f5f5f5;
+	border-right: 5px solid #f5f5f5;
+}
+#main .boxed .box:first-child {
+	border: none;
+	border-right: 10px solid #f5f5f5;
+}
+#main .boxed .box:last-child {
+	border: none;
+	border-left: 10px solid #f5f5f5;
+}
+#main .boxed .box h3 {
+	padding: 15px 20px;
+	margin: 0 0 10px 0;
+	border-bottom: 3px solid #2deccb;
+	font-size: 17px;
+	line-height: 22px;
+	font-weight: 600;
+}
+
+#main .box .sep {
+	padding: 10px 15px 0 15px;
+}
+#main .box.blog .sep {
+	font-size: 11px;
+	color: #777;
+}
+#main .box .sep:last-child {
+	padding: 10px 15px 10px 15px;
+}
+#main .box .sep:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	display: block;
+	margin-top: 10px;
+	border-bottom: 1px solid #ebebeb;
+	width: 100%;	
+}
+#main .box .sep:last-child:after {
+	display: none;
+}
+#main .box.blog .sep a {
+	display: block;
+}
+#main .box .sep a {
+	margin: 0 0 5px 0;
+}
+
+/* Banner */
+#main .banner {
+	margin: 20px 0 0 0;
+}
+#main .banner a,
+#main .banner a img {
+	display: block;
+}
+
+/* =Sidebar
+-------------------------------------------------------------- */
+.sidebar .search-menu a {
+	display: block;
+	border-left: 5px solid transparent;
+	border-bottom: 1px solid #ebebeb;
+	padding: 15px 20px;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 600;
+	color: #333;
+	text-decoration: none;
+}
+.sidebar .search-menu a:last-child {
+	border-bottom: none;	
+}
+.sidebar .search-menu a:hover,
+.sidebar .search-menu a.active {
+	border-left: 5px solid #2deccb;
+}
+
+/* Banner */
+div.body .sidebar .box.banner {
+	border: none;
+	background: none;
+}
+.sidebar .banner ul {
+	display: block;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	list-style: none;
+}
+.sidebar .banner ul li {
+	margin: 0 0 10px 0;
+}
+.sidebar .banner ul li:last-child {
+	margin: 0 0 0 0;
+}
+.sidebar .banner ul li a,
+.sidebar .banner ul li a img {
+	display: block;
+	width: 100%;
+} 
+
+/* Article */
+.sidebar .article h4 {
+	padding: 15px 20px !important;
+}
+.sidebar .article ul {
+	display: block;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	list-style: none;
+}
+.sidebar .article ul li {
+	border-bottom: 1px dotted #ebebeb;
+}
+.sidebar .article ul li:last-child {
+	border-bottom: none;
+}
+.sidebar .article ul li a {
+	display: block;
+	padding: 10px 20px;
+}
+.sidebar .article ul li:first-child a {
+	padding: 0 20px 10px 20px;	
+}
+
+/* =Search
+-------------------------------------------------------------- */
+#search .search-form,
+#search .grid-form {
+	display: none;
+}
+#search .grid-view table {
+	border-collapse: separate;
+	border-spacing: 0 15px;
+	margin: -15px 0;
+	width: 100%;
+}
+#search .grid-view thead tr {
+	background: #fff;
+}
+#search .grid-view thead th,
+#search .grid-view thead th * {
+	text-transform: uppercase;
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: 600;
+	color: #fff;
+}
+#search .grid-view thead th {
+	background: #333;
+	padding: 15px 20px;	
+	text-align: left;
+}
+#search .grid-view thead tr.filters {
+	position: relative;
+}
+#search .grid-view thead tr.filters td {
+	padding: 7px;
+	border: 1px solid #ebebeb;
+	border-right: none;
+	background: #fff;
+}
+#search .grid-view thead tr.filters td:last-child {
+	border-right: 1px solid #ebebeb;		
+}
+#search .grid-view thead tr.filters td * {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;	
+	width: 100%;
+	padding: 7px 12px;
+	border: 1px solid #ebebeb;
+	background: #fbfbfb;
+}
+#search .grid-view thead tr.filters td *::-webkit-input-placeholder,
+#search .grid-view thead tr.filters td *::-moz-placeholder,
+#search .grid-view thead tr.filters td *:-moz-placeholder,
+#search .grid-view thead tr.filters td *:-ms-input-placeholder {
+	color: #777;
+	text-transform: uppercase;
+}
+#search .grid-view tbody td {
+	border: 1px solid #ebebeb;
+	border-right: none;
+	background: #fff;
+	padding: 10px 10px 10px 10px;
+}
+#search .grid-view tbody td:last-child {
+	border-right: 1px solid #ebebeb;
+	width: 80px !important;
+}
+#search .grid-view tbody td.center {
+	width: 1px;
+}
+#search .grid-view tbody td,
+#search .grid-view tbody td * {
+	font-size: 12px;
+	line-height: 15px;
+	color: #777;
+}
+#search .grid-view tbody td.year {
+	font-size: 15px;
+	line-height: 15px;
+	font-weight: 600;
+	color: #333;
+}
+#search .grid-view tbody td a.title {
+	display: block;
+	margin: 0 0 7px 0;
+	font-size: 15px;
+	line-height: 20px;
+	font-weight: 600;
+}
+#search .grid-view tbody td a.title,
+#search .grid-view tbody td strong {
+	color: #333;
+}
+#search .grid-view tbody td div.meta {
+	margin: 7px 0 0 0;
+}
+#search .grid-view tbody td div.meta a {
+	color: #08b99d;
+	font-weight: 500;
+}
+
+/* =Article
+-------------------------------------------------------------- */
+#archive-article .content .boxed,
+#archive-service .content .boxed {
+	border: 1px solid #ebebeb;
+	background: #fff;	
+}
+#archive-article .boxed .sep {
+	padding: 20px 20px;
+	border-bottom: 1px solid #ebebeb;
+}
+#archive-article .boxed .sep:last-child {
+	border-bottom: none;
+}
+#archive-article .boxed .sep.table {
+	display: table;
+	padding: 20px 0;
+}
+#archive-article .boxed .sep.table img,
+#archive-article .boxed .sep.table .cell {
+	display: table-cell;
+	vertical-align: top;
+}
+#archive-article .boxed .sep.table img {
+	border-left: 20px solid transparent;
+}
+#archive-article .boxed .sep.table .cell {
+	padding: 0 0 0 15px;
+	border-right: 20px solid transparent;
+}
+#archive-article .boxed .sep a {
+	display: block;
+	font-size: 17px;
+	line-height: 22px;
+	font-weight: 600;
+	color: #333;
+}
+#archive-article .boxed .sep p:last-child {
+	margin: 0 0 0 0;
+}
+#archive-article .boxed .sep .meta,
+#archive-article .boxed .sep .meta * {
+	font-size: 12px;
+	line-height: 15px;
+	color: #777;
+}
+#archive-article .boxed .sep .meta {
+	margin: 7px 0;
+}
+#archive-article .boxed .sep .meta:last-child {
+	margin: 7px 0 0 0;	
+}
+#archive-blog .pager,
+#archive-article .pager {
+	margin: 30px 0 0 0;
+	text-align: center;
+}
+#archive-blog .pager a,
+#archive-article .pager a {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	display: inline-block;
+	padding: 15px 25px;
+	background: #535d5f;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 15px;
+	color: #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+#archive-blog .pager a:hover,
+#archive-article .pager a:hover {
+	background: #00d8b3;
+}
+
+#archive-service .content .box {
+	padding: 20px 20px;
+}
+#archive-service .content img {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	display: block;
+	width: 100%;
+	margin: 0 0 20px 0;
+}
+#archive-service .content .download {
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+}
+#archive-service .content .download a {
+	padding: 15px 50px;
+	display: block;
+	text-align: center;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 20px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+#archive-service .content .download a:hover {
+	color: #00d8b3;
+}
+
+/* =Responsive
+-------------------------------------------------------------- */
+/* Resolution 1280 */
+@media only screen and (max-width:1280px) {
+	
+}
+
+/* Resolution 1024 */
+@media only screen and (max-width:1024px) {
+	
+}
+
+/* Resolution 900 */
+@media only screen and (max-width:900px) {
+	
+}
+
+/* Resolution 800 */
+@media only screen and (max-width:800px) {
+	
+}
+
+/* Resolution 600 */
+@media only screen and (max-width:600px) {
+	
+}
+
+/* Resolution 480 */
+@media only screen and (max-width:480px) {
+	
+}
+
+/* Resolution 320 */
+@media only screen and (max-width:320px) {
+	
+}
