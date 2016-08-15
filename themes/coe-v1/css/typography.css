@@ -17,6 +17,7 @@
  *	Content
  *	Responsive
  *
+ * Edited by hariyazt16@gmail.com
  */
 @charset "utf-8";
 
@@ -39,8 +40,8 @@ input, button, select, textarea,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, details, figcaption, figure, footer, header,
 hgroup, nav, section {
-	color: #333; 
-	font-size: 13px; 
+	color: #3a3a3a; 
+	font-size: 14px; 
 	line-height: 18px;
 	font-weight: 400;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -54,7 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 10px 0;
 	font-family: inherit;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-	font-weight: 700;
+	/* font-weight: 700; */
 	line-height: 1;
 	color: inherit;
 	text-transform: capitalize;
@@ -88,10 +89,9 @@ a {
 	outline: none; 
 	text-decoration: none;
 }
-a:link {color: #1e5fa9; text-decoration: none;}
-a:visited {color: #1e5fa9; text-decoration: none;}
-a:hover {color: #1e5fa9; text-decoration: underline;}
-a:visited:hover {color: #325579; text-decoration: underline;}
+a:link {color: #218550; text-decoration: none;}
+a:visited {color: #218550; text-decoration: none;}
+a:hover {color: #2bbe70; text-decoration: underline;}
 a:active,
 a:hover,
 a:focus {outline: 0;}
@@ -120,6 +120,15 @@ p {margin: 0 0 10px 0}
 .tahoma {font-family: Tahoma, Arial, Helvetica, sans-serif;}
 .trebuchet {font-family: Trebuchet MS, Arial, Helvetica, sans-serif;}
 .verdana {font-family: Verdana, Arial, Helvetica, sans-serif;}
+@font-face {
+	font-family:"Open Sans";
+	src:url("../fonts/open_sans/OpenSans-Regular.eot?") format("eot"),
+	url("../fonts/open_sans/OpenSans-Regular.woff") format("woff"),
+	url("../fonts/open_sans/OpenSans-Regular.ttf") format("truetype"),
+	url("../fonts/open_sans/OpenSans-Regular.svg#OpenSans") format("svg");
+	font-weight:normal;
+	font-style:normal;
+}
 
 /* =Misc class for general use 
 ------------------------------------------------------------ */

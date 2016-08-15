@@ -83,12 +83,17 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 
 	} else {
 		$cs = Yii::app()->getClientScript();
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/plugin/bootstrap.min.css');
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/plugin/owl.carousel.min.css');
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/plugin/owl.theme.min.css');
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/plugin/owl.transitions.min.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/general.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');
 		$cs->registerCssFile(Yii::app()->request->baseUrl.'/externals/content.css');
 		$cs->registerCoreScript('jquery', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/owl.carousel.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/custom/custom.js', CClientScript::POS_END);
 		
 		//Javascript Attribute
@@ -113,15 +118,33 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
   <meta name="author" content="Ommu Platform (support@ommu.co)" />
   <script type="text/javascript">
 	var globals = '<?php echo CJSON::encode($jsAttribute);?>';
+	var baseUrl = '<?php echo BASEURL;?>';
   </script>
   <?php echo $setting->general_include != '' ? $setting->general_include : ''?>
   <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl?>/favicon.ico" />
   <style type="text/css"></style>
  </head>
+	
  <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?>>
-	
-	<?php echo $content;?>
-	
+	<?php //begin.Header ?>
+	<header>
+		<?php $this->widget('_HookHeader');?>
+	</header>
+	<?php //end.Header ?>
+	<div class="body">
+		<?php //begin.Content ?>
+		<?php if($currentAction == 'site/index') {
+			$this->widget('_HookLocation');
+		} ?>
+		<div class="container clearfix">
+			<?php echo $content;?>
+		</div>
+		<?php //end.Content ?>
+	</div>
+	<?php //begin.Footer ?>
+	<footer>
+		<?php $this->widget('_HookFooter');?>
+	</footer>
 	<?php $this->widget('FrontGoogleAnalytics'); ?>
 	
  </body>

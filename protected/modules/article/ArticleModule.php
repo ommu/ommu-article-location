@@ -26,6 +26,7 @@ class ArticleModule extends CWebModule
 				'search',
 				'site',
 				'user',
+				'article',
 			);
 			
 			// pake ini untuk set theme per action di controller..

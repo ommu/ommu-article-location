@@ -169,12 +169,12 @@ input[type="url"],
 input[type="search"],
 input[type="tel"],
 input[type="color"] {
-	border-top: solid 1px #c3cbd4;
-	border-right: solid 1px #c3cbd4;
-	border-bottom: solid 1px #c3cbd4;
-	border-left: solid 1px #c3cbd4;
-	background: #fff;
-	padding: 7px 8px 7px 8px;
+	border-top: solid 1px #f3f3f3;
+	border-right: solid 1px #f3f3f3;
+	border-bottom: solid 1px #f3f3f3;
+	border-left: solid 1px #f3f3f3;
+	background: #f3f3f3;
+	padding: 10px 15px;
 	color: #666;
 }
 select {
@@ -195,12 +195,13 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus { 
-	border-top: solid 1px #4e9cb5;
-	border-right: solid 1px #4e9cb5;
-	border-bottom: solid 1px #4e9cb5;
-	border-left: solid 1px #4e9cb5;
+	border-top: solid 1px #aaa;
+	border-right: solid 1px #aaa;
+	border-bottom: solid 1px #aaa;
+	border-left: solid 1px #aaa;
 	outline: 0;
 	outline: thin dotted \9;
+	background: #fff;
 }
 textarea.error,
 input[type="text"].error,
@@ -230,10 +231,12 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 a.button {
-	background: #02779e;
-	border: 1px solid #016a8d;
+	background: #218550;
+	border: none;
 	padding: 7px 20px;
 	color: #fff !important;
+	border-radius: 3px;
+	opacity: 0.9;
 }
 a.button,
 a.button * {
@@ -256,12 +259,16 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
-a.button:hover {}
+a.button:hover {
+	opacity: 1;
+}
 button:active,
 input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active,
-a.button:active {}
+a.button:active {
+	opacity: 1;
+}
 
 /* Dialog */
 .dialog input[type="text"],
@@ -488,9 +495,7 @@ fieldset div div.desc ul.clearfix li {
 	width: 50%;
 }
 fieldset div.submit input {
-	padding: 8px 25px;
-	font-size: 13px;
-	line-height: 13px;
+	padding: 15px 20px;
 	text-transform: uppercase;
 }
  
