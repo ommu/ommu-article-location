@@ -175,33 +175,32 @@ header img.bg-img {
     color: #fff;
     text-transform: uppercase;
     font-weight: 600;
-    padding: 90px 10px 10px 10px;
+    padding: 100px 10px 10px 10px;
     text-align: center;
     margin: 70px 0 0 0;
     width: 100%;
-    opacity: 0.8;
 }
 .location-group div:nth-child(1) a span {
-    background-image: url(../images/icons/badge-green.png);
+    background-image: url(../images/icons/ico-jateng.png);
 }
 .location-group div:nth-child(2) a span {
-    background-image: url(../images/icons/badge-blue.png);
+    background-image: url(../images/icons/ico-jatim.png);
 }
 .location-group div:nth-child(3) a span {
-    background-image: url(../images/icons/badge-orange.png);
+    background-image: url(../images/icons/ico-banten.png);
 }
 .location-group div:nth-child(4) a span {
-    background-image: url(../images/icons/badge-red.png);
+    background-image: url(../images/icons/ico-jabar.png);
 }
 .location-group div:nth-child(5) a span {
-    background-image: url(../images/icons/badge-purple.png);
+    background-image: url(../images/icons/ico-jogja.png);
 }
 .location-group div:nth-child(6) a span {
-    background-image: url(../images/icons/badge-dark-blue.png);
+    background-image: url(../images/icons/ico-jakarta.png);
 }
-.location-group div a:hover span {
+/* .location-group div a:hover span {
     opacity: 1;
-}
+} */
 .main h4 {
     margin: 40px 0 0 0;
 }
