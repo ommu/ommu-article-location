@@ -81,6 +81,7 @@ header .menu li a {
     padding: 5px 10px;
     display: block;
     color: #fff;
+	text-align: center;
 }
 header .menu li a.active {
 	border-bottom: 1px solid #fff;
@@ -250,6 +251,9 @@ header img.bg-img {
     height: 3.5em;
     overflow: hidden;
     padding: 10px 0 0 0;
+}
+.main .news-box *{
+	color: #333;
 }
 .main .news-box span p {
     margin: 0;

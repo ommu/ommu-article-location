@@ -6,7 +6,7 @@ $currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controlle
 <nav class="main-nav <?php echo($currentAction == 'article/view' ?'dark':'');?>">
     <div class="container">
         <div class="col-md-6 col-sm-6 col-xs-6">
-            <a href="<?php echo Yii::app()->controller->createUrl('site/index')?>" class="logo">
+            <a href="<?php echo Yii::app()->createUrl('site/index')?>" class="logo">
                 <img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/logo-coe.png';?>">
             </a>
         </div>
