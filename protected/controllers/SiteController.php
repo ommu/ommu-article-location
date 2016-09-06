@@ -199,6 +199,7 @@ class SiteController extends Controller
 			'model'=>$model,
 		));
 	}
+	
 	/* About */
 	public function actionAbout()
 	{		

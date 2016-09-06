@@ -22,7 +22,7 @@
 			<div class="col-md-4 col-sm-4 col-xs-6 box">
 				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
 				<span class="date">17 Agusuts 2016</span>
-				<a href="<?php echo Yii::app()->controller->createUrl('article/view')?>" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
+				<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
 				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-6 box">

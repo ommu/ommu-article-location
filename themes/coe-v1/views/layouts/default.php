@@ -91,9 +91,8 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');
-		if($module=='province'){
+		if($module == 'article' && $controller != 'site')
 			$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/style-province.css');
-		}
 		$cs->registerCssFile(Yii::app()->request->baseUrl.'/externals/content.css');
 		$cs->registerCoreScript('jquery', CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/owl.carousel.min.js', CClientScript::POS_END);
@@ -131,7 +130,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
  <body class="<?php echo $module; ?>"<?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?>>
 	<?php //begin.Header ?>
 	<header>
-		<?php if($module == 'province') { ?>
+		<?php if($module == 'article' && $controller != 'site') { ?>
 			<?php $this->widget('_HookHeaderProvince');?>
 		<?php } else { ?>
 			<?php $this->widget('_HookHeader');?>

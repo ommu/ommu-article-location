@@ -1,6 +1,6 @@
 <?php
 
-class ArticleController extends Controller
+class SiteController extends Controller
 {
 	/**
 	 * Declares class-based actions.

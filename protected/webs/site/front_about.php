@@ -1,3 +1,7 @@
+<?php 
+	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.*');
+	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');?>
+	
 <script async defer
  	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIOONzzSSIeqptRc_hnE4E_aOyQFLGbpU&callback=initMap">
 </script>

@@ -17,18 +17,18 @@ $currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controlle
     <div class="container clearfix">
         <div class="col-md-3 col-sm-3 col-xs-6">
             <ul>
-                <li><a href="">HOME</a></li>
-                <li><a href="">BERITA</a></li>
-                <li><a href="">RAGAM BUDAYA</a></li>
-                <li><a href="">PAHLAWAN BUDAYA</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('site/index')?>">HOME</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('article/site/index')?>">BERITA</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('sidebar'=>'on'))?>">RAGAM BUDAYA</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('sidebar'=>'on'))?>">PAHLAWAN BUDAYA</a></li>
             </ul>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
             <ul>
-                <li><a href="">AGENDA BUDAYA</a></li>
-                <li><a href="">TEMPAT BELAJAR</a></li>
-                <li><a href="">BUDAYA VERSI KAMU</a></li>
-                <li><a href="">ABOUT COE</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('sidebar'=>'on'))?>">AGENDA BUDAYA</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('sidebar'=>'on'))?>">TEMPAT BELAJAR</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('sidebar'=>'on'))?>">BUDAYA VERSI KAMU</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('site/about', array('sidebar'=>'on'))?>">ABOUT COE</a></li>
             </ul>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-6">
