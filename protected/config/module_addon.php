@@ -4,6 +4,7 @@ return array(
 		'article',
 		'report',
 		'support',
-		'users'
+		'users',
+		'province'
 	),
 );

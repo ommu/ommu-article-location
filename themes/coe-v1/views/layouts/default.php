@@ -91,6 +91,9 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');
+		if($module=='province'){
+			$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/style-province.css');
+		}
 		$cs->registerCssFile(Yii::app()->request->baseUrl.'/externals/content.css');
 		$cs->registerCoreScript('jquery', CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/owl.carousel.min.js', CClientScript::POS_END);
@@ -125,10 +128,14 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
   <style type="text/css"></style>
  </head>
 	
- <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?>>
+ <body class="<?php echo $module; ?>"<?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?>>
 	<?php //begin.Header ?>
 	<header>
-		<?php $this->widget('_HookHeader');?>
+		<?php if($module == 'province') { ?>
+			<?php $this->widget('_HookHeaderProvince');?>
+		<?php } else { ?>
+			<?php $this->widget('_HookHeader');?>
+		<?php }?>
 	</header>
 	<?php //end.Header ?>
 	<div class="body">
@@ -143,7 +150,11 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	</div>
 	<?php //begin.Footer ?>
 	<footer>
-		<?php $this->widget('_HookFooter');?>
+		<?php if($module == 'province') { ?>
+			<?php $this->widget('_HookFooterProvince');?>
+		<?php } else { ?>
+			<?php $this->widget('_HookFooter');?>
+		<?php } ?>
 	</footer>
 	<?php $this->widget('FrontGoogleAnalytics'); ?>
 	
