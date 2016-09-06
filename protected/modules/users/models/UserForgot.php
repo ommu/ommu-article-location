@@ -250,7 +250,20 @@ class UserForgot extends CActiveRecord
 
 		if($this->isNewRecord) {
 			// Send Email to Member
-			SupportMailSetting::sendEmail($this->user->email, $this->user->displayname, 'Forgot Password', 'http://localhost'.Yii::app()->createUrl('users/password/verify',array('key'=>$this->code, 'secret'=>$this->user->salt)), 1);
+			$forgot_search = array(
+				'{$baseURL}',
+				'{$forgot}','{$displayname}',
+			);
+			$forgot_replace = array(
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('users/password/verify',array('key'=>$this->code, 'secret'=>$this->user->salt)),
+				$this->user->displayname,
+			);
+			$forgot_template = 'user_forgot_password';
+			$forgot_title = 'SSO-GTP Password Assistance';
+			$forgot_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$forgot_template.'.php');
+			$forgot_ireplace = str_ireplace($forgot_search, $forgot_replace, $forgot_message);
+			SupportMailSetting::sendEmail($this->user->email, $this->user->displayname, $forgot_title, $forgot_ireplace, 1);
 		}
 	}
 

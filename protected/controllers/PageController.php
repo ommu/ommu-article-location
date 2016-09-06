@@ -110,7 +110,7 @@ class PageController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id=null, $a=null)
+	public function actionView($id=null, $static=null)
 	{
 		$arrThemes = Utility::getCurrentTemplate('public');
 		Yii::app()->theme = $arrThemes['folder'];
@@ -140,7 +140,7 @@ class PageController extends Controller
 			));
 			
 		} else {
-			if($a == null) {
+			if($static == null) {
 				$model=$this->loadModel($id);
 				
 				$title = Phrase::trans($model->name,2);
@@ -150,7 +150,7 @@ class PageController extends Controller
 			} else {
 				$server = Utility::getConnected(Yii::app()->params['server_options']['bpad']);
 				if($server != 'neither-connected') {
-					if(in_array($server, array('http://103.255.15.100','http://192.168.30.100','http://localhost','http://127.0.0.1')))
+					if(in_array($server, Yii::app()->params['server_options']['localhost']))
 						$server = $server.'/bpadportal';			
 					$url = $server.preg_replace('('.Yii::app()->request->baseUrl.')', '', Yii::app()->createUrl('api/page/detail'));
 					
@@ -175,7 +175,7 @@ class PageController extends Controller
 				$image = $model->success == '0' ? '' : ($model->media_image != '-') ? $model->media_image : '';
 			}
 			
-			if(($a == null && $model == null) || ($a != null && $model->success == '0'))
+			if(($static == null && $model == null) || ($static != null && $model->success == '0'))
 				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 			
 			$this->pageTitleShow = true;
@@ -185,7 +185,7 @@ class PageController extends Controller
 			$this->pageImage = $image;
 			$this->render('application.webs.page.front_view',array(
 				'model'=>$model,
-				'a'=>$a,
+				'a'=>$static,
 			));
 		}
 	}
