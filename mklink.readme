@@ -55,7 +55,7 @@ mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\views" "D:\htdocs\_pro
 -------
 themes
 =======
-mklink /J "D:\htdocs\_client_bpadjogja.info.coe\themes\ommu" "D:\htdocs\_project_ommu_bootstrap\themes\backend-end\ommu"
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\themes\ommu" "D:\htdocs\_project_ommu_bootstrap\themes\ommu"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\externals\content.css" "D:\htdocs\_client_bpadjogja.info.coe\themes\coe-v1\css\content.css"
 
 
