@@ -26,6 +26,7 @@
  * @property integer $location_id
  * @property integer $publish
  * @property integer $province_id
+ * @property integer $province_code
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -38,6 +39,7 @@
 class ArticleLocations extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $province_input;
 	
 	// Variable Search
 	public $creation_search;
@@ -70,14 +72,16 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('location_id, publish, province_id, creation_date, creation_id, modified_id', 'required'),
+			array('publish, province_code, 
+				province_input', 'required'),
 			array('location_id, publish, province_id', 'numerical', 'integerOnly'=>true),
+			array('province_code', 'length', 'max'=>16),
 			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('modified_date', 'safe'),
+			array('province_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('location_id, publish, province_id, creation_date, creation_id, modified_date, modified_id,
-				creation_search, modified_search', 'safe', 'on'=>'search'),
+			array('location_id, publish, province_id, province_code, creation_date, creation_id, modified_date, modified_id,
+				province_input, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -91,6 +95,7 @@ class ArticleLocations extends CActiveRecord
 		return array(
 			'tags' => array(self::HAS_MANY, 'ArticleLocationTag', 'location_id'),
 			'users' => array(self::HAS_MANY, 'ArticleLocationUser', 'location_id'),
+			'province_relation' => array(self::BELONGS_TO, 'OmmuZoneProvince', 'province_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
@@ -105,10 +110,12 @@ class ArticleLocations extends CActiveRecord
 			'location_id' => Yii::t('attribute', 'Location'),
 			'publish' => Yii::t('attribute', 'Publish'),
 			'province_id' => Yii::t('attribute', 'Province'),
+			'province_code' => Yii::t('attribute', 'Province Code'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
+			'province_input' => Yii::t('attribute', 'Province'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -154,6 +161,7 @@ class ArticleLocations extends CActiveRecord
 			$criteria->compare('t.publish',$this->publish);
 		}
 		$criteria->compare('t.province_id',$this->province_id);
+		$criteria->compare('t.province_code',$this->province_code, true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -169,6 +177,10 @@ class ArticleLocations extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'province_relation' => array(
+				'alias'=>'province_relation',
+				'select'=>'province'
+			),
 			'creation' => array(
 				'alias'=>'creation',
 				'select'=>'displayname'
@@ -178,6 +190,7 @@ class ArticleLocations extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('province_relation.province',strtolower($this->province_input), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
@@ -213,6 +226,7 @@ class ArticleLocations extends CActiveRecord
 			//$this->defaultColumns[] = 'location_id';
 			$this->defaultColumns[] = 'publish';
 			$this->defaultColumns[] = 'province_id';
+			$this->defaultColumns[] = 'province_code';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -239,7 +253,14 @@ class ArticleLocations extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'province_id';
+			$this->defaultColumns[] = array(
+				'name' => 'province_input',
+				'value' => '$data->province_relation->province',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'province_code',
+				'value' => '$data->province_code',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
 				'value' => '$data->creation->displayname',

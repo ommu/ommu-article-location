@@ -26,6 +26,7 @@
  * @property integer $id
  * @property integer $publish
  * @property integer $location_id
+ * @property integer $tag_id
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -39,6 +40,7 @@ class ArticleLocationTag extends CActiveRecord
 	public $defaultColumns = array();
 	
 	// Variable Search
+	public $tag_search;
 	public $creation_search;
 	public $modified_search;
 
@@ -69,14 +71,14 @@ class ArticleLocationTag extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, location_id, creation_date, creation_id, modified_id', 'required'),
-			array('id, publish, location_id', 'numerical', 'integerOnly'=>true),
+			array('location_id, tag_id', 'required'),
+			array('id, publish, location_id, tag_id', 'numerical', 'integerOnly'=>true),
 			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('modified_date', 'safe'),
+			array('', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, publish, location_id, creation_date, creation_id, modified_date, modified_id,
-				creation_search, modified_search', 'safe', 'on'=>'search'),
+			array('id, publish, location_id, tag_id, creation_date, creation_id, modified_date, modified_id,
+				tag_search, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +91,7 @@ class ArticleLocationTag extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'location' => array(self::BELONGS_TO, 'ArticleLocations', 'location_id'),
+			'tag' => array(self::BELONGS_TO, 'OmmuTags', 'tag_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
@@ -103,10 +106,12 @@ class ArticleLocationTag extends CActiveRecord
 			'id' => Yii::t('attribute', 'ID'),
 			'publish' => Yii::t('attribute', 'Publish'),
 			'location_id' => Yii::t('attribute', 'Location'),
+			'tag_id' => Yii::t('attribute', 'Tag'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
+			'tag_search' => Yii::t('attribute', 'Tag'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -155,6 +160,10 @@ class ArticleLocationTag extends CActiveRecord
 			$criteria->compare('t.location_id',$_GET['location']);
 		else
 			$criteria->compare('t.location_id',$this->location_id);
+		if(isset($_GET['tag']))
+			$criteria->compare('t.tag_id',$_GET['tag']);
+		else
+			$criteria->compare('t.tag_id',$this->tag_id);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -170,6 +179,10 @@ class ArticleLocationTag extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'tag' => array(
+				'alias'=>'tag',
+				'select'=>'body'
+			),
 			'creation' => array(
 				'alias'=>'creation',
 				'select'=>'displayname'
@@ -179,6 +192,7 @@ class ArticleLocationTag extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('tag.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
@@ -214,6 +228,7 @@ class ArticleLocationTag extends CActiveRecord
 			//$this->defaultColumns[] = 'id';
 			$this->defaultColumns[] = 'publish';
 			$this->defaultColumns[] = 'location_id';
+			$this->defaultColumns[] = 'tag_id';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -241,6 +256,10 @@ class ArticleLocationTag extends CActiveRecord
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
 			$this->defaultColumns[] = 'location_id';
+			$this->defaultColumns[] = array(
+				'name' => 'tag_search',
+				'value' => '$data->tag->body',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
 				'value' => '$data->creation->displayname',

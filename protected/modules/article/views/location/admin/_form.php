@@ -29,15 +29,43 @@
 		</div>
 		<?php //begin.Messages ?>
 
-
 		<div class="clearfix">
-			<?php echo $form->labelEx($model,'province_id'); ?>
+			<?php echo $form->labelEx($model,'province_input'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'province_id'); ?>
-				<?php echo $form->error($model,'province_id'); ?>
+				<?php 
+				//echo $form->textField($model,'province_id');
+				$model->province_input = $model->province_relation->province;
+				$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+					'model' => $model,
+					'attribute' => 'province_input',
+					'source' => Yii::app()->createUrl('zoneprovince/suggest'),
+					'options' => array(
+						//'delay '=> 50,
+						'minLength' => 1,
+						'showAnim' => 'fold',
+						'select' => "js:function(event, ui) {
+							$('form #ArticleLocations_province_input').val(ui.item.value);
+							$('form #ArticleLocations_province_id').val(ui.item.id);
+						}"
+					),
+					'htmlOptions' => array(
+						'class'	=> 'span-6',
+					),
+				));
+				echo $form->error($model,'province_input');?>
+				<?php echo $form->hiddenField($model,'province_id'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
-		</div
+		</div>
+
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'province_code'); ?>
+			<div class="desc">
+				<?php echo $form->textField($model,'province_code',array('maxlength'=>16,'class'=>'span-6')); ?>
+				<?php echo $form->error($model,'province_code'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
+		</div>
 
 		<div class="clearfix publish">
 			<?php echo $form->labelEx($model,'publish'); ?>
