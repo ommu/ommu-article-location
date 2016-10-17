@@ -1,8 +1,8 @@
 <?php
 /**
- * Article Location Tags (article-location-tag)
- * @var $this TagController
- * @var $model ArticleLocationTag
+ * Article Location Users (article-location-user)
+ * @var $this UserController
+ * @var $model ArticleLocationUser
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -15,21 +15,22 @@
  */
 
 	$this->breadcrumbs=array(
-		'Article Location Tags'=>array('manage'),
-		'Headline',
+		'Article Location Users'=>array('manage'),
+		'Publish',
 	);
 ?>
 
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
-	'id'=>'article-location-tag-form',
+	'id'=>'article-location-user-form',
 	'enableAjaxValidation'=>true,
 	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 
 	<div class="dialog-content">
-		<?php echo Yii::t('phrase', 'Are you sure you want to headline this item?');?>	</div>
+		<?php echo $model->status == 1 ? Yii::t('phrase', 'Are you sure you want to deactived this item?') : Yii::t('phrase', 'Are you sure you want to actived this item?')?>
+	</div>
 	<div class="dialog-submit">
-		<?php echo CHtml::submitButton(Yii::t('phrase', 'Headline'), array('onclick' => 'setEnableSave()')); ?>
+		<?php echo CHtml::submitButton($title, array('onclick' => 'setEnableSave()')); ?>
 		<?php echo CHtml::button(Yii::t('phrase', 'Cancel'), array('id'=>'closed')); ?>
 	</div>
 	
