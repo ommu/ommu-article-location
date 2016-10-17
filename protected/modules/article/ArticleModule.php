@@ -12,6 +12,8 @@ class ArticleModule extends CWebModule
 		$this->setImport(array(
 			'article.models.*',
 			'article.components.*',
+			'article.model_bpad_coe.*',
+			'article.model_bpad_sync.*',
 		));
 	}
 
