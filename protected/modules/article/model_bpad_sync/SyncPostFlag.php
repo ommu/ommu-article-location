@@ -1,11 +1,11 @@
 <?php
 /**
- * SyncPost
+ * SyncPostFlag
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
- * @created date 18 October 2016, 14:47 WIB
+ * @created date 18 October 2016, 15:01 WIB
  * @link http://company.ommu.co
  * @contact (+62)856-299-4114
  *
@@ -20,20 +20,13 @@
  *
  * --------------------------------------------------------------------------------------
  *
- * This is the model class for table "post".
+ * This is the model class for table "post_flag".
  *
- * The followings are the available columns in table 'post':
+ * The followings are the available columns in table 'post_flag':
  * @property integer $id
- * @property string $title
- * @property string $author
- * @property string $description
- * @property string $thumbnail
- * @property integer $post_flag
- * @property string $post_status
- * @property string $post_date
- * @property string $hits
+ * @property string $name
  */
-class SyncPost extends CActiveRecord
+class SyncPostFlag extends CActiveRecord
 {
 	public $defaultColumns = array();
 
@@ -41,7 +34,7 @@ class SyncPost extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SyncPost the static model class
+	 * @return SyncPostFlag the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -61,7 +54,7 @@ class SyncPost extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'post';
+		return 'post_flag';
 	}
 
 	/**
@@ -72,15 +65,10 @@ class SyncPost extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('post_flag', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>255),
-			array('author', 'length', 'max'=>32),
-			array('post_status', 'length', 'max'=>1),
-			array('hits', 'length', 'max'=>20),
-			array('description, thumbnail, post_date', 'safe'),
+			array('name', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, author, description, thumbnail, post_flag, post_status, post_date, hits', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -102,14 +90,7 @@ class SyncPost extends CActiveRecord
 	{
 		return array(
 			'id' => Yii::t('attribute', 'ID'),
-			'title' => Yii::t('attribute', 'Title'),
-			'author' => Yii::t('attribute', 'Author'),
-			'description' => Yii::t('attribute', 'Description'),
-			'thumbnail' => Yii::t('attribute', 'Thumbnail'),
-			'post_flag' => Yii::t('attribute', 'Post Flag'),
-			'post_status' => Yii::t('attribute', 'Post Status'),
-			'post_date' => Yii::t('attribute', 'Post Date'),
-			'hits' => Yii::t('attribute', 'Hits'),
+			'name' => Yii::t('attribute', 'Name'),
 		);
 	}
 
@@ -132,17 +113,9 @@ class SyncPost extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.title',strtolower($this->title),true);
-		$criteria->compare('t.author',strtolower($this->author),true);
-		$criteria->compare('t.description',strtolower($this->description),true);
-		$criteria->compare('t.thumbnail',strtolower($this->thumbnail),true);
-		$criteria->compare('t.post_flag',$this->post_flag);
-		$criteria->compare('t.post_status',strtolower($this->post_status),true);
-		if($this->post_date != null && !in_array($this->post_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.post_date)',date('Y-m-d', strtotime($this->post_date)));
-		$criteria->compare('t.hits',strtolower($this->hits),true);
+		$criteria->compare('t.name',strtolower($this->name),true);
 
-		if(!isset($_GET['SyncPost_sort']))
+		if(!isset($_GET['SyncPostFlag_sort']))
 			$criteria->order = 't.id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -172,14 +145,7 @@ class SyncPost extends CActiveRecord
 			}
 		} else {
 			//$this->defaultColumns[] = 'id';
-			$this->defaultColumns[] = 'title';
-			$this->defaultColumns[] = 'author';
-			$this->defaultColumns[] = 'description';
-			$this->defaultColumns[] = 'thumbnail';
-			$this->defaultColumns[] = 'post_flag';
-			$this->defaultColumns[] = 'post_status';
-			$this->defaultColumns[] = 'post_date';
-			$this->defaultColumns[] = 'hits';
+			$this->defaultColumns[] = 'name';
 		}
 
 		return $this->defaultColumns;
@@ -191,14 +157,7 @@ class SyncPost extends CActiveRecord
 	protected function afterConstruct() {
 		if(count($this->defaultColumns) == 0) {
 			$this->defaultColumns[] = 'id';
-			$this->defaultColumns[] = 'title';
-			$this->defaultColumns[] = 'author';
-			$this->defaultColumns[] = 'description';
-			$this->defaultColumns[] = 'thumbnail';
-			$this->defaultColumns[] = 'post_flag';
-			$this->defaultColumns[] = 'post_status';
-			$this->defaultColumns[] = 'post_date';
-			$this->defaultColumns[] = 'hits';
+			$this->defaultColumns[] = 'name';
 		}
 		parent::afterConstruct();
 	}
