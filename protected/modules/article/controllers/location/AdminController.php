@@ -160,10 +160,11 @@ class AdminController extends Controller
 				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
-							'type' => 5,
-							'get' => Yii::app()->controller->createUrl('manage'),
-							'id' => 'partial-article-locations',
-							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success created.').'</strong></div>',
+							'redirect' => Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)),
+							//'type' => 5,
+							//'get' => Yii::app()->controller->createUrl('manage'),
+							//'id' => 'partial-article-locations',
+							//'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -193,6 +194,8 @@ class AdminController extends Controller
 	public function actionEdit($id) 
 	{
 		$model=$this->loadModel($id);
+		$tags=$model->tags;
+		$users=$model->users;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -208,9 +211,7 @@ class AdminController extends Controller
 				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
-							'type' => 5,
-							'get' => Yii::app()->controller->createUrl('manage'),
-							'id' => 'partial-article-locations',
+							'type' => 0,
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success updated.').'</strong></div>',
 						));
 					} else {
@@ -219,18 +220,17 @@ class AdminController extends Controller
 				}
 			}
 			Yii::app()->end();
+			
+		} else {
+			$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+			$this->pageDescription = '';
+			$this->pageMeta = '';
+			$this->render('admin_edit',array(
+				'model'=>$model,
+				'tags'=>$tags,
+				'users'=>$users,
+			));			
 		}
-		
-		$this->dialogDetail = true;
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
-		$this->dialogWidth = 600;
-
-		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
-		$this->pageDescription = '';
-		$this->pageMeta = '';
-		$this->render('admin_edit',array(
-			'model'=>$model,
-		));
 	}
 	
 	/**

@@ -40,6 +40,8 @@ class ArticleLocations extends CActiveRecord
 {
 	public $defaultColumns = array();
 	public $province_input;
+	public $tag_input;
+	public $user_input;
 	
 	// Variable Search
 	public $creation_search;
@@ -75,9 +77,12 @@ class ArticleLocations extends CActiveRecord
 			array('publish, province_code, 
 				province_input', 'required'),
 			array('location_id, publish, province_id', 'numerical', 'integerOnly'=>true),
+			array('
+				tag_input, user_input', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
 			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('province_id', 'safe'),
+			array('province_id,
+				tag_input, user_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('location_id, publish, province_id, province_code, creation_date, creation_id, modified_date, modified_id,
@@ -116,6 +121,8 @@ class ArticleLocations extends CActiveRecord
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
 			'province_input' => Yii::t('attribute', 'Province'),
+			'tag_input' => Yii::t('attribute', 'Tag'),
+			'user_input' => Yii::t('attribute', 'User'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -330,7 +337,21 @@ class ArticleLocations extends CActiveRecord
 	 * before validate attributes
 	 */
 	protected function beforeValidate() {
-		if(parent::beforeValidate()) {		
+		if(parent::beforeValidate()) {
+			if($this->province_input != '' && ($this->province_id == '' || ($this->province_id != '' && $this->province_id == 0))) {
+				$province = OmmuZoneProvince::model()->find(array(
+					'select' => 'province_id, province',
+					'condition' => 'publish = 1 AND province = :province',
+					'params' => array(
+						':province' => $this->province_input,
+					),
+				));
+				if($province != null)
+					$this->province_id = $province->province_id;
+				else
+					$this->addError('province_input', Yii::t('phrase', 'Province tidak ditemukan pada database.'));
+			}
+			
 			if($this->isNewRecord)
 				$this->creation_id = Yii::app()->user->id;	
 			else

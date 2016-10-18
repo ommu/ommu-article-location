@@ -140,7 +140,30 @@ class TagController extends Controller
 	 */
 	public function actionAdd() 
 	{
-		
+		if(Yii::app()->request->isAjaxRequest) {
+			$model=new ArticleLocationTag;
+
+			// Uncomment the following line if AJAX validation is needed
+			$this->performAjaxValidation($model);
+
+			if(isset($_POST['location_id'], $_POST['tag_id'], $_POST['tag'])) {
+				$model->location_id = $_POST['location_id'];
+				$model->tag_id = $_POST['tag_id'];
+				$model->body = $_POST['tag'];
+
+				if($model->save()) {
+					if(isset($_GET['type']) && $_GET['type'] == 'article')
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'type'=>'article'));
+					else 
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id));
+					echo CJSON::encode(array(
+						'data' => '<div>'.$model->tag->body.'<a href="'.$url.'" title="'.Yii::t('phrase', 'Delete').'">'.Yii::t('phrase', 'Delete').'</a></div>',
+					));
+				}
+			}
+			
+		} else
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 	}
 
 	/**
@@ -155,7 +178,12 @@ class TagController extends Controller
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
 			if(isset($id)) {
-				if($model->delete()) {
+				$model->delete();
+				if(isset($_GET['type']) && $_GET['type'] == 'article') {
+					echo CJSON::encode(array(
+						'type' => 4,
+					));
+				} else {
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
@@ -165,11 +193,15 @@ class TagController extends Controller
 				}
 			}
 
-		} else {
+		} else {			
+			if(isset($_GET['type']) && $_GET['type'] == 'article')
+				$url = Yii::app()->controller->createUrl('location/admin/edit', array('id'=>$model->location_id));
+			else
+				$url = Yii::app()->controller->createUrl('manage');
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = $url;
 			$this->dialogWidth = 350;
-
+			
 			$this->pageTitle = Yii::t('phrase', 'ArticleLocationTag Delete.');
 			$this->pageDescription = '';
 			$this->pageMeta = '';

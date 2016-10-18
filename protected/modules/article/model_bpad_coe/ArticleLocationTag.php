@@ -35,6 +35,7 @@
 class ArticleLocationTag extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $body;
 	
 	// Variable Search
 	public $tag_search;
@@ -70,7 +71,8 @@ class ArticleLocationTag extends CActiveRecord
 			array('location_id, tag_id', 'required'),
 			array('id, location_id, tag_id', 'numerical', 'integerOnly'=>true),
 			array('creation_id', 'length', 'max'=>11),
-			array('', 'safe'),
+			array('
+				body', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, location_id, tag_id, creation_date, creation_id,
@@ -282,6 +284,35 @@ class ArticleLocationTag extends CActiveRecord
 		if(parent::beforeValidate()) {		
 			if($this->isNewRecord)
 				$this->creation_id = Yii::app()->user->id;
+		}
+		return true;
+	}
+	
+	/**
+	 * before save attributes
+	 */
+	protected function beforeSave() {
+		if(parent::beforeSave()) {
+			if($this->isNewRecord) {
+				if($this->tag_id == 0) {
+					$tag = OmmuTags::model()->find(array(
+						'select' => 'tag_id, body',
+						'condition' => 'publish = 1 AND body = :body',
+						'params' => array(
+							':body' => $this->body,
+						),
+					));
+					if($tag != null) {
+						$this->tag_id = $tag->tag_id;
+					} else {
+						$data = new OmmuTags;
+						$data->body = $this->body;
+						if($data->save()) {
+							$this->tag_id = $data->tag_id;
+						}
+					}					
+				}
+			}
 		}
 		return true;
 	}

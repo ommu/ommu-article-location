@@ -140,6 +140,29 @@ class UserController extends Controller
 	 */
 	public function actionAdd() 
 	{
+		if(Yii::app()->request->isAjaxRequest) {
+			$model=new ArticleLocationUser;
+
+			// Uncomment the following line if AJAX validation is needed
+			$this->performAjaxValidation($model);
+
+			if(isset($_POST['location_id'], $_POST['user_id'])) {
+				$model->location_id = $_POST['location_id'];
+				$model->user_id = $_POST['user_id'];
+
+				if($model->save()) {
+					if(isset($_GET['type']) && $_GET['type'] == 'article')
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'type'=>'article'));
+					else 
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id));
+					echo CJSON::encode(array(
+						'data' => '<div>'.$model->user->displayname.'<a href="'.$url.'" title="'.Yii::t('phrase', 'Delete').'">'.Yii::t('phrase', 'Delete').'</a></div>',
+					));
+				}
+			}
+			
+		} else
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 		
 	}
 
@@ -155,7 +178,12 @@ class UserController extends Controller
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
 			if(isset($id)) {
-				if($model->delete()) {
+				$model->delete();
+				if(isset($_GET['type']) && $_GET['type'] == 'article') {
+					echo CJSON::encode(array(
+						'type' => 4,
+					));
+				} else {
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
@@ -166,8 +194,12 @@ class UserController extends Controller
 			}
 
 		} else {
+			if(isset($_GET['type']) && $_GET['type'] == 'article')
+				$url = Yii::app()->controller->createUrl('location/admin/edit', array('id'=>$model->location_id));
+			else
+				$url = Yii::app()->controller->createUrl('manage');
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = $url;
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = Yii::t('phrase', 'ArticleLocationUser Delete.');
