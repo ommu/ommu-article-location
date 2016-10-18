@@ -38,6 +38,7 @@ class ArticleLocationTag extends CActiveRecord
 	public $body;
 	
 	// Variable Search
+	public $location_search;
 	public $tag_search;
 	public $creation_search;
 
@@ -76,7 +77,7 @@ class ArticleLocationTag extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, location_id, tag_id, creation_date, creation_id,
-				tag_search, creation_search', 'safe', 'on'=>'search'),
+				location_search, tag_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +106,7 @@ class ArticleLocationTag extends CActiveRecord
 			'tag_id' => Yii::t('attribute', 'Tag'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
+			'location_search' => Yii::t('attribute', 'Location'),
 			'tag_search' => Yii::t('attribute', 'Tag'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 		);
@@ -153,6 +155,10 @@ class ArticleLocationTag extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'location.province_relation' => array(
+				'alias'=>'provinces',
+				'select'=>'province'
+			),
 			'tag' => array(
 				'alias'=>'tag',
 				'select'=>'body'
@@ -162,6 +168,7 @@ class ArticleLocationTag extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('provinces.province',strtolower($this->location_search), true);
 		$criteria->compare('tag.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 
@@ -221,7 +228,10 @@ class ArticleLocationTag extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'location_id';
+			$this->defaultColumns[] = array(
+				'name' => 'location_search',
+				'value' => '$data->location->province_relation->province',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'tag_search',
 				'value' => '$data->tag->body',

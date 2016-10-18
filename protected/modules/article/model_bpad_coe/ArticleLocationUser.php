@@ -37,6 +37,7 @@ class ArticleLocationUser extends CActiveRecord
 	public $defaultColumns = array();
 	
 	// Variable Search
+	public $location_search;
 	public $user_search;
 	public $creation_search;
 
@@ -74,7 +75,7 @@ class ArticleLocationUser extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, status, location_id, user_id, creation_date, creation_id,
-				user_search, creation_search', 'safe', 'on'=>'search'),
+				location_search, user_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -103,6 +104,7 @@ class ArticleLocationUser extends CActiveRecord
 			'user_id' => Yii::t('attribute', 'User'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
+			'location_search' => Yii::t('attribute', 'Location'),
 			'user_search' => Yii::t('attribute', 'User'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 		);
@@ -151,6 +153,10 @@ class ArticleLocationUser extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'location.province_relation' => array(
+				'alias'=>'provinces',
+				'select'=>'province'
+			),
 			'user' => array(
 				'alias'=>'user',
 				'select'=>'displayname'
@@ -160,6 +166,7 @@ class ArticleLocationUser extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('provinces.province',strtolower($this->location_search), true);
 		$criteria->compare('user.displayname',strtolower($this->user_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 
@@ -219,7 +226,10 @@ class ArticleLocationUser extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'location_id';
+			$this->defaultColumns[] = array(
+				'name' => 'location_search',
+				'value' => '$data->location->province_relation->province',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'user_search',
 				'value' => '$data->user->displayname',

@@ -98,6 +98,7 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'view' => array(self::BELONGS_TO, 'ViewArticleLocations', 'location_id'),
 			'tags' => array(self::HAS_MANY, 'ArticleLocationTag', 'location_id'),
 			'users' => array(self::HAS_MANY, 'ArticleLocationUser', 'location_id'),
 			'province_relation' => array(self::BELONGS_TO, 'OmmuZoneProvince', 'province_id'),
@@ -184,6 +185,9 @@ class ArticleLocations extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'view' => array(
+				'alias'=>'view',
+			),
 			'province_relation' => array(
 				'alias'=>'province_relation',
 				'select'=>'province'
@@ -197,6 +201,8 @@ class ArticleLocations extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('view.tags',strtolower($this->tag_input), true);
+		$criteria->compare('view.users',strtolower($this->user_input), true);
 		$criteria->compare('province_relation.province',strtolower($this->province_input), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
@@ -267,6 +273,22 @@ class ArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = array(
 				'name' => 'province_code',
 				'value' => '$data->province_code',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'tag_input',
+				'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id)))',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'type' => 'raw',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'user_input',
+				'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id)))',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'type' => 'raw',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
