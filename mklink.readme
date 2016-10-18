@@ -105,7 +105,6 @@ mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\support\views\
 
 ///article\\\
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\externals\article" "D:\htdocs\_project_ommu_module_articles\externals\article"
-mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\article.yaml" "D:\htdocs\_project_ommu_module_articles\modules\article\article.yaml"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\LICENSE" "D:\htdocs\_project_ommu_module_articles\modules\article\LICENSE"
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\assets" "D:\htdocs\_project_ommu_module_articles\modules\article\assets"
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\components" "D:\htdocs\_project_ommu_module_articles\modules\article\components"

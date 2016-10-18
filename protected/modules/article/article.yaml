@@ -25,6 +25,9 @@ plugin_menu		:
 		urlRules: {siteType: 0,1, userLevel: 1}
 		urlPath: {url: o/setting/index, attr: -, icon: -}
 		submenu :
+			- urlTitle: Locations
+				urlRules: {siteType: 0,1, userLevel: 1}
+				urlPath: {url: location/admin/manage, attr: -, icon: -}
 			- urlTitle: Photos
 				urlRules: {siteType: 0,1, userLevel: 1,2}
 				urlPath: {url: o/media/manage, attr: -, icon: -}
@@ -78,3 +81,25 @@ content_menu	:
 	- urlTitle: Add Category
 		urlRules: {article, o/category, manage, siteType: 0,1, userLevel: 1,2}
 		urlPath: {url: add, attr: -, icon: -}
+		
+# controller location/admin
+
+	- urlTitle: Add Location
+		urlRules: {article, location/admin, manage, siteType: 0,1, userLevel: 1}
+		urlPath: {url: add, attr: -, icon: -}
+
+	- urlTitle: Back to Manage
+		urlRules: {article, location/admin, edit, siteType: 0,1, userLevel: 1}
+		urlPath: {url: location/admin/manage, attr: -, icon: -}
+		
+# controller location/tag
+
+	- urlTitle: Back to Location
+		urlRules: {article, location/tag, manage, siteType: 0,1, userLevel: 1}
+		urlPath: {url: location/admin/manage, attr: -, icon: -}
+		
+# controller location/user
+
+	- urlTitle: Back to Location
+		urlRules: {article, location/user, manage, siteType: 0,1, userLevel: 1}
+		urlPath: {url: location/admin/manage, attr: -, icon: -}
