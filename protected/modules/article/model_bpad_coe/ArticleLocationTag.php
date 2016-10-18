@@ -24,13 +24,10 @@
  *
  * The followings are the available columns in table 'ommu_article_location_tag':
  * @property integer $id
- * @property integer $publish
  * @property integer $location_id
  * @property integer $tag_id
  * @property string $creation_date
  * @property string $creation_id
- * @property string $modified_date
- * @property string $modified_id
  *
  * The followings are the available model relations:
  * @property OmmuArticleLocations $location
@@ -42,7 +39,6 @@ class ArticleLocationTag extends CActiveRecord
 	// Variable Search
 	public $tag_search;
 	public $creation_search;
-	public $modified_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -72,13 +68,13 @@ class ArticleLocationTag extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('location_id, tag_id', 'required'),
-			array('id, publish, location_id, tag_id', 'numerical', 'integerOnly'=>true),
-			array('creation_id, modified_id', 'length', 'max'=>11),
+			array('id, location_id, tag_id', 'numerical', 'integerOnly'=>true),
+			array('creation_id', 'length', 'max'=>11),
 			array('', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, publish, location_id, tag_id, creation_date, creation_id, modified_date, modified_id,
-				tag_search, creation_search, modified_search', 'safe', 'on'=>'search'),
+			array('id, location_id, tag_id, creation_date, creation_id,
+				tag_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,7 +89,6 @@ class ArticleLocationTag extends CActiveRecord
 			'location' => array(self::BELONGS_TO, 'ArticleLocations', 'location_id'),
 			'tag' => array(self::BELONGS_TO, 'OmmuTags', 'tag_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
-			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
 	}
 
@@ -104,25 +99,18 @@ class ArticleLocationTag extends CActiveRecord
 	{
 		return array(
 			'id' => Yii::t('attribute', 'ID'),
-			'publish' => Yii::t('attribute', 'Publish'),
 			'location_id' => Yii::t('attribute', 'Location'),
 			'tag_id' => Yii::t('attribute', 'Tag'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
-			'modified_date' => Yii::t('attribute', 'Modified Date'),
-			'modified_id' => Yii::t('attribute', 'Modified'),
 			'tag_search' => Yii::t('attribute', 'Tag'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
-			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 		/*
 			'ID' => 'ID',
-			'Publish' => 'Publish',
 			'Location' => 'Location',
 			'Creation Date' => 'Creation Date',
 			'Creation' => 'Creation',
-			'Modified Date' => 'Modified Date',
-			'Modified' => 'Modified',
 		
 		*/
 	}
@@ -146,16 +134,6 @@ class ArticleLocationTag extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('t.id',$this->id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish')
-			$criteria->compare('t.publish',1);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
-			$criteria->compare('t.publish',0);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'trash')
-			$criteria->compare('t.publish',2);
-		else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
-		}
 		if(isset($_GET['location']))
 			$criteria->compare('t.location_id',$_GET['location']);
 		else
@@ -170,12 +148,6 @@ class ArticleLocationTag extends CActiveRecord
 			$criteria->compare('t.creation_id',$_GET['creation']);
 		else
 			$criteria->compare('t.creation_id',$this->creation_id);
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		if(isset($_GET['modified']))
-			$criteria->compare('t.modified_id',$_GET['modified']);
-		else
-			$criteria->compare('t.modified_id',$this->modified_id);
 		
 		// Custom Search
 		$criteria->with = array(
@@ -187,14 +159,9 @@ class ArticleLocationTag extends CActiveRecord
 				'alias'=>'creation',
 				'select'=>'displayname'
 			),
-			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname'
-			),
 		);
 		$criteria->compare('tag.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
 		if(!isset($_GET['ArticleLocationTag_sort']))
 			$criteria->order = 't.id DESC';
@@ -226,13 +193,10 @@ class ArticleLocationTag extends CActiveRecord
 			}
 		} else {
 			//$this->defaultColumns[] = 'id';
-			$this->defaultColumns[] = 'publish';
 			$this->defaultColumns[] = 'location_id';
 			$this->defaultColumns[] = 'tag_id';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
-			$this->defaultColumns[] = 'modified_date';
-			$this->defaultColumns[] = 'modified_id';
 		}
 
 		return $this->defaultColumns;
@@ -290,20 +254,6 @@ class ArticleLocationTag extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->id)), $data->publish, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
 		}
 		parent::afterConstruct();
 	}
@@ -331,9 +281,7 @@ class ArticleLocationTag extends CActiveRecord
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {		
 			if($this->isNewRecord)
-				$this->creation_id = Yii::app()->user->id;	
-			else
-				$this->modified_id = Yii::app()->user->id;
+				$this->creation_id = Yii::app()->user->id;
 		}
 		return true;
 	}

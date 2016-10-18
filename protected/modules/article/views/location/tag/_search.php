@@ -26,11 +26,6 @@
 		</li>
 
 		<li>
-			<?php echo $model->getAttributeLabel('publish'); ?><br/>
-			<?php echo $form->textField($model,'publish'); ?>
-		</li>
-
-		<li>
 			<?php echo $model->getAttributeLabel('location_id'); ?><br/>
 			<?php echo $form->textField($model,'location_id'); ?>
 		</li>
@@ -43,16 +38,6 @@
 		<li>
 			<?php echo $model->getAttributeLabel('creation_id'); ?><br/>
 			<?php echo $form->textField($model,'creation_id',array('size'=>11,'maxlength'=>11)); ?>
-		</li>
-
-		<li>
-			<?php echo $model->getAttributeLabel('modified_date'); ?><br/>
-			<?php echo $form->textField($model,'modified_date'); ?>
-		</li>
-
-		<li>
-			<?php echo $model->getAttributeLabel('modified_id'); ?><br/>
-			<?php echo $form->textField($model,'modified_id',array('size'=>11,'maxlength'=>11)); ?>
 		</li>
 
 		<li class="submit">
