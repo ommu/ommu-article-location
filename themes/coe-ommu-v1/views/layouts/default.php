@@ -322,7 +322,6 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		<?php if($currentAction != 'site/error')
 			echo $content;?>
 	</div>
-
 	
 	<?php /*
 	<div id="footer-widgets-area" class="footer big-footer fullwidth dark-footer t-left">

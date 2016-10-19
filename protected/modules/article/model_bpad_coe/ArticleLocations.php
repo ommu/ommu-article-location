@@ -27,6 +27,8 @@
  * @property integer $publish
  * @property integer $province_id
  * @property integer $province_code
+ * @property integer $province_desc
+ * @property integer $province_photo
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -42,6 +44,7 @@ class ArticleLocations extends CActiveRecord
 	public $province_input;
 	public $tag_input;
 	public $user_input;
+	public $old_photo_input;
 	
 	// Variable Search
 	public $creation_search;
@@ -74,18 +77,18 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('publish, province_code, 
+			array('publish, province_code, province_desc,
 				province_input', 'required'),
 			array('location_id, publish, province_id', 'numerical', 'integerOnly'=>true),
 			array('
 				tag_input, user_input', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
 			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('province_id,
-				tag_input, user_input', 'safe'),
+			array('province_id, province_photo,
+				tag_input, user_input, old_photo_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('location_id, publish, province_id, province_code, creation_date, creation_id, modified_date, modified_id,
+			array('location_id, publish, province_id, province_code, province_desc, province_photo, creation_date, creation_id, modified_date, modified_id,
 				province_input, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -116,7 +119,9 @@ class ArticleLocations extends CActiveRecord
 			'location_id' => Yii::t('attribute', 'Location'),
 			'publish' => Yii::t('attribute', 'Publish'),
 			'province_id' => Yii::t('attribute', 'Province'),
-			'province_code' => Yii::t('attribute', 'Province Code'),
+			'province_code' => Yii::t('attribute', 'Code'),
+			'province_desc' => Yii::t('attribute', 'Description'),
+			'province_photo' => Yii::t('attribute', 'Photo'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
@@ -124,6 +129,7 @@ class ArticleLocations extends CActiveRecord
 			'province_input' => Yii::t('attribute', 'Province'),
 			'tag_input' => Yii::t('attribute', 'Tag'),
 			'user_input' => Yii::t('attribute', 'User'),
+			'old_photo_input' => Yii::t('attribute', 'Old Photo'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -170,6 +176,8 @@ class ArticleLocations extends CActiveRecord
 		}
 		$criteria->compare('t.province_id',$this->province_id);
 		$criteria->compare('t.province_code',$this->province_code, true);
+		$criteria->compare('t.province_desc',$this->province_desc, true);
+		$criteria->compare('t.province_photo',$this->province_photo, true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -240,6 +248,8 @@ class ArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = 'publish';
 			$this->defaultColumns[] = 'province_id';
 			$this->defaultColumns[] = 'province_code';
+			$this->defaultColumns[] = 'province_desc';
+			$this->defaultColumns[] = 'province_photo';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -380,6 +390,82 @@ class ArticleLocations extends CActiveRecord
 				$this->modified_id = Yii::app()->user->id;
 		}
 		return true;
+	}
+	
+	/**
+	 * before save attributes
+	 */
+	protected function beforeSave() {
+		if(parent::beforeSave()) {			
+			$action = strtolower(Yii::app()->controller->action->id);
+			if(!$this->isNewRecord && $action == 'edit') {
+				//Update article location photo
+				$location_path = "public/article/location";
+				
+				// Add article directory
+				if(!file_exists($location_path)) {
+					@mkdir($location_path, 0777, true);
+
+					// Add file in article directory (index.php)
+					$newFile = $location_path.'/index.php';
+					$FileHandle = fopen($newFile, 'w');
+				}
+				
+				$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
+				if($this->province_photo instanceOf CUploadedFile) {
+					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_photo->extensionName);
+					if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
+						if($this->old_photo_input != '' && file_exists($location_path.'/'.$this->old_photo_input))
+							rename($location_path.'/'.$this->old_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_input);
+						$this->province_photo = $fileName;
+					}
+				}
+					
+				if($this->province_photo == '')
+					$this->province_photo = $this->old_photo_input;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * After save attributes
+	 */
+	protected function afterSave() {
+		parent::afterSave();
+		
+		if($this->isNewRecord) {
+			//Update article location photo
+			$location_path = "public/article/location";
+			
+			// Add article directory
+			if(!file_exists($location_path)) {
+				@mkdir($location_path, 0777, true);
+
+				// Add file in article directory (index.php)
+				$newFile = $location_path.'/index.php';
+				$FileHandle = fopen($newFile, 'w');
+			}
+			
+			$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
+			if($this->province_photo instanceOf CUploadedFile) {
+				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_photo->extensionName);
+				if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
+					self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
+				}
+			}
+		}
+	}
+
+	/**
+	 * After delete attributes
+	 */
+	protected function afterDelete() {
+		parent::afterDelete();
+		//delete article location image
+		$location_path = "public/article/location";
+		if($this->province_photo != '' && file_exists($location_path.'/'.$this->province_photo))
+			rename($location_path.'/'.$this->province_photo, 'public/article/verwijderen/'.$this->location_id.'_'.$this->province_photo);
 	}
 
 }

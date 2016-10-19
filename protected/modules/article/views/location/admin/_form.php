@@ -18,7 +18,10 @@
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
 	'id'=>'article-locations-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
+	'htmlOptions' => array(
+		'enctype' => 'multipart/form-data',
+		'on_post' => '',
+	)
 )); ?>
 
 <?php if($model->isNewRecord) {?>
@@ -35,13 +38,13 @@
 
 <fieldset>
 
-	<?php if($model->isNewRecord) {?>
+	<?php /*if($model->isNewRecord) {?>
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 		<?php echo $form->errorSummary($model); ?>
 	</div>
 	<?php //begin.Messages ?>
-	<?php }?>
+	<?php }*/?>
 
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'province_input'); ?>
@@ -77,6 +80,37 @@
 		<div class="desc">
 			<?php echo $form->textField($model,'province_code',array('maxlength'=>16,'class'=>'span-4')); ?>
 			<?php echo $form->error($model,'province_code'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+
+	<div class="clearfix">
+		<?php echo $form->labelEx($model,'province_desc'); ?>
+		<div class="desc">
+			<?php echo $form->textArea($model,'province_desc',array('class'=>'span-10 smaller')); ?>
+			<?php echo $form->error($model,'province_desc'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+	
+	<?php if(!$model->isNewRecord) {
+		$model->old_photo_input = $model->province_photo;
+		echo $form->hiddenField($model,'old_photo_input');
+		if($model->province_photo != '') {
+			$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_input;
+			$media = '<img src="'.Utility::getTimThumb($file, 300, 150, 1).'" alt="">';
+			echo '<div class="clearfix">';
+			echo $form->labelEx($model,'old_photo_input');
+			echo '<div class="desc">'.$media.'</div>';
+			echo '</div>';
+		}
+	}?>
+
+	<div class="clearfix">
+		<?php echo $form->labelEx($model,'province_photo'); ?>
+		<div class="desc">
+			<?php echo $form->fileField($model,'province_photo'); ?>
+			<?php echo $form->error($model,'province_photo'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>

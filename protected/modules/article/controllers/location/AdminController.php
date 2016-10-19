@@ -152,26 +152,10 @@ class AdminController extends Controller
 		if(isset($_POST['ArticleLocations'])) {
 			$model->attributes=$_POST['ArticleLocations'];
 			
-			$jsonError = CActiveForm::validate($model);
-			if(strlen($jsonError) > 2) {
-				echo $jsonError;
-
-			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
-					if($model->save()) {
-						echo CJSON::encode(array(
-							'redirect' => Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)),
-							//'type' => 5,
-							//'get' => Yii::app()->controller->createUrl('manage'),
-							//'id' => 'partial-article-locations',
-							//'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success created.').'</strong></div>',
-						));
-					} else {
-						print_r($model->getErrors());
-					}
-				}
+			if($model->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success created.'));
+				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)));
 			}
-			Yii::app()->end();
 		}
 		
 		$this->dialogDetail = true;
@@ -203,34 +187,20 @@ class AdminController extends Controller
 		if(isset($_POST['ArticleLocations'])) {
 			$model->attributes=$_POST['ArticleLocations'];
 			
-			$jsonError = CActiveForm::validate($model);
-			if(strlen($jsonError) > 2) {
-				echo $jsonError;
-
-			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
-					if($model->save()) {
-						echo CJSON::encode(array(
-							'type' => 0,
-							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success updated.').'</strong></div>',
-						));
-					} else {
-						print_r($model->getErrors());
-					}
-				}
+			if($model->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)));
 			}
-			Yii::app()->end();
-			
-		} else {
-			$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
-			$this->pageDescription = '';
-			$this->pageMeta = '';
-			$this->render('admin_edit',array(
-				'model'=>$model,
-				'tags'=>$tags,
-				'users'=>$users,
-			));			
 		}
+		
+		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_edit',array(
+			'model'=>$model,
+			'tags'=>$tags,
+			'users'=>$users,
+			));
 	}
 	
 	/**

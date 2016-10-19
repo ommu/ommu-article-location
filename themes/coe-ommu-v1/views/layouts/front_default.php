@@ -61,8 +61,8 @@
 		<div id="sidebar" class="page_sidebar sidebar-style-default">
 			<div id="search-2" class="widget bar widget_search">
 				<h5>Search</h5>
-				<form class="search-form relative" id="search-form" action="http://veented.info/crexis//">
-					<input name="s" id="s" type="text" value="" placeholder="Search..." class="search">
+				<form class="search-form relative" id="search-form" action="<?php echo Yii::app()->createUrl('search/result');?>">
+					<input name="keyword" id="s" type="text" value="" placeholder="Search..." class="search">
 					<button class="search-button"><i class="fa fa-search"></i></button>
 				</form>
 			</div>
