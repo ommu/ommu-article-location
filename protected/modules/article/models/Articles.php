@@ -119,6 +119,7 @@ class Articles extends CActiveRecord
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 			'creation_relation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified_relation' => array(self::BELONGS_TO, 'Users', 'modified_id'),
+			'medias' => array(self::HAS_MANY, 'ArticleMedia', 'article_id'),
 			'tag_MANY' => array(self::HAS_MANY, 'ArticleTag', 'article_id'),
 			'tag_ONE' => array(self::HAS_ONE, 'ArticleTag', 'article_id'),
 		);
@@ -199,6 +200,7 @@ class Articles extends CActiveRecord
 					),
 				));
 				$items = array();
+				$items[] = $_GET['category'];
 				if($categoryFind != null) {
 					foreach($categoryFind as $key => $val)
 						$items[] = $val->cat_id;

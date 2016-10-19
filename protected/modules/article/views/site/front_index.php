@@ -1,95 +1,35 @@
-<?php 
-	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.*');
-	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');?>
+<?php
+/**
+ * Articles (articles)
+ * @var $this SiteController
+ * @var $model Articles
+ * @var $dataProvider CActiveDataProvider
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
+ * @link https://github.com/oMMu/Ommu-Articles
+ * @contect (+62)856-299-4114
+ *
+ */
 
-<?php if(!isset($_GET['sidebar'])) {?>
-<div class="col-md-12 col-sm-12 col-xs-12 mt-25 mb-25">
-	<h4 class="border-bottom mt-10 pb-10">BERITA</h4>
-	<div class="article-list">
-		<div class="col-md-12 col-sm-12 col-xs-12 box first">
-			<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-			<span class="date right">17 Agusuts 2016</span>
-			<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title left">Ut enim ad minim veniam, quis nostrud exercitation</a>
-			<div class="clear"></div>
-			<div class="col-md-6 col-sm-6 col-xs-12 desc">
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia Excepteur sint occaecat cupidatat non proident
-			</div>
-			<div class="clear"></div>
-		</div>
-		<?php for ($i = 1; $i <= 2; $i++) { ?>
-			<div class="col-md-4 col-sm-4 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-			<div class="col-md-4 col-sm-4 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="" class="title">Ut enim ad minim</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-		<?php } ?>
-		<div class="clear"></div>
-		<ul class="pagination" id="yw0">
-			<li class="first"><a href="">&lt;&lt;</a></li>
-			<li class="previous"><a href="">&lt;</a></li>
-			<li class="page selected"><a href="">1</a></li>
-			<li class="page"><a href="">2</a></li>
-			<li class="next"><a href="">&gt;</a></li>
-			<li class="last"><a href="">&gt;&gt;</a></li>
-		</ul>
-	</div>
-</div>
+	$cs = Yii::app()->getClientScript(); 
+	$cs->registerCssFile(/*flexslider-css'*/Yii::app()->theme->baseUrl.'/css/flexslider.min.css?ver=4.11.2');
+	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/1q1ZOZ4WCgjHiPtheevOtDCH7uI7Us22l5Gh8_fME.js', CClientScript::POS_END);
+	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9BPLkqtyCzWzwKiwtLUokq93MT0vMy0zGTdgvyC0gK93Mw8AA.js', CClientScript::POS_END);
+	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9BPLkqtyCzWzwKiwtLUokq9tJzUiuKczJTUIt3czDwdAyQVJeWpqcn5-TkA.js', CClientScript::POS_END);
 
-<?php } else {?>
-<div class="col-md-9 col-sm-9 col-xs-12 mt-25 mb-25">
-	<h4 class="border-bottom mt-10 pb-10">BERITA</h4>
-	<div class="article-list">
-		<?php for ($i = 1; $i <= 2; $i++) { ?>
-			<div class="col-md-6 col-sm-6 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title">Ut enim ad minim</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6 box">
-				<img src="<?php echo Yii::app()->theme->baseUrl.'/images/resource/news-1.jpg';?>">
-				<span class="date">17 Agusuts 2016</span>
-				<a href="<?php echo Yii::app()->controller->createUrl('site/view')?>" class="title">Ut enim ad minim veniam, quis nostrud exercitation</a>
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-			</div>
-		<?php } ?>
-		<div class="clear"></div>
-		<ul class="pagination" id="yw0">
-			<li class="first"><a href="">&lt;&lt;</a></li>
-			<li class="previous"><a href="">&lt;</a></li>
-			<li class="page selected"><a href="">1</a></li>
-			<li class="page"><a href="">2</a></li>
-			<li class="next"><a href="">&gt;</a></li>
-			<li class="last"><a href="">&gt;&gt;</a></li>
-		</ul>
-	</div>
-</div>
-<div class="col-md-3 col-sm-3 col-xs-12 mt-25 mb-25">
-	<?php $this->widget('_HookSidebar'); ?>
-</div>
-<?php }?>
+	$this->breadcrumbs=array(
+		'Articles',
+	);
+?>
+
+<?php $this->widget('application.components.system.FListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+	'pager' => array(
+		'header' => '',
+	), 
+	'summaryText' => '',
+	'itemsCssClass' => 'items clearfix blog-inner blog-style-classic blog-items boxed',
+	'pagerCssClass'=>'pager clearfix col-md-12 blog-pagination pagination block t-center',
+)); ?>

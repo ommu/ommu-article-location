@@ -1,6 +1,7 @@
 <?php $this->beginContent('//layouts/default');
 	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.*');
 	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
+	
 	$module = strtolower(Yii::app()->controller->module->id);
 	$controller = strtolower(Yii::app()->controller->id);
 	$action = strtolower(Yii::app()->controller->action->id);
@@ -18,19 +19,95 @@
 		} else
 			$class = Utility::getUrlTitle($controller);
 	} else {
-		if($controller == 'site')
-			$class = $module;
-		else
+		if($controller == 'site') {
+			if($module == 'article')
+				$class = 'blog';
+			else
+				$class = $module;
+		} else
 			$class = Utility::getUrlTitle($module.'-'.$controller);
 	}
 ?>
 <?php //echo $this->dialogDetail == true ? (empty($this->dialogWidth) ? 'class="boxed clearfix"' : 'class="clearfix"') : 'class="clearfix"';?>
 
-<?php if($module == null && $currentAction == 'site/index')
-	echo $content;
-
-else {?>
-
+<?php if(($this->dialogDetail == false && $this->pageTitleShow == true) && ($module != null || ($module == null && !in_array($currentAction, array('site/index','site/error'))))) {?>
+<!-- Page Header - litle-header or bigger-header - soft-header, dark-header or background -->
+<section id="page-header" class="soft-header little-header parallax3">
+	<!-- Page Header Inner -->
+	<div class="page_header_inner clearfix dark">
+		<!-- Left -->
+		<div class="left f-left">
+			<!-- Header -->
+			<h2 class="page_header light"><?php echo CHtml::encode($this->pageTitle); ?></h2>
+		</div>
+		<?php /*
+		<ul id="breadcrumbs" class="breadcrumbs page-title-side right f-right light">
+			<li><a href="http://veented.info/crexis/">Home</a></li>
+			<li>Blog</li>
+		</ul>
+		*/?>
+	</div>
+	<!-- End Inner -->
+</section>
+<!-- End #page-header -->	
 <?php }?>
+
+<div class="page-holder <?php echo $this->adsSidebar == false ? 'page-layout-fullwidth' : 'blog blog-index page-layout-sidebar_right blog-style-classic';?>">
+	<div id="<?php echo $class;?>" class="inner clearfix">
+		<?php if($this->adsSidebar == true) {?>				
+		<div class="page_inner">
+			<?php echo $content;?>
+		</div>
+		<div id="sidebar" class="page_sidebar sidebar-style-default">
+			<div id="search-2" class="widget bar widget_search">
+				<h5>Search</h5>
+				<form class="search-form relative" id="search-form" action="http://veented.info/crexis//">
+					<input name="s" id="s" type="text" value="" placeholder="Search..." class="search">
+					<button class="search-button"><i class="fa fa-search"></i></button>
+				</form>
+			</div>
+			<div id="recent-posts-2" class="widget bar widget_recent_entries">
+				<h5>Recent Posts</h5>
+				<ul>
+					<li>
+						<a href="http://veented.info/crexis/red-hair/">Post from Blog</a>
+					</li>
+					<li>
+						<a href="http://veented.info/crexis/black-and-white/">Desert and Clouds</a>
+					</li>
+					<li>
+						<a href="http://veented.info/crexis/in-the-woods/">Train Tracks</a>
+					</li>
+					<li>
+						<a href="http://veented.info/crexis/city-of-new-york/">City of New York</a>
+					</li>
+					<li>
+						<a href="http://veented.info/crexis/cloudy-desert/">Cloudy Desert</a>
+					</li>
+				</ul>
+			</div>
+			<div id="categories-2" class="widget bar widget_categories">
+				<h5>Categories</h5>
+				<ul>
+					<li class="cat-item cat-item-14"><a href="http://veented.info/crexis/category/architecture/" >Architecture</a></li>
+					<li class="cat-item cat-item-11"><a href="http://veented.info/crexis/category/photography/" >Photography</a></li>
+					<li class="cat-item cat-item-17"><a href="http://veented.info/crexis/category/web-design/" >Web Design</a></li>
+					<li class="cat-item cat-item-12"><a href="http://veented.info/crexis/category/work/" >Work</a></li>
+				</ul>
+			</div>
+			<div id="tag_cloud-2" class="widget bar widget_tag_cloud">
+				<h5>Tags</h5>
+				<div class="tagcloud"><a href='http://veented.info/crexis/tag/buildings/' class='tag-link-15 tag-link-position-1' title='1 topic' style='font-size: 14px;'>Buildings</a>
+					<a href='http://veented.info/crexis/tag/business/' class='tag-link-13 tag-link-position-2' title='1 topic' style='font-size: 14px;'>Business</a>
+					<a href='http://veented.info/crexis/tag/usa/' class='tag-link-16 tag-link-position-3' title='1 topic' style='font-size: 14px;'>USA</a>
+				</div>
+			</div>
+		</div>
+		
+		<?php } else {
+			echo $content;
+		}?>		
+	</div>
+</div>
 
 <?php $this->endContent(); ?>
