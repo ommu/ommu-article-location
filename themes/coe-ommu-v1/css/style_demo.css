@@ -1,0 +1,240 @@
+/*
+Theme Name: Crexis Theme Preview
+Theme URI: http://themeforest.net/user/Veented
+Description: Clean & Modern Multi-Purpose WordPress Theme.
+Version: 1.0.0
+Author: Veented
+Author URI: http://themeforest.net/user/Veented
+Template: crexis
+*/
+
+
+/* Your code goes below! */
+
+#choose-demo h1 {
+	font-weight: bold;
+   	text-transform: uppercase;
+    	font-size: 42px;
+    	letter-spacing: 3px;
+}
+
+#choose-demo h6 {
+	max-width: 740px;
+    	color: #888;
+    	font-size: 16px;
+    	line-height: 1.6em;
+}
+
+.vntd-demo-item {
+	background: #fff;
+}
+
+.vntd-demo-item .vntd-demo-item-caption {
+	padding: 20px;
+	text-align: left;
+}
+
+.vntd-demo-item .vntd-demo-item-caption h3 {
+	margin-bottom: 10px;
+	font-size: 22px;
+	letter-spacing: 1px;
+	text-align: left;
+	transition: color .3s;
+}
+
+.vntd-demo-item .vntd-demo-item-caption p {
+	margin: 0px;
+	font-size: 15px;
+	color: #999;
+	letter-spacing: 1px;
+}
+
+.vntd-demo-item figcaption {
+	display: none !important;
+}
+
+.vntd-demo-item a:hover h3 {
+	color: #80c3a4;
+}
+
+/* Theme Demos */
+
+#theme-demos {
+	margin-bottom: 40px;
+}
+
+#theme-demos .item {
+	padding: 3px;
+	text-align: center;
+}
+
+	#theme-demos .cbp-item-wrapper {
+		box-shadow: 0px 1px 3px rgba(0,0,0,0.05);
+	}
+
+#theme-demos .item img {
+	transition: opacity .9s, transform .9s;
+}
+
+#theme-demos .item:hover img {
+	opacity: 0.5;
+    -webkit-transform: scale(1.06);
+    -moz-transform: scale(1.06);
+    -ms-transform: scale(1.06);
+    transform: scale(1.06);
+}
+
+#theme-demos .item h3 {
+	margin-bottom: 12px;
+}
+
+	#theme-demos .item h3 a {
+		color: #555 !important;
+		font-size: 16px;
+	}
+	
+	#theme-demos .item h3 a:hover {
+		color: #998675 !important;
+	}
+
+#theme-demos .item-outer {
+	border-top: 1px solid #ededed;
+	    text-align: center;
+}
+
+	#theme-demos .item .item-outer:before {
+		content: none;
+		display: none;
+	}
+
+	#theme-demos .item:hover .item-outer {
+		background: #fff !important;
+	}
+	
+#theme-demos .demo-item-description {
+	margin-bottom: 6px;
+	color: #999;
+	font-size: 12px;
+	display: none;
+}
+
+#theme-demos .item .overlay-icon-link {
+	line-height: normal;
+	border-radius: 3px;
+	height: auto;
+	width: auto;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+#theme-demos .demo-color {
+	border-radius: 100%;
+	background: #c7b299;
+	height: 22px;
+	width: 22px;
+	display: inline-block;
+	margin-right: 10px;
+	display: none;
+}
+
+/* Placeholder */
+
+#theme-demos .item.placeholder:hover img {
+	opacity: 1;
+	-webkit-transform: none;
+	-moz-transform: none;
+	-ms-transform: none;
+	transform: none;
+}
+
+#theme-demos .item.placeholder .portfolio-item-overlay {
+	display: none;
+}
+
+	#theme-demos .item.placeholder h3 a {
+		color: #555 !important;
+	}
+	
+	#theme-demos .item.placeholder a {
+		cursor: default;
+	}
+	
+	
+#home.mini_home{
+	height: 600px;
+}
+
+.demo_part{
+	font-size:0;
+	text-align: center;
+}
+
+.demo_part img{
+	width: 100%;
+}
+
+.demo_part a span,
+.demo_part a h5 {
+	color: #7d7d7d;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    font-weight: 300;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-weight: 100;
+    letter-spacing: 1px;
+    margin: 10px auto 0;
+}
+
+.demo_part a{
+	width: auto;
+	height: auto;
+	max-width: 90%;
+	padding:25px 35px;
+	display: inline-block;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.demo_part a:hover{
+	opacity: 0.8;
+}
+
+
+/* Skins */
+
+.page-id-263 #pageloader {
+	background-color: #111111 !important;
+}
+
+.page-id-263 #pageloader .spinner div {
+	background-color: #dedede;
+}
+
+.page-template-template-onepager #woo-nav-cart {
+	display: none;
+}
+
+.page-id-922 .icon-box-aligned .icon-box-content h4,
+.page-id-913 .icon-box-aligned .icon-box-content h4 {
+	font-size: 17px;
+	text-transform: uppercase;
+}
+
+#landing-hero .vntd-hero-style1 h2 {
+    opacity: 0.8;
+    margin-bottom: -10px !important;
+    font-size: 13px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-family: "Open Sans", Helvetica, Arial !important;
+    letter-spacing: 1px;
+}
+
+.page-id-215 .navigation .logo img,
+.page-id-286 .navigation .logo img,
+.page-id-320 .navigation .logo img,
+.page-id-1081 .navigation .logo img,
+.page-id-913 .navigation .logo img  {
+	max-height: 45px;
+}
