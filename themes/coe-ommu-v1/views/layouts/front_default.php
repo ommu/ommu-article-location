@@ -30,7 +30,7 @@
 ?>
 <?php //echo $this->dialogDetail == true ? (empty($this->dialogWidth) ? 'class="boxed clearfix"' : 'class="clearfix"') : 'class="clearfix"';?>
 
-<?php if(($this->dialogDetail == false && $this->pageTitleShow == true) && ($module != null || ($module == null && !in_array($currentAction, array('site/index','site/error'))))) {?>
+<?php if($this->dialogDetail == false && $this->pageTitleShow == true) {?>
 <!-- Page Header - litle-header or bigger-header - soft-header, dark-header or background -->
 <section id="page-header" class="soft-header little-header parallax3">
 	<!-- Page Header Inner -->
@@ -66,6 +66,7 @@
 					<button class="search-button"><i class="fa fa-search"></i></button>
 				</form>
 			</div>
+			<?php /*
 			<div id="recent-posts-2" class="widget bar widget_recent_entries">
 				<h5>Recent Posts</h5>
 				<ul>
@@ -95,13 +96,8 @@
 					<li class="cat-item cat-item-12"><a href="http://veented.info/crexis/category/work/" >Work</a></li>
 				</ul>
 			</div>
-			<div id="tag_cloud-2" class="widget bar widget_tag_cloud">
-				<h5>Tags</h5>
-				<div class="tagcloud"><a href='http://veented.info/crexis/tag/buildings/' class='tag-link-15 tag-link-position-1' title='1 topic' style='font-size: 14px;'>Buildings</a>
-					<a href='http://veented.info/crexis/tag/business/' class='tag-link-13 tag-link-position-2' title='1 topic' style='font-size: 14px;'>Business</a>
-					<a href='http://veented.info/crexis/tag/usa/' class='tag-link-16 tag-link-position-3' title='1 topic' style='font-size: 14px;'>USA</a>
-				</div>
-			</div>
+			*/?>
+			<?php $this->widget('SidebarArticleTags'); ?>
 		</div>
 		
 		<?php } else {

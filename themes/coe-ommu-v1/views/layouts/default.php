@@ -255,19 +255,37 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 				<div class="desktop-nav nav-menu clearfix f-right">
 					<ul id="menu-main-navigation" class="nav uppercase normal">
 						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('site/index')?>">Home</a>			
+							<a href="<?php echo Yii::app()->createUrl('site/index')?>">Home</a>	
 						</li>
 						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1))?>">Berita</a>			
+							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1))?>">Berita</a>
 						</li>
 						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2))?>">Ragam Budaya</a>			
+							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2))?>">Ragam Budaya</a>
 						</li>
 						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3))?>">Pahlawan Budaya</a>			
+							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3))?>">Pahlawan Budaya</a>
 						</li>
 						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4))?>">Agenda Budaya</a>			
+							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4))?>">Agenda Budaya</a>
+						</li>
+						<li class="menu-item">
+							<a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>1))?>">Tentang Kami</a>
+						</li>
+						<li class="menu-item">
+							<a href="<?php echo Yii::app()->createUrl('support/contact/feedback')?>">Kontak Kami</a>
+						</li>
+						<li class="dropdown-toggle search-toggle">
+							<a href="#" id="search-toggle" class="search"><i class="fa fa-search"></i></a>
+							<!-- DropDown Menu -->
+							<ul id="search-dropdown" class="dropdown-menu dropdown-search pull-right clearfix">
+								<li class="raleway mini-text gray">
+									<form method="get" class="search-form" id="search-form" action="<?php echo Yii::app()->createUrl('search/result');?>">
+										<input type="text" name="keyword" id="s" class="transparent uppercase" placeholder="Search...">
+										<button type="submit"><i class="fa fa-search"></i></button>
+									</form>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
@@ -276,19 +294,25 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		<nav id="mobile-nav" class="mobile-nav">
 			<ul id="menu-main-navigation-1" class="nav uppercase normal">
 				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('site/index')?>">Home</a>			
+					<a href="<?php echo Yii::app()->createUrl('site/index')?>">Home</a>	
 				</li>
 				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1))?>">Berita</a>			
+					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1))?>">Berita</a>
 				</li>
 				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2))?>">Ragam Budaya</a>			
+					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2))?>">Ragam Budaya</a>
 				</li>
 				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3))?>">Pahlawan Budaya</a>			
+					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3))?>">Pahlawan Budaya</a>
 				</li>
 				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4))?>">Agenda Budaya</a>			
+					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4))?>">Agenda Budaya</a>
+				</li>
+				<li class="menu-item">
+					<a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>1))?>">Tentang Kami</a>
+				</li>
+				<li class="menu-item">
+					<a href="<?php echo Yii::app()->createUrl('support/contact/feedback')?>">Kontak Kami</a>
 				</li>
 			</ul>
 		</nav>

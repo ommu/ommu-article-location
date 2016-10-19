@@ -116,7 +116,8 @@ class SiteController extends Controller
 				'pageSize'=>6,
 			),
 		));
-
+		
+		$this->pageTitleShow = true;
 		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? Phrase::trans($title->name, 2) : 'Articles';
 		$this->pageDescription = $setting->meta_description;
 		$this->pageMeta = $setting->meta_keyword;
