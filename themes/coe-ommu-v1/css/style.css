@@ -12,7 +12,7 @@
 
 /*Stylesheet(s)*/
 @import  "bootstrap.min.css";
-@import  "animate.min.css";
+@import  "scripts/animate.min.css";
 
 /*
 ===============================================
@@ -51,9 +51,10 @@
 		height:100%;
 		padding:0;
 		margin:0;
+		background: #181818;
 		font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: subpixel-antialiased;
-		color: #888
+		color: #888;
 	}
 
 	body{
@@ -115,7 +116,9 @@
 /* Main */
 
 /* Containers */
-
+#page-content {
+	background: #fff;
+}
 .container {
 	width: auto;
 	height: auto;

@@ -83,23 +83,16 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 
 	} else {
 		$cs = Yii::app()->getClientScript();
-		$cs->registerCssFile(/*woocommerce-general-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce.css?ver=2.5.5');
-		$cs->registerCssFile(/*woocommerce-layout-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-layout.css?ver=2.5.5');
-		$cs->registerCssFile(/*vntd-woocommerce-custom-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-styling.css?ver=4.5.4');
-		$cs->registerCssFile(/*layerslider-css'*/Yii::app()->theme->baseUrl.'/css/layerslider.css?ver=5.6.2');
 		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/styles.css?ver=4.4');
 		$cs->registerCssFile(/*think-button-style-css'*/Yii::app()->theme->baseUrl.'/css/button.css?ver=4.5.4');
-        $cs->registerCssFile(/*ccf-jquery-ui-css''*/Yii::app()->theme->baseUrl.'/css/jquery-ui.css?ver=4.5.4');
 		$cs->registerCssFile(/*ccf-form-css'*/Yii::app()->theme->baseUrl.'/css/form.min.css?ver=7.6');
-		$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/settings.css?ver=5.2.4.1');
-		$cs->registerCssFile(/*woocommerce-smallscreen-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-smallscreen.css?ver=2.5.5');		
-		$cs->registerCssFile(/*vntd-demo-style-css'*/Yii::app()->theme->baseUrl.'/css/style_demo.css?ver=4.5.4');		
+		$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/settings.css?ver=5.2.4.1');	
 		$cs->registerCssFile(/*crexis-styles-css'*/Yii::app()->theme->baseUrl.'/css/style.css?ver=4.5.4');		
 		$cs->registerCssFile(/*socials-css'*/Yii::app()->theme->baseUrl.'/css/socials.css?ver=4.5.4');
 		$cs->registerCssFile(/*crexis-responsive-css'*/Yii::app()->theme->baseUrl.'/css/responsive.css?ver=4.5.4');
-		$cs->registerCssFile(/*cubePortfolio-css'*/Yii::app()->theme->baseUrl.'/css/cubeportfolio.min.css?ver=4.5.4');
-		$cs->registerCssFile(/*magnific-popup-css'*/Yii::app()->theme->baseUrl.'/css/magnific-popup.css?ver=4.5.4');
-		$cs->registerCssFile(/*owl-carousel-css'*/Yii::app()->theme->baseUrl.'/css/owl.carousel.css?ver=4.5.4');
+		$cs->registerCssFile(/*cubePortfolio-css'*/Yii::app()->theme->baseUrl.'/css/scripts/cubeportfolio.min.css?ver=4.5.4');
+		$cs->registerCssFile(/*magnific-popup-css'*/Yii::app()->theme->baseUrl.'/css/scripts/magnific-popup.css?ver=4.5.4');
+		$cs->registerCssFile(/*owl-carousel-css'*/Yii::app()->theme->baseUrl.'/css/scripts/owl.carousel.css?ver=4.5.4');
 		$cs->registerCssFile(/*js_composer_front-css'*/Yii::app()->theme->baseUrl.'/css/js_composer.min.css?ver=4.11.2');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
@@ -708,7 +701,63 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	</nav>
 								
 	<div id="page-content" class="header-style-transparent page-with-vc">
-		<div class="page-holder page-layout-fullwidth">			
+		<div class="page-holder page-layout-fullwidth">	
+			<?php if($module == null && $currentAction == 'site/index') {?>
+				<div id="first" data-vc-full-width="true" data-vc-full-width-init="false" data-vc-stretch-content="true" class="vc_row wpb_row vc_row-fluid vc_custom_1456256508033 vc_row-no-padding">
+					<div class="wpb_column vc_column_container vc_col-sm-12">
+						<div class="vc_column-inner ">
+							<div class="wpb_wrapper">
+								<div id="hero-section-450" class="vntd-hero hero-media-images hero-effect-none arrow-navigation-side video-controls-bottom">
+									<div class="hero-fullscreen">
+										<div class="slides-container relative">
+											<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/background12.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+											<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/background13.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+											<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/background16.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+										</div>
+										<nav class="slides-navigation">
+											<a href="#" class="prev"><i class="fa fa-angle-left"></i></a>
+											<a href="#" class="next"><i class="fa fa-angle-right"></i></a>
+										</nav>
+									</div>
+									<!-- Home Inner Details -->
+									<div class="vntd-hero-style1 home-inner " data-0="opacity:1;" data-600="opacity:0;">
+										<!-- Home Text Slider -->
+										<div class="home-text-slider relative">
+											<!-- Home Text Slider -->
+											<h1 class="white thin text-rotator">
+												<!-- Home Texts -->
+												<span class="rotate">
+												Crexis Creative Design Studio,We Create Awesome Themes!					
+												</span>
+												<!-- End Home Texts -->
+											</h1>
+											<!-- End Home Text Slider -->
+											<!-- Home Fixed Text -->		
+											<p class="home-fixed-text white">Contrary to popular belief, Lorem Ipsum is not simply random text. Piece of classical Latin literature.</p>
+										</div>
+										<!-- End Home Text Slider -->
+										<a href="#second" class="home-button light-button thin scroll">Get Started</a>			
+									</div>
+									<!-- End Home Inner Details -->
+									<!-- Home Bottom Note -->
+									<div class="home-extra-note fullwidth t-center white font-primary absolute scroll-button-circle thin" data-0="opacity:1;" data-600="opacity:0;">
+										<!-- Text Link -->
+										<a href="#second" class="scroll">
+											<!-- Bottom Text -->
+											<p>Crexis Stunning OnePage and MultiPage Theme</p>
+											<span class="home-button dark-button t-center home-circle-button fa fa-angle-down"></span>
+										</a>
+										<!-- End Text Link -->
+									</div>
+									<!-- End Home Bottom Note -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="vc_row-full-width"></div>			
+			<?php }?>
+			
 			<?php if($currentAction != 'site/error')
 				echo $content;?>
 		</div>
