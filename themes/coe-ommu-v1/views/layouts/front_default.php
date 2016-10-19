@@ -29,7 +29,7 @@
 <?php if($module == null && $currentAction == 'site/index')
 	echo $content;
 
-else {
+else {?>
 
 <?php }?>
 
