@@ -1,9 +1,13 @@
 group_page	: admin
 name		: Ommu Default
 folder		: ommu
-layout		: admin_default
+layout		: front_default
 thumbnail	: 
 author		: Putra Sudaryanto
 controller  : 
-    blog: BlogController
-    kckr: KckrController
+    jakarta: JakartaController
+    jogja: JogjaController
+    banten: BantenController
+    jatim: JatimController
+    jabar: JabarController
+    jateng: JatengController

@@ -68,7 +68,7 @@
 												<h4 class="member-position light colored">Ceo &amp; Founder</h4>
 												*/?>
 												<!-- Description -->
-												<p class="no-padding light"><?php echo Utility::shortText(Utility::hardDecode($val->body), 150);?></p>
+												<p class="no-padding light"><?php echo $val->body;?></p>
 											</div>
 											<!-- End Details -->
 										</div>

@@ -32,13 +32,13 @@
 
 <?php if($this->dialogDetail == false && $this->pageTitleShow == true) {?>
 <!-- Page Header - litle-header or bigger-header - soft-header, dark-header or background -->
-<section id="page-header" class="soft-header little-header parallax3">
+<section id="page-header" class="soft-header <?php echo in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta')) ? 'big-header' : 'little-header';?> parallax3">
 	<!-- Page Header Inner -->
 	<div class="page_header_inner clearfix dark">
 		<!-- Left -->
 		<div class="left f-left">
 			<!-- Header -->
-			<h2 class="page_header light"><?php echo CHtml::encode($this->pageTitle); ?></h2>
+			<h2 class="page_header light"><?php echo CHtml::encode(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta')) ? $this->location_name : $this->pageTitle); ?></h2>
 		</div>
 		<?php /*
 		<ul id="breadcrumbs" class="breadcrumbs page-title-side right f-right light">
@@ -53,6 +53,10 @@
 <?php }?>
 
 <div class="page-holder <?php echo $this->adsSidebar == false ? 'page-layout-fullwidth' : 'blog blog-index page-layout-sidebar_right blog-style-classic';?>">
+	<?php if($module == null && $currentAction == 'site/index')
+		echo $content;
+		
+	else {?>
 	<div id="<?php echo $class;?>" class="inner clearfix">
 		<?php if($this->adsSidebar == true) {?>				
 		<div class="page_inner">
@@ -104,6 +108,7 @@
 			echo $content;
 		}?>		
 	</div>
+	<?php }?>
 </div>
 
 <?php $this->endContent(); ?>

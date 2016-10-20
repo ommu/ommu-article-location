@@ -1,7 +1,8 @@
 <?php
 
-class SidebarArticleTags extends CWidget
+class MainArticleLocation extends CWidget
 {
+	public $category;
 	public $limit;
 
 	public function init() {
@@ -21,16 +22,24 @@ class SidebarArticleTags extends CWidget
 		$currentModuleAction = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 		
 		//import model
-		Yii::import('application.modules.article.models.ArticleTag');
+		Yii::import('application.modules.article.model_bpad_coe.ArticleLocations');
 		
 		$criteria=new CDbCriteria;
+		$criteria->condition = 'publish = :publish';
+		$criteria->params = array(
+			':publish'=>1,
+		);
 		$criteria->order = 'creation_date DESC';
-		$criteria->limit = $this->limit == null ? 10 : $this->limit;
-		$criteria->group = 'tag_id';
 			
-		$model = ArticleTag::model()->findAll($criteria);
+		$model = ArticleLocations::model()->findAll($criteria);		
 		
-		$this->render('sidebar_article_tag',array(
+		$this->render('main_article_location',array(
+			'module' => $module,
+			'controller' => $controller,
+			'action' => $action,
+			'currentAction' => $currentAction,
+			'currentModule' => $currentModule,
+			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
 		));
 	}

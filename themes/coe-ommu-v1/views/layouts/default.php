@@ -216,7 +216,10 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		.vc_custom_1456304985147 {
 			padding-bottom: 60px !important;
 		}
-	</style>  
+	</style> 
+	<?php if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta'))) {?>
+	<style type="text/css"> #page-content #page-header {background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background41.jpg) !important;background-position-y: top;}#page-header h1 { font-size:px; }#page-header h2, #breadcrumbs li { color: #fff; }#page-header h5, #page-header #breadcrumbs a { color: rgba(255,255,255,0.75); }</style>
+	<?php }?>
 	<noscript>
 		<style type="text/css">.wpb_animate_when_almost_visible { opacity: 1; }</style>
 	</noscript>
@@ -224,6 +227,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
  </head>
  <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="<?php echo $module == null && $currentAction == 'site/index' ? 'page page-template-default' : 'blog';?> wpb-js-composer vc_responsive">
 
+	<?php /*
 	<article id="pageloader" class="white-loader">
 		<div class="spinner">
 			<div class="bounce1"></div>
@@ -231,16 +235,19 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 			<div class="bounce3"></div>
 		</div>
 	</article>
+	*/?>
 
 	<nav id="navigation" class="<?php echo $module == null && $currentAction == 'site/index' ? 'white-nav navigation-style-transparent' : 'relative-nav white-nav navigation-style-default';?>">
 		<div class="navigation double-nav <?php echo $module == null && $currentAction == 'site/index' ? 'first-nav' : '';?> white-nav">
 			<div class="nav-inner clearfix">
 				<!-- Logo Area -->
 				<div class="logo f-left">
+					<?php /*
 					<!-- Logo Link -->
 					<a href="http://veented.info/crexis" class="logo-link scroll">
 					<img src="http://veented.info/crexis/wp-content/uploads/2016/02/logo_dark_red_big.png" class="logo-secondary" alt="Crexis WordPress Theme" /><img src="http://veented.info/crexis/wp-content/uploads/2016/02/logo_white_red_big.png" class="site-logo logo-primary" data-second-logo="http://veented.info/crexis/wp-content/uploads/2016/02/logo_dark_red_big.png" alt="Crexis WordPress Theme" />					
 					</a>
+					*/?>
 				</div>
 				<!-- End Logo Area -->
 				<!-- Mobile Menu Button -->
@@ -319,7 +326,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	</nav>
 								
 	<div id="page-content" class="<?php echo $module == null && $currentAction == 'site/index' ? 'header-style-transparent page-with-vc' : 'header-style-default page-with-topbar page-without-vc';?>">
-		<?php if($currentAction != 'site/error')
+		<?php //if($currentAction != 'site/error')
 			echo $content;?>
 	</div>
 	
