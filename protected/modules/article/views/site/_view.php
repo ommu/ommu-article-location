@@ -56,11 +56,11 @@
 					if(!empty($medias)) {
 						foreach($medias as $key => $val) {
 							$image = Yii::app()->request->baseUrl.'/public/article/'.$val->article_id.'/'.$val->media;?>
-							<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt=""></a></li>
+							<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 600, 250, 1)?>" alt=""></a></li>
 						<?php }
 					} else {
 						$image = Yii::app()->request->baseUrl.'/public/article/article_default.png';?>
-						<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt=""></a></li>
+						<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 600, 250, 1)?>" alt=""></a></li>
 					<?php }?>
 				</ul>
 			</div>

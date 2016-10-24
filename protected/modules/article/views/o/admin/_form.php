@@ -137,6 +137,7 @@ EOP;
 					<div class="desc">
 						<?php echo $form->fileField($model,'media'); ?>
 						<?php echo $form->error($model,'media'); ?>
+						<span class="small-px">extensions are allowed: <?php echo Utility::formatFileType(unserialize($setting->media_file_type), false);?></span>
 					</div>
 				</div>
 				<?php }?>
@@ -229,6 +230,7 @@ EOP;
 					<div class="desc">
 						<?php echo $form->fileField($model,'file'); ?>
 						<?php echo $form->error($model,'file'); ?>
+						<span class="small-px">extensions are allowed: <?php echo Utility::formatFileType(unserialize($setting->upload_file_type), false);?></span>
 					</div>
 				</div>
 	
