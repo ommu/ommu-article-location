@@ -77,14 +77,14 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('publish, province_code, province_desc,
+			array('publish, province_code,
 				province_input', 'required'),
 			array('location_id, publish, province_id', 'numerical', 'integerOnly'=>true),
 			array('
 				tag_input, user_input', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
 			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('province_id, province_photo,
+			array('province_id, province_desc, province_photo,
 				tag_input, user_input, old_photo_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -398,7 +398,7 @@ class ArticleLocations extends CActiveRecord
 	protected function beforeSave() {
 		if(parent::beforeSave()) {			
 			$action = strtolower(Yii::app()->controller->action->id);
-			if(!$this->isNewRecord && $action == 'edit') {
+			if(!$this->isNewRecord && in_array($action, array('edit','setting'))) {
 				//Update article location photo
 				$location_path = "public/article/location";
 				

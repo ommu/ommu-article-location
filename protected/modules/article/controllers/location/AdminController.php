@@ -44,7 +44,7 @@ class AdminController extends Controller
 	public function init() 
 	{
 		if(!Yii::app()->user->isGuest) {
-			if(Yii::app()->user->level == 1) {
+			if(in_array(Yii::app()->user->level, array(1,2))) {
 				$arrThemes = Utility::getCurrentTemplate('admin');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
@@ -88,7 +88,7 @@ class AdminController extends Controller
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('manage','add','edit','view','runaction','delete','publish'),
 				'users'=>array('@'),
-				'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level == 1)',
+				'expression'=>'isset(Yii::app()->user->level) && in_array(Yii::app()->user->level, array(1,2))',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(),
@@ -136,7 +136,50 @@ class AdminController extends Controller
 			'model'=>$model,
 			'columns' => $columns,
 		));
-	}	
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionSetting() 
+	{
+		$location = ArticleLocationUser::model()->find(array(
+			'select' => 'location_id, user_id',
+			'condition' => 'user_id = :user',
+			'params' => array(
+				':user' => Yii::app()->user->id,
+			),
+		));
+		if($location == null)
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
+			
+		$model=$this->loadModel($location->location_id);
+		$tags=$model->tags;
+		$users=$model->users;
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['ArticleLocations'])) {
+			$model->attributes=$_POST['ArticleLocations'];
+			
+			if($model->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				$this->redirect(Yii::app()->controller->createUrl('setting'));
+			}
+		}
+		
+		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_edit',array(
+			'model'=>$model,
+			'tags'=>$tags,
+			'users'=>$users,
+		));
+	}
 	
 	/**
 	 * Creates a new model.
@@ -200,7 +243,7 @@ class AdminController extends Controller
 			'model'=>$model,
 			'tags'=>$tags,
 			'users'=>$users,
-			));
+		));
 	}
 	
 	/**

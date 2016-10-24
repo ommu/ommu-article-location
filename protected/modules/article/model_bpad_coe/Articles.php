@@ -229,7 +229,26 @@ class Articles extends CActiveRecord
 		$criteria->compare('t.download',$this->download);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		$criteria->compare('t.creation_id',$this->creation_id);
+		
+		if(Yii::app()->user->level == 2) {
+			$location = ArticleLocationUser::model()->find(array(
+				'select' => 'location_id, user_id',
+				'condition' => 'user_id = :user',
+				'params' => array(
+					':user' => Yii::app()->user->id,
+				),
+			));
+			if($location != null) {
+				$users = $location->location->users;
+				if(!empty($users)) {
+					$items = array();
+					foreach($users as $key => $val)
+						$items[] = $val->user_id;
+					$criteria->addInCondition('t.creation_id', $items);
+				}
+			}
+		} else
+			$criteria->compare('t.creation_id',$this->creation_id);
 		
 		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
@@ -658,7 +677,27 @@ class Articles extends CActiveRecord
 		}
 		
 		// Add Keyword
-		if(!$this->isNewRecord) {
+		if($this->isNewRecord) {
+			$location = ArticleLocationUser::model()->find(array(
+				'select' => 'location_id, user_id',
+				'condition' => 'user_id = :user',
+				'params' => array(
+					':user' => Yii::app()->user->id,
+				),
+			));
+			if($location != null) {
+				$tags = $location->location->tags;
+				if(!empty($tags)) {
+					foreach($tags as $key => $val) {
+						$tag = new ArticleTag;
+						$tag->article_id = $this->article_id;
+						$tag->tag_id = $val->tag_id;
+						$tag->save();						
+					}
+				}
+			}
+			
+		} else {
 			if($this->keyword != '') {
 				$model = OmmuTags::model()->find(array(
 					'select' => 'tag_id, body',
