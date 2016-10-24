@@ -48,7 +48,7 @@ class MainArticle extends CWidget
 			else if($this->category == 3)
 				$render = 'main_article_pahlawan';
 			else if($this->category == 4)
-				$render = 'main_article_agenda';
+				$render = 'main_article_ragam';
 		}
 		$this->render($render,array(
 			'module' => $module,

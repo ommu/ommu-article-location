@@ -4,11 +4,13 @@
 	<div class="wpb_column vc_column_container vc_col-sm-12">
 		<div class="vc_column-inner ">
 			<div class="wpb_wrapper">
+				<?php /*
 				<div class="vntd-special-heading special-heading-align-center heading-no-separator" style="margin-bottom:60px;">
 					<h4 class="header-first  georgia">Never give up! You can be a Hero!</h4>
-					<h1 class="header  georgia font-size-40px georgia font-weight-400" >Our Awesome Portfolio Categories</h1>
-					<p class="subtitle light " >Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+					<h1 class="header  georgia font-size-40px georgia font-weight-400" >The standard chunk of Lorem Ipsum used</h1>
+					<p class="subtitle light " >The standard Lorem Ipsum passage, used since the 1500s</p>
 				</div>
+				*/?>
 				<div class="vntd-carousel-holder">
 					<div class="categories fullwidth">
 						<!-- Boxes -->
@@ -30,7 +32,7 @@
 								<!-- Box Texts -->
 								<div class="box-texts georgia white">
 									<!-- Header -->
-									<a href="<?php echo Yii::app()->createUrl($val->province_code.'/index');?>"><h2 class="t-shadow georgia"><?php echo $val->province_relation->province?></h2></a>
+									<a href="<?php echo Yii::app()->createUrl($val->province_code.'/article');?>"><h2 class="t-shadow georgia"><?php echo $val->province_relation->province?></h2></a>
 									<?php /*
 									<!-- Description -->
 									<p class="t-shadow">Art is beautiful.</p>
@@ -42,10 +44,12 @@
 						</div>
 					</div>
 				</div>
+				<?php /*
 				<div class="vntd-cta vntd-cta-style-classic vntd-cta-color-dark bottom-page-texts relative t-center ">
-					<h2 class="vntd-cta-heading georgia">Clean, responsive and professional design with powerfull code!</h2>
-					<p class="normal raleway">This is Photoshop&#039;s version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit.</p>
+					<h2 class="vntd-cta-heading georgia">Lorem Ipsum is simply dummy text of the printing and typesetting industry</h2>
+					<p class="normal raleway">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
 				</div>
+				*/?>
 			</div>
 		</div>
 	</div>

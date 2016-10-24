@@ -5,7 +5,7 @@
 			<div class="vc_column-inner ">
 				<div class="wpb_wrapper">
 					<div class="vntd-special-heading special-heading-align-center heading-separator" style="margin-bottom:35px;">
-						<h1 class="header  font-primary uppercase font-size-30 font-primary font-weight-default" ><?php echo Phrase::trans($model[0]->cat->name, 2);?></h1>
+						<h1 class="header  font-primary uppercase font-size-30 font-primary font-weight-default" ><?php echo strtoupper(Phrase::trans($model[0]->cat->name, 2));?></h1>
 						<p class="subtitle light " ><?php echo Phrase::trans($model[0]->cat->desc, 2);?></p>
 					</div>
 					<div class="vntd-team vntd-team-grid type-1">
@@ -19,7 +19,7 @@
 								<!-- Image Area -->
 								<div class="member-image fullwidth">
 									<!-- Image Way -->
-									<img src="<?php echo Utility::getTimThumb($image, 420, 341, 1)?>" alt="<?php echo $val->title;?>">
+									<img src="<?php echo Utility::getTimThumb($image, 420, 300, 1)?>" alt="<?php echo $val->title;?>">
 								</div>
 								<!-- Member Details -->
 								<div class="member-details light">
@@ -33,7 +33,7 @@
 									<div class="strip"></div>
 									<!-- Member Description -->
 									<p class="normal">
-										<?php echo Utility::shortText(Utility::hardDecode($val->body), 150);?>
+										<?php echo Utility::shortText(Utility::hardDecode($val->body), 120);?>
 									</p>
 									<?php /*
 									<!-- Socials -->

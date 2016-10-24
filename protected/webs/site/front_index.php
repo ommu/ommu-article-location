@@ -15,9 +15,12 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 				<div id="hero-section-450" class="vntd-hero hero-media-images hero-effect-none arrow-navigation-side video-controls-bottom">
 					<div class="hero-fullscreen">
 						<div class="slides-container relative">
-							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/background12.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
-							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/background13.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
-							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/background16.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/1.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/1.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/1.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+							<?php /*
+							<div class="superslides-slide parallax"  style="background-image: url(<?php echo Yii::app()->theme->baseUrl;?>/images/resource/2.jpg); display:block !important; opacity: 1 !important; z-index:2 !important;"></div>
+							*/?>
 						</div>
 						<nav class="slides-navigation">
 							<a href="#" class="prev"><i class="fa fa-angle-left"></i></a>
@@ -32,16 +35,18 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 							<h1 class="white thin text-rotator">
 								<!-- Home Texts -->
 								<span class="rotate">
-								Crexis Creative Design Studio,We Create Awesome Themes!					
+									Selamat Datang di Portal Centre Of Excellence
 								</span>
 								<!-- End Home Texts -->
 							</h1>
 							<!-- End Home Text Slider -->
 							<!-- Home Fixed Text -->		
-							<p class="home-fixed-text white">Contrary to popular belief, Lorem Ipsum is not simply random text. Piece of classical Latin literature.</p>
+							<p class="home-fixed-text white">Centre of Excellence Layanan Perpustakaan dan Informasi Tentang Budaya Lokal</p>
 						</div>
+						<?php /*
 						<!-- End Home Text Slider -->
-						<a href="#second" class="home-button light-button thin scroll">Get Started</a>			
+						<a href="#second" class="home-button light-button thin scroll">Get Started</a>
+						*/?>						
 					</div>
 					<!-- End Home Inner Details -->
 					<!-- Home Bottom Note -->
@@ -49,7 +54,9 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 						<!-- Text Link -->
 						<a href="#second" class="scroll">
 							<!-- Bottom Text -->
-							<p>Crexis Stunning OnePage and MultiPage Theme</p>
+							<?php /*
+							<p>Where does it come from?</p>
+							*/?>
 							<span class="home-button dark-button t-center home-circle-button fa fa-angle-down"></span>
 						</a>
 						<!-- End Text Link -->
@@ -61,16 +68,23 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 	</div>
 </div>
 <div class="vc_row-full-width"></div>
-		
+
+<?php /*
 <?php $this->widget('MainPageWelcome', array(
 	'id'=>6
+)); ?>
+*/?>
+
+<?php $this->widget('MainArticle', array(
+	'category'=>2,
+	'limit'=>3,
 )); ?>
 		
 <?php $this->widget('MainArticleLocation'); ?>
 
 <?php $this->widget('MainArticle', array(
-	'category'=>2,
-	'limit'=>6,
+	'category'=>4,
+	'limit'=>3,
 )); ?>
 
 <?php $this->widget('MainArticle', array(

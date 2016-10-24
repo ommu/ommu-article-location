@@ -6,7 +6,7 @@
 			<div class="vc_column-inner ">
 				<div class="wpb_wrapper">
 					<div class="vntd-special-heading special-heading-align-center heading-separator-bottom" style="margin-bottom:12px;">
-						<h1 class="header  georgia font-size-40px georgia font-weight-400" ><?php echo Phrase::trans($model[0]->cat->name, 2);?></h1>
+						<h1 class="header  georgia font-size-40px georgia font-weight-400" ><?php echo strtoupper(Phrase::trans($model[0]->cat->name, 2));?></h1>
 						<p class="subtitle light " ><?php echo Phrase::trans($model[0]->cat->desc, 2);?></p>
 					</div>
 					<div class="vntd-carousel-holder t-center clients ">

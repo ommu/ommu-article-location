@@ -56,18 +56,20 @@
 					if(!empty($medias)) {
 						foreach($medias as $key => $val) {
 							$image = Yii::app()->request->baseUrl.'/public/article/'.$val->article_id.'/'.$val->media;?>
-							<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt=""></a></li>
+							<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 600, 250, 1)?>" alt=""></a></li>
 						<?php }
 					} else {
 						$image = Yii::app()->request->baseUrl.'/public/article/article_default.png';?>
-						<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt=""></a></li>
+						<li class="slide"><a href="javascript:void(0);" title=""><img src="<?php echo Utility::getTimThumb($image, 600, 250, 1)?>" alt=""></a></li>
 					<?php }?>
 				</ul>
 			</div>
 		</div>
 		<div class="post-text">
 			<p><?php echo Utility::shortText(Utility::hardDecode($data->article->body), 230);?></p>
-			<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$data->article->article_id, 't'=>Utility::getUrlTitle($data->article->title)))?>" class="ex-link post-more uppercase light st">Read more</a>		
+			<?php /*
+			<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$data->article->article_id, 't'=>Utility::getUrlTitle($data->article->title)))?>" class="ex-link post-more uppercase light st">Read more</a>
+			*/?>
 		</div>
 	</div>
 </div>
