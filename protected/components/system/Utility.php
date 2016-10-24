@@ -644,4 +644,18 @@ class Utility
 		$endIndex = strpos($bytes, ".")+3;
 		return substr( $bytes, 0, $endIndex).' '.$units[$i];
 	}
+
+	/**
+	 * Explode Implode Type File
+	 * $type = true (explode), false (implode)
+	 */
+	public static function formatFileType($data, $type=true) 
+	{
+		if($type == true) {
+			$result = array_map("trim", explode(",", $data));
+		} else {
+			$result = implode(", ", $data);
+		}
+		return $result;	
+	}
 }
