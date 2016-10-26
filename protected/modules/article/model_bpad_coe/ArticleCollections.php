@@ -170,6 +170,31 @@ class ArticleCollections extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'article' => array(
+				'alias'=>'article',
+				'select'=>'title',
+			),
+			'article.tags' => array(
+				'alias'=>'tags',
+				'select'=>'tag_id',
+				'together'=>true,
+			),
+			'publisher' => array(
+				'alias'=>'publisher',
+				'select'=>'publisher_name',
+			),
+			'creation' => array(
+				'alias'=>'creation',
+				'select'=>'displayname',
+			),
+			'modified' => array(
+				'alias'=>'modified',
+				'select'=>'displayname',
+			),
+		);
 
 		$criteria->compare('t.collection_id',strtolower($this->collection_id),true);
 		if(isset($_GET['type']) && $_GET['type'] == 'publish')
@@ -212,25 +237,26 @@ class ArticleCollections extends CActiveRecord
 		else
 			$criteria->compare('t.modified_id',$this->modified_id);
 		
-		// Custom Search
-		$criteria->with = array(
-			'article' => array(
-				'alias'=>'article',
-				'select'=>'title',
-			),
-			'publisher' => array(
-				'alias'=>'publisher',
-				'select'=>'publisher_name',
-			),
-			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname',
-			),
-			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname',
-			),
-		);
+		if(Yii::app()->user->level == 2) {
+			$location = ArticleLocationUser::model()->find(array(
+				'select' => 'location_id, user_id',
+				'condition' => 'user_id = :user',
+				'params' => array(
+					':user' => Yii::app()->user->id,
+				),
+			));
+			if($location != null) {
+				$tags = $location->location->tags;
+				if(!empty($tags)) {
+					$items = array();
+					foreach($tags as $key => $val)
+						$items[] = $val->tag_id;
+					$criteria->addInCondition('tags.tag_id', $items);
+				}
+			} else
+				$criteria->compare('article.creation_id',Yii::app()->user->id);
+		}
+		
 		$criteria->compare('article.title',strtolower($this->article_search), true);
 		$criteria->compare('publisher.publisher_name',strtolower($this->publisher_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
