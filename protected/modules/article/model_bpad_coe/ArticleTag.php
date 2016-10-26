@@ -116,6 +116,27 @@ class ArticleTag extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'article' => array(
+				'alias'=>'article',
+				'select'=>'title'
+			),
+			'article.tags' => array(
+				'alias'=>'tags',
+				'select'=>'tag_id',
+				'together'=>true,
+			),
+			'tag_TO' => array(
+				'alias'=>'tag_TO',
+				'select'=>'body'
+			),
+			'creation_relation' => array(
+				'alias'=>'creation_relation',
+				'select'=>'displayname'
+			),
+		);
 
 		$criteria->compare('t.id',$this->id);
 		if(isset($_GET['article']))
@@ -127,21 +148,6 @@ class ArticleTag extends CActiveRecord
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		$criteria->compare('t.creation_id',$this->creation_id);
 		
-		// Custom Search
-		$criteria->with = array(
-			'article' => array(
-				'alias'=>'article',
-				'select'=>'title'
-			),
-			'tag_TO' => array(
-				'alias'=>'tag_TO',
-				'select'=>'body'
-			),
-			'creation_relation' => array(
-				'alias'=>'creation_relation',
-				'select'=>'displayname'
-			),
-		);
 		$criteria->compare('article.title',strtolower($this->article_search), true);
 		$criteria->compare('tag_TO.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation_relation.displayname',strtolower($this->creation_search), true);
@@ -155,14 +161,15 @@ class ArticleTag extends CActiveRecord
 				),
 			));
 			if($location != null) {
-				$users = $location->location->users;
-				if(!empty($users)) {
+				$tags = $location->location->tags;
+				if(!empty($tags)) {
 					$items = array();
-					foreach($users as $key => $val)
-						$items[] = $val->user_id;
-					$criteria->addInCondition('article.creation_id', $items);
+					foreach($tags as $key => $val)
+						$items[] = $val->tag_id;
+					$criteria->addInCondition('tags.tag_id', $items);
 				}
-			}
+			} else
+				$criteria->compare('article.creation_id',Yii::app()->user->id);
 		}
 
 		if(!isset($_GET['ArticleTag_sort']))

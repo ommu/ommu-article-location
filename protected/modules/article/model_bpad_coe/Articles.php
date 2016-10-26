@@ -176,6 +176,27 @@ class Articles extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'user' => array(
+				'alias'=>'user',
+				'select'=>'displayname',
+			),
+			'tags' => array(
+				'alias'=>'tags',
+				'select'=>'tag_id',
+				'together'=>true,
+			),
+			'creation_relation' => array(
+				'alias'=>'creation_relation',
+				'select'=>'displayname',
+			),
+			'modified_relation' => array(
+				'alias'=>'modified_relation',
+				'select'=>'displayname',
+			),
+		);
 
 		$criteria->compare('t.article_id',$this->article_id);
 		if(isset($_GET['type']) && $_GET['type'] == 'publish') {
@@ -239,36 +260,24 @@ class Articles extends CActiveRecord
 				),
 			));
 			if($location != null) {
-				$users = $location->location->users;
-				if(!empty($users)) {
+				$tags = $location->location->tags;
+				if(!empty($tags)) {
 					$items = array();
-					foreach($users as $key => $val)
-						$items[] = $val->user_id;
-					$criteria->addInCondition('t.creation_id', $items);
+					foreach($tags as $key => $val)
+						$items[] = $val->tag_id;
+					$criteria->addInCondition('tags.tag_id', $items);
 				}
-			}
+			} else
+				$criteria->compare('t.creation_id',Yii::app()->user->id);
+			
 		} else
 			$criteria->compare('t.creation_id',$this->creation_id);
+		//Yii::log(print_r($criteria->toArray(), true), 'error');		
 		
 		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
 		$criteria->compare('t.modified_id',$this->modified_id);
 		
-		// Custom Search
-		$criteria->with = array(
-			'user' => array(
-				'alias'=>'user',
-				'select'=>'displayname'
-			),
-			'creation_relation' => array(
-				'alias'=>'creation_relation',
-				'select'=>'displayname'
-			),
-			'modified_relation' => array(
-				'alias'=>'modified_relation',
-				'select'=>'displayname'
-			),
-		);
 		$criteria->compare('user.displayname',strtolower($this->user_search), true);
 		$criteria->compare('creation_relation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified_relation.displayname',strtolower($this->modified_search), true);
