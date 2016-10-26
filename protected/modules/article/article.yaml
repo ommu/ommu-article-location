@@ -36,7 +36,7 @@ plugin_menu		:
 				urlPath: {url: collection/author/manage, attr: -, icon: -}
 			- urlTitle: Subjecs
 				urlRules: {siteType: 0,1, userLevel: 1,2}
-				urlPath: {url: collection/subject/manage, attr: -, icon: -}
+				urlPath: {url: collection/subjects/manage, attr: -, icon: -}
 			- urlTitle: Settings
 				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/setting/edit, attr: -, icon: -}

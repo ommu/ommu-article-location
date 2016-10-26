@@ -81,6 +81,7 @@ class Utility
 			return 'https';
 		return 'http';
 	}
+	
 	/**
 	 * get alternatif connected domain for inlis sso server
 	 * @param type $operator not yet using
