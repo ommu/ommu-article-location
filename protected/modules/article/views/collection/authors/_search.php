@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Authors (digital-authors)
+ * Article Collection Authors (article-collection-authors)
  * @var $this AuthorsController
- * @var $model DigitalAuthors
+ * @var $model ArticleCollectionAuthors
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -26,8 +26,8 @@
 		</li>
 
 		<li>
-			<?php echo $model->getAttributeLabel('digital_id'); ?><br/>
-			<?php echo $form->textField($model,'digital_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $model->getAttributeLabel('collection_id'); ?><br/>
+			<?php echo $form->textField($model,'collection_id',array('size'=>11,'maxlength'=>11)); ?>
 		</li>
 
 		<li>

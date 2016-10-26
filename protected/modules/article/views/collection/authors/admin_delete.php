@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Authors (digital-authors)
+ * Article Collection Authors (article-collection-authors)
  * @var $this AuthorsController
- * @var $model DigitalAuthors
+ * @var $model ArticleCollectionAuthors
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -15,13 +15,13 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Authors'=>array('manage'),
+		'Article Collection Authors'=>array('manage'),
 		'Delete',
 	);
 ?>
 
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
-	'id'=>'digital-authors-form',
+	'id'=>'article-collection-authors-form',
 	'enableAjaxValidation'=>true,
 	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>

@@ -125,7 +125,7 @@ class AuthorsController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Digital Authors Manage');
+		$this->pageTitle = Yii::t('phrase', 'Article Collection Authors Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -140,7 +140,7 @@ class AuthorsController extends Controller
 	 */
 	public function actionAdd() 
 	{
-		$model=new DigitalAuthor;
+		$model=new ArticleCollectionAuthors;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -176,7 +176,7 @@ class AuthorsController extends Controller
 			// we only allow deletion via POST request
 			if(isset($id)) {
 				$model->delete();
-				if(isset($_GET['type']) && $_GET['type'] == 'digital') {
+				if(isset($_GET['type']) && $_GET['type'] == 'article') {
 					echo CJSON::encode(array(
 						'type' => 4,
 					));
@@ -184,7 +184,7 @@ class AuthorsController extends Controller
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
-						'id' => 'partial-digital-authors',
+						'id' => 'partial-article-collection-authors',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionAuthors success deleted.').'</strong></div>',
 					));
 				}
@@ -226,7 +226,7 @@ class AuthorsController extends Controller
 	 */
 	protected function performAjaxValidation($model) 
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='digital-authors-form') {
+		if(isset($_POST['ajax']) && $_POST['ajax']==='article-collection-authors-form') {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

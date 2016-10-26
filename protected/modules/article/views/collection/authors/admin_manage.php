@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Authors (digital-authors)
+ * Article Collection Authors (article-collection-authors)
  * @var $this AuthorsController
- * @var $model DigitalAuthors
+ * @var $model ArticleCollectionAuthors
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
@@ -14,7 +14,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Authors'=>array('manage'),
+		'Article Collection Authors'=>array('manage'),
 		'Manage',
 	);
 	$this->menu=array(
@@ -50,7 +50,7 @@
 </div>
 <?php //end.Grid Option ?>
 
-<div id="partial-digital-authors">
+<div id="partial-article-collection-authors">
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 	<?php
@@ -93,7 +93,7 @@
 			));
 
 			$this->widget('application.components.system.OGridView', array(
-				'id'=>'digital-authors-grid',
+				'id'=>'article-collection-authors-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
 				'columns' => $columnData,
