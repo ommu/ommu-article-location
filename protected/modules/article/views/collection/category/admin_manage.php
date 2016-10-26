@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Categories (digital-category)
+ * Article Collection Categories (article-collection-category)
  * @var $this CategoryController
- * @var $model DigitalCategory
+ * @var $model ArticleCollectionCategory
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
@@ -14,7 +14,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Categories'=>array('manage'),
+		'Article Collection Categories'=>array('manage'),
 		'Manage',
 	);
 	$this->menu=array(
@@ -50,7 +50,7 @@
 </div>
 <?php //end.Grid Option ?>
 
-<div id="partial-digital-category">
+<div id="partial-article-collection-category">
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 	<?php
@@ -93,7 +93,7 @@
 			));
 
 			$this->widget('application.components.system.OGridView', array(
-				'id'=>'digital-category-grid',
+				'id'=>'article-collection-category-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
 				'columns' => $columnData,

@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Categories (digital-category)
+ * Article Collection Categories (article-collection-category)
  * @var $this CategoryController
- * @var $model DigitalCategory
+ * @var $model ArticleCollectionCategory
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -16,7 +16,7 @@
 ?>
 
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
-	'id'=>'digital-category-form',
+	'id'=>'article-collection-category-form',
 	'enableAjaxValidation'=>true,
 	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>

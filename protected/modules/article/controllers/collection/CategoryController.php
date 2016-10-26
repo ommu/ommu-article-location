@@ -129,7 +129,7 @@ class CategoryController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Digital Categories Manage');
+		$this->pageTitle = Yii::t('phrase', 'Article Collection Categories Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -162,7 +162,7 @@ class CategoryController extends Controller
 						echo CJSON::encode(array(
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
-							'id' => 'partial-digital-category',
+							'id' => 'partial-article-collection-category',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionCategory success created.').'</strong></div>',
 						));
 					} else {
@@ -177,7 +177,7 @@ class CategoryController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = Yii::t('phrase', 'Create Digital Categories');
+		$this->pageTitle = Yii::t('phrase', 'Create Article Collection Categories');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
@@ -210,7 +210,7 @@ class CategoryController extends Controller
 						echo CJSON::encode(array(
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
-							'id' => 'partial-digital-category',
+							'id' => 'partial-article-collection-category',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionCategory success updated.').'</strong></div>',
 						));
 					} else {
@@ -225,7 +225,7 @@ class CategoryController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = Yii::t('phrase', 'Update Digital Categories');
+		$this->pageTitle = Yii::t('phrase', 'Update Article Collection Categories');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -245,7 +245,7 @@ class CategoryController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 550;
 
-		$this->pageTitle = Yii::t('phrase', 'View Digital Categories');
+		$this->pageTitle = Yii::t('phrase', 'View Article Collection Categories');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_view',array(
@@ -305,7 +305,7 @@ class CategoryController extends Controller
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
-						'id' => 'partial-digital-category',
+						'id' => 'partial-article-collection-category',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionCategory success deleted.').'</strong></div>',
 					));
 				}
@@ -350,7 +350,7 @@ class CategoryController extends Controller
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
-						'id' => 'partial-digital-category',
+						'id' => 'partial-article-collection-category',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionCategory success updated.').'</strong></div>',
 					));
 				}
@@ -390,7 +390,7 @@ class CategoryController extends Controller
 	 */
 	protected function performAjaxValidation($model) 
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='digital-category-form') {
+		if(isset($_POST['ajax']) && $_POST['ajax']==='article-collection-category-form') {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

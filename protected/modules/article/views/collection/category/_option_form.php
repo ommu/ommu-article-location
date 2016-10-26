@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Categories (digital-category)
+ * Article Collection Categories (article-collection-category)
  * @var $this CategoryController
- * @var $model DigitalCategory
+ * @var $model ArticleCollectionCategory
  * @var $form CActiveForm
  * version: 0.0.1
  *

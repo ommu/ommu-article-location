@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Categories (digital-category)
+ * Article Collection Categories (article-collection-category)
  * @var $this CategoryController
- * @var $model DigitalCategory
+ * @var $model ArticleCollectionCategory
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
@@ -14,7 +14,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Categories'=>array('manage'),
+		'Article Collection Categories'=>array('manage'),
 		$model->cat_id,
 	);
 ?>
