@@ -189,6 +189,7 @@
 								}
 							}?>						
 						</div>
+						<?php if($model->isNewRecord) {?><span class="small-px">tambahkan tanda koma (,) jika ingin menambahkan subject lebih dari satu</span><?php }?>
 					</div>
 				</div>
 			</div>

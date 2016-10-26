@@ -26,16 +26,16 @@ plugin_menu		:
 		urlPath: {url: collection/admin/manage, attr: -, icon: -}
 		submenu :
 			- urlTitle: Categories
-				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/category/manage, attr: -, icon: -}
 			- urlTitle: Publishers
-				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/publisher/manage, attr: -, icon: -}
 			- urlTitle: Authors
-				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/author/manage, attr: -, icon: -}
 			- urlTitle: Subjecs
-				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/subjects/manage, attr: -, icon: -}
 			- urlTitle: Settings
 				urlRules: {siteType: 0,1, userLevel: 1}
