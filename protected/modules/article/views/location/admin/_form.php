@@ -92,25 +92,39 @@
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
-	
-	<?php if(!$model->isNewRecord) {
-		$model->old_photo_input = $model->province_photo;
-		echo $form->hiddenField($model,'old_photo_input');
-		if($model->province_photo != '') {
-			$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_input;
-			$media = '<img src="'.Utility::getTimThumb($file, 300, 150, 1).'" alt="">';
-			echo '<div class="clearfix">';
-			echo $form->labelEx($model,'old_photo_input');
-			echo '<div class="desc">'.$media.'</div>';
-			echo '</div>';
-		}
-	}?>
 
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'province_photo'); ?>
 		<div class="desc">
-			<?php echo $form->fileField($model,'province_photo'); ?>
+			<?php 
+			if(!$model->isNewRecord) {
+				$model->old_photo_input = $model->province_photo;
+				echo $form->hiddenField($model,'old_photo_input');
+				if($model->province_photo != '') {
+					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_input;?>
+					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 300, 400, 3);?>" alt="">					
+			<?php }
+			}
+			echo $form->fileField($model,'province_photo'); ?>
 			<?php echo $form->error($model,'province_photo'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+
+	<div class="clearfix">
+		<?php echo $form->labelEx($model,'province_header_photo'); ?>
+		<div class="desc">
+			<?php 
+			if(!$model->isNewRecord) {
+				$model->old_header_photo_input = $model->province_header_photo;
+				echo $form->hiddenField($model,'old_header_photo_input');
+				if($model->province_header_photo != '') {
+					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_header_photo_input;?>
+					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 700, 250, 1);?>" alt="">					
+			<?php }
+			}
+			echo $form->fileField($model,'province_header_photo'); ?>
+			<?php echo $form->error($model,'province_header_photo'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>

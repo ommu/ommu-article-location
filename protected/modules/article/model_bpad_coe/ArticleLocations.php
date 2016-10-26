@@ -29,6 +29,7 @@
  * @property integer $province_code
  * @property integer $province_desc
  * @property integer $province_photo
+ * @property integer $province_header_photo
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -45,6 +46,7 @@ class ArticleLocations extends CActiveRecord
 	public $tag_input;
 	public $user_input;
 	public $old_photo_input;
+	public $old_header_photo_input;
 	
 	// Variable Search
 	public $creation_search;
@@ -84,11 +86,11 @@ class ArticleLocations extends CActiveRecord
 				tag_input, user_input', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
 			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('province_id, province_desc, province_photo,
-				tag_input, user_input, old_photo_input', 'safe'),
+			array('province_id, province_desc, province_photo, province_header_photo,
+				tag_input, user_input, old_photo_input, old_header_photo_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('location_id, publish, province_id, province_code, province_desc, province_photo, creation_date, creation_id, modified_date, modified_id,
+			array('location_id, publish, province_id, province_code, province_desc, province_photo, province_header_photo, creation_date, creation_id, modified_date, modified_id,
 				province_input, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -122,6 +124,7 @@ class ArticleLocations extends CActiveRecord
 			'province_code' => Yii::t('attribute', 'Code'),
 			'province_desc' => Yii::t('attribute', 'Description'),
 			'province_photo' => Yii::t('attribute', 'Photo'),
+			'province_header_photo' => Yii::t('attribute', 'Header Photo'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
@@ -130,6 +133,7 @@ class ArticleLocations extends CActiveRecord
 			'tag_input' => Yii::t('attribute', 'Tag'),
 			'user_input' => Yii::t('attribute', 'User'),
 			'old_photo_input' => Yii::t('attribute', 'Old Photo'),
+			'old_header_photo_input' => Yii::t('attribute', 'Old Photo Header'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -178,6 +182,7 @@ class ArticleLocations extends CActiveRecord
 		$criteria->compare('t.province_code',$this->province_code, true);
 		$criteria->compare('t.province_desc',$this->province_desc, true);
 		$criteria->compare('t.province_photo',$this->province_photo, true);
+		$criteria->compare('t.province_header_photo',$this->province_header_photo, true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -250,6 +255,7 @@ class ArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = 'province_code';
 			$this->defaultColumns[] = 'province_desc';
 			$this->defaultColumns[] = 'province_photo';
+			$this->defaultColumns[] = 'province_header_photo';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -419,10 +425,21 @@ class ArticleLocations extends CActiveRecord
 							rename($location_path.'/'.$this->old_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_input);
 						$this->province_photo = $fileName;
 					}
-				}
-					
+				}					
 				if($this->province_photo == '')
 					$this->province_photo = $this->old_photo_input;
+				
+				$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
+				if($this->province_header_photo instanceOf CUploadedFile) {
+					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_header_photo->extensionName);
+					if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
+						if($this->old_header_photo_input != '' && file_exists($location_path.'/'.$this->old_header_photo_input))
+							rename($location_path.'/'.$this->old_header_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_input);
+						$this->province_header_photo = $fileName;
+					}
+				}					
+				if($this->province_header_photo == '')
+					$this->province_header_photo = $this->old_header_photo_input;
 			}
 		}
 		return true;
@@ -454,6 +471,14 @@ class ArticleLocations extends CActiveRecord
 					self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
 				}
 			}
+			
+			$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
+			if($this->province_header_photo instanceOf CUploadedFile) {
+				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_header_photo->extensionName);
+				if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
+					self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName));
+				}
+			}
 		}
 	}
 
@@ -466,6 +491,9 @@ class ArticleLocations extends CActiveRecord
 		$location_path = "public/article/location";
 		if($this->province_photo != '' && file_exists($location_path.'/'.$this->province_photo))
 			rename($location_path.'/'.$this->province_photo, 'public/article/verwijderen/'.$this->location_id.'_'.$this->province_photo);
+		
+		if($this->province_header_photo != '' && file_exists($location_path.'/'.$this->province_header_photo))
+			rename($location_path.'/'.$this->province_header_photo, 'public/article/verwijderen/'.$this->location_id.'_'.$this->province_header_photo);
 	}
 
 }

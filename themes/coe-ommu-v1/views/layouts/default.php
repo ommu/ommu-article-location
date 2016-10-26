@@ -226,8 +226,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	
  </head>
  <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="<?php echo $module == null && $currentAction == 'site/index' ? 'page page-template-default' : 'blog';?> wpb-js-composer vc_responsive">
-
-	<?php /*
+ 
 	<article id="pageloader" class="white-loader">
 		<div class="spinner">
 			<div class="bounce1"></div>
@@ -235,7 +234,6 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 			<div class="bounce3"></div>
 		</div>
 	</article>
-	*/?>
 
 	<nav id="navigation" class="<?php echo $module == null && $currentAction == 'site/index' ? 'white-nav navigation-style-transparent' : 'relative-nav white-nav navigation-style-default';?>">
 		<div class="navigation double-nav <?php echo $module == null && $currentAction == 'site/index' ? 'first-nav' : '';?> white-nav">

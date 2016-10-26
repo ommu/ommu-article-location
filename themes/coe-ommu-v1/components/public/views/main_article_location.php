@@ -1,16 +1,14 @@
 <?php if($model != null) {?>
-<div data-vc-full-width="true" data-vc-full-width-init="false" data-vc-stretch-content="true" data-vc-parallax="2" class="vc_row wpb_row vc_row-fluid vc_custom_1459937771735 vc_row-has-fill vc_row-no-padding vntd-section-white vc_general vc_parallax vc_parallax-content-moving">
+<div data-vc-full-width="true" data-vc-full-width-init="false" data-vc-stretch-content="true" data-vc-parallax="2" class="vc_row wpb_row vc_row-fluid vc_custom_1459937771735 vc_row-has-fill vc_row-no-padding vntd-section-white vc_general vc_parallax vc_parallax-content-moving" id="member">
 	<div class="bg-overlay bg-overlay-dark_dots"></div>
 	<div class="wpb_column vc_column_container vc_col-sm-12">
 		<div class="vc_column-inner ">
 			<div class="wpb_wrapper">
-				<?php /*
 				<div class="vntd-special-heading special-heading-align-center heading-no-separator" style="margin-bottom:60px;">
-					<h4 class="header-first  georgia">Never give up! You can be a Hero!</h4>
-					<h1 class="header  georgia font-size-40px georgia font-weight-400" >The standard chunk of Lorem Ipsum used</h1>
-					<p class="subtitle light " >The standard Lorem Ipsum passage, used since the 1500s</p>
+					<h4 class="header-first  georgia">Member of CoE</h4>
+					<h1 class="header  georgia font-size-40px georgia font-weight-400" >Centre Of Excellence</h1>
+					<?php /*<p class="subtitle light " >The standard Lorem Ipsum passage, used since the 1500s</p>*/?>
 				</div>
-				*/?>
 				<div class="vntd-carousel-holder">
 					<div class="categories fullwidth">
 						<!-- Boxes -->
