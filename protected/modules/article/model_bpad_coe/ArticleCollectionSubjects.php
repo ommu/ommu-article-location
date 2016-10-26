@@ -154,9 +154,9 @@ class ArticleCollectionSubjects extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
-			'collection' => array(
-				'alias'=>'collection',
-				'select'=>'collection_title',
+			'collection.article' => array(
+				'alias'=>'collections',
+				'select'=>'title',
 			),
 			'tag' => array(
 				'alias'=>'tag',
@@ -167,7 +167,7 @@ class ArticleCollectionSubjects extends CActiveRecord
 				'select'=>'displayname',
 			),
 		);
-		$criteria->compare('collection.collection_title',strtolower($this->collection_search), true);
+		$criteria->compare('collections.title',strtolower($this->collection_search), true);
 		$criteria->compare('tag.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 
@@ -230,7 +230,7 @@ class ArticleCollectionSubjects extends CActiveRecord
 			if(!isset($_GET['collection'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'collection_search',
-					'value' => '$data->collection->collection_title',
+					'value' => '$data->collection->article->title',
 				);
 			}
 			if(!isset($_GET['tag'])) {

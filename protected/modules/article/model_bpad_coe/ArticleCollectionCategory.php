@@ -315,7 +315,7 @@ class ArticleCollectionCategory extends CActiveRecord
 	 * 0 = unpublish
 	 * 1 = publish
 	 */
-	public static function getCategory($publish=null, $code=false) 
+	public static function getCategory($publish=null) 
 	{		
 		$criteria=new CDbCriteria;
 		if($publish != null)
