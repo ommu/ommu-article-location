@@ -20,6 +20,23 @@ plugin_menu		:
 	- urlTitle: View Articles
 		urlRules: {siteType: 0,1, userLevel: 1,2}
 		urlPath: {url: o/admin/manage, attr: -, icon: -}
+        
+	- urlTitle: View Collections
+		urlRules: {siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: collection/admin/manage, attr: -, icon: -}
+		submenu :
+			- urlTitle: Categories
+				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlPath: {url: collection/category/manage, attr: -, icon: -}
+			- urlTitle: Publishers
+				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlPath: {url: collection/publisher/manage, attr: -, icon: -}
+			- urlTitle: Authors
+				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlPath: {url: collection/author/manage, attr: -, icon: -}
+			- urlTitle: Subjecs
+				urlRules: {siteType: 0,1, userLevel: 1,2}
+				urlPath: {url: collection/subject/manage, attr: -, icon: -}
 		
 	- urlTitle: Article Settings
 		urlRules: {siteType: 0,1, userLevel: 1}
@@ -91,7 +108,26 @@ content_menu	:
 	- urlTitle: Back to Article
 		urlRules: {article, o/like, manage, siteType: 1, userLevel: 1,2}
 		urlPath: {url: o/admin/manage, attr: -, icon: -}
-
+        
+# controller collection/category
+	- urlTitle: Add Category
+		urlRules: {article, collection/category, manage, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+        
+# controller collection/publisher
+	- urlTitle: Add Publisher
+		urlRules: {article, collection/publisher, manage, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+        
+# controller collection/author
+	- urlTitle: Add Author
+		urlRules: {article, collection/author, manage, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+        
+# controller collection/subject
+	- urlTitle: Add Subject
+		urlRules: {article, collection/subject, manage, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
 
 # controller location/admin
 	- urlTitle: Add Location
