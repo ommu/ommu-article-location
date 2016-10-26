@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Authors (digital-author)
+ * Article Collection Authors (article-collection-author)
  * @var $this AuthorController
- * @var $model DigitalAuthor
+ * @var $model ArticleCollectionAuthor
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
@@ -14,7 +14,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Authors'=>array('manage'),
+		'Article Collection Authors'=>array('manage'),
 		$model->author_id,
 	);
 ?>

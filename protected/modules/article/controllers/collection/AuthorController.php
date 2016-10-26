@@ -161,7 +161,7 @@ class AuthorController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Digital Authors Manage');
+		$this->pageTitle = Yii::t('phrase', 'Article Collection Authors Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -194,7 +194,7 @@ class AuthorController extends Controller
 						echo CJSON::encode(array(
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
-							'id' => 'partial-digital-author',
+							'id' => 'partial-article-collection-author',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionAuthor success created.').'</strong></div>',
 						));
 					} else {
@@ -209,7 +209,7 @@ class AuthorController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = Yii::t('phrase', 'Create Digital Authors');
+		$this->pageTitle = Yii::t('phrase', 'Create Article Collection Authors');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
@@ -242,7 +242,7 @@ class AuthorController extends Controller
 						echo CJSON::encode(array(
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
-							'id' => 'partial-digital-author',
+							'id' => 'partial-article-collection-author',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionAuthor success updated.').'</strong></div>',
 						));
 					} else {
@@ -257,7 +257,7 @@ class AuthorController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = Yii::t('phrase', 'Update Digital Authors');
+		$this->pageTitle = Yii::t('phrase', 'Update Article Collection Authors');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -277,7 +277,7 @@ class AuthorController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 550;
 
-		$this->pageTitle = Yii::t('phrase', 'View Digital Authors');
+		$this->pageTitle = Yii::t('phrase', 'View Article Collection Authors');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_view',array(
@@ -337,7 +337,7 @@ class AuthorController extends Controller
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
-						'id' => 'partial-digital-author',
+						'id' => 'partial-article-collection-author',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionAuthor success deleted.').'</strong></div>',
 					));
 				}
@@ -382,7 +382,7 @@ class AuthorController extends Controller
 					echo CJSON::encode(array(
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
-						'id' => 'partial-digital-author',
+						'id' => 'partial-article-collection-author',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleCollectionAuthor success updated.').'</strong></div>',
 					));
 				}
@@ -422,7 +422,7 @@ class AuthorController extends Controller
 	 */
 	protected function performAjaxValidation($model) 
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='digital-author-form') {
+		if(isset($_POST['ajax']) && $_POST['ajax']==='article-collection-author-form') {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

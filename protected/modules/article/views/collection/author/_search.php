@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Authors (digital-author)
+ * Article Collection Authors (article-collection-author)
  * @var $this AuthorController
- * @var $model DigitalAuthor
+ * @var $model ArticleCollectionAuthor
  * @var $form CActiveForm
  * version: 0.0.1
  *

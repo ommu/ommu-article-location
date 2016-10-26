@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Authors (digital-author)
+ * Article Collection Authors (article-collection-author)
  * @var $this AuthorController
- * @var $model DigitalAuthor
+ * @var $model ArticleCollectionAuthor
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -15,7 +15,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Authors'=>array('manage'),
+		'Article Collection Authors'=>array('manage'),
 		$model->author_id=>array('view','id'=>$model->author_id),
 		'Update',
 	);
