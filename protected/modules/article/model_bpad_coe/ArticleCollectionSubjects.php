@@ -1,11 +1,11 @@
 <?php
 /**
- * ArticleCollectionPublisher
+ * ArticleCollectionSubjects
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
- * @created date 20 October 2016, 10:10 WIB
+ * @created date 20 October 2016, 10:09 WIB
  * @link http://company.ommu.co
  * @contact (+62)856-299-4114
  *
@@ -20,35 +20,34 @@
  *
  * --------------------------------------------------------------------------------------
  *
- * This is the model class for table "ommu_article_collection_publisher".
+ * This is the model class for table "ommu_article_collection_subjects".
  *
- * The followings are the available columns in table 'ommu_article_collection_publisher':
- * @property string $publisher_id
- * @property integer $publish
- * @property string $publisher_name
- * @property string $publisher_location
- * @property string $publisher_address
+ * The followings are the available columns in table 'ommu_article_collection_subjects':
+ * @property string $id
+ * @property string $collection_id
+ * @property string $tag_id
  * @property string $creation_date
  * @property string $creation_id
- * @property string $modified_date
- * @property string $modified_id
  *
  * The followings are the available model relations:
- * @property ArticleCollections[] $ArticleCollections
+ * @property ArticleCollections $collection
+ * @property OmmuTags $tag
  */
-class ArticleCollectionPublisher extends CActiveRecord
+class ArticleCollectionSubjects extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $tag_input;
 	
 	// Variable Search
+	public $collection_search;
+	public $tag_search;
 	public $creation_search;
-	public $modified_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ArticleCollectionPublisher the static model class
+	 * @return ArticleCollectionSubjects the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -60,7 +59,7 @@ class ArticleCollectionPublisher extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ommu_article_collection_publisher';
+		return 'ommu_article_collection_subjects';
 	}
 
 	/**
@@ -71,15 +70,12 @@ class ArticleCollectionPublisher extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('publish, publisher_name', 'required'),
-			array('publisher_location', 'required', 'on'=>'formEdit'),
-			array('publish', 'numerical', 'integerOnly'=>true),
-			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('publisher_location, publisher_address', 'safe'),
+			array('collection_id, tag_id', 'required'),
+			array('collection_id, tag_id, creation_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('publisher_id, publish, publisher_name, publisher_location, publisher_address, creation_date, creation_id, modified_date, modified_id,
-				creation_search, modified_search', 'safe', 'on'=>'search'),
+			array('id, collection_id, tag_id, creation_date, creation_id,
+				collection_search, tag_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -91,9 +87,9 @@ class ArticleCollectionPublisher extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'collections' => array(self::HAS_MANY, 'ArticleCollections', 'publisher_id'),
+			'collection' => array(self::BELONGS_TO, 'ArticleCollections', 'collection_id'),
+			'tag' => array(self::BELONGS_TO, 'OmmuTags', 'tag_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
-			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
 	}
 
@@ -103,28 +99,21 @@ class ArticleCollectionPublisher extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'publisher_id' => Yii::t('attribute', 'Publisher'),
-			'publish' => Yii::t('attribute', 'Publish'),
-			'publisher_name' => Yii::t('attribute', 'Publisher Name'),
-			'publisher_location' => Yii::t('attribute', 'Publisher Location'),
-			'publisher_address' => Yii::t('attribute', 'Publisher Address'),
+			'id' => Yii::t('attribute', 'ID'),
+			'collection_id' => Yii::t('attribute', 'Collection'),
+			'tag_id' => Yii::t('attribute', 'Subject'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
-			'modified_date' => Yii::t('attribute', 'Modified Date'),
-			'modified_id' => Yii::t('attribute', 'Modified'),
+			'collection_search' => Yii::t('attribute', 'Collection'),
+			'tag_search' => Yii::t('attribute', 'Subject'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
-			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 		/*
-			'Publisher' => 'Publisher',
-			'Publish' => 'Publish',
-			'Publisher Name' => 'Publisher Name',
-			'Publisher Location' => 'Publisher Location',
-			'Publisher Address' => 'Publisher Address',
+			'ID' => 'ID',
+			'Digital' => 'Digital',
+			'Author' => 'Author',
 			'Creation Date' => 'Creation Date',
 			'Creation' => 'Creation',
-			'Modified Date' => 'Modified Date',
-			'Modified' => 'Modified',
 		
 		*/
 	}
@@ -147,49 +136,43 @@ class ArticleCollectionPublisher extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.publisher_id',strtolower($this->publisher_id),true);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish')
-			$criteria->compare('t.publish',1);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
-			$criteria->compare('t.publish',0);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'trash')
-			$criteria->compare('t.publish',2);
-		else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
-		}
-		$criteria->compare('t.publisher_name',strtolower($this->publisher_name),true);
-		$criteria->compare('t.publisher_location',strtolower($this->publisher_location),true);
-		$criteria->compare('t.publisher_address',strtolower($this->publisher_address),true);
+		$criteria->compare('t.id',strtolower($this->id),true);
+		if(isset($_GET['collection']))
+			$criteria->compare('t.collection_id',$_GET['collection']);
+		else
+			$criteria->compare('t.collection_id',$this->collection_id);
+		if(isset($_GET['tag']))
+			$criteria->compare('t.tag_id',$_GET['tag']);
+		else
+			$criteria->compare('t.tag_id',$this->tag_id);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
 			$criteria->compare('t.creation_id',$_GET['creation']);
 		else
 			$criteria->compare('t.creation_id',$this->creation_id);
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		if(isset($_GET['modified']))
-			$criteria->compare('t.modified_id',$_GET['modified']);
-		else
-			$criteria->compare('t.modified_id',$this->modified_id);
 		
 		// Custom Search
 		$criteria->with = array(
+			'collection' => array(
+				'alias'=>'collection',
+				'select'=>'collection_title',
+			),
+			'tag' => array(
+				'alias'=>'tag',
+				'select'=>'body',
+			),
 			'creation' => array(
 				'alias'=>'creation',
 				'select'=>'displayname',
 			),
-			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname',
-			),
 		);
+		$criteria->compare('collection.collection_title',strtolower($this->collection_search), true);
+		$criteria->compare('tag.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
-		if(!isset($_GET['ArticleCollectionPublisher_sort']))
-			$criteria->order = 't.publisher_id DESC';
+		if(!isset($_GET['ArticleCollectionSubjects_sort']))
+			$criteria->order = 't.id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -217,15 +200,11 @@ class ArticleCollectionPublisher extends CActiveRecord
 				$this->defaultColumns[] = $val;
 			}
 		} else {
-			//$this->defaultColumns[] = 'publisher_id';
-			$this->defaultColumns[] = 'publish';
-			$this->defaultColumns[] = 'publisher_name';
-			$this->defaultColumns[] = 'publisher_location';
-			$this->defaultColumns[] = 'publisher_address';
+			//$this->defaultColumns[] = 'id';
+			$this->defaultColumns[] = 'collection_id';
+			$this->defaultColumns[] = 'tag_id';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
-			$this->defaultColumns[] = 'modified_date';
-			$this->defaultColumns[] = 'modified_id';
 		}
 
 		return $this->defaultColumns;
@@ -248,9 +227,18 @@ class ArticleCollectionPublisher extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'publisher_name';
-			$this->defaultColumns[] = 'publisher_location';
-			$this->defaultColumns[] = 'publisher_address';
+			if(!isset($_GET['collection'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'collection_search',
+					'value' => '$data->collection->collection_title',
+				);
+			}
+			if(!isset($_GET['tag'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'tag_search',
+					'value' => '$data->tag->body',
+				);
+			}
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
 				'value' => '$data->creation->displayname',
@@ -281,20 +269,6 @@ class ArticleCollectionPublisher extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->publisher_id)), $data->publish, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
 		}
 		parent::afterConstruct();
 	}
@@ -323,8 +297,35 @@ class ArticleCollectionPublisher extends CActiveRecord
 		if(parent::beforeValidate()) {
 			if($this->isNewRecord)
 				$this->creation_id = Yii::app()->user->id;
-			else
-				$this->modified_id = Yii::app()->user->id;
+		}
+		return true;
+	}
+	
+	/**
+	 * before save attributes
+	 */
+	protected function beforeSave() {
+		if(parent::beforeSave()) {
+			if($this->isNewRecord) {
+				if($this->tag_id == 0) {
+					$subject = OmmuTags::model()->find(array(
+						'select' => 'tag_id, body',
+						'condition' => 'publish = 1 AND body = :body',
+						'params' => array(
+							':body' => $this->tag_input,
+						),
+					));
+					if($subject != null) {
+						$this->tag_id = $subject->tag_id;
+					} else {
+						$data = new OmmuTags;
+						$data->body = $this->tag_input;
+						if($data->save()) {
+							$this->tag_id = $data->tag_id;
+						}
+					}					
+				}
+			}
 		}
 		return true;
 	}

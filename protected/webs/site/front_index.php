@@ -52,7 +52,7 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 					<!-- Home Bottom Note -->
 					<div class="home-extra-note fullwidth t-center white font-primary absolute scroll-button-circle thin" data-0="opacity:1;" data-600="opacity:0;">
 						<!-- Text Link -->
-						<a href="#second" class="scroll">
+						<a href="#member" class="scroll">
 							<!-- Bottom Text -->
 							<?php /*
 							<p>Where does it come from?</p>
@@ -74,13 +74,13 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 	'id'=>6
 )); ?>
 */?>
+		
+<?php $this->widget('MainArticleLocation'); ?>
 
 <?php $this->widget('MainArticle', array(
 	'category'=>2,
 	'limit'=>3,
 )); ?>
-		
-<?php $this->widget('MainArticleLocation'); ?>
 
 <?php $this->widget('MainArticle', array(
 	'category'=>4,

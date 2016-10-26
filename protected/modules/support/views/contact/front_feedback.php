@@ -130,7 +130,7 @@
 													<?php echo $form->error($model,'email'); ?>
 												</span></p>
 												<p><span class="wpcf7-form-control-wrap your-subject">
-													<?php echo $form->textField($model,'subject',array('maxlength'=>64, 'class'=>'wpcf7-form-control wpcf7-text', 'placeholder'=>$model->getAttributeLabel('subject'))); ?>
+													<?php echo $form->dropDownList($model,'subject',array('Kritik','Saran','Pertanyaan','Budaya Versi Kamu','Lainnya'), array('maxlength'=>64, 'class'=>'wpcf7-form-control wpcf7-text', 'placeholder'=>$model->getAttributeLabel('subject'))); ?>
 													<?php echo $form->error($model,'subject'); ?>
 												</span></p>
 												<p><span class="wpcf7-form-control-wrap your-message">
