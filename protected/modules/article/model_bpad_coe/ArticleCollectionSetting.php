@@ -31,6 +31,9 @@
 class ArticleCollectionSetting extends CActiveRecord
 {
 	public $defaultColumns = array();
+	
+	// Variable Search
+	public $modified_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -59,13 +62,14 @@ class ArticleCollectionSetting extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('article_cat_id, modified_id', 'required'),
+			array('article_cat_id', 'required'),
 			array('article_cat_id', 'numerical', 'integerOnly'=>true),
 			array('modified_id', 'length', 'max'=>11),
-			array('modified_date', 'safe'),
+			array('', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, article_cat_id, modified_date, modified_id', 'safe', 'on'=>'search'),
+			array('id, article_cat_id, modified_date, modified_id,
+				modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +81,7 @@ class ArticleCollectionSetting extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'modified_relation' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
 	}
 
@@ -90,6 +95,7 @@ class ArticleCollectionSetting extends CActiveRecord
 			'article_cat_id' => Yii::t('attribute', 'Article Cat'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 		/*
 			'ID' => 'ID',
@@ -126,6 +132,15 @@ class ArticleCollectionSetting extends CActiveRecord
 			$criteria->compare('t.modified_id',$_GET['modified']);
 		else
 			$criteria->compare('t.modified_id',$this->modified_id);
+		
+		// Custom Search
+		$criteria->with = array(
+			'modified_relation' => array(
+				'alias'=>'modified_relation',
+				'select'=>'displayname'
+			),
+		);
+		$criteria->compare('modified_relation.displayname',strtolower($this->modified_search), true);
 
 		if(!isset($_GET['ArticleCollectionSetting_sort']))
 			$criteria->order = 't.id DESC';
@@ -170,46 +185,12 @@ class ArticleCollectionSetting extends CActiveRecord
 	 */
 	protected function afterConstruct() {
 		if(count($this->defaultColumns) == 0) {
-			/*
-			$this->defaultColumns[] = array(
-				'class' => 'CCheckBoxColumn',
-				'name' => 'id',
-				'selectableRows' => 2,
-				'checkBoxHtmlOptions' => array('name' => 'trash_id[]')
-			);
-			*/
-			$this->defaultColumns[] = array(
-				'header' => 'No',
-				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
-			);
 			$this->defaultColumns[] = 'article_cat_id';
+			$this->defaultColumns[] = 'modified_date';
 			$this->defaultColumns[] = array(
-				'name' => 'modified_date',
-				'value' => 'Utility::dateFormat($data->modified_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'modified_date',
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
-					//'mode'=>'datetime',
-					'htmlOptions' => array(
-						'id' => 'modified_date_filter',
-					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
-					),
-				), true),
+				'name' => 'modified_search',
+				'value' => '$data->modified_relation->displayname',
 			);
-			$this->defaultColumns[] = 'modified_id';
 		}
 		parent::afterConstruct();
 	}
@@ -234,69 +215,11 @@ class ArticleCollectionSetting extends CActiveRecord
 	/**
 	 * before validate attributes
 	 */
-	/*
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
-			// Create action
+			$this->modified_id = Yii::app()->user->id;
 		}
 		return true;
 	}
-	*/
-
-	/**
-	 * after validate attributes
-	 */
-	/*
-	protected function afterValidate()
-	{
-		parent::afterValidate();
-			// Create action
-		return true;
-	}
-	*/
-	
-	/**
-	 * before save attributes
-	 */
-	/*
-	protected function beforeSave() {
-		if(parent::beforeSave()) {
-			//$this->modified_date = date('Y-m-d', strtotime($this->modified_date));
-		}
-		return true;	
-	}
-	*/
-	
-	/**
-	 * After save attributes
-	 */
-	/*
-	protected function afterSave() {
-		parent::afterSave();
-		// Create action
-	}
-	*/
-
-	/**
-	 * Before delete attributes
-	 */
-	/*
-	protected function beforeDelete() {
-		if(parent::beforeDelete()) {
-			// Create action
-		}
-		return true;
-	}
-	*/
-
-	/**
-	 * After delete attributes
-	 */
-	/*
-	protected function afterDelete() {
-		parent::afterDelete();
-		// Create action
-	}
-	*/
 
 }
