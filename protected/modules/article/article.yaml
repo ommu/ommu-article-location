@@ -37,6 +37,9 @@ plugin_menu		:
 			- urlTitle: Subjecs
 				urlRules: {siteType: 0,1, userLevel: 1,2}
 				urlPath: {url: collection/subject/manage, attr: -, icon: -}
+			- urlTitle: Settings
+				urlRules: {siteType: 0,1, userLevel: 1}
+				urlPath: {url: collection/setting/edit, attr: -, icon: -}
 		
 	- urlTitle: Article Settings
 		urlRules: {siteType: 0,1, userLevel: 1}
@@ -108,6 +111,15 @@ content_menu	:
 	- urlTitle: Back to Article
 		urlRules: {article, o/like, manage, siteType: 1, userLevel: 1,2}
 		urlPath: {url: o/admin/manage, attr: -, icon: -}
+        
+# controller collection/admin
+	- urlTitle: Add Collection
+		urlRules: {article, collection/admin, manage, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+		
+	- urlTitle: Back to Manage
+		urlRules: {article, collection/admin, add,edit,view, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: manage, attr: -, icon: -}
         
 # controller collection/category
 	- urlTitle: Add Category
