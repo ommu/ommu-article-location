@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Publishers (digital-publisher)
+ * Article Collection Publishers (article-collection-publisher)
  * @var $this PublisherController
- * @var $model DigitalPublisher
+ * @var $model ArticleCollectionPublisher
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -16,7 +16,7 @@
 ?>
 
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
-	'id'=>'digital-publisher-form',
+	'id'=>'article-collection-publisher-form',
 	'enableAjaxValidation'=>true,
 	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>

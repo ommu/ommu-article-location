@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Publishers (digital-publisher)
+ * Article Collection Publishers (article-collection-publisher)
  * @var $this PublisherController
- * @var $model DigitalPublisher
+ * @var $model ArticleCollectionPublisher
  * @var $form CActiveForm
  * version: 0.0.1
  *
@@ -15,7 +15,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Publishers'=>array('manage'),
+		'Article Collection Publishers'=>array('manage'),
 		'Create',
 	);
 ?>

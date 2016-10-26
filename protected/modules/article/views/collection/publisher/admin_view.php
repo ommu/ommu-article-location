@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Publishers (digital-publisher)
+ * Article Collection Publishers (article-collection-publisher)
  * @var $this PublisherController
- * @var $model DigitalPublisher
+ * @var $model ArticleCollectionPublisher
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
@@ -14,7 +14,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Publishers'=>array('manage'),
+		'Article Collection Publishers'=>array('manage'),
 		$model->publisher_id,
 	);
 ?>

@@ -1,8 +1,8 @@
 <?php
 /**
- * Digital Publishers (digital-publisher)
+ * Article Collection Publishers (article-collection-publisher)
  * @var $this PublisherController
- * @var $model DigitalPublisher
+ * @var $model ArticleCollectionPublisher
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
@@ -14,7 +14,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Publishers'=>array('manage'),
+		'Article Collection Publishers'=>array('manage'),
 		'Manage',
 	);
 	$this->menu=array(
@@ -50,7 +50,7 @@
 </div>
 <?php //end.Grid Option ?>
 
-<div id="partial-digital-publisher">
+<div id="partial-article-collection-publisher">
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 	<?php
@@ -93,7 +93,7 @@
 			));
 
 			$this->widget('application.components.system.OGridView', array(
-				'id'=>'digital-publisher-grid',
+				'id'=>'article-collection-publisher-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
 				'columns' => $columnData,
