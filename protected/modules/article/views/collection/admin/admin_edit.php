@@ -22,5 +22,10 @@
 ?>
 
 <div class="form">
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+	<?php echo $this->renderPartial('_form', array(
+		'model'=>$model,
+		'article'=>$article,
+		'publisher'=>$publisher,
+		'setting'=>$setting,
+	)); ?>
 </div>

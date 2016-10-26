@@ -41,6 +41,13 @@
 class ArticleCollections extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $subject_input;
+	
+	// Variable Search
+	public $article_search;
+	public $publisher_search;
+	public $creation_search;
+	public $modified_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -69,16 +76,18 @@ class ArticleCollections extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cat_id, article_id, publisher_id, publish_year, publish_location, isbn, pages, series, creation_date, creation_id, modified_id', 'required'),
+			array('cat_id', 'required'),
 			array('publish, cat_id', 'numerical', 'integerOnly'=>true),
 			array('article_id, publisher_id, creation_id, modified_id', 'length', 'max'=>11),
 			array('publish_year', 'length', 'max'=>4),
 			array('publish_location', 'length', 'max'=>64),
 			array('isbn', 'length', 'max'=>32),
-			array('modified_date', 'safe'),
+			array('article_id, publisher_id, publish_year, publish_location, isbn, pages, series,
+				subject_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('collection_id, publish, cat_id, article_id, publisher_id, publish_year, publish_location, isbn, pages, series, creation_date, creation_id, modified_date, modified_id', 'safe', 'on'=>'search'),
+			array('collection_id, publish, cat_id, article_id, publisher_id, publish_year, publish_location, isbn, pages, series, creation_date, creation_id, modified_date, modified_id,
+				article_search, publisher_search, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,6 +99,12 @@ class ArticleCollections extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'category' => array(self::BELONGS_TO, 'ArticleCollectionCategory', 'cat_id'),
+			'article' => array(self::BELONGS_TO, 'Articles', 'article_id'),
+			'publisher' => array(self::BELONGS_TO, 'ArticleCollectionPublisher', 'publisher_id'),
+			'subjects' => array(self::HAS_MANY, 'ArticleCollectionSubjects', 'collection_id'),
+			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
+			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
 	}
 
@@ -113,6 +128,11 @@ class ArticleCollections extends CActiveRecord
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
+			'subject_input' => Yii::t('attribute', 'Subjects'),
+			'article_search' => Yii::t('attribute', 'Collection'),
+			'publisher_search' => Yii::t('attribute', 'Publisher'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 		/*
 			'Collection' => 'Collection',
@@ -162,8 +182,14 @@ class ArticleCollections extends CActiveRecord
 			$criteria->addInCondition('t.publish',array(0,1));
 			$criteria->compare('t.publish',$this->publish);
 		}
-		$criteria->compare('t.cat_id',$this->cat_id);
-		$criteria->compare('t.article_id',strtolower($this->article_id),true);
+		if(isset($_GET['category']))
+			$criteria->compare('t.cat_id',$_GET['category']);
+		else
+			$criteria->compare('t.cat_id',$this->cat_id);
+		if(isset($_GET['article']))
+			$criteria->compare('t.article_id',$_GET['article']);
+		else
+			$criteria->compare('t.article_id',$this->article_id);
 		if(isset($_GET['publisher']))
 			$criteria->compare('t.publisher_id',$_GET['publisher']);
 		else
@@ -185,6 +211,30 @@ class ArticleCollections extends CActiveRecord
 			$criteria->compare('t.modified_id',$_GET['modified']);
 		else
 			$criteria->compare('t.modified_id',$this->modified_id);
+		
+		// Custom Search
+		$criteria->with = array(
+			'article' => array(
+				'alias'=>'article',
+				'select'=>'title',
+			),
+			'publisher' => array(
+				'alias'=>'publisher',
+				'select'=>'publisher_name',
+			),
+			'creation' => array(
+				'alias'=>'creation',
+				'select'=>'displayname',
+			),
+			'modified' => array(
+				'alias'=>'modified',
+				'select'=>'displayname',
+			),
+		);
+		$criteria->compare('article.title',strtolower($this->article_search), true);
+		$criteria->compare('publisher.publisher_name',strtolower($this->publisher_search), true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
+		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
 		if(!isset($_GET['ArticleCollections_sort']))
 			$criteria->order = 't.collection_id DESC';
@@ -251,28 +301,28 @@ class ArticleCollections extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			if(!isset($_GET['type'])) {
+			if(!isset($_GET['category'])) {
 				$this->defaultColumns[] = array(
-					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->collection_id)), $data->publish, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
+					'name' => 'cat_id',
+					'value' => '$data->category->category_name',
+					'filter'=> ArticleCollectionCategory::getCategory(),
 					'type' => 'raw',
 				);
 			}
-			$this->defaultColumns[] = 'cat_id';
-			$this->defaultColumns[] = 'article_id';
-			$this->defaultColumns[] = 'publisher_id';
+			$this->defaultColumns[] = array(
+				'name' => 'article_search',
+				'value' => '$data->article->title',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'publisher_search',
+				'value' => '$data->publisher->publisher_name',
+			);
 			$this->defaultColumns[] = 'publish_year';
 			$this->defaultColumns[] = 'publish_location';
-			$this->defaultColumns[] = 'isbn';
-			$this->defaultColumns[] = 'pages';
-			$this->defaultColumns[] = 'series';
+			$this->defaultColumns[] = array(
+				'name' => 'creation_search',
+				'value' => '$data->creation->displayname',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_date',
 				'value' => 'Utility::dateFormat($data->creation_date)',
@@ -299,34 +349,20 @@ class ArticleCollections extends CActiveRecord
 					),
 				), true),
 			);
-			$this->defaultColumns[] = 'creation_id';
-			$this->defaultColumns[] = array(
-				'name' => 'modified_date',
-				'value' => 'Utility::dateFormat($data->modified_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'modified_date',
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
-					//'mode'=>'datetime',
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'publish',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->collection_id)), $data->publish, 1)',
 					'htmlOptions' => array(
-						'id' => 'modified_date_filter',
+						'class' => 'center',
 					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
 					),
-				), true),
-			);
-			$this->defaultColumns[] = 'modified_id';
+					'type' => 'raw',
+				);
+			}
 		}
 		parent::afterConstruct();
 	}
@@ -359,6 +395,26 @@ class ArticleCollections extends CActiveRecord
 				$this->modified_id = Yii::app()->user->id;
 		}
 		return true;
+	}
+	
+	/**
+	 * After save attributes
+	 */
+	protected function afterSave() {
+		parent::afterSave();
+		
+		if($this->isNewRecord) {
+			$subject_input = Utility::formatFileType($this->subject_input);
+			if(!empty($subject_input)) {
+				foreach($subject_input as $key => $val) {
+					$subject = new ArticleCollectionSubjects;
+					$subject->collection_id = $this->collection_id;
+					$subject->tag_id = 0;
+					$subject->tag_input = $val;
+					$subject->save();
+				}
+			}
+		}
 	}
 
 }

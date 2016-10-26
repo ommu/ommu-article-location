@@ -145,16 +145,51 @@ class AdminController extends Controller
 	public function actionAdd() 
 	{
 		$model=new ArticleCollections;
+		$article=new Articles;
+		$publisher=new ArticleCollectionPublisher;
+		$setting = ArticleSetting::model()->findByPk(1,array(
+			'select' => 'meta_keyword, type_active, media_file_type, upload_file_type',
+		));
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
+		$this->performAjaxValidation($article);
+		$this->performAjaxValidation($publisher);
 
 		if(isset($_POST['ArticleCollections'])) {
 			$model->attributes=$_POST['ArticleCollections'];
+			$article->attributes=$_POST['Articles'];
+			$publisher->attributes=$_POST['ArticleCollectionPublisher'];
+			$article->validate();
+			$publisher->validate();
 			
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleCollections success created.'));
-				$this->redirect(array('edit','id'=>$model->collection_id));
+			if($model->validate() && $article->validate() && $publisher->validate()) {
+				$article->publish = $model->publish;
+				
+				//if($model->publisher_id != '' && $model->publisher_id != 0) {
+					$publisherFind = ArticleCollectionPublisher::model()->find(array(
+						'select' => 'publisher_id, publisher_name',
+						'condition' => 'publisher_name = :publisher',
+						'params' => array(
+							':publisher' => $publisher->publisher_name,
+						),
+					));
+					if($publisherFind != null)
+						$model->publisher_id = $publisherFind->publisher_id;
+					else {
+						if($publisher->save())
+							$model->publisher_id = $publisher->publisher_id;
+					}
+				//}
+				
+				if($article->save()) {
+					$model->article_id = $article->article_id;
+					
+					if($model->save()) {
+						Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleCollections success created.'));
+						$this->redirect(array('edit','id'=>$model->collection_id));
+					}
+				}
 			}
 		}
 
@@ -163,6 +198,9 @@ class AdminController extends Controller
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
 			'model'=>$model,
+			'article'=>$article,
+			'publisher'=>$publisher,
+			'setting'=>$setting,
 		));
 	}
 
@@ -174,16 +212,58 @@ class AdminController extends Controller
 	public function actionEdit($id) 
 	{
 		$model=$this->loadModel($id);
+		$article = Articles::model()->findByPk($model->article_id);
+		$publisher = ArticleCollectionPublisher::model()->findByPk($model->publisher_id);
+		$setting = ArticleSetting::model()->findByPk(1,array(
+			'select' => 'meta_keyword, type_active, media_file_type, upload_file_type',
+		));
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
+		$this->performAjaxValidation($article);
+		$this->performAjaxValidation($publisher);
+			
+		if(!$model->getErrors()) {
+			$publisher_id = $model->publisher_id;
+			$publisher_name = $publisher->publisher_name;
+		}
 
 		if(isset($_POST['ArticleCollections'])) {
 			$model->attributes=$_POST['ArticleCollections'];
+			$article->attributes=$_POST['Articles'];
+			$publisher->attributes=$_POST['ArticleCollectionPublisher'];
+			$article->validate();
+			$publisher->validate();
 			
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleCollections success updated.'));
-				$this->redirect(array('edit','id'=>$model->collection_id));
+			if($model->validate() && $article->validate() && $publisher->validate()) {				
+				$article->publish = $model->publish;
+				
+				if($publisher_id != $model->publisher_id || $publisher_name != $publisher->publisher_name) {
+					//if($model->publisher_id != '' && $model->publisher_id != 0) {
+						$publisherFind = ArticleCollectionPublisher::model()->find(array(
+							'select' => 'publisher_id, publisher_name',
+							'condition' => 'publisher_name = :publisher',
+							'params' => array(
+								':publisher' => $publisher->publisher_name,
+							),
+						));
+						if($publisherFind != null)
+							$model->publisher_id = $publisherFind->publisher_id;
+						else {
+							if($publisher->save())
+								$model->publisher_id = $publisher->publisher_id;
+						}
+					//}
+				}
+				
+				if($article->save()) {
+					$model->article_id = $article->article_id;
+			
+					if($model->save()) {
+						Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleCollections success updated.'));
+						$this->redirect(array('edit','id'=>$model->collection_id));
+					}
+				}
 			}
 		}
 
@@ -192,6 +272,9 @@ class AdminController extends Controller
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
 			'model'=>$model,
+			'article'=>$article,
+			'publisher'=>$publisher,
+			'setting'=>$setting,
 		));
 	}
 	
