@@ -69,6 +69,7 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 )); ?>
 
 <?php $this->widget('MainArticleCollection', array(
+	'theme'=>'dark',
 	'limit'=>8,
 )); ?>
 
@@ -80,6 +81,7 @@ Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 
 <?php $this->widget('MainArticle', array(
 	'layout'=>'main_article_radio',
+	'theme'=>'dark',
 	'category'=>3,
 	'limit'=>6,
 )); ?>

@@ -114,6 +114,7 @@ class Articles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'views' => array(self::BELONGS_TO, 'ViewArticles', 'article_id'),
 			'cat' => array(self::BELONGS_TO, 'ArticleCategory', 'cat_id'),
 			'cover' => array(self::BELONGS_TO, 'ArticleMedia', 'media_id'),
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
