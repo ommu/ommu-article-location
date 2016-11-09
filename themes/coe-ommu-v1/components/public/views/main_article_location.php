@@ -1,56 +1,87 @@
 <?php if($model != null) {?>
-<div data-vc-full-width="true" data-vc-full-width-init="false" data-vc-stretch-content="true" data-vc-parallax="2" class="vc_row wpb_row vc_row-fluid vc_custom_1459937771735 vc_row-has-fill vc_row-no-padding vntd-section-white vc_general vc_parallax vc_parallax-content-moving" id="member">
-	<div class="bg-overlay bg-overlay-dark_dots"></div>
-	<div class="wpb_column vc_column_container vc_col-sm-12">
-		<div class="vc_column-inner ">
-			<div class="wpb_wrapper">
-				<div class="vntd-special-heading special-heading-align-center heading-no-separator" style="margin-bottom:60px;">
-					<h4 class="header-first  georgia">Member of CoE</h4>
-					<h1 class="header  georgia font-size-40px georgia font-weight-400" >Centre Of Excellence</h1>
-					<?php /*<p class="subtitle light " >The standard Lorem Ipsum passage, used since the 1500s</p>*/?>
-				</div>
-				<div class="vntd-carousel-holder">
-					<div class="categories fullwidth">
-						<!-- Boxes -->
-						<div class="category-boxes double-slider relative clearfix" data-cols="6">
-							<?php foreach($model as $key => $val) {?>
-							<div class="box animated" data-animation="fadeIn" data-animation-delay="100">
-								<!-- Category Inner Slider -->
-								<div class="category-inner-slider inner-slider">
-									<?php $image = Yii::app()->request->baseUrl.'/public/article/article_default.png';
-									if($val->province_photo != '')
-										$image = Yii::app()->request->baseUrl.'/public/article/location/'.$val->province_photo;
-									?>
-									<div class="image">
-										<!-- Image SRC -->
-										<img src="<?php echo Utility::getTimThumb($image, 420, 616, 1)?>" alt="Red Hair">
-									</div>
-								</div>
-								<!-- End Category Inner Slider -->
-								<!-- Box Texts -->
-								<div class="box-texts georgia white">
-									<!-- Header -->
-									<a href="<?php echo Yii::app()->createUrl($val->province_code.'/article');?>"><h2 class="t-shadow georgia"><?php echo $val->province_relation->province?></h2></a>
-									<?php /*
-									<!-- Description -->
-									<p class="t-shadow">Art is beautiful.</p>
-									*/?>
-								</div>
-								<!-- End Box Texts -->
-							</div>
-							<?php }?>
-						</div>
+<!-- Categories Section -->
+<section id="categories" class="background9 parallax2 xdark-bg pattern-black">
+	<!-- Inner -->
+	<div class="inner t-center animated" data-animation="fadeIn" data-animation-delay="100">
+		<!-- First Header -->
+		<h4 class="header-first georgia">Member of CoE</h4>
+		<!-- Header -->
+		<h1 class="header header-style-2 white georgia t-center ">
+			Centre Of Excellence Budaya Jawa
+		</h1>
+		<!-- Header Text -->
+		<?php /*
+		<p class="normal t-center">
+			Contrary to popular belief, Lorem Ipsum is not simply random text.
+		</p>
+		*/?>
+	</div>
+	<!-- End Inner -->
+	<!-- Categories -->
+	<div class="categories fullwidth">
+		<!-- Boxes -->
+		<div class="category-boxes double-slider relative clearfix">
+			<?php foreach($model as $key => $val) {?>		
+			<!-- Box -->
+			<div class="box animated" data-animation="fadeIn" data-animation-delay="300">
+				<!-- Category Inner Slider -->
+				<div class="category-inner-slider inner-slider">
+					<?php $image = Yii::app()->request->baseUrl.'/public/article/article_default.png';
+					if($val->province_photo != '')
+						$image = Yii::app()->request->baseUrl.'/public/article/location/'.$val->province_photo;
+					?>
+					<!-- Image Div -->
+					<div class="image">
+						<!-- Image SRC -->
+						<img src="<?php echo Utility::getTimThumb($image, 420, 616, 1)?>" alt="Red Hair">
 					</div>
 				</div>
-				<?php /*
-				<div class="vntd-cta vntd-cta-style-classic vntd-cta-color-dark bottom-page-texts relative t-center ">
-					<h2 class="vntd-cta-heading georgia">Lorem Ipsum is simply dummy text of the printing and typesetting industry</h2>
-					<p class="normal raleway">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+				<!-- End Category Inner Slider -->
+				<!-- Box Texts -->
+				<div class="box-texts georgia white">
+					<!-- Header -->
+					<a href="<?php echo Yii::app()->createUrl($val->province_code.'/article');?>">
+						<h2 class="t-shadow">
+							<?php echo $val->province_relation->province;?>
+						</h2>
+					</a>
+					<!-- Description -->
+					<?php /*
+					<p class="t-shadow">
+						Lorem ipsum is dolor samet
+					</p>
+					*/?>
 				</div>
-				*/?>
+				<!-- End Box Texts -->
 			</div>
+			<!-- End Box -->
+			<?php }?>
 		</div>
+		<!-- End Category Boxes -->
+		<!-- Bottom Page Texts -->
+		<?php /*
+		<div class="bottom-page-texts relative t-center">
+			<!-- Slider Texts Area -->
+			<h2 class=" georgia">Clean, responsive and professional design with powerfull code!</h2>
+			<p class="normal raleway">This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit.</p>
+			<!-- Bottom Buttons -->
+			<div class="bottom-page-buttons">
+				<!-- First Button -->
+				<a href="#portfolio" class="t-center scroll  content-button">
+					<p class="uppercase">Our Portfolio</p>
+					<p class="normal">Click for Our All Works</p>
+				</a>
+				<!-- Second Button -->
+				<a href="#contact" class="t-center scroll  content-button">
+					<p class="uppercase">Keep In Touch</p>
+					<p class="normal">Send Us a Message</p>
+				</a>
+			</div>
+			<!-- End Buttons -->
+		</div>
+		*/?>
+		<!-- End Bottom Page Texts -->
 	</div>
-</div>
-<div class="vc_row-full-width"></div>
+	<!-- End Categories -->
+</section>
 <?php }?>

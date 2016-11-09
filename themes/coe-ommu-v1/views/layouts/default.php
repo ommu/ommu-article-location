@@ -83,37 +83,42 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 
 	} else {
 		$cs = Yii::app()->getClientScript();
-		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce.css?ver=2.5.5');
-		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-layout.css?ver=2.5.5');
-		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-styling.css?ver=4.5.4');
-		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/layerslider.css?ver=5.6.2');
-		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/styles.css?ver=4.4');
-		$cs->registerCssFile(/*think-button-style-css'*/Yii::app()->theme->baseUrl.'/css/button.css?ver=4.5.4');
-		$cs->registerCssFile(/*ccf-form-css'*/Yii::app()->theme->baseUrl.'/css/form.min.css?ver=7.6');
-		$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/settings.css?ver=5.2.4.1');	
-		$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-smallscreen.css?ver=2.5.5');	
-		$cs->registerCssFile(/*crexis-styles-css'*/Yii::app()->theme->baseUrl.'/css/style.css?ver=4.5.4');		
-		$cs->registerCssFile(/*socials-css'*/Yii::app()->theme->baseUrl.'/css/socials.css?ver=4.5.4');
-		$cs->registerCssFile(/*crexis-responsive-css'*/Yii::app()->theme->baseUrl.'/css/responsive.css?ver=4.5.4');
-		$cs->registerCssFile(/*cubePortfolio-css'*/Yii::app()->theme->baseUrl.'/css/scripts/cubeportfolio.min.css?ver=4.5.4');
-		$cs->registerCssFile(/*magnific-popup-css'*/Yii::app()->theme->baseUrl.'/css/scripts/magnific-popup.css?ver=4.5.4');
-		$cs->registerCssFile(/*owl-carousel-css'*/Yii::app()->theme->baseUrl.'/css/scripts/owl.carousel.css?ver=4.5.4');
-		$cs->registerCssFile(/*js_composer_front-css'*/Yii::app()->theme->baseUrl.'/css/js_composer.min.css?ver=4.11.2');
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/master.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');
 		//$cs->registerCssFile(Yii::app()->request->baseUrl.'/externals/content.css');
 		//$cs->registerCoreScript('jquery', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jY9dCsJADIQv1O7iPXzzBCEbSty_mmTR3t5trY-1QiAwfDOZoNCL1T_nkQumFkj9vc-jkSz7GvCcGTNPAkYucxku_goLyS1xIPFqYIyrYxKiohXjIZFWVTfVRSGwJpApMLi9yj9GEyjKxrXo7-qNPVb5dD4DQ39uZow9_xhvpd_Xb-Yb.js');
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/ncvBDYAwCEDRhWxJR1LEiKFFC5i4vXpwAa8_7xfAMNeaUJuP6GnRXg1GM3KDKVhm2Azemiu3oUCn04Rn6rDHJIyffdR2BPUr-0qV9mi4ZlcV-zM-WCWctb33DQ.js', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/TcxBDoAwCETRC1lJT2RIi4kmMAaIXt8uWc9_0-kDBlTFhxBHSAbdQafDUmwSz9kSbbDnrpdtfa3HAg9CvIB3xfCod63YHw.js', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9BPLkqtyCzWL8_PT87PzU0tSk7VTywuTi1BEdItTi7KLCgpBgA.js', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/HcrBDYAwCADAhaToy3kMYkJtQQtNdHtT33czUuNHHLPjZR5Q5ORURacFyTQ2CjisVVhRlErf-a_57tzeNGTkDw.js', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9RPzs8rSUwu0U3LL8rVNdfPzEvOKU1JLdbPKtYvTi7KLCgpBgA.js', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9Qvz89Pzs_NTS1KTtVPLC5OLSnWzwKiwtLUokrdpJz85OzSTChXD8wN9dTLzcwDAA.js', CClientScript::POS_END);
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9Qvz89Pzs_NTS1KTtVPLC5OLSnWzyrWTyvKzytJzUtBltbLzczTMcShIauwNLWoUjc5Pz87MxXK04PwQPoA.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery-2.1.3.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/bootstrap.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.appear.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/waypoint.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/modernizr-latest.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.easing.1.3.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/SmoothScroll.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.magnific-popup.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.superslides.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.flexslider.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.simple-text-rotator.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.cubeportfolio.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/owl.carousel.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.parallax-1.1.3.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/skrollr.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.fitvids.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery.mb.YTPlayer.js', CClientScript::POS_END);
+		// Twitter
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/tweecool.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/tweecool.js', CClientScript::POS_END);
+		// Revolution Slider
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/rev_slider/jquery.themepunch.revolution.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/rev_slider/jquery.themepunch.tools.min.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/rev_slider/rev_plugins.js', CClientScript::POS_END);
+		// Page Plugins
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/plugins.js', CClientScript::POS_END);
+		// Portfolio Plugins
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/portfolio.js', CClientScript::POS_END);	
 		Yii::app()->clientScript->scriptMap=array(
-				'jquery.js'=>false,
+			'jquery.js'=>false,
 		);		
 		
 		//Javascript Attribute
@@ -138,95 +143,14 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
   <meta name="author" content="Ommu Platform (support@ommu.co)" />
   <script type="text/javascript">
 	var globals = '<?php echo CJSON::encode($jsAttribute);?>';
-	
-	/* You can add more configuration options to webfontloader by previously defining the WebFontConfig with your options */
-	if ( typeof WebFontConfig === "undefined" ) {
-		WebFontConfig = new Object();
-	}
-	WebFontConfig['google'] = {families: ['Open+Sans:400', 'Raleway:500', 'Oswald']};
-	
-	(function() {
-		var wf = document.createElement( 'script' );
-		wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.3/webfont.js';
-		wf.type = 'text/javascript';
-		wf.async = 'true';
-		var s = document.getElementsByTagName( 'script' )[0];
-		s.parentNode.insertBefore( wf, s );
-	})();
-	
-	/* <![CDATA[ */
-	var ccfSettings = {"ajaxurl":"http:\/\/veented.info\/crexis\/wp-admin\/admin-ajax.php","required":"This field is required.","date_required":"Date is required.","hour_required":"Hour is required.","minute_required":"Minute is required.","am-pm_required":"AM\/PM is required.","match":"Emails do not match.","email":"This is not a valid email address.","recaptcha":"Your reCAPTCHA response was incorrect.","recaptcha_theme":"light","phone":"This is not a valid phone number.","digits":"This phone number is not 10 digits","hour":"This is not a valid hour.","date":"This date is not valid.","minute":"This is not a valid minute.","fileExtension":"This is not an allowed file extension","fileSize":"This file is bigger than","unknown":"An unknown error occured.","website":"This is not a valid URL. URL's must start with http(s):\/\/"};
-	/* ]]> */
-	
-	/* <![CDATA[ */
-	var wc_add_to_cart_params = {"ajax_url":"\/crexis\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/crexis\/sample-page\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View Cart","cart_url":"http:\/\/veented.info\/crexis\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
-	/* ]]> */	
   </script>
   <?php echo $setting->general_include != '' ? $setting->general_include : ''?>
   <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl?>/favicon.ico" />
-  <style type="text/css"></style>
-	<style type="text/css">
-		img.wp-smiley,
-		img.emoji {
-			display: inline !important;
-			border: none !important;
-			box-shadow: none !important;
-			height: 1em !important;
-			width: 1em !important;
-			margin: 0 .07em !important;
-			vertical-align: -0.1em !important;
-			background: none !important;
-			padding: 0 !important;
-		}
-	</style>  
-	<style type="text/css" data-type="vc_shortcodes-custom-css">
-		.vc_custom_1456256508033 {
-			padding-top: 0px !important;
-			padding-bottom: 0px !important;
-		}
-		.vc_custom_1456255021415 {
-			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background41.jpg?id=104) !important;
-		}
-		.vc_custom_1461031643005 {
-			padding-top: 100px !important;
-			padding-bottom: 100px !important;
-			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background40.jpg?id=103) !important;
-		}
-		.vc_custom_1456347525799 {
-			padding-bottom: 0px !important;
-		}
-		.vc_custom_1456265830226 {
-			padding-top: 60px !important;
-			padding-bottom: 60px !important;
-			background-color: #f9f9f9 !important;
-		}
-		.vc_custom_1459937771735 {
-			padding-top: 56px !important;
-			padding-bottom: 50px !important;
-			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background9.jpg?id=72) !important;
-		}
-		.vc_custom_1460456899880 {
-			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background10.jpg?id=73) !important;
-		}
-		.vc_custom_1456304229609 {
-			padding-top: 25px !important;
-			padding-bottom: 20px !important;
-			background-color: #1d1d1d !important;
-		}
-		.vc_custom_1456304985147 {
-			padding-bottom: 60px !important;
-		}
-	</style> 
-	<?php if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta'))) {?>
-	<style type="text/css"> #page-content #page-header {background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background41.jpg) !important;background-position-y: top;}#page-header h1 { font-size:px; }#page-header h2, #breadcrumbs li { color: #fff; }#page-header h5, #page-header #breadcrumbs a { color: rgba(255,255,255,0.75); }</style>
-	<?php }?>
-	<noscript>
-		<style type="text/css">.wpb_animate_when_almost_visible { opacity: 1; }</style>
-	</noscript>
-	
+  <style type="text/css"></style>	
  </head>
- <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="<?php echo $module == null && $currentAction == 'site/index' ? 'page page-template-default' : 'blog';?> wpb-js-composer vc_responsive">
+ <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="<?php echo $module == null && $currentAction == 'site/index' ? 'parallax' : '';?>">
  
+	<!-- Page Loader -->
 	<article id="pageloader" class="white-loader">
 		<div class="spinner">
 			<div class="bounce1"></div>
@@ -235,154 +159,577 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		</div>
 	</article>
 
-	<nav id="navigation" class="<?php echo $module == null && $currentAction == 'site/index' ? 'white-nav navigation-style-transparent' : 'relative-nav white-nav navigation-style-default';?>">
-		<div class="navigation double-nav <?php echo $module == null && $currentAction == 'site/index' ? 'first-nav' : '';?> white-nav">
+	<!-- Navigation - select your nav color - dark-nav or white-nav -->
+	<nav id="navigation" class="white-nav">
+		<!-- Navigation -->
+		<div class="navigation first-nav double-nav raleway">
+			<!-- Navigation Inner -->
 			<div class="nav-inner clearfix">
 				<!-- Logo Area -->
 				<div class="logo f-left">
-					<?php /*
 					<!-- Logo Link -->
-					<a href="http://veented.info/crexis" class="logo-link scroll">
-					<img src="http://veented.info/crexis/wp-content/uploads/2016/02/logo_dark_red_big.png" class="logo-secondary" alt="Crexis WordPress Theme" /><img src="http://veented.info/crexis/wp-content/uploads/2016/02/logo_white_red_big.png" class="site-logo logo-primary" data-second-logo="http://veented.info/crexis/wp-content/uploads/2016/02/logo_dark_red_big.png" alt="Crexis WordPress Theme" />					
+					<a href="#home" class="logo-link scroll">
+						<!-- Logo Image / data-second-logo for only white nav -->
+						<img src="images/logo/logo_white_red.png" data-second-logo="images/logo/logo_dark_red.png" alt="crexis_logo" />
 					</a>
-					*/?>
 				</div>
 				<!-- End Logo Area -->
 				<!-- Mobile Menu Button -->
-				<!--<a class="mobile-nav-button"><i class="fa fa-bars"></i></a>-->
-				<a id="mobile-nav-button" class="mobile-nav-button">
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-				</a>
+				<a class="mobile-nav-button"><i class="fa fa-bars"></i></a>
 				<!-- Navigation Links -->
-				<div class="desktop-nav nav-menu clearfix f-right">
-					<ul id="menu-main-navigation" class="nav uppercase normal">
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('site/index')?>">Home</a>	
-						</li>
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1))?>">Berita</a>
-						</li>
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2))?>">Ragam Budaya</a>
-						</li>
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3))?>">Pahlawan Budaya</a>
-						</li>
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4))?>">Agenda Budaya</a>
-						</li>
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>1))?>">Tentang Kami</a>
-						</li>
-						<li class="menu-item">
-							<a href="<?php echo Yii::app()->createUrl('support/contact/feedback')?>">Kontak Kami</a>
-						</li>
-						<li class="dropdown-toggle search-toggle">
-							<a href="#" id="search-toggle" class="search"><i class="fa fa-search"></i></a>
+				<div class="nav-menu clearfix f-right">
+					<!-- Nav List -->
+					<ul class="nav uppercase normal">
+						<li class="dropdown-toggle nav-toggle">
+							<a href="#">Home</a>
 							<!-- DropDown Menu -->
-							<ul id="search-dropdown" class="dropdown-menu dropdown-search pull-right clearfix">
-								<li class="raleway mini-text gray">
-									<form method="get" class="search-form" id="search-form" action="<?php echo Yii::app()->createUrl('search/result');?>">
-										<input type="text" name="keyword" id="s" class="transparent uppercase" placeholder="Search...">
-										<button type="submit"><i class="fa fa-search"></i></button>
+							<ul class="dropdown-menu pull-center clearfix">
+								<!-- Submenu -->
+								<li class="submenu">
+									<!-- Submenu Title -->
+									<a href="#" class="menu-title">
+									One Page
+									</a>
+									<!-- Column -->
+									<div class="submenu_column">
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index.html" class="ex-link">
+										Default Home Page
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index1.html" class="ex-link label" data-label-color="orange" data-label-text="Hot">
+										Home Boxes Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index2.html" class="ex-link">
+										Slider Revolution 1
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index3.html" class="ex-link label" data-label-color="blue" data-label-text="Hot">
+										Slider Revolution 2
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index4.html" class="ex-link">
+										Black White Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index5.html" class="ex-link">
+										Home Boxes With B&amp;W
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index6.html" class="ex-link">
+										Slider Revolution 3
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index7.html" class="ex-link">
+										Awesome FS Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index8.html" class="ex-link label" data-label-color="orange" data-label-text="New">
+										FS Edition Type 2
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index9.html" class="ex-link">
+										FS Edition With Parallax
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index10.html" class="ex-link">
+										FullWidth Slider
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index11.html" class="ex-link">
+										RainyDay Effect
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index12.html" class="ex-link">
+										Slider Revolution 4
+										</a>
+									</div>
+									<!-- End Column -->
+								</li>
+								<!-- End Submenu -->
+								<!-- Submenu -->
+								<li class="submenu">
+									<!-- Column -->
+									<div class="submenu_column">
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index13.html" class="ex-link">
+										FullWidth Slider 2
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index14.html" class="ex-link">
+										FullWidth Slider 3
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index15.html" class="ex-link">
+										Parallax Image Dark Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index16.html" class="ex-link">
+										Neptun Type
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index17.html" class="ex-link">
+										Video Background
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index18.html" class="ex-link">
+										Video BG Dark Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index19.html" class="ex-link">
+										FullWidth Layer Slider
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index20.html" class="ex-link label" data-label-color="blue" data-label-text="Hot">
+										FS Layer Slider
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index21.html" class="ex-link">
+										FW Slider Dark Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index22.html" class="ex-link">
+										Slider  Revolution 5
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index23.html" class="ex-link label" data-label-color="blue" data-label-text="Hot">
+										Video BG Night Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="index24.html" class="ex-link">
+										Animated Background
+										</a>
+									</div>
+									<!-- End Column -->
+								</li>
+								<!-- End Submenu -->
+								<!-- Submenu -->
+								<li class="submenu">
+									<!-- Submenu Title -->
+									<a href="#" class="menu-title">
+									Multi Page
+									</a>
+									<!-- Column -->
+									<div class="submenu_column">
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index.html" class="ex-link">
+										Default Home Page
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index1.html" class="ex-link label" data-label-color="orange" data-label-text="Hot">
+										Home Boxes Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index2.html" class="ex-link">
+										Slider Revolution 1
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index3.html" class="ex-link label" data-label-color="blue" data-label-text="Hot">
+										Slider Revolution 2
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index4.html" class="ex-link">
+										Black White Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index5.html" class="ex-link">
+										Home Boxes With B&amp;W
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index6.html" class="ex-link">
+										Slider Revolution 3
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index7.html" class="ex-link">
+										FullWidth Slider
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index8.html" class="ex-link">
+										RainyDay Effect
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index9.html" class="ex-link">
+										Slider Revolution 4
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index10.html" class="ex-link">
+										FullWidth Slider 2
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index11.html" class="ex-link">
+										FullWidth Slider 3
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index12.html" class="ex-link">
+										Parallax Image Dark Edition
+										</a>
+									</div>
+									<!-- End Column -->
+								</li>
+								<!-- End Submenu -->
+								<!-- Submenu -->
+								<li class="submenu">
+									<!-- Column -->
+									<div class="submenu_column">
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index13.html" class="ex-link">
+										Neptun Type
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index14.html" class="ex-link">
+										Video Background
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index15.html" class="ex-link">
+										Video BG Dark Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index16.html" class="ex-link">
+										FullWidth Layer Slider
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index17.html" class="ex-link label" data-label-color="blue" data-label-text="Hot">
+										FS Layer Slider
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index18.html" class="ex-link">
+										FW Slider Dark Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index19.html" class="ex-link">
+										Slider  Revolution 5
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index20.html" class="ex-link">
+										Video BG Night Edition
+										</a>
+										<!-- Add Your label text and color - red, blue, green, orange, purple, black, white -->
+										<a href="mp-index21.html" class="ex-link">
+										Animated Background
+										</a>
+									</div>
+									<!-- End Column -->
+								</li>
+								<!-- End Submenu -->
+							</ul>
+							<!-- End DropDown -->
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="#">Pages</a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-left clearfix">
+								<li><a href="pages-about-1.html" class="ex-link">About Us 1</a></li>
+								<li><a href="pages-about-2.html" class="ex-link">About Us 2</a></li>
+								<li><a href="pages-about-3.html" class="ex-link">About Us 3</a></li>
+								<li><a href="pages-contact-1.html" class="ex-link">Contact Us 1</a></li>
+								<li><a href="pages-contact-2.html" class="ex-link">Contact Us 2</a></li>
+								<li><a href="pages-services-1.html" class="ex-link">Services 1</a></li>
+								<li><a href="pages-services-2.html" class="ex-link">Services 2</a></li>
+								<li><a href="pages-services-3.html" class="ex-link">Services 3</a></li>
+								<li><a href="pages-login.html" class="ex-link">Login Page</a></li>
+							</ul>
+							<!-- End DropDown -->
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="portfolio-titles-fw-5-col.html" class="ex-link">Portfolio</a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-left clearfix">
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Wide
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="portfolio-fw-6col.html" class="ex-link">6 Columns</a></li>
+										<li><a href="portfolio-fw-5col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="portfolio-fw-4col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="portfolio-fw-3col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="portfolio-fw-2col.html" class="ex-link">2 Columns</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Boxed
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="portfolio-boxed-5col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="portfolio-boxed-4col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="portfolio-boxed-3col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="portfolio-boxed-2col.html" class="ex-link">2 Columns</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Masonry (Wide)
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="portfolio-masonry-6col.html" class="ex-link">6 Columns</a></li>
+										<li><a href="portfolio-masonry-5col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="portfolio-masonry-4col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="portfolio-masonry-3col.html" class="ex-link">3 Columns</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Masonry (Boxed)
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="portfolio-boxed-masonry-6col.html" class="ex-link">6 Columns</a></li>
+										<li><a href="portfolio-boxed-masonry-5col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="portfolio-boxed-masonry-4col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="portfolio-boxed-masonry-3col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="portfolio-boxed-masonry-2col.html" class="ex-link">2 Columns</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Wide (Titles)
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="portfolio-titles-fw-6-col.html" class="ex-link">6 Columns</a></li>
+										<li><a href="portfolio-titles-fw-5-col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="portfolio-titles-fw-4-col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="portfolio-titles-fw-3-col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="portfolio-titles-fw-2-col.html" class="ex-link">2 Columns</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Boxed (Titles)
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="portfolio-titles-boxed-5-col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="portfolio-titles-boxed-4-col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="portfolio-titles-boxed-3-col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="portfolio-titles-boxed-2-col.html" class="ex-link">2 Columns</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="#" class="ex-link">
+									Single
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="projects/project_01.html" class="ex-link">Single 1</a></li>
+										<li><a href="projects/project_02.html" class="ex-link">Single 2</a></li>
+										<li><a href="projects/project_03.html" class="ex-link">Single 3</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="elements-boxes.html" class="ex-link">Elements</a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-left clearfix">
+								<li><a href="elements-boxes.html" class="ex-link">Boxes</a></li>
+								<li><a href="elements-buttons.html" class="ex-link">Buttons</a></li>
+								<li><a href="elements-components.html" class="ex-link">Components</a></li>
+								<li><a href="elements-icons.html" class="ex-link">Icons</a></li>
+								<li><a href="elements-typography.html" class="ex-link">Typography</a></li>
+							</ul>
+							<!-- End DropDown Menu -->
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="#">Blog</a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-left clearfix">
+								<li><a href="blog/blog_sidebar.html" class="ex-link">Sidebar</a></li>
+								<li><a href="blog/blog_fullwidth.html" class="ex-link">Fullwidth</a></li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="blog/blog_masonry_6_col.html" class="ex-link">
+									Masonry (Wide)
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="blog/blog_masonry_6_col.html" class="ex-link">6 Columns</a></li>
+										<li><a href="blog/blog_masonry_5_col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="blog/blog_masonry_4_col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="blog/blog_masonry_3_col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="blog/blog_masonry_dark.html" class="ex-link">Dark Edition</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="blog/blog_masonry_boxed_4_col.html" class="ex-link">
+									Masonry (Boxed)
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="blog/blog_masonry_boxed_5_col.html" class="ex-link">5 Columns</a></li>
+										<li><a href="blog/blog_masonry_boxed_4_col.html" class="ex-link">4 Columns</a></li>
+										<li><a href="blog/blog_masonry_boxed_3_col.html" class="ex-link">3 Columns</a></li>
+										<li><a href="blog/blog_masonry_boxed_2_col.html" class="ex-link">2 Columns</a></li>
+									</ul>
+								</li>
+								<li><a href="blog/blog_rainyday.html" class="ex-link">Rainyday</a></li>
+								<li class="dropdown-submenu nav-toggle">
+									<a href="blog/blog_single.html" class="ex-link">
+									Single
+									<i class="fa fa-angle-right f-right"></i>
+									</a>
+									<!-- DropDown Menu -->
+									<ul class="dropdown-menu pull-left clearfix">
+										<li><a href="blog/blog_single.html" class="ex-link">Sidebar</a></li>
+										<li><a href="blog/blog_single_fullwidth.html" class="ex-link">Fullwidth</a></li>
+										<li><a href="blog/blog_single_dark.html" class="ex-link">Dark Edition</a></li>
+									</ul>
+								</li>
+							</ul>
+							<!-- End DropDown Menu -->
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="pages-shop-4-col.html" class="ex-link">Shop</a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-left clearfix">
+								<li><a href="pages-shop-4-col.html" class="ex-link">4 Columns</a></li>
+								<li><a href="pages-shop-3-col.html" class="ex-link">3 Columns</a></li>
+								<li><a href="pages-shop-2-col.html" class="ex-link">2 Columns</a></li>
+								<li><a href="pages-shop-single.html" class="ex-link">Single Product</a></li>
+							</ul>
+							<!-- End DropDown Menu -->
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="#" class="tahoma"><i class="fa fa-search"></i></a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-right clearfix">
+								<li class="ml-20 mt-15 mr-20 mb-15 raleway mini-text gray">
+									<form method="post" class="search-form">
+										<input type="text" name="search" id="search" class="transparent uppercase" placeholder="Search...">
+										<button type="submit">
+										<i class="fa fa-search"></i>
+										</button>
 									</form>
 								</li>
 							</ul>
 						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="#" class="tahoma"><i class="fa fa-shopping-cart"></i> (0)</a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-right clearfix">
+								<li class="ml-20 mt-15 mr-20 mb-15 raleway mini-text gray">No Product In The Cart</li>
+							</ul>
+						</li>
+						<li class="dropdown-toggle nav-toggle">
+							<a href="#" class="tahoma">Eng<i class="fa fa-angle-down"></i></a>
+							<!-- DropDown Menu -->
+							<ul class="dropdown-menu pull-right clearfix">
+								<li><a href="#" class="scroll">English</a></li>
+								<li><a href="#" class="scroll">Germany</a></li>
+								<li><a href="#" class="scroll">Spanish</a></li>
+							</ul>
+						</li>
 					</ul>
+					<!-- End Nav List -->
 				</div>
+				<!-- End Navigation Links -->
 			</div>
+			<!-- End Navigation Inner -->
 		</div>
-		<nav id="mobile-nav" class="mobile-nav">
-			<ul id="menu-main-navigation-1" class="nav uppercase normal">
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('site/index')?>">Home</a>	
-				</li>
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1))?>">Berita</a>
-				</li>
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2))?>">Ragam Budaya</a>
-				</li>
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3))?>">Pahlawan Budaya</a>
-				</li>
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4))?>">Agenda Budaya</a>
-				</li>
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>1))?>">Tentang Kami</a>
-				</li>
-				<li class="menu-item">
-					<a href="<?php echo Yii::app()->createUrl('support/contact/feedback')?>">Kontak Kami</a>
-				</li>
-			</ul>
-		</nav>
 	</nav>
-								
-	<div id="page-content" class="<?php echo $module == null && $currentAction == 'site/index' ? 'header-style-transparent page-with-vc' : 'header-style-default page-with-topbar page-without-vc';?>">
-		<?php //if($currentAction != 'site/error')
-			echo $content;?>
-	</div>
+	<!-- End Nav -->
 	
-	<?php /*
-	<div id="footer-widgets-area" class="footer big-footer fullwidth dark-footer t-left">
-		<div class="boxed footer_inner">
-			<div class="footer-widgets-holder clearfix">
-				<div class="col-xs-3">
-					<div class="bar footer-widget footer-widget-col-1 widget_text">
-						<h4>About Us</h4>
-						<div class="textwidget">
-							<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed. </p>
-							<p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-3">
-					<div class="bar footer-widget footer-widget-col-2 widget_recent_entries">
-						<h4>Recent Blog Posts</h4>
-						<ul>
-							<li>
-								<a href="http://veented.info/crexis/red-hair/">Post from Blog</a>
-							</li>
-							<li>
-								<a href="http://veented.info/crexis/black-and-white/">Desert and Clouds</a>
-							</li>
-							<li>
-								<a href="http://veented.info/crexis/in-the-woods/">Train Tracks</a>
-							</li>
-							<li>
-								<a href="http://veented.info/crexis/city-of-new-york/">City of New York</a>
-							</li>
-							<li>
-								<a href="http://veented.info/crexis/cloudy-desert/">Cloudy Desert</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-xs-3">
-					<div class="bar footer-widget footer-widget-col-3 pr_widget_twitter">
-						<h4>Latest Tweets</h4>
-						<div id="latest_tweets" data-username="envato" data-number="3"></div>
-					</div>
-				</div>
-				<div class="col-xs-3">
-					<div class="bar footer-widget footer-widget-col-4 pr_widget_flickr">
-						<h4>Flickr</h4>
-						<div class="flickr-badge">
-							<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=Latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=10133335@N08"></script>
-						</div>
-					</div>
+	<?php echo $content;?>
+	
+	<!-- Footer -->
+	<footer class="big-footer fullwidth dark-footer t-left">
+		<!-- Footer Inner -->
+		<div class="clearfix boxed footer_inner">
+			<!-- Box -->
+			<div class="col-xs-3">
+				<!-- Header -->
+				<h3 class="footer_header light no-margin no-padding">
+					About Us
+				</h3>
+				<!-- Text -->
+				<p class="footer_text">
+					It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.
+				</p>
+				<!-- Text -->
+				<p class="footer_text">
+					The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.
+				</p>
+			</div>
+			<!-- End Box -->
+			<!-- Box -->
+			<div class="col-xs-3">
+				<!-- Header -->
+				<h3 class="footer_header light no-margin no-padding">
+					Additional Links
+				</h3>
+				<!-- List -->
+				<ol>
+					<li>
+						<!-- Link -->
+						<a href="index3.html" class="ex-link">
+						Awesome Parallax Home Page
+						</a>
+					</li>
+					<li>
+						<!-- Link -->
+						<a href="index4.html" class="ex-link">
+						Home Page Black&amp;White Style
+						</a>
+					</li>
+					<li>
+						<!-- Link -->
+						<a href="portfolio-masonry-5col.html" class="ex-link">
+						Portfolio Page Masonry Layout
+						</a>
+					</li>
+					<li>
+						<!-- Link -->
+						<a href="index8.html" class="ex-link">
+						Awesome Fullscreen&amp;Dotted Menu
+						</a>
+					</li>
+					<li>
+						<!-- Link -->
+						<a href="blog/blog_masonry_6_col.html" class="ex-link">
+						Masonry Blog Style
+						</a>
+					</li>
+				</ol>
+			</div>
+			<!-- End Box -->
+			<!-- Box -->
+			<div class="col-xs-3">
+				<!-- Header -->
+				<h3 class="footer_header light no-margin no-padding">
+					Latest Tweets
+				</h3>
+				<div id="latest_tweets"></div>
+			</div>
+			<!-- End Box -->
+			<!-- Box -->
+			<div class="col-xs-3">
+				<!-- Header -->
+				<h3 class="footer_header light no-margin no-padding">
+					Flickr
+				</h3>
+				<!-- Flickr -->
+				<div id="flickr_badge_wrapper">
+					<!-- Flickr Link -->
+					<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=52617155@N08"></script>
 				</div>
 			</div>
+			<!-- End Box -->
 		</div>
-	</div>
-	*/?>
-	
-	<footer class="footer fullwidth  footer-classic t-left big-footer dark-footer">
+		<!-- End Footer Inner -->
+		<!-- Bottom -->
 		<div class="footer_bottom">
 			<!-- Bottom Inner -->
 			<div class="boxed clearfix">
@@ -394,18 +741,33 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 					</p>
 				</div>
 				<!-- End Left -->
-				<?php /*
 				<!-- Right, Socials -->
 				<div class="right f-right">
-					<div class="vntd-social-icons social-icons-classic social-icons-"><a class="social social-facebook url facebook url" href="http://your_facebook_page_url" target="_blank"><i class="fa fa-facebook url"></i></a><a class="social social-twitter twitter" href="#" target="_blank"><i class="fa fa-twitter"></i></a><a class="social social-dribbble dribbble" href="#" target="_blank"><i class="fa fa-dribbble"></i></a><a class="social social-vimeo vimeo" href="#" target="_blank"><i class="fa fa-vimeo"></i></a><a class="social social-youtube youtube" href="#" target="_blank"><i class="fa fa-youtube"></i></a></div>
+					<!-- Link -->
+					<a href="#" target="_blank" class="social">
+					<i class="fa fa-twitter"></i>
+					</a>
+					<!-- Link -->
+					<a href="#" target="_blank" class="social">
+					<i class="fa fa-facebook"></i>
+					</a>
+					<!-- Link -->
+					<a href="#" target="_blank" class="social">
+					<i class="fa fa-pinterest"></i>
+					</a>
+					<!-- Link -->
+					<a href="#" target="_blank" class="social">
+					<i class="fa fa-tumblr"></i>
+					</a>
 				</div>
 				<!-- End Right -->
-				*/?>
 			</div>
 			<!-- End Inner -->
 		</div>
+		<!-- End Footer, Bottom -->
 	</footer>
-										
+	<!-- End Footer -->	
+	
 	<div id="back-top"><a href="#home" class="scroll t-center white"><i class="fa fa-angle-up"></i></a></div>
 	
 	<?php $this->widget('FrontGoogleAnalytics'); ?>

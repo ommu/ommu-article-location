@@ -1,9 +1,7 @@
 <?php
 
-class MainArticle extends CWidget
+class MainArticleCollection extends CWidget
 {
-	public $layout;
-	public $category;
 	public $limit;
 
 	public function init() {
@@ -23,27 +21,21 @@ class MainArticle extends CWidget
 		$currentModuleAction = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 		
 		//import model
-		Yii::import('application.modules.article.models.Articles');
-		Yii::import('application.modules.article.models.ArticleCategory');
-		Yii::import('application.modules.article.models.ArticleMedia');
+		Yii::import('application.modules.article.model_bpad_coe.Articles');
+		Yii::import('application.modules.article.model_bpad_coe.ArticleCollections');
+		Yii::import('application.modules.article.model_bpad_coe.ArticleCollectionCategory');
 		
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish AND published_date <= curdate()';
+		$criteria->condition = 'publish = :publish';
 		$criteria->params = array(
 			':publish'=>1,
 		);
-		$criteria->order = 'published_date DESC';
-		//$criteria->addInCondition('cat_id',array(2,3,5,6,7,18));
-		$criteria->compare('cat_id', $this->category);
-		$criteria->limit = $this->limit == null ? 3 : $this->limit;
+		$criteria->limit = $this->limit == null ? 4 : $this->limit;
+		$criteria->order = 'creation_date DESC';
 			
-		$model = Articles::model()->findAll($criteria);
+		$model = ArticleCollections::model()->findAll($criteria);		
 		
-		$render = 'main_article_news';
-		if($this->layout != null)
-			$render = $this->layout;
-		
-		$this->render($render,array(
+		$this->render('main_article_collection',array(
 			'module' => $module,
 			'controller' => $controller,
 			'action' => $action,
