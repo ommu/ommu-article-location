@@ -28,13 +28,13 @@ class MainArticle extends CWidget
 		Yii::import('application.modules.article.models.ArticleMedia');
 		
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish AND published_date <= curdate()';
+		$criteria->condition = 't.publish = :publish AND t.published_date <= curdate()';
 		$criteria->params = array(
 			':publish'=>1,
 		);
-		$criteria->order = 'published_date DESC';
+		$criteria->order = 't.published_date DESC';
 		//$criteria->addInCondition('cat_id',array(2,3,5,6,7,18));
-		$criteria->compare('cat_id', $this->category);
+		$criteria->compare('t.cat_id', $this->category);
 		$criteria->limit = $this->limit == null ? 3 : $this->limit;
 			
 		$model = Articles::model()->findAll($criteria);
