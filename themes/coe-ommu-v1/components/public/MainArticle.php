@@ -3,6 +3,7 @@
 class MainArticle extends CWidget
 {
 	public $layout;
+	public $theme;
 	public $category;
 	public $limit;
 
@@ -23,9 +24,10 @@ class MainArticle extends CWidget
 		$currentModuleAction = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 		
 		//import model
-		Yii::import('application.modules.article.models.Articles');
 		Yii::import('application.modules.article.models.ArticleCategory');
-		Yii::import('application.modules.article.models.ArticleMedia');
+		Yii::import('application.modules.article.model_bpad_coe.Articles');
+		Yii::import('application.modules.article.model_bpad_coe.ArticleMedia');
+		Yii::import('application.modules.article.model_bpad_coe.ViewArticles');
 		
 		$criteria=new CDbCriteria;
 		$criteria->condition = 't.publish = :publish AND t.published_date <= curdate()';
@@ -51,6 +53,7 @@ class MainArticle extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
+			'theme' => $this->theme,
 		));
 	}
 }

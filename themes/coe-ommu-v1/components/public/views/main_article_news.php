@@ -1,10 +1,10 @@
 <?php if($model != null) {?>
 <!-- News From Blog -->
-<section class="news border-1px soft-border no-border-bottom">
+<section class="news border-1px soft-border no-border-bottom <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>">
 	<!-- Inner -->
 	<div class="inner t-center">
 		<!-- Header -->
-		<h1 class="header header-style-2 dark georgia t-center animated" data-animation="fadeIn" data-animation-delay="100">
+		<h1 class="header header-style-1 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> georgia t-center animated" data-animation="fadeIn" data-animation-delay="100">
 			<?php echo strtoupper(Phrase::trans($model[0]->cat->name, 2));?>
 		</h1>
 		<!-- Header Text -->

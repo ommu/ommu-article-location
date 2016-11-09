@@ -1,9 +1,7 @@
 <?php
 
-class MainArticleCollection extends CWidget
+class FooterAbouts extends CWidget
 {
-	public $theme;
-	public $limit;
 
 	public function init() {
 	}
@@ -21,22 +19,9 @@ class MainArticleCollection extends CWidget
 		$currentModule = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
 		$currentModuleAction = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 		
-		//import model
-		Yii::import('application.modules.article.model_bpad_coe.Articles');
-		Yii::import('application.modules.article.model_bpad_coe.ArticleCollections');
-		Yii::import('application.modules.article.model_bpad_coe.ArticleCollectionCategory');
+		$model = OmmuPages::model()->findByPk(6);
 		
-		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish';
-		$criteria->params = array(
-			':publish'=>1,
-		);
-		$criteria->limit = $this->limit == null ? 4 : $this->limit;
-		$criteria->order = 'creation_date DESC';
-			
-		$model = ArticleCollections::model()->findAll($criteria);		
-		
-		$this->render('main_article_collection',array(
+		$this->render('footer_abouts',array(
 			'module' => $module,
 			'controller' => $controller,
 			'action' => $action,
@@ -44,7 +29,6 @@ class MainArticleCollection extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
-			'theme' => $this->theme,
 		));
 	}
 }

@@ -648,22 +648,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	<footer class="big-footer fullwidth dark-footer t-left">
 		<!-- Footer Inner -->
 		<div class="clearfix boxed footer_inner">
-			<!-- Box -->
-			<div class="col-xs-3">
-				<!-- Header -->
-				<h3 class="footer_header light no-margin no-padding">
-					About Us
-				</h3>
-				<!-- Text -->
-				<p class="footer_text">
-					It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.
-				</p>
-				<!-- Text -->
-				<p class="footer_text">
-					The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.
-				</p>
-			</div>
-			<!-- End Box -->
+			<?php $this->widget('FooterAbouts'); ?>
 			<!-- Box -->
 			<div class="col-xs-3">
 				<!-- Header -->

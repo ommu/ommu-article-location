@@ -1,10 +1,10 @@
 <?php if($model != null) {?>
 <!-- Team Section -->
-<section id="team" class="container fixed-bg cover">
+<section id="team" class="container fixed-bg cover <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>">
 	<!-- Team Inner -->
 	<div class="inner t-center">
 		<!-- Header -->
-		<h2 class="header header-style-1 dark semibold uppercase animated" data-animation="fadeIn" data-animation-delay="100">
+		<h2 class="header header-style-1 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> georgia uppercase animated" data-animation="fadeIn" data-animation-delay="100">
 			<?php echo strtoupper(Phrase::trans($model[0]->cat->name, 2));?>
 		</h2>
 		<!-- Header Text -->
@@ -34,7 +34,7 @@
 					<!-- Name -->
 					<h3><?php echo Utility::shortText($val->title, 60);?></h3>
 					<!-- Position -->
-					<h5>Designer</h5>
+					<h5><?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : 'Indonesia';?></h5>
 					<!-- Strip -->
 					<div class="strip"></div>
 					<!-- Member Description -->
