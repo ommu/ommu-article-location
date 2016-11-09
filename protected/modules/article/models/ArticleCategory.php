@@ -93,7 +93,7 @@ class ArticleCategory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'view_cat' => array(self::BELONGS_TO, 'ViewArticleCategory', 'cat_id'),
+			'view' => array(self::BELONGS_TO, 'ViewArticleCategory', 'cat_id'),
 			'creation_relation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified_relation' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 		);
@@ -157,8 +157,8 @@ class ArticleCategory extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
-			'view_cat' => array(
-				'alias'=>'view_cat',
+			'view' => array(
+				'alias'=>'view',
 				'select'=>'category_name, category_desc, articles'
 			),
 			'creation_relation' => array(
@@ -170,8 +170,8 @@ class ArticleCategory extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('view_cat.category_name',strtolower($this->title), true);
-		$criteria->compare('view_cat.category_desc',strtolower($this->description), true);
+		$criteria->compare('view.category_name',strtolower($this->title), true);
+		$criteria->compare('view.category_desc',strtolower($this->description), true);
 		$criteria->compare('creation_relation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified_relation.displayname',strtolower($this->modified_search), true);
 
@@ -247,7 +247,7 @@ class ArticleCategory extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'header' => 'Count',
-				'value' => 'CHtml::link($data->view_cat->articles.\' \'.Yii::t(\'attribute\', \'Article\'), Yii::app()->controller->createUrl("o/admin/manage",array("category"=>$data->cat_id)))',
+				'value' => 'CHtml::link($data->view->articles.\' \'.Yii::t(\'attribute\', \'Article\'), Yii::app()->controller->createUrl("o/admin/manage",array("category"=>$data->cat_id)))',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),

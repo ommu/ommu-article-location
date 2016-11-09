@@ -36,7 +36,7 @@
 				</a>
 				<!-- Position -->
 				<h5 class="colored ">
-					<?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : 'Indonesia';?>
+					<?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 				</h5>
 				<!-- Box Description -->
 				<p class="no-padding no-margin raleway">

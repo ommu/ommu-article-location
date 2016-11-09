@@ -1,15 +1,15 @@
 <?php if($model != null) {?>
 <!-- Portfolio Section -->
-<section id="portfolio" class="background16 parallax6 container 4-columns <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>">
+<section id="portfolio" class="background20 parallax5 container 4-columns <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>">
 	<!-- Portfolio Inner -->
 	<div class="inner t-center animated" data-animation="fadeIn" data-animation-delay="100">
 		<!-- Header -->
 		<h2 class="header header-style-2 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> georgia uppercase">
-			Koleksi Budaya
+			<?php echo Yii::t('phrase', 'Koleksi Budaya');?>
 		</h2>
 		<!-- Header Text -->
 		<p class="light">
-			Koleksi Budaya
+			<?php echo Yii::t('phrase', 'Koleksi Budaya');?>
 		</p>
 	</div>
 	<!-- End Inner -->
@@ -80,7 +80,7 @@
 							</h2>
 							<!-- Tags -->
 							<p class="tags">
-								<?php echo $val->article->views->location_id != null ? $val->article->views->location->province_relation->province : 'Indonesia';?>
+								<?php echo $val->article->views->location_id != null ? $val->article->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 							</p>
 						</div>
 					</div>

@@ -34,7 +34,7 @@
 					<!-- Name -->
 					<h3><?php echo Utility::shortText($val->title, 60);?></h3>
 					<!-- Position -->
-					<h5><?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : 'Indonesia';?></h5>
+					<h5><?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?></h5>
 					<!-- Strip -->
 					<div class="strip"></div>
 					<!-- Member Description -->
@@ -57,7 +57,7 @@
 					</div>
 					*/?>
 					<!-- View More Button -->
-					<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" data-toggle="modal" data-target="#member<?php echo $i;?>" class="member-more uppercase normal team_modal">View More</a>
+					<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" data-toggle="modal" data-target="#member<?php echo $i;?>" class="member-more uppercase normal team_modal"><?php echo Yii::t('phrase', 'Selengkapnya');?></a>
 				</div>
 				<!-- End Member Details -->
 			</div>
@@ -93,7 +93,7 @@
 						</h2>
 						<!-- Member Position -->
 						<h4 class="member-position light colored">
-							Designer
+							<?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 						</h4>
 						<!-- Description -->
 						<p class="no-padding light"><?php echo $val->body;?></p>

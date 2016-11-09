@@ -64,7 +64,7 @@
 					</p>
 					<!-- Red More Button -->
 					<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" class="post_read_more_button ex-link uppercase">
-						Read More
+						<?php echo Yii::t('phrase', 'Selengkapnya');?>
 					</a>
 				</div>
 				<!-- End Post Details -->

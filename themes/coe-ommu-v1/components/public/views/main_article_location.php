@@ -4,10 +4,10 @@
 	<!-- Inner -->
 	<div class="inner t-center animated" data-animation="fadeIn" data-animation-delay="100">
 		<!-- First Header -->
-		<h4 class="header-first georgia">Member of CoE</h4>
+		<h4 class="header-first georgia"><?php echo Yii::t('phrase', 'Member of CoE');?></h4>
 		<!-- Header -->
 		<h1 class="header header-style-2 white georgia t-center ">
-			Centre Of Excellence Budaya Jawa
+			<?php echo Yii::t('phrase', 'Centre Of Excellence Budaya Jawa');?>
 		</h1>
 		<!-- Header Text -->
 		<?php /*
