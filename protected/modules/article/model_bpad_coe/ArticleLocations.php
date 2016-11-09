@@ -375,6 +375,11 @@ class ArticleLocations extends CActiveRecord
 	 * before validate attributes
 	 */
 	protected function beforeValidate() {
+		$setting = ArticleSetting::model()->findByPk(1, array(
+			'select' => 'media_file_type',
+		));
+		$media_file_type = unserialize($setting->media_file_type);
+		
 		if(parent::beforeValidate()) {
 			if($this->province_input != '' && ($this->province_id == '' || ($this->province_id != '' && $this->province_id == 0))) {
 				$province = OmmuZoneProvince::model()->find(array(
@@ -390,6 +395,26 @@ class ArticleLocations extends CActiveRecord
 					$this->addError('province_input', Yii::t('phrase', 'Province tidak ditemukan pada database.'));
 			}
 			
+			$province_photo = CUploadedFile::getInstance($this, 'province_photo');
+			if($province_photo->name != '') {
+				$extension = pathinfo($province_photo->name, PATHINFO_EXTENSION);
+				if(!in_array(strtolower($extension), $media_file_type))
+					$this->addError('province_photo', Yii::t('phrase', 'The file {name} cannot be uploaded. Only files with these extensions are allowed: {extensions}.', array(
+						'{name}'=>$province_photo->name,
+						'{extensions}'=>Utility::formatFileType($media_file_type, false),
+					)));
+			}
+			
+			$province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
+			if($province_header_photo->name != '') {
+				$extension = pathinfo($province_header_photo->name, PATHINFO_EXTENSION);
+				if(!in_array(strtolower($extension), $media_file_type))
+					$this->addError('province_header_photo', Yii::t('phrase', 'The file {name} cannot be uploaded. Only files with these extensions are allowed: {extensions}.', array(
+						'{name}'=>$province_header_photo->name,
+						'{extensions}'=>Utility::formatFileType($media_file_type, false),
+					)));
+			}
+			
 			if($this->isNewRecord)
 				$this->creation_id = Yii::app()->user->id;	
 			else
@@ -402,8 +427,8 @@ class ArticleLocations extends CActiveRecord
 	 * before save attributes
 	 */
 	protected function beforeSave() {
-		if(parent::beforeSave()) {			
-			$action = strtolower(Yii::app()->controller->action->id);
+		$action = strtolower(Yii::app()->controller->action->id);
+		if(parent::beforeSave()) {
 			if(!$this->isNewRecord && in_array($action, array('edit','setting'))) {
 				//Update article location photo
 				$location_path = "public/article/location";

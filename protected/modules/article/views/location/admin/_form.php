@@ -98,7 +98,8 @@
 		<div class="desc">
 			<?php 
 			if(!$model->isNewRecord) {
-				$model->old_photo_input = $model->province_photo;
+				if(!$model->getErrors())
+					$model->old_photo_input = $model->province_photo;
 				echo $form->hiddenField($model,'old_photo_input');
 				if($model->province_photo != '') {
 					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_input;?>
@@ -116,7 +117,8 @@
 		<div class="desc">
 			<?php 
 			if(!$model->isNewRecord) {
-				$model->old_header_photo_input = $model->province_header_photo;
+				if(!$model->getErrors())
+					$model->old_header_photo_input = $model->province_header_photo;
 				echo $form->hiddenField($model,'old_header_photo_input');
 				if($model->province_header_photo != '') {
 					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_header_photo_input;?>

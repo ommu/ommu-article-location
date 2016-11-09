@@ -184,7 +184,7 @@
 								$subjects = $model->subjects;
 								if(!empty($subjects)) {
 									foreach($subjects as $key => $val) {?>
-									<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('o/tag/delete',array('id'=>$val->id,'type'=>'article'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+									<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('collection/subjects/delete',array('id'=>$val->id,'type'=>'article'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
 								<?php }
 								}
 							}?>						
