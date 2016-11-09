@@ -82,26 +82,23 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		echo CJSON::encode($return);
 
 	} else {
-		$cs = Yii::app()->getClientScript();	
-		$cs->registerCssFile(/*crexis-styles-css'*/Yii::app()->theme->baseUrl.'/css/style.css?ver=4.6.1');
-		$cs->registerCssFile(/*socials-css'*/Yii::app()->theme->baseUrl.'/css/socials.css?ver=4.6.1');
-		$cs->registerCssFile(/*crexis-responsive-css'*/Yii::app()->theme->baseUrl.'/css/responsive.css?ver=4.6.1');
-		$cs->registerCssFile(/*crexis-responsive-css'*/Yii::app()->theme->baseUrl.'/css/dynamic.css?ver=4.6.1');
+		$cs = Yii::app()->getClientScript();
+		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce.css?ver=2.5.5');
+		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-layout.css?ver=2.5.5');
+		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-styling.css?ver=4.5.4');
+		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/layerslider.css?ver=5.6.2');
+		$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/styles.css?ver=4.4');
+		$cs->registerCssFile(/*think-button-style-css'*/Yii::app()->theme->baseUrl.'/css/button.css?ver=4.5.4');
+		$cs->registerCssFile(/*ccf-form-css'*/Yii::app()->theme->baseUrl.'/css/form.min.css?ver=7.6');
+		$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/settings.css?ver=5.2.4.1');	
+		$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-smallscreen.css?ver=2.5.5');	
+		$cs->registerCssFile(/*crexis-styles-css'*/Yii::app()->theme->baseUrl.'/css/style.css?ver=4.5.4');		
+		$cs->registerCssFile(/*socials-css'*/Yii::app()->theme->baseUrl.'/css/socials.css?ver=4.5.4');
+		$cs->registerCssFile(/*crexis-responsive-css'*/Yii::app()->theme->baseUrl.'/css/responsive.css?ver=4.5.4');
 		$cs->registerCssFile(/*cubePortfolio-css'*/Yii::app()->theme->baseUrl.'/css/scripts/cubeportfolio.min.css?ver=4.5.4');
 		$cs->registerCssFile(/*magnific-popup-css'*/Yii::app()->theme->baseUrl.'/css/scripts/magnific-popup.css?ver=4.5.4');
 		$cs->registerCssFile(/*owl-carousel-css'*/Yii::app()->theme->baseUrl.'/css/scripts/owl.carousel.css?ver=4.5.4');
-		
-		//$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce.css?ver=2.5.5');
-		//$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-layout.css?ver=2.5.5');
-		//$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-styling.css?ver=4.5.4');
-		//$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/layerslider.css?ver=5.6.2');
-		//$cs->registerCssFile(/*contact-form-7-css'*/Yii::app()->theme->baseUrl.'/css/styles.css?ver=4.4');
-		//$cs->registerCssFile(/*think-button-style-css'*/Yii::app()->theme->baseUrl.'/css/button.css?ver=4.5.4');
-		//$cs->registerCssFile(/*ccf-form-css'*/Yii::app()->theme->baseUrl.'/css/form.min.css?ver=7.6');
-		//$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/settings.css?ver=5.2.4.1');	
-		//$cs->registerCssFile(/*rs-plugin-settings-css'*/Yii::app()->theme->baseUrl.'/css/woocommerce-smallscreen.css?ver=2.5.5');
-		//$cs->registerCssFile(/*js_composer_front-css'*/Yii::app()->theme->baseUrl.'/css/js_composer.min.css?ver=4.11.2');
-		
+		$cs->registerCssFile(/*js_composer_front-css'*/Yii::app()->theme->baseUrl.'/css/js_composer.min.css?ver=4.11.2');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');
@@ -141,10 +138,92 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
   <meta name="author" content="Ommu Platform (support@ommu.co)" />
   <script type="text/javascript">
 	var globals = '<?php echo CJSON::encode($jsAttribute);?>';
+	
+	/* You can add more configuration options to webfontloader by previously defining the WebFontConfig with your options */
+	if ( typeof WebFontConfig === "undefined" ) {
+		WebFontConfig = new Object();
+	}
+	WebFontConfig['google'] = {families: ['Open+Sans:400', 'Raleway:500', 'Oswald']};
+	
+	(function() {
+		var wf = document.createElement( 'script' );
+		wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.3/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName( 'script' )[0];
+		s.parentNode.insertBefore( wf, s );
+	})();
+	
+	/* <![CDATA[ */
+	var ccfSettings = {"ajaxurl":"http:\/\/veented.info\/crexis\/wp-admin\/admin-ajax.php","required":"This field is required.","date_required":"Date is required.","hour_required":"Hour is required.","minute_required":"Minute is required.","am-pm_required":"AM\/PM is required.","match":"Emails do not match.","email":"This is not a valid email address.","recaptcha":"Your reCAPTCHA response was incorrect.","recaptcha_theme":"light","phone":"This is not a valid phone number.","digits":"This phone number is not 10 digits","hour":"This is not a valid hour.","date":"This date is not valid.","minute":"This is not a valid minute.","fileExtension":"This is not an allowed file extension","fileSize":"This file is bigger than","unknown":"An unknown error occured.","website":"This is not a valid URL. URL's must start with http(s):\/\/"};
+	/* ]]> */
+	
+	/* <![CDATA[ */
+	var wc_add_to_cart_params = {"ajax_url":"\/crexis\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/crexis\/sample-page\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View Cart","cart_url":"http:\/\/veented.info\/crexis\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
+	/* ]]> */	
   </script>
   <?php echo $setting->general_include != '' ? $setting->general_include : ''?>
   <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl?>/favicon.ico" />
-  <style type="text/css"></style>	
+  <style type="text/css"></style>
+	<style type="text/css">
+		img.wp-smiley,
+		img.emoji {
+			display: inline !important;
+			border: none !important;
+			box-shadow: none !important;
+			height: 1em !important;
+			width: 1em !important;
+			margin: 0 .07em !important;
+			vertical-align: -0.1em !important;
+			background: none !important;
+			padding: 0 !important;
+		}
+	</style>  
+	<style type="text/css" data-type="vc_shortcodes-custom-css">
+		.vc_custom_1456256508033 {
+			padding-top: 0px !important;
+			padding-bottom: 0px !important;
+		}
+		.vc_custom_1456255021415 {
+			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background41.jpg?id=104) !important;
+		}
+		.vc_custom_1461031643005 {
+			padding-top: 100px !important;
+			padding-bottom: 100px !important;
+			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background40.jpg?id=103) !important;
+		}
+		.vc_custom_1456347525799 {
+			padding-bottom: 0px !important;
+		}
+		.vc_custom_1456265830226 {
+			padding-top: 60px !important;
+			padding-bottom: 60px !important;
+			background-color: #f9f9f9 !important;
+		}
+		.vc_custom_1459937771735 {
+			padding-top: 56px !important;
+			padding-bottom: 50px !important;
+			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background9.jpg?id=72) !important;
+		}
+		.vc_custom_1460456899880 {
+			background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background10.jpg?id=73) !important;
+		}
+		.vc_custom_1456304229609 {
+			padding-top: 25px !important;
+			padding-bottom: 20px !important;
+			background-color: #1d1d1d !important;
+		}
+		.vc_custom_1456304985147 {
+			padding-bottom: 60px !important;
+		}
+	</style> 
+	<?php if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta'))) {?>
+	<style type="text/css"> #page-content #page-header {background-image: url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->theme->baseUrl;?>/images/resource/background41.jpg) !important;background-position-y: top;}#page-header h1 { font-size:px; }#page-header h2, #breadcrumbs li { color: #fff; }#page-header h5, #page-header #breadcrumbs a { color: rgba(255,255,255,0.75); }</style>
+	<?php }?>
+	<noscript>
+		<style type="text/css">.wpb_animate_when_almost_visible { opacity: 1; }</style>
+	</noscript>
+	
  </head>
  <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="<?php echo $module == null && $currentAction == 'site/index' ? 'page page-template-default' : 'blog';?> wpb-js-composer vc_responsive">
  
@@ -244,7 +323,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		</nav>
 	</nav>
 								
-	<div id="page-content" class="<?php echo $module == null && $currentAction == 'site/index' ? 'header-style-transparent page-with-vc' : 'header-style-default page-without-vc';?>">
+	<div id="page-content" class="<?php echo $module == null && $currentAction == 'site/index' ? 'header-style-transparent page-with-vc' : 'header-style-default page-with-topbar page-without-vc';?>">
 		<?php //if($currentAction != 'site/error')
 			echo $content;?>
 	</div>

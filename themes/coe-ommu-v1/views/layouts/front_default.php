@@ -16,9 +16,7 @@
 				$class = 'login';
 			else
 				$class = $action;
-		} else if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta')))
-			$class = 'blog';
-		else
+		} else
 			$class = Utility::getUrlTitle($controller);
 	} else {
 		if($controller == 'site') {
@@ -54,21 +52,12 @@
 <!-- End #page-header -->	
 <?php }?>
 
-<?php if(($module == 'article' && ($currentAction == 'site/index' || $currentAction == 'collection/site/index')) || (in_array($currentAction, array('jateng/article','jabar/article','jatim/article','banten/article','jogja/article','jakarta/article')))) {
-	$blog = 'blog blog-index blog-style-classic';
-	$blogID = true;
-	
-} else if(($module == 'article' && ($currentAction == 'site/view' || $currentAction == 'collection/site/view')) || (in_array($currentAction, array('jateng/view','jabar/view','jatim/view','banten/view','jogja/view','jakarta/view')))) {
-	$blog = 'single-post post blog';
-	$blogID = false;
-} ?>
-
-<div class="page-holder <?php echo $this->adsSidebar == false ? 'page-layout-fullwidth' : 'page-layout-sidebar_right';?> <?php echo $blog;?>">
+<div class="page-holder <?php echo $this->adsSidebar == false ? 'page-layout-fullwidth' : 'blog blog-index page-layout-sidebar_right blog-style-classic';?>">
 	<?php if($module == null && $currentAction == 'site/index')
 		echo $content;
 		
 	else {?>
-	<div <?php echo $blogID == true ? 'id="'.$class.'"' : '';?> class="inner clearfix">
+	<div id="<?php echo $class;?>" class="inner clearfix">
 		<?php if($this->adsSidebar == true) {?>				
 		<div class="page_inner">
 			<?php echo $content;?>
