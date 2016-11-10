@@ -2,8 +2,7 @@
 
 class MainArticleLocation extends CWidget
 {
-	public $category;
-	public $limit;
+	public $layout;
 
 	public function init() {
 	}
@@ -31,9 +30,13 @@ class MainArticleLocation extends CWidget
 		);
 		$criteria->order = 'creation_date DESC';
 			
-		$model = ArticleLocations::model()->findAll($criteria);		
+		$model = ArticleLocations::model()->findAll($criteria);	
 		
-		$this->render('main_article_location',array(
+		$render = 'main_article_location';
+		if($this->layout != null)
+			$render = $this->layout;	
+		
+		$this->render($render,array(
 			'module' => $module,
 			'controller' => $controller,
 			'action' => $action,

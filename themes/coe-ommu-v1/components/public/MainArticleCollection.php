@@ -4,6 +4,7 @@ class MainArticleCollection extends CWidget
 {
 	public $theme;
 	public $limit;
+	public $location;
 
 	public function init() {
 	}
@@ -25,14 +26,25 @@ class MainArticleCollection extends CWidget
 		Yii::import('application.modules.article.model_bpad_coe.Articles');
 		Yii::import('application.modules.article.model_bpad_coe.ArticleCollections');
 		Yii::import('application.modules.article.model_bpad_coe.ArticleCollectionCategory');
+		Yii::import('application.modules.article.model_bpad_coe.ViewArticles');
 		
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish';
+		$criteria->with = array(
+			'article' => array(
+				'alias'=>'article',
+			),
+			'article.views' => array(
+				'alias'=>'views',
+			),
+		);
+		$criteria->condition = 't.publish = :publish';
 		$criteria->params = array(
 			':publish'=>1,
 		);
+		if($this->location != null)
+			$criteria->compare('views.location_id', $this->location);
 		$criteria->limit = $this->limit == null ? 4 : $this->limit;
-		$criteria->order = 'creation_date DESC';
+		$criteria->order = 't.creation_date DESC';
 			
 		$model = ArticleCollections::model()->findAll($criteria);		
 		

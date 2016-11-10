@@ -27,88 +27,160 @@
 		} else
 			$class = Utility::getUrlTitle($module.'-'.$controller);
 	}
+	
+	$location = false;
+	if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta'))) {
+		$location = true;
+		$title = $this->location_name;
+		$description = $this->location_desc;
+	} else {
+		$title = $this->pageTitle;
+		$description = $this->pageDescription;
+	}
 ?>
 <?php //echo $this->dialogDetail == true ? (empty($this->dialogWidth) ? 'class="boxed clearfix"' : 'class="clearfix"') : 'class="clearfix"';?>
 
-<?php if($this->dialogDetail == false && $this->pageTitleShow == true) {?>
-<!-- Page Header - litle-header or bigger-header - soft-header, dark-header or background -->
-<section id="page-header" class="soft-header <?php echo in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta')) ? 'big-header' : 'little-header';?> parallax3">
-	<!-- Page Header Inner -->
-	<div class="page_header_inner clearfix dark">
-		<!-- Left -->
-		<div class="left f-left">
-			<!-- Header -->
-			<h2 class="page_header light"><?php echo CHtml::encode(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta')) ? $this->location_name : $this->pageTitle); ?></h2>
-		</div>
-		<?php /*
-		<ul id="breadcrumbs" class="breadcrumbs page-title-side right f-right light">
-			<li><a href="http://veented.info/crexis/">Home</a></li>
-			<li>Blog</li>
-		</ul>
-		*/?>
-	</div>
-	<!-- End Inner -->
-</section>
-<!-- End #page-header -->	
-<?php }?>
-
-<div class="page-holder <?php echo $this->adsSidebar == false ? 'page-layout-fullwidth' : 'blog blog-index page-layout-sidebar_right blog-style-classic';?>">
-	<?php if($module == null && $currentAction == 'site/index')
-		echo $content;
-		
-	else {?>
-	<div id="<?php echo $class;?>" class="inner clearfix">
-		<?php if($this->adsSidebar == true) {?>				
-		<div class="page_inner">
-			<?php echo $content;?>
-		</div>
-		<div id="sidebar" class="page_sidebar sidebar-style-default">
-			<div id="search-2" class="widget bar widget_search">
-				<h5>Search</h5>
-				<form class="search-form relative" id="search-form" action="<?php echo Yii::app()->createUrl('search/result');?>">
-					<input name="keyword" id="s" type="text" value="" placeholder="Search..." class="search">
-					<button class="search-button"><i class="fa fa-search"></i></button>
-				</form>
+<?php if($module == null && $currentAction == 'site/index') {
+	echo $content;?>
+	
+<?php } else {
+	if($this->dialogDetail == false && $this->pageTitleShow == true) {?>
+	<!-- Page Header - litle-header or bigger-header - soft-header, dark-header or background -->
+	<section id="page-header" class="background16 <?php echo $location == true ? 'parallax xxdark-bg big-header' : 'dark-layout litle-header';?>" <?php echo !empty($this->pageImage) ? 'style="background-image:url('.$this->pageImage.');"' : ''?>>
+		<!-- Page Header Inner -->
+		<div class="page_header_inner clearfix white antialiased">
+			<!-- Left -->
+			<div class="left f-left">
+				<!-- Header -->
+				<h2 class="page_header">
+					<?php echo CHtml::encode($location == true && $action == 'view' ? $this->pageTitle : $title); ?>
+				</h2>
+				<!-- Sub Page Text -->
+				<?php if($description != '') {?>
+				<h5 class="page_note light">
+					<?php echo CHtml::encode($location == true && $action == 'view' ? $title : $description); ?>
+				</h5>
+				<?php }?>
 			</div>
+			<!-- Right -->
 			<?php /*
-			<div id="recent-posts-2" class="widget bar widget_recent_entries">
-				<h5>Recent Posts</h5>
-				<ul>
-					<li>
-						<a href="http://veented.info/crexis/red-hair/">Post from Blog</a>
-					</li>
-					<li>
-						<a href="http://veented.info/crexis/black-and-white/">Desert and Clouds</a>
-					</li>
-					<li>
-						<a href="http://veented.info/crexis/in-the-woods/">Train Tracks</a>
-					</li>
-					<li>
-						<a href="http://veented.info/crexis/city-of-new-york/">City of New York</a>
-					</li>
-					<li>
-						<a href="http://veented.info/crexis/cloudy-desert/">Cloudy Desert</a>
-					</li>
-				</ul>
-			</div>
-			<div id="categories-2" class="widget bar widget_categories">
-				<h5>Categories</h5>
-				<ul>
-					<li class="cat-item cat-item-14"><a href="http://veented.info/crexis/category/architecture/" >Architecture</a></li>
-					<li class="cat-item cat-item-11"><a href="http://veented.info/crexis/category/photography/" >Photography</a></li>
-					<li class="cat-item cat-item-17"><a href="http://veented.info/crexis/category/web-design/" >Web Design</a></li>
-					<li class="cat-item cat-item-12"><a href="http://veented.info/crexis/category/work/" >Work</a></li>
-				</ul>
+			<div class="right f-right">
+				<!-- Right Buttons -->
+				<a href="#" class="light">
+				Home 
+				</a>
+				/
+				<!-- Button -->
+				<a href="#" class="light">
+				Icon Styles
+				</a>
 			</div>
 			*/?>
-			<?php $this->widget('SidebarArticleTags'); ?>
+			<!-- End Right -->
 		</div>
+		<!-- End Inner -->
+	</section>
+	<!-- End #page-header -->	
+	<?php }
+	
+	if($this->adsSidebar == true) {?>
+        <!-- Blog -->
+        <section id="blog" class="clearfix boxed pt-40 mb-80">
+            <!-- Posts -->
+            <div class="posts col-md-9 pl-00 pr-10 mt-90">
+				<?php echo $content;?>
+            </div>
+            <!-- End Posts -->
+            <!-- Sidebar -->
+            <div class="sidebar col-md-3 pl-20 pr-00 mt-90 gray">
+                <!-- Widget -->
+                <div class="widget mb-75">
+                    <!-- Head -->
+                    <h3 class="widget-head mb-20">
+                        Search
+                    </h3>
+                    <!-- Search Form -->
+                    <form class="search-form relative">
+                        <input type="text" name="search" class="search" placeholder="Search...">
+                        <button class="search-button"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <!-- End Widget -->
+                <!-- Widget -->
+                <div class="widget mb-75">
+                    <!-- Head -->
+                    <h3 class="widget-head mb-20">
+                        About Crexis
+                    </h3>
+                    <!-- Widget -->
+                    <p class="widget-desc">
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page.
+                    </p>
+                </div>
+                <!-- End Widget -->
+                <!-- Widget -->
+                <div class="widget mb-75">
+                    <!-- Head -->
+                    <h3 class="widget-head mb-20">
+                        Categories
+                    </h3>
+                    <!-- Categories -->
+                    <ul class="categories">
+                        <!-- Links -->
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Video</a></li>
+                        <li><a href="#">MultiPage</a></li>
+                        <li><a href="#">OnePage</a></li>
+                    </ul>
+                    <!-- End Categories -->
+                </div>
+                <!-- End Widget -->
+                <!-- Widget -->
+                <div class="widget mb-75">
+                    <!-- Head -->
+                    <h3 class="widget-head mb-20">
+                        Tags
+                    </h3>
+                    <!-- Tags -->
+                    <a href="#" class="tag">Design</a>
+                    <a href="#" class="tag">Photography</a>
+                    <a href="#" class="tag">HTML</a>
+                    <a href="#" class="tag">Video</a>
+                    <a href="#" class="tag">OnePage</a>
+                    <a href="#" class="tag">Wordpress</a>
+                    <a href="#" class="tag">MultiPage</a>
+                    <a href="#" class="tag">Crexis</a>
+                    <a href="#" class="tag">Branding</a>
+                </div>
+                <!-- End Widget -->
+            </div>
+            <!-- End Sidebar -->
+            <!-- Pagination -->
+            <div class="col-md-12 pagination block t-center mt-90 mb-00">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&amp;laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">11</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&amp;raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- End Blog -->	
 		
-		<?php } else {
-			echo $content;
-		}?>		
-	</div>
-	<?php }?>
-</div>
+	<?php } else
+		echo $content;	
+}?>
 
 <?php $this->endContent(); ?>

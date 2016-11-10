@@ -8063,31 +8063,35 @@
 /* Post Inner */
 
 	.post{
-		margin-top:100px;
+		margin-top:60px;
 	}
 
-	.posts .post:nth-of-type(1){
-		margin-top:0;
+	.posts .post:first-child,
+	.posts .post:first-child:last-child {
+		margin-top:0;		
 	}
 
 	.post .post-inner{
 		width: 80%;
 	}
 
-	.post .post-inner .post-header{
-		margin-top:-45px;
-		margin-bottom:23px;
+	.post .post-inner .post-header {
+		margin: 0 0 25px 0;
+		padding: 0 0 0 0;
 		color:#5f5f5f;
 		font-size:22px;
 	}
+	.post .post-inner .post-image {
+		margin-bottom: 35px;
+	}
 
-	.post .post-inner .post-media img{
+	.post .post-inner .post-media img {
+		display: block;
 		width: 100%;
 		height: auto;
 	}
 
-	.post .post-inner .post-text{
-		margin-top:35px;
+	.post .post-inner .post-text {
 		color:#a4a4a4;
 		font-size:13px;
 		line-height: 22px;
@@ -8098,7 +8102,7 @@
 		margin-top:15px;
 	}
 
-	.post .post-inner .post-more{
+	.post .post-inner .post-more {
 		display: block;
 		width: 100%;
 		height: auto;

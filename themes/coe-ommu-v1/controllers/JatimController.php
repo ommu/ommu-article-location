@@ -33,6 +33,7 @@ class JatimController extends Controller
 	public $defaultAction = 'index';
 	public $location_id = 3;
 	public $location_name = '';
+	public $location_desc = '';
 
 	/**
 	 * Initialize admin page theme
@@ -48,6 +49,9 @@ class JatimController extends Controller
 		
 		$location = ArticleLocations::model()->findByPk($this->location_id);
 		$this->location_name = $location->province_relation->province;
+		$this->location_desc = $location->province_desc;
+		if($location != null && $location->province_header_photo != '')
+			$this->pageImage = Yii::app()->request->baseUrl.'/public/article/location/'.$location->province_header_photo;
 	}
 
 	/**
@@ -122,8 +126,9 @@ class JatimController extends Controller
 		));
 		
 		$this->pageTitleShow = true;
-		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? Phrase::trans($title->name, 2) : 'Articles';
-		$this->pageDescription = $setting->meta_description;
+		$this->adsSidebar = false;
+		$this->pageTitle = $this->location_name;
+		$this->pageDescription = $this->location_desc;
 		$this->pageMeta = $setting->meta_keyword;
 		$this->render('/location/front_index',array(
 			'dataProvider'=>$dataProvider,
@@ -160,7 +165,7 @@ class JatimController extends Controller
 		
 		$this->pageTitleShow = true;
 		$this->pageTitle = '';
-		$this->pageDescription = '';
+		$this->pageDescription = $this->location_desc;
 		$this->pageMeta = '';
 		$this->render('/location/front_article',array(
 			'dataProvider'=>$dataProvider,
@@ -179,14 +184,6 @@ class JatimController extends Controller
 
 		$model=$this->loadModel($id);
 		Articles::model()->updateByPk($id, array('view'=>$model->view + 1));
-
-		$photo = ArticleMedia::model()->findAll(array(
-			'condition' => 'article_id = :id',
-			'params' => array(
-				':id' => $model->article_id,
-			),
-			'order' => 'media_id DESC',
-		));
 		
 		//Random Article
 		$criteria=new CDbCriteria;
@@ -204,17 +201,17 @@ class JatimController extends Controller
 		$this->pageTitle = $model->title;
 		$this->pageDescription = Utility::shortText(Utility::hardDecode($model->body),300);
 		$this->pageMeta = ArticleTag::getKeyword($setting->meta_keyword, $id);
-		if($model->media_id != 0 && $model->cover->media != '') {
+		$medias = $model->medias;
+		if(!empty($medias)) {
 			if(in_array($model->article_type, array('1','3'))) {
-				$media = Yii::app()->request->baseUrl.'/public/article/'.$id.'/'.$model->cover->media;
+				$media = Yii::app()->request->baseUrl.'/public/article/'.$id.'/'.$medias[0]->media;
 			} else if($model->article_type == 2) {
-				$media = 'http://www.youtube.com/watch?v='.$model->cover->media;
+				$media = 'http://www.youtube.com/watch?v='.$medias[0]->media;
 			}
 			$this->pageImage = $media;
 		}
 		$this->render('/location/front_view',array(
 			'model'=>$model,
-			'photo'=>$photo,
 			'random'=>$random,
 		));
 	}

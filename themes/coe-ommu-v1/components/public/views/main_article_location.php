@@ -21,7 +21,7 @@
 	<div class="categories fullwidth">
 		<!-- Boxes -->
 		<div class="category-boxes double-slider relative clearfix">
-			<?php foreach($model as $key => $val) {?>		
+			<?php foreach($model as $key => $val) {?>
 			<!-- Box -->
 			<div class="box animated" data-animation="fadeIn" data-animation-delay="300">
 				<!-- Category Inner Slider -->
@@ -40,7 +40,7 @@
 				<!-- Box Texts -->
 				<div class="box-texts georgia white">
 					<!-- Header -->
-					<a href="<?php echo Yii::app()->createUrl($val->province_code.'/article');?>">
+					<a href="<?php echo Yii::app()->createUrl($val->province_code.'/index');?>">
 						<h2 class="t-shadow">
 							<?php echo $val->province_relation->province;?>
 						</h2>

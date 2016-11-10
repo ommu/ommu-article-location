@@ -12,12 +12,6 @@
  *
  */
 
-	$cs = Yii::app()->getClientScript(); 
-	$cs->registerCssFile(/*flexslider-css'*/Yii::app()->theme->baseUrl.'/css/flexslider.min.css?ver=4.11.2');
-	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/1q1ZOZ4WCgjHiPtheevOtDCH7uI7Us22l5Gh8_fME.js', CClientScript::POS_END);
-	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9BPLkqtyCzWzwKiwtLUokq93MT0vMy0zGTdgvyC0gK93Mw8AA.js', CClientScript::POS_END);
-	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/M9BPLkqtyCzWzwKiwtLUokq9tJzUiuKczJTUIt3czDwdAyQVJeWpqcn5-TkA.js', CClientScript::POS_END);
-
 	$this->breadcrumbs=array(
 		'Articles',
 	);
