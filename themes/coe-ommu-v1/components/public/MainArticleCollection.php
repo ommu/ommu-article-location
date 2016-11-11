@@ -2,6 +2,7 @@
 
 class MainArticleCollection extends CWidget
 {
+	public $layout;
 	public $theme;
 	public $limit;
 	public $location;
@@ -46,9 +47,13 @@ class MainArticleCollection extends CWidget
 		$criteria->limit = $this->limit == null ? 4 : $this->limit;
 		$criteria->order = 't.creation_date DESC';
 			
-		$model = ArticleCollections::model()->findAll($criteria);		
+		$model = ArticleCollections::model()->findAll($criteria);	
 		
-		$this->render('main_article_collection',array(
+		$render = 'main_article_collection';
+		if($this->layout != null)
+			$render = $this->layout;			
+		
+		$this->render($render,array(
 			'module' => $module,
 			'controller' => $controller,
 			'action' => $action,

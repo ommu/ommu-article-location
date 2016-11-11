@@ -1,6 +1,17 @@
 <?php
-Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.*');
-Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
+/**
+ * @var $this SiteController
+ * @var $error array
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @copyright Copyright (c) 2012 Ommu Platform (ommu.co)
+ * @link https://github.com/oMMu/Ommu-Core
+ * @contact (+62)856-299-4114
+ *
+ */
+
+	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.*');
+	Yii::import('webroot.themes.'.Yii::app()->theme->name.'.components.public.*');
 ?>
 
 <?php $this->widget('MainHome', array(

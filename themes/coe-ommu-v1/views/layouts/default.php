@@ -174,7 +174,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 					<!-- Logo Link -->
 					<a href="#home" class="logo-link scroll">
 						<!-- Logo Image / data-second-logo for only white nav -->
-						<img src="images/logo/logo_white_red.png" data-second-logo="images/logo/logo_dark_red.png" alt="crexis_logo" />
+						<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_white.png" data-second-logo="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_dark.png" alt="crexis_logo" />
 					</a>
 				</div>
 				<!-- End Logo Area -->

@@ -114,3 +114,16 @@ mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\contro
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\controllers\o" "D:\htdocs\_project_ommu_module_articles\modules\article\controllers\o"
 --
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\views\o" "D:\htdocs\_project_ommu_module_articles\modules\article\views\o"
+
+///banner\\\
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\externals\banner" "D:\htdocs\_project_ommu_module_banner\externals\banner"
+mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\banner.yaml" "D:\htdocs\_project_ommu_module_banner\modules\banner\banner.yaml"
+mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\BannerModule.php" "D:\htdocs\_project_ommu_module_banner\modules\banner\BannerModule.php"
+mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\LICENSE" "D:\htdocs\_project_ommu_module_banner\modules\banner\LICENSE"
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\assets" "D:\htdocs\_project_ommu_module_banner\modules\banner\assets"
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\components" "D:\htdocs\_project_ommu_module_banner\modules\banner\components"
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\models" "D:\htdocs\_project_ommu_module_banner\modules\banner\models"
+--
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\controllers\o" "D:\htdocs\_project_ommu_module_banner\modules\banner\controllers\o"
+--
+mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\views\o" "D:\htdocs\_project_ommu_module_banner\modules\banner\views\o"

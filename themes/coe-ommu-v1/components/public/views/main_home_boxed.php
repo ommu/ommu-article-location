@@ -97,7 +97,7 @@
     <!-- Home Bottom Note -->
     <div class="home-extra-note fullwidth t-center white thin absolute">
         <!-- Text Link -->
-        <a href="#about" class="scroll">
+        <a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>$about->page_id,'t'=>Utility::getUrlTitle(Phrase::trans($about->name, 2))));?>" class="scroll">
             <!-- Bottom Text -->
 			<?php /*
             <p>Crexis Stunning OnePage&amp;MultiPage Theme</p>

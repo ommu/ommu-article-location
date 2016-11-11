@@ -46,7 +46,7 @@
 <?php } else {
 	if($this->dialogDetail == false && $this->pageTitleShow == true) {?>
 	<!-- Page Header - litle-header or bigger-header - soft-header, dark-header or background -->
-	<section id="page-header" class="background16 <?php echo $location == true ? 'parallax xxdark-bg big-header' : 'dark-layout litle-header';?>" <?php echo !empty($this->pageImage) ? 'style="background-image:url('.$this->pageImage.');"' : ''?>>
+	<section id="page-header" class="<?php echo $location == true ? 'background16 parallax xxdark-bg big-header' : 'dark-layout litle-header';?>" <?php echo $location == true && !empty($this->pageImage) ? 'style="background-image:url('.$this->pageImage.');"' : ''?>>
 		<!-- Page Header Inner -->
 		<div class="page_header_inner clearfix white antialiased">
 			<!-- Left -->

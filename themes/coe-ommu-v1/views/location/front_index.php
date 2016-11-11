@@ -28,6 +28,7 @@
 )); ?>
 
 <?php $this->widget('MainArticleCollection', array(
+	'layout'=>'main_article_collection_desc',
 	'theme'=>'dark',
 	'limit'=>8,
 	'location'=>$this->location_id,

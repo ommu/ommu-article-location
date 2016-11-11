@@ -35,6 +35,8 @@ class MainHome extends CWidget
 			$criteria->addInCondition('cat_id', $this->category);
 			
 		$model = ArticleCategory::model()->findAll($criteria);
+	
+		$about = OmmuPages::model()->findByPk(6);
 		
 		$render = 'main_home_default';
 		if($this->layout != null)
@@ -48,6 +50,7 @@ class MainHome extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
+			'about' => $about,
 		));
 	}
 }

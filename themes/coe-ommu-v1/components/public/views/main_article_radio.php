@@ -14,7 +14,7 @@
 		<div class="boxes boxes-type-4 light box-carousel three-items clearfix animated" data-animation="fadeIn" data-animation-delay="500">
 			<?php foreach($model as $key => $val) {?>
 			<!-- Box -->
-			<div class="box white georgia">
+			<div class="box white">
 				<!-- Box Image -->
 				<div class="box-image fullwidth t-center normal">
 					<?php 
@@ -30,7 +30,7 @@
 				<!-- End Box Icon -->
 				<!-- Box Header -->
 				<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>">
-					<h4 class="box-header no-padding uppercase ">
+					<h4 class="box-header no-padding uppercase">
 						<?php echo $val->title?>
 					</h4>
 				</a>
@@ -39,7 +39,7 @@
 					<?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 				</h5>
 				<!-- Box Description -->
-				<p class="no-padding no-margin raleway">
+				<p class="no-padding no-margin">
 					<?php echo Utility::shortText(Utility::hardDecode($val->body), 150);?>
 				</p>
 			</div>

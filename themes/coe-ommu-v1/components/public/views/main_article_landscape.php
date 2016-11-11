@@ -4,11 +4,11 @@
     <!-- Featured Works Inner -->
     <div class="inner t-center">
         <!-- Header -->
-        <h2 class="header header-style-1 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> georgia uppercase animated" data-animation="fadeIn" data-animation-delay="100">
+        <h2 class="header header-style-1 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> semibold uppercase animated fadeIn visible" data-animation="fadeIn" data-animation-delay="100">
             <?php echo strtoupper(Phrase::trans($model[0]->cat->name, 2));?>
         </h2>
         <!-- Header Text -->
-        <p class="light animated" data-animation="fadeIn" data-animation-delay="100">
+        <p class="light animated fadeIn visible" data-animation="fadeIn" data-animation-delay="100">
             <?php echo Phrase::trans($model[0]->cat->desc, 2);?>
         </p>
         <!-- Team Boxes -->

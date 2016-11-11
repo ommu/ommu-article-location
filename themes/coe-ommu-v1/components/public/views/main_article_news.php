@@ -4,7 +4,7 @@
 	<!-- Inner -->
 	<div class="inner t-center">
 		<!-- Header -->
-		<h1 class="header header-style-1 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> georgia t-center animated" data-animation="fadeIn" data-animation-delay="100">
+		<h1 class="header header-style-2 <?php echo $this->theme != null && $this->theme == 'dark' ? 'white' : 'dark';?> oswald uppercase t-center animated fadeIn visible" data-animation="fadeIn" data-animation-delay="100">
 			<?php echo strtoupper(Phrase::trans($model[0]->cat->name, 2));?>
 		</h1>
 		<!-- Header Text -->

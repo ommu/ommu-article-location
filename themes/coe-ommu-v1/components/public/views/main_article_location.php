@@ -4,9 +4,9 @@
 	<!-- Inner -->
 	<div class="inner t-center animated" data-animation="fadeIn" data-animation-delay="100">
 		<!-- First Header -->
-		<h4 class="header-first georgia"><?php echo Yii::t('phrase', 'Member of CoE');?></h4>
+		<h4 class="header-first"><?php echo Yii::t('phrase', 'Member of CoE');?></h4>
 		<!-- Header -->
-		<h1 class="header header-style-2 white georgia t-center ">
+		<h1 class="header header-style-1 white semibold uppercase t-center ">
 			<?php echo Yii::t('phrase', 'Centre Of Excellence Budaya Jawa');?>
 		</h1>
 		<!-- Header Text -->
@@ -38,7 +38,7 @@
 				</div>
 				<!-- End Category Inner Slider -->
 				<!-- Box Texts -->
-				<div class="box-texts georgia white">
+				<div class="box-texts white">
 					<!-- Header -->
 					<a href="<?php echo Yii::app()->createUrl($val->province_code.'/index');?>">
 						<h2 class="t-shadow">
