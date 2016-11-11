@@ -26,6 +26,9 @@
  * @property integer $location_id
  * @property string $tags
  * @property string $users
+ * @property integer $address
+ * @property integer $email
+ * @property integer $phone
  */
 class ViewArticleLocations extends CActiveRecord
 {
@@ -67,10 +70,10 @@ class ViewArticleLocations extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('location_id', 'numerical', 'integerOnly'=>true),
-			array('tags, users', 'length', 'max'=>21),
+			array('tags, users, address, email, phone', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('location_id, tags, users', 'safe', 'on'=>'search'),
+			array('location_id, tags, users, address, email, phone', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -94,6 +97,9 @@ class ViewArticleLocations extends CActiveRecord
 			'location_id' => Yii::t('attribute', 'Location'),
 			'tags' => Yii::t('attribute', 'Tags'),
 			'users' => Yii::t('attribute', 'Users'),
+			'address' => Yii::t('attribute', 'Address'),
+			'email' => Yii::t('attribute', 'Email'),
+			'phone' => Yii::t('attribute', 'Phone'),
 		);
 		/*
 			'Location' => 'Location',
@@ -124,6 +130,9 @@ class ViewArticleLocations extends CActiveRecord
 		$criteria->compare('t.location_id',$this->location_id);
 		$criteria->compare('t.tags',strtolower($this->tags),true);
 		$criteria->compare('t.users',strtolower($this->users),true);
+		$criteria->compare('t.address',strtolower($this->address),true);
+		$criteria->compare('t.email',strtolower($this->email),true);
+		$criteria->compare('t.phone',strtolower($this->phone),true);
 
 		if(!isset($_GET['ViewArticleLocations_sort']))
 			$criteria->order = 't.location_id DESC';
@@ -157,6 +166,9 @@ class ViewArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = 'location_id';
 			$this->defaultColumns[] = 'tags';
 			$this->defaultColumns[] = 'users';
+			$this->defaultColumns[] = 'address';
+			$this->defaultColumns[] = 'email';
+			$this->defaultColumns[] = 'phone';
 		}
 
 		return $this->defaultColumns;
@@ -174,6 +186,9 @@ class ViewArticleLocations extends CActiveRecord
 			//$this->defaultColumns[] = 'location_id';
 			$this->defaultColumns[] = 'tags';
 			$this->defaultColumns[] = 'users';
+			$this->defaultColumns[] = 'address';
+			$this->defaultColumns[] = 'email';
+			$this->defaultColumns[] = 'phone';
 		}
 		parent::afterConstruct();
 	}

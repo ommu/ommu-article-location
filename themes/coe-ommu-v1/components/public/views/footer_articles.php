@@ -1,5 +1,5 @@
 <!-- Box -->
-<div class="col-xs-3">
+<div class="col-xs-<?php echo $this->type == null || ($this->type != null && $this->type == 'news') ? '3' : '3';?>">
 	<!-- Header -->
 	<h3 class="footer_header light no-margin no-padding">
 		<?php echo $this->type == null || ($this->type != null && $this->type == 'news') ? Yii::t('phrase', 'Berita <span class="colored">Terbaru</span>') : Yii::t('phrase', 'Artikel <span class="colored">Budaya</span>');?>

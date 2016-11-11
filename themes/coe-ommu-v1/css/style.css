@@ -6589,7 +6589,7 @@ footer.big-footer p:last-child {
 /* Links */
 footer.big-footer ol li{
 	padding: 0;
-	border-bottom:1px solid;
+	border-bottom: 1px solid;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
@@ -6597,7 +6597,7 @@ footer.big-footer ol li{
 footer.big-footer ol li:last-child{
 	border-bottom:none;
 }
-footer.big-footer ol li a{
+footer.big-footer ol li a {
 	padding: 10px 10px;
 	display: block;
 	-webkit-transition: all 0.3s;
@@ -6635,113 +6635,99 @@ footer.big-footer ol li a span i.fa:first-child:last-child {
 }
 footer.big-footer ol li a:hover span i.fa {}
 
-/* Footer Bottom Line */
+footer.big-footer.light-footer{
+	background-color:#f1f1f1;
+}
+footer.big-footer.dark-footer,
+footer.big-footer.dark-footer a{
+	color:#8a8a8a;
+}
+footer.big-footer.light-footer,
+footer.big-footer.light-footer a{
+	color:#737373;
+}
 
-	footer.big-footer .footer_bottom{
-		padding:14px 0 12px;
-	}
+footer.big-footer.dark-footer ol li a:hover{
+	background-color:#232323;
+}
+footer.big-footer.light-footer ol li a:hover{
+	background-color:#eeeeee;
+	color:#232323;
+}
 
-	footer.big-footer .footer_bottom > div{
-		padding:0 10px;
-	}
+footer.big-footer.dark-footer .footer_header{
+	color:#d0d0d0;
+}
+footer.big-footer.light-footer .footer_header{
+	color:#5b5b5b;
+}
 
-	footer.big-footer .footer_bottom p{
-		font-size:11px;
-		margin-top:10px;
-		margin-bottom:0;
-	}
+footer.big-footer.dark-footer li{
+	border-color:#232323;
+}
 
-	footer.big-footer .footer_bottom a.social{
-		width: 35px;
-		height: 35px;
-		display: inline-block;
-		font-size:14px;
-		text-align: center;
-		line-height: 35px;
-		margin-left:2px;
-		border-radius: 3px;
-	}
+footer.big-footer.light-footer li{
+	border-color:#ddd;
+}
 
-	footer.big-footer.dark-footer .footer_bottom a.social:hover{
-		opacity: 1;
-		color:white;
-	}
+footer.big-footer.dark-footer ol li a:hover{
+	color:white;
+}
 
-	footer.big-footer.dark-footer .footer_bottom a:hover{
-		opacity: .7;
-	}
+footer.big-footer.dark-footer ol li a:hover:before{
+	color:white;
+}
 
-/* Colors, Dark */
+footer.big-footer.light-footer ol li a:hover:before{
+	color:#232323;
+}
 
-	footer.big-footer.dark-footer,
-	footer.big-footer.dark-footer a{
-		color:#8a8a8a;
-	}
+footer.big-footer .footer_bottom{
+	padding:14px 0 12px;
+}
+footer.big-footer.dark-footer .footer_bottom{
+	border-top:1px solid #2b2b2b;
+}
+footer.big-footer.light-footer .footer_bottom{
+	border-top:1px solid #dadada;
+	background-color:#e3e3e3;
+}
+footer.big-footer .footer_bottom > div{
+	padding:0 10px;
+}
+footer.big-footer .footer_bottom p{
+	font-size:11px;
+	margin-top:10px;
+	margin-bottom:0;
+}
+footer.big-footer .footer_bottom a.social{
+	width: 35px;
+	height: 35px;
+	display: inline-block;
+	font-size:14px;
+	text-align: center;
+	line-height: 35px;
+	margin-left:2px;
+	border-radius: 3px;
+}
+footer.big-footer.dark-footer .footer_bottom a:hover{
+	opacity: .7;
+}	
+footer.big-footer.dark-footer .footer_bottom a.social:hover{
+	opacity: 1;
+	color:white;
+	background-color:#2b2b2b;
+}
+footer.big-footer.light-footer .footer_bottom a.social:hover{
+	background-color:#ddd;
+}
+	
 
-	footer.big-footer.dark-footer ol li a:hover{
-		background-color:#232323;
-	}
 
-	footer.big-footer.dark-footer .footer_header{
-		color:#d0d0d0;
-	}
 
-	footer.big-footer.dark-footer li{
-		border-color:#232323;
-	}
 
-	footer.big-footer.dark-footer .footer_bottom a.social:hover{
-		background-color:#2b2b2b;
-	}
 
-	footer.big-footer.dark-footer ol li a:hover{
-		color:white;
-	}
 
-	footer.big-footer.dark-footer ol li a:hover:before{
-		color:white;
-	}
-
-	footer.big-footer.dark-footer .footer_bottom{
-		border-top:1px solid #2b2b2b;
-	}
-
-/* Light */
-
-	footer.big-footer.light-footer{
-		background-color:#f1f1f1;
-	}
-
-	footer.big-footer.light-footer,
-	footer.big-footer.light-footer a{
-		color:#737373;
-	}
-
-	footer.big-footer.light-footer ol li a:hover{
-		background-color:#eeeeee;
-		color:#232323;
-	}
-
-	footer.big-footer.light-footer ol li a:hover:before{
-		color:#232323;
-	}
-
-	footer.big-footer.light-footer .footer_header{
-		color:#5b5b5b;
-	}
-
-	footer.big-footer.light-footer li{
-		border-color:#ddd;
-	}
-
-	footer.big-footer.light-footer .footer_bottom a.social:hover{
-		background-color:#ddd;
-	}
-
-	footer.big-footer.light-footer .footer_bottom{
-		border-top:1px solid #dadada;
-		background-color:#e3e3e3;
-	}
 
 /* Full Page Version */	
 
