@@ -98,9 +98,9 @@
 			</div>
 		<?php }?>
 		<!-- Description -->
-		<p class="post-text light">
+		<div class="post-text light">
 			<?php echo $model->body;?>
-		</p>
+		</div>
 	</div>
 	<!-- End Post Inner -->
 </div>

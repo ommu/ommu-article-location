@@ -62,7 +62,7 @@
 		<!-- Item -->
 		<div class="cbp-item item design">
 			<!-- Item Link -->
-			<a href="<?php echo Yii::app()->createUrl('article/collection/view', array('id'=>$val->collection_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption ex-link">
+			<a href="<?php echo Yii::app()->createUrl('article/collection/view', array('id'=>$val->collection_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">
 
 				<!-- Item Image -->
 				<div class="cbp-caption-defaultWrap">

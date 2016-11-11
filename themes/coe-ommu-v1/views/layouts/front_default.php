@@ -58,7 +58,7 @@
 				<!-- Sub Page Text -->
 				<?php if($description != '') {?>
 				<h5 class="page_note light">
-					<?php echo CHtml::encode($location == true && $action == 'view' ? $title : $description); ?>
+					<?php echo $location == true && $action == 'view' ? $title : $description; ?>
 				</h5>
 				<?php }?>
 			</div>

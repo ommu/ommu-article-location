@@ -8,7 +8,7 @@
 		margin:0;
 		font-family: "raleway", Helvetica Neue, Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: subpixel-antialiased;
-		color: #666;
+		color: #333;
 	}
 
 	body{
@@ -5943,6 +5943,7 @@
 
 	.contact .address a.box .details h4,
 	.contact .address a.box .details p{
+		padding:0 100px 0 0;
 		color:#c6c6c6;
 	}
 
@@ -5951,12 +5952,14 @@
 		padding:35px 30px 20px;
 	}
 
-	.contact .address a.box{
+	.contact .address a.box {
 		display: block;
 		width: 100%;
 		padding:0 0 0 30px;
-		height: 72px;
 		position: relative;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
 		-webkit-transition: all 0.3s;
 		-moz-transition: all 0.3s;
 		transition: all 0.3s;
@@ -5966,9 +5969,9 @@
 		background:rgba(255,255,255,0.05);
 	}
 
- 	.contact .address a.box div{
-		height: 72px;
+ 	.contact .address a.box div {
 		display: inline-block;
+		min-height: 72px;
 	}
 
 	.contact .address a.box .icon{
@@ -5985,19 +5988,18 @@
 	}
 
 	.contact .address a.box .details h4{
-		padding:0;
 		font-size:24px;
+		margin-top: 10px;
 		margin-bottom:3px;
 		font-weight: inherit;
 	}
 
 	.contact .address a.box .details p{
-		padding:0;
+		margin: 0 0 10px 0;
 		font-size: 14px;
-		margin:0 0 6px;
 	}
 
-	.contact .address a.box .button{
+	.contact .address a.box .button {
 		line-height: 57px !important;
 		width: 72px;
 		text-align: center;
@@ -6021,10 +6023,13 @@
 		opacity: .7;
 	}
 
+	.contact .address a.box .address-note {
+		margin-top: 20px;
+	}
 	.contact .address a.box .address-note h4{
 		font-size:25px;
 		color:#c6c6c6;
-		margin-bottom:5px;
+		margin: 0 0 5px 0;
 		font-weight: inherit;
 	}
 
@@ -6259,36 +6264,65 @@
 		padding:14px 28px 25px;
 		text-align: right;
 	}
+	.contact .contact_form form .errorMessage {
+		margin: 7px 0 0 0;
+		text-align: left;
+		color: #ff0000;
+		font-size: 13px;
+	}
 
 	.contact .dark_form .error_message,
-	.contact .dark_form .submit_message{
-		display: none;
-		padding:15px 20px;
+	.contact .dark_form .submit_message,
+	.contact .white-form .error_message,
+	.contact .white-form .submit_message{
+		padding: 30px 40px;
 		background-color:rgba(0,0,0,0.2);
 		margin-top:15px;
+		text-align: center;
+	}
+
+	.contact .dark_form .error_message,
+	.contact .dark_form .error_message *,
+	.contact .dark_form .submit_message,
+	.contact .dark_form .submit_message *,
+	.contact .white-form .error_message,
+	.contact .white-form .error_message *,
+	.contact .white-form .submit_message,
+	.contact .white-form .submit_message * {
+		font-size: 25px;
+		line-height: 40px;
+	}
+	.contact .dark_form .error_message span,
+	.contact .dark_form .submit_message span,
+	.contact .white-form .error_message span,
+	.contact .white-form .submit_message span,
+	.contact .dark_form .error_message span *,
+	.contact .dark_form .submit_message span *,
+	.contact .white-form .error_message span *,
+	.contact .white-form .submit_message span * {
+		font-size: 15px;
+		line-height: 21px;
 	}
 
 	.contact .white-form .error_message,
 	.contact .white-form .submit_message{
-		display: none;
-		padding:15px 20px;
 		background-color:#fafafa;
-		margin-top:15px;
 		color:#888;
 	}
 
-	.contact .error_message i{
+	.contact .error_message i,
+	.contact .submit_message i{
 		color:#ffa200;
 		margin-right: 5px;
 	}
 
 	.contact .submit_message i{
 		color:#2dbde1;
-		margin-right: 5px;
 	}
 
 	.contact .form input,
-	.contact .form textarea{
+	.contact .form textarea,
+	.contact .form select{
 		width: 100%;
 		padding:15px 20px;
 		outline: none;
@@ -6299,25 +6333,28 @@
 		-moz-transition: all 0.5s;
 		transition: all 0.5s;
 	}
+	.contact .form select {
+		padding: 10px 20px;
+	}
 
-	.contact .form textarea{
+	.contact .form textarea {
 		min-height: 135px;
 		max-width: 100%;
 	}
 
 	.contact .form.dark_form input,
-	.contact .form.dark_form textarea{
+	.contact .form.dark_form textarea {
 		background-color:rgba(0,0,0,0.2);
 		border-color:rgba(255,255,255,0.2);
 	}
 
 	.contact .form.dark_form input:hover,
-	.contact .form.dark_form textarea:hover{
+	.contact .form.dark_form textarea:hover {
 		opacity: .8;
 	}
 
 	.contact .form.dark_form input:focus,
-	.contact .form.dark_form textarea:focus{
+	.contact .form.dark_form textarea:focus {
 		opacity: 1;
 	}
 
@@ -6519,127 +6556,84 @@
 	}
 
 /* Footer Bigger Type */
-
-	footer.big-footer{
-		width: 100%;
-		height: auto;
-		padding:0;
-	}
-
-	footer.big-footer .footer_inner{
-		padding:60px 0 50px;
-	}
-
-	footer.big-footer .footer_header{
-		margin-bottom: 25px !important;
-		font-size:20px;
-	}
-
-	footer.big-footer .footer_header + *,
-	footer.big-footer p{
-		font-size:13px;
-		margin-top:25px
-	}
+footer.big-footer{
+	width: 100%;
+	height: auto;
+	padding:0;
+}
+footer.big-footer .footer_inner{
+	padding:50px 0 50px 0;
+}
+footer.big-footer .footer_header{
+	margin-bottom: 25px !important;
+	font-size:20px;
+	font-weight: 300;
+}
+footer.big-footer .footer_header span {
+	font-weight: 700;	
+	text-transform: none;
+}
+footer.big-footer img.footer_logo {
+	display: block;
+	height: 50px;
+	margin-bottom: 20px;
+}
+footer.big-footer .footer_header + *,
+footer.big-footer p {
+	font-size:13px;
+}
+footer.big-footer p:last-child {
+	margin: 0 0 0 0;
+}
 
 /* Links */
-
-	footer.big-footer ol li{
-		padding: 0;
-		border-bottom:1px solid;
-		-webkit-transition: all 0.3s;
-		-moz-transition: all 0.3s;
-		transition: all 0.3s;
-	}
-
-	footer.big-footer ol li a{
-		padding:10px 0;
-		display: block;
-		-webkit-transition: all 0.3s;
-		-moz-transition: all 0.3s;
-		transition: all 0.3s;
-	}
-
-	footer.big-footer ol li a:before{
-		content: "\f105";
-		margin-left: 0;
-		margin-right: 5px;
-		color: #959494;
-		top: 0;
-		left:0;
-		position: relative;
-		font-family: 'FontAwesome';
-		-webkit-transition: all 0.3s;
-		-moz-transition: all 0.3s;
-		transition: all 0.3s;
-	}
-
-	footer.big-footer ol li a:hover{
-		padding-left:3px;
-	}
-
-	footer.big-footer ol li a:hover:before{
-		left:3px;
-	}
-
-	footer.big-footer ol li:last-child{
-		border-bottom:none;
-	}
-
-/* Twitter */
-
-	footer.big-footer #latest_tweets ul li{
-		position: relative;
-		padding:0 0 15px;
-	}
-
-	footer.big-footer #latest_tweets ul li:before{
-		content: "\f099";
-		margin-left: 0;
-		color: #959494;
-		top: 0;
-		left:-20px;
-		position: absolute;
-		font-family: 'FontAwesome';
-		-webkit-transition: all 0.3s;
-		-moz-transition: all 0.3s;
-		transition: all 0.3s;
-	}
-
-	footer.big-footer #latest_tweets ul li > a{
-		display: inline-block;
-		width: 20px;
-		height: 20px;
-	}
-
-	footer.big-footer #latest_tweets ul li > a img{
-		width: 20px;
-		height: 20px;
-		border-radius: 2px;
-	}
-
-	footer.big-footer #latest_tweets ul li a:hover{
-		opacity: .8;
-	}
-
-/* Flickr */
-
-	footer.big-footer #flickr_badge_wrapper .flickr_badge_image{
-		display: inline-block;
-		margin-right: 5px;
-		margin-bottom:5px;
-		-webkit-transition: all 0.3s;
-		-moz-transition: all 0.3s;
-		transition: all 0.3s;
-	}
-
-	footer.big-footer #flickr_badge_wrapper .flickr_badge_image:hover{
-		opacity: .7;
-	}
-
-	footer.big-footer #flickr_badge_wrapper .flickr_badge_image img{
-		width: 60px;
-		height: 60px;
-	}
+footer.big-footer ol li{
+	padding: 0;
+	border-bottom:1px solid;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+footer.big-footer ol li:last-child{
+	border-bottom:none;
+}
+footer.big-footer ol li a{
+	padding: 10px 10px;
+	display: block;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+footer.big-footer ol li a:before{
+	content: "\f041";
+	margin-left: 0;
+	margin-right: 5px;
+	color: #959494;
+	top: 0;
+	left:0;
+	position: relative;
+	font-family: 'FontAwesome';
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+footer.big-footer ol li a.no-icon:before {
+	display: none;
+}
+footer.big-footer ol li a span {
+	display: block;
+	padding: 7px 0 0 0 !important;
+	font-size: 12px;
+}
+footer.big-footer ol li a span i.fa {
+	margin-left: 10px;
+	margin-right: 5px;
+}
+footer.big-footer ol li a span i.fa:first-child,
+footer.big-footer ol li a span i.fa:first-child:last-child {
+	margin-left: 0;
+}
+footer.big-footer ol li a:hover span i.fa {}
 
 /* Footer Bottom Line */
 
@@ -8092,7 +8086,7 @@
 	}
 
 	.post .post-inner .post-text {
-		color:#a4a4a4;
+		color:#444;
 		font-size:13px;
 		line-height: 22px;
 	}

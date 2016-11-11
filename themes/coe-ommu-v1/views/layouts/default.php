@@ -151,6 +151,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
  <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="parallax">
  
 	<!-- Page Loader -->
+	<?php if($module == null && $currentAction == 'site/index' || $location == true) {?>
 	<article id="pageloader" class="white-loader">
 		<div class="spinner">
 			<div class="bounce1"></div>
@@ -158,6 +159,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 			<div class="bounce3"></div>
 		</div>
 	</article>
+	<?php }?>
 
 	<!-- Navigation - select your nav color - dark-nav or white-nav -->
 	<?php 
@@ -172,9 +174,13 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 				<!-- Logo Area -->
 				<div class="logo f-left">
 					<!-- Logo Link -->
-					<a href="#home" class="logo-link scroll">
+					<a href="<?php echo Yii::app()->createUrl('site/index')?>" class="logo-link scroll" title="<?php echo $setting->site_title;?>">
 						<!-- Logo Image / data-second-logo for only white nav -->
-						<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_white.png" data-second-logo="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_dark.png" alt="crexis_logo" />
+						<?php if($module == null && $currentAction == 'site/index' || $location == true) {?>
+							<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_white.png" data-second-logo="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_dark.png" alt="<?php echo $setting->site_title;?>" />
+						<?php } else {?>
+							<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/logo_dark.png" alt="<?php echo $setting->site_title;?>" />
+						<?php }?>
 					</a>
 				</div>
 				<!-- End Logo Area -->
@@ -191,15 +197,15 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 							<a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>6,'t'=>Utility::getUrlTitle(Phrase::trans(1539, 2))))?>"><?php echo Yii::t('phrase', 'Tentang Kami');?></a>
 						</li>
 						<li class="dropdown-toggle nav-toggle">
-							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1,'t'=>Utility::getUrlTitle(Phrase::trans(1531, 2))));?>" class="ex-link"><?php echo Phrase::trans(1531, 2);?></a>
+							<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>1,'t'=>Utility::getUrlTitle(Phrase::trans(1531, 2))));?>"><?php echo Phrase::trans(1531, 2);?></a>
 						</li>
 						<li class="dropdown-toggle nav-toggle">
 							<a href="javascript:void(0);" title="<?php echo Yii::t('phrase', 'Budaya');?>"><?php echo Yii::t('phrase', 'Budaya');?></a>
 							<!-- DropDown Menu -->
 							<?php ?>
 							<ul class="dropdown-menu pull-left clearfix">
-								<li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2,'t'=>Utility::getUrlTitle(Phrase::trans(1533, 2))));?>" class="ex-link"><?php echo Phrase::trans(1533, 2);?></a></li>
-								<li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3,'t'=>Utility::getUrlTitle(Phrase::trans(1535, 2))));?>" class="ex-link"><?php echo Phrase::trans(1535, 2);?></a></li>
+								<li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>2,'t'=>Utility::getUrlTitle(Phrase::trans(1533, 2))));?>"><?php echo Phrase::trans(1533, 2);?></a></li>
+								<li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>3,'t'=>Utility::getUrlTitle(Phrase::trans(1535, 2))));?>"><?php echo Phrase::trans(1535, 2);?></a></li>
 								<li><a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>4,'t'=>Utility::getUrlTitle(Phrase::trans(1537, 2))));?>"><?php echo Phrase::trans(1537, 2);?></a></li>
 							</ul>
 							<!-- End DropDown -->
@@ -249,69 +255,15 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		<!-- Footer Inner -->
 		<div class="clearfix boxed footer_inner">
 			<?php $this->widget('FooterAbouts'); ?>
-			<!-- Box -->
-			<div class="col-xs-3">
-				<!-- Header -->
-				<h3 class="footer_header light no-margin no-padding">
-					Additional Links
-				</h3>
-				<!-- List -->
-				<ol>
-					<li>
-						<!-- Link -->
-						<a href="index3.html" class="ex-link">
-						Awesome Parallax Home Page
-						</a>
-					</li>
-					<li>
-						<!-- Link -->
-						<a href="index4.html" class="ex-link">
-						Home Page Black&amp;White Style
-						</a>
-					</li>
-					<li>
-						<!-- Link -->
-						<a href="portfolio-masonry-5col.html" class="ex-link">
-						Portfolio Page Masonry Layout
-						</a>
-					</li>
-					<li>
-						<!-- Link -->
-						<a href="index8.html" class="ex-link">
-						Awesome Fullscreen&amp;Dotted Menu
-						</a>
-					</li>
-					<li>
-						<!-- Link -->
-						<a href="blog/blog_masonry_6_col.html" class="ex-link">
-						Masonry Blog Style
-						</a>
-					</li>
-				</ol>
-			</div>
-			<!-- End Box -->
-			<!-- Box -->
-			<div class="col-xs-3">
-				<!-- Header -->
-				<h3 class="footer_header light no-margin no-padding">
-					Latest Tweets
-				</h3>
-				<div id="latest_tweets"></div>
-			</div>
-			<!-- End Box -->
-			<!-- Box -->
-			<div class="col-xs-3">
-				<!-- Header -->
-				<h3 class="footer_header light no-margin no-padding">
-					Flickr
-				</h3>
-				<!-- Flickr -->
-				<div id="flickr_badge_wrapper">
-					<!-- Flickr Link -->
-					<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=52617155@N08"></script>
-				</div>
-			</div>
-			<!-- End Box -->
+			<?php $this->widget('FooterArticleLocation'); ?>
+			<?php $this->widget('FooterArticle', array(
+				'type'=>'news',
+				'category'=>array(1),
+			)); ?>
+			<?php $this->widget('FooterArticle', array(
+				'type'=>'budaya',
+				'category'=>array(2,3,4,5),
+			)); ?>
 		</div>
 		<!-- End Footer Inner -->
 		<!-- Bottom -->

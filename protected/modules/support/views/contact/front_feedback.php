@@ -44,6 +44,35 @@
 				</div>
 				<!-- End Address Header -->
 				<!-- Address Box -->
+				<a href="#map" class="box light hover scroll">
+					<!-- Icon -->
+					<div class="icon">
+						<!-- Icon SRC -->
+						<i class="fa fa-map-marker colored"></i>
+					</div>
+					<!-- Details -->
+					<div class="details">
+						<?php
+							$office_place = $office->office_place != '' && $office->office_place != '-' ? $office->office_place : '';
+							$office_village = $office->office_village != '' && $office->office_village != '-' ? ', '.$office->office_village : '';
+							$office_district = $office->office_district != '' && $office->office_district != '-' ? ', '.$office->office_district : '';
+							$city = $office->view_meta->city != '' && $office->view_meta->city != '-' ? ', '.$office->view_meta->city : '';
+							$province = $office->view_meta->province != '' && $office->view_meta->province != '-' ? ', '.$office->view_meta->province : '';
+							$country = $office->view_meta->country != '' && $office->view_meta->country != '-' ? ', '.$office->view_meta->country : '';
+							$office_zipcode = $office->office_zipcode != '' && $office->office_zipcode != '-' ? ', '.$office->office_zipcode : '';
+						?>
+						<h4>
+							Address;
+						</h4>
+						<p><?php echo $office_place.$office_village.$office_district.$city.$province.$country.$office_zipcode?></p>
+					</div>
+					<!-- Right Secret Button -->
+					<div class="button">
+						<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/plus.png" alt="Crexis Plus">
+					</div>
+				</a>
+				<!-- End Box -->
+				<!-- Address Box -->
 				<?php if($office->office_phone != '') {?>
 				<a href="tel:0123456789" class="box light hover">
 					<!-- Icon -->
@@ -92,28 +121,6 @@
 				<!-- End Box -->
 				<?php }?>
 				<!-- Address Box -->
-				<a href="#map" class="box light hover scroll">
-					<!-- Icon -->
-					<div class="icon">
-						<!-- Icon SRC -->
-						<i class="fa fa-map-marker colored"></i>
-					</div>
-					<!-- Details -->
-					<div class="details">
-						<h4>
-							Address;
-						</h4>
-						<p>
-							<?php echo $office->office_place.'. '.$office->office_village.', '.$office->office_district.', '.$office->view_meta->city.', '.$office->view_meta->province.', '.$office->view_meta->country.', '.$office->office_zipcode?>
-						</p>
-					</div>
-					<!-- Right Secret Button -->
-					<div class="button">
-						<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/plus.png" alt="Crexis Plus">
-					</div>
-				</a>
-				<!-- End Box -->
-				<!-- Address Box -->
 				<a class="box light">
 					<!-- Details -->
 					<div class="address-note">
@@ -151,43 +158,44 @@
 			<!-- Contact Form -->
 			<div class="contact_form f-right">
 				<!-- Form -->
-				<?php if(!isset($_GET['email'])) {
-					$form=$this->beginWidget('application.components.system.OActiveForm', array(
-						'id'=>'contact_form',
-						'enableAjaxValidation'=>true,
-						'htmlOptions' => array(
-							'class' => 'clearfix form dark_form',
-							'enctype' => 'multipart/form-data',
-						),
-					)); ?>
+				<?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
+					'id'=>'contact_form',
+					'enableAjaxValidation'=>true,
+					'htmlOptions' => array(
+						'class' => 'clearfix form dark_form',
+						'enctype' => 'multipart/form-data',
+					),
+				));
+				if(!isset($_GET['email'])) {?>
 					<!-- Name -->
-					<?php echo $form->textField($model,'displayname',array('maxlength'=>32, 'id'=>'name',  'class'=>'', 'placeholder'=>$model->getAttributeLabel('displayname'))); ?>
+					<?php echo $form->textField($model,'displayname',array('maxlength'=>32, 'id'=>'name',  'class'=>'', 'placeholder'=>$office->getAttributeLabel('displayname'))); ?>
 					<?php echo $form->error($model,'displayname'); ?>
 					<!-- Email -->
-					<?php echo $form->textField($model,'email',array('maxlength'=>32, 'id'=>'email',  'class'=>'', 'placeholder'=>$model->getAttributeLabel('email'))); ?>
+					<?php echo $form->textField($model,'email',array('maxlength'=>32, 'id'=>'email',  'class'=>'', 'placeholder'=>$office->getAttributeLabel('email'))); ?>
 					<?php echo $form->error($model,'email'); ?>
 					<!-- Subject -->
-					<?php echo $form->dropDownList($model,'subject',array('Kritik','Saran','Pertanyaan','Budaya Versi Kamu','Lainnya'), array('maxlength'=>64, 'id'=>'subject',  'class'=>'', 'placeholder'=>$model->getAttributeLabel('subject'))); ?>
+					<?php echo $form->dropDownList($model,'subject',array('Kritik','Saran','Pertanyaan','Budaya Versi Kamu','Lainnya'), array('maxlength'=>64, 'id'=>'subject',  'class'=>'', 'placeholder'=>$office->getAttributeLabel('subject'))); ?>
 					<?php echo $form->error($model,'subject'); ?>
 					<!-- Message -->
-					<?php echo $form->textArea($model,'message',array('rows'=>10, 'cols'=>40, 'id'=>'message',  'class'=>'', 'placeholder'=>$model->getAttributeLabel('message'))); ?>
+					<?php echo $form->textArea($model,'message',array('rows'=>10, 'cols'=>40, 'id'=>'message',  'class'=>'', 'placeholder'=>$office->getAttributeLabel('message'))); ?>
 						<?php echo $form->error($model,'message'); ?>
 					<!-- Send Button -->
 					<?php echo CHtml::submitButton(Yii::t('phrase', 'Send Message'), array('class'=>'colored-bg', 'id'=>'submit')); ?>
 					<!-- End Send Button -->
 					
-					<?php $this->endWidget(); 
-					
+					<?php 
 				} else {?>
 					<!-- Submit Message -->
 					<div class="submit_message">
-						<p class="t-left no-margin">
-							<!-- Error Message Icon -->
-							<i class="fa fa-check"></i>
-							Thank You ! Your email has been delivered.
-						</p>
+						<!-- Error Message Icon -->
+						<i class="fa fa-check"></i>
+						<?php echo $this->pageTitle;?>
+						<br/>
+						<span><?php echo $this->pageDescription;?></span>
 					</div>
-				<?php }?>
+					
+				<?php }
+				$this->endWidget();?>
 				<!-- End Form -->
 			</div>
 			<!-- End Contact Form -->
