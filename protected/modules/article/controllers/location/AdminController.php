@@ -11,7 +11,7 @@
  *	Index
  *	Manage
  *	Setting
- *	Contact
+ *	Address
  *	Add
  *	Edit
  *	View
@@ -88,7 +88,7 @@ class AdminController extends Controller
 				//'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level != 1)',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('manage','setting','contact','add','edit','view','runaction','delete','publish'),
+				'actions'=>array('manage','setting','address','add','edit','view','runaction','delete','publish'),
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && in_array(Yii::app()->user->level, array(1,2))',
 			),
@@ -166,6 +166,7 @@ class AdminController extends Controller
 
 		if(isset($_POST['ArticleLocations'])) {
 			$model->attributes=$_POST['ArticleLocations'];
+			$model->scenario = 'setting';
 			
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
@@ -188,7 +189,7 @@ class AdminController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionContact($id) 
+	public function actionAddress($id) 
 	{
 		$model=$this->loadModel($id);
 
@@ -197,18 +198,18 @@ class AdminController extends Controller
 
 		if(isset($_POST['ArticleLocations'])) {
 			$model->attributes=$_POST['ArticleLocations'];
-			$model->scenario = 'contact';
+			$model->scenario = 'address';
 			
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
-				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)));
+				$this->redirect(Yii::app()->controller->createUrl('address', array('id'=>$model->location_id)));
 			}
 		}
 		
 		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_contact',array(
+		$this->render('admin_address',array(
 			'model'=>$model,
 		));
 	}
@@ -226,6 +227,7 @@ class AdminController extends Controller
 
 		if(isset($_POST['ArticleLocations'])) {
 			$model->attributes=$_POST['ArticleLocations'];
+			$model->scenario = 'setting';
 			
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success created.'));
@@ -261,6 +263,7 @@ class AdminController extends Controller
 
 		if(isset($_POST['ArticleLocations'])) {
 			$model->attributes=$_POST['ArticleLocations'];
+			$model->scenario = 'setting';
 			
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));

@@ -32,19 +32,17 @@
 <?php //begin.Messages ?>
 <div id="ajax-message">
 	<?php echo $form->errorSummary($model); ?>
+	<?php
+	if(Yii::app()->user->hasFlash('error'))
+		echo Utility::flashError(Yii::app()->user->getFlash('error'));
+	if(Yii::app()->user->hasFlash('success'))
+		echo Utility::flashSuccess(Yii::app()->user->getFlash('success'));
+	?>	
 </div>
 <?php //begin.Messages ?>
 <?php }?>
 
 <fieldset>
-
-	<?php /*if($model->isNewRecord) {?>
-	<?php //begin.Messages ?>
-	<div id="ajax-message">
-		<?php echo $form->errorSummary($model); ?>
-	</div>
-	<?php //begin.Messages ?>
-	<?php }*/?>
 
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'province_input'); ?>

@@ -93,17 +93,18 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('publish, province_code,
-				province_input', 'required'),
-			array('office_location, office_place, office_city, office_district, office_village, office_zipcode, office_phone, office_email', 'required', 'on'=>'contact'),
-			array('location_id, publish, province_id, office_country, office_city, office_district, office_village', 'numerical', 'integerOnly'=>true),
-			array('office_location, office_phone, office_fax, office_email,
+			array('publish, province_code', 'required'),
+			array('
+				province_input', 'required', 'on'=>'setting'),
+			array('office_location, office_place, office_city, office_phone, office_email', 'required', 'on'=>'address'),
+			array('location_id, publish, province_id, office_country, office_city', 'numerical', 'integerOnly'=>true),
+			array('office_location, office_district, office_village, office_phone, office_fax, office_email,
 				tag_input, user_input', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
-			array('office_city, office_district, office_village, creation_id, modified_id', 'length', 'max'=>11),
+			array('office_city, creation_id, modified_id', 'length', 'max'=>11),
 			array('office_country, office_zipcode', 'length', 'max'=>5),
-			array('province_id, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email
-				tag_input, user_input, old_photo_input, old_header_photo_input', 'safe'),
+			array('province_id, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_country, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email,
+				province_input, tag_input, user_input, old_photo_input, old_header_photo_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('location_id, publish, province_id, province_code, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_country, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email, creation_date, creation_id, modified_date, modified_id,

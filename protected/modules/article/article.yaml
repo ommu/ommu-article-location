@@ -147,16 +147,16 @@ content_menu	:
 		urlPath: {url: add, attr: -, icon: -}
 
 	- urlTitle: Back to Manage
-		urlRules: {article, location/admin, edit,contact, siteType: 0,1, userLevel: 1}
+		urlRules: {article, location/admin, edit,address, siteType: 0,1, userLevel: 1}
 		urlPath: {url: location/admin/manage, attr: -, icon: -}
 
 	- urlTitle: Settings
-		urlRules: {article, location/admin, edit,contact, siteType: 0,1, userLevel: 1}
+		urlRules: {article, location/admin, edit,address, siteType: 0,1, userLevel: 1}
 		urlPath: {url: location/admin/edit, attr: id=$_GET*id, icon: -}
 
-	- urlTitle: Contacts
-		urlRules: {article, location/admin, edit,contact, siteType: 0,1, userLevel: 1}
-		urlPath: {url: location/admin/contact, attr: id=$_GET*id, icon: -}
+	- urlTitle: Address
+		urlRules: {article, location/admin, edit,address, siteType: 0,1, userLevel: 1}
+		urlPath: {url: location/admin/address, attr: id=$_GET*id, icon: -}
 
 	- urlTitle: Back to Article Manage
 		urlRules: {article, location/admin, setting, siteType: 0,1, userLevel: 2}
