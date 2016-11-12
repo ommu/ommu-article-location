@@ -27,10 +27,11 @@
 	'location'=>$this->location_id,
 )); ?>
 
-<?php $this->widget('MainArticleCollection', array(
-	'layout'=>'main_article_collection_desc',
+<?php $this->widget('MainArticle', array(
+	'layout'=>'main_article_radio',
 	'theme'=>'dark',
-	'limit'=>8,
+	'category'=>3,
+	'limit'=>6,
 	'location'=>$this->location_id,
 )); ?>
 
@@ -41,10 +42,9 @@
 	'location'=>$this->location_id,
 )); ?>
 
-<?php $this->widget('MainArticle', array(
-	'layout'=>'main_article_radio',
+<?php $this->widget('MainArticleCollection', array(
+	'layout'=>'main_article_collection_desc',
 	'theme'=>'dark',
-	'category'=>3,
-	'limit'=>6,
+	'limit'=>10,
 	'location'=>$this->location_id,
 )); ?>

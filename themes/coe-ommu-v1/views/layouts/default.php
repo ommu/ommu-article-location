@@ -164,8 +164,13 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	<!-- Navigation - select your nav color - dark-nav or white-nav -->
 	<?php 
 	$location = false;
-	if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta')) && $action == 'index')
-		$location = true;?>
+	$location_footer = false;
+	if(in_array($controller, array('jateng','jabar','jatim','banten','jogja','jakarta'))) {
+		$location_footer = true;
+		if($action == 'index')
+			$location = true;
+	}?>
+	
 	<nav id="navigation" class="white-nav <?php echo $module == null && $currentAction == 'site/index' ? '' : ($location == true ? '' : 'relative-nav');?>">
 		<!-- Navigation -->
 		<div class="navigation <?php echo ($module == null && $currentAction == 'site/index' || $location == true) ? 'first-nav' : '';?> double-nav raleway">
@@ -249,6 +254,12 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	<!-- End Nav -->
 	
 	<?php echo $content;?>
+	
+	<?php if($location_footer == true) {
+		$this->widget('FooterArticleLocationAddress', array(
+			'location'=>$this->location_id,
+		));
+	}?>
 	
 	<!-- Footer -->
 	<footer class="big-footer fullwidth dark-footer t-left">

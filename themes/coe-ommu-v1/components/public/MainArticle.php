@@ -61,7 +61,6 @@ class MainArticle extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
-			'theme' => $this->theme,
 		));
 	}
 }

@@ -23,13 +23,17 @@
 					if(!empty($medias))
 						$image = Yii::app()->request->baseUrl.'/public/article/'.$val->article_id.'/'.$medias[0]->media;?>
 					<!-- Image -->
-					<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" class="changeable-image">
+					<?php if($this->location == null)
+						$link = 'article/site/view';
+					else
+						$link = $val->views->location->province_code.'/view';?>
+					<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" class="changeable-image">
 						<img src="<?php echo Utility::getTimThumb($image, 100, 100, 1)?>" alt="<?php echo $val->title?>">
 					</a>
 				</div>
 				<!-- End Box Icon -->
 				<!-- Box Header -->
-				<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>">
+				<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>">
 					<h4 class="box-header no-padding uppercase">
 						<?php echo $val->title?>
 					</h4>

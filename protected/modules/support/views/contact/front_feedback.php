@@ -18,6 +18,80 @@
 	);
 ?>
 
+<!-- Contact -->
+<section id="contact" class="relative contact">
+    <!-- Inner -->
+    <div class="inner t-center clearfix animated" data-animation="fadeIn" data-animation-delay="800">
+        <!-- Header -->
+        <h1 class="header header-style-2 dark oswald strip uppercase t-center">
+            Keep in touch with us
+        </h1>
+        <!-- Header Text -->
+        <p class="light t-center">
+            Drop Us a Message
+        </p>
+        <!-- Form -->
+        <div class="fullwidth clearfix">
+            <!-- Contact Form -->
+            <div class="contact_form type-2 white-form">
+                <!-- Form -->
+                <form id="contact_form" name="cform" class="clearfix form normal antialiased" method="post" action="php/mail.php">
+                    <!-- 50% inputs -->
+                    <div class="fullwidth clearfix">
+                        <!-- Left Item -->
+                        <div class="f-left">
+                            <!-- Name -->
+                            <input type="text" name="name" id="name" required placeholder="Name">
+                        </div>
+                        <!-- Right Item -->
+                        <div class="f-right">
+                            <!-- Email -->
+                            <input type="email" name="email" id="email" required placeholder="E-Mail">
+                        </div>
+                    </div>
+                    <!-- End 50% inputs -->
+                    <!-- Subject -->
+                    <input type="text" name="subject" id="subject" required placeholder="Subject">
+                    <!-- Message -->
+                    <textarea name="message" id="message" required placeholder="Message"></textarea>
+                    <!-- Verify Math / You can delete blockers for Math Verify -->
+                    <!-- <input type="text" name="verify" id="verify" required placeholder=""> -->
+                    <!-- Send Button -->
+                    <button type="submit" id="submit" name="submit">Send</button>
+                    <!-- Error Message -->
+                    <div class="error_message">
+                        <p class="t-left no-margin">
+                            <!-- Error Message Icon -->
+                            <i class="fa fa-warning"></i>
+                            Validation error occured. Please enter the fields and submit it again.
+                        </p>
+                    </div>
+                    <!-- Submit Message -->
+                    <div class="submit_message">
+                        <p class="t-left no-margin">
+                            <!-- Error Message Icon -->
+                            <i class="fa fa-check"></i>
+                            Thank You ! Your email has been delivered.
+                        </p>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+            <!-- End Form Div -->
+        </div>
+        <!-- End Contact Form -->
+    </div>
+    <!-- End Inner -->
+</section>
+<!-- End Contact Section -->
+
+
+
+
+
+
+
+
 <!-- Features With Mobile Section -->
 <section id="contact" class="relative contact white-layout">
 	<div class="grayscale-bg absolute background42 light-bg parallax9"></div>
@@ -74,7 +148,7 @@
 				<!-- End Box -->
 				<!-- Address Box -->
 				<?php if($office->office_phone != '') {?>
-				<a href="tel:0123456789" class="box light hover">
+				<a href="tel:<?php echo $office->office_phone;?>" class="box light hover">
 					<!-- Icon -->
 					<div class="icon">
 						<!-- Icon SRC -->

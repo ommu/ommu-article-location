@@ -62,7 +62,11 @@
 		<!-- Item -->
 		<div class="cbp-item item design">
 			<!-- Item Link -->
-			<a href="<?php echo Yii::app()->createUrl('article/collection/view', array('id'=>$val->collection_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">
+			<?php if($this->location == null)
+				$link = 'article/collection/view';
+			else
+				$link = $val->article->views->location->province_code.'/view';?>
+			<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->collection_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">
 
 				<!-- Item Image -->
 				<div class="cbp-caption-defaultWrap">
