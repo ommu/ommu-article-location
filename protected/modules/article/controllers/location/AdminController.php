@@ -10,6 +10,8 @@
  * TOC :
  *	Index
  *	Manage
+ *	Setting
+ *	Contact
  *	Add
  *	Edit
  *	View
@@ -86,7 +88,7 @@ class AdminController extends Controller
 				//'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level != 1)',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('manage','add','edit','view','runaction','delete','publish'),
+				'actions'=>array('manage','setting','contact','add','edit','view','runaction','delete','publish'),
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && in_array(Yii::app()->user->level, array(1,2))',
 			),
@@ -178,6 +180,36 @@ class AdminController extends Controller
 			'model'=>$model,
 			'tags'=>$tags,
 			'users'=>$users,
+		));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionContact($id) 
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['ArticleLocations'])) {
+			$model->attributes=$_POST['ArticleLocations'];
+			$model->scenario = 'contact';
+			
+			if($model->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)));
+			}
+		}
+		
+		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_contact',array(
+			'model'=>$model,
 		));
 	}
 	

@@ -257,5 +257,3 @@
 <?php }?>
 
 <?php $this->endWidget(); ?>
-
-

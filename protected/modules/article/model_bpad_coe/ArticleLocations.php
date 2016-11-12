@@ -30,6 +30,17 @@
  * @property integer $province_desc
  * @property integer $province_photo
  * @property integer $province_header_photo
+ * @property string $office_name
+ * @property string $office_location
+ * @property string $office_place
+ * @property integer $office_country
+ * @property integer $office_city
+ * @property integer $office_district
+ * @property integer $office_village
+ * @property string $office_zipcode
+ * @property string $office_phone
+ * @property string $office_fax
+ * @property string $office_email
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -49,6 +60,9 @@ class ArticleLocations extends CActiveRecord
 	public $old_header_photo_input;
 	
 	// Variable Search
+	public $address_search;
+	public $email_search;
+	public $phone_search;
 	public $creation_search;
 	public $modified_search;
 
@@ -81,17 +95,19 @@ class ArticleLocations extends CActiveRecord
 		return array(
 			array('publish, province_code,
 				province_input', 'required'),
-			array('location_id, publish, province_id', 'numerical', 'integerOnly'=>true),
-			array('
+			array('office_location, office_place, office_city, office_district, office_village, office_zipcode, office_phone, office_email', 'required', 'on'=>'contact'),
+			array('location_id, publish, province_id, office_country, office_city, office_district, office_village', 'numerical', 'integerOnly'=>true),
+			array('office_location, office_phone, office_fax, office_email,
 				tag_input, user_input', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
-			array('creation_id, modified_id', 'length', 'max'=>11),
-			array('province_id, province_desc, province_photo, province_header_photo,
+			array('office_city, office_district, office_village, creation_id, modified_id', 'length', 'max'=>11),
+			array('office_country, office_zipcode', 'length', 'max'=>5),
+			array('province_id, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email
 				tag_input, user_input, old_photo_input, old_header_photo_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('location_id, publish, province_id, province_code, province_desc, province_photo, province_header_photo, creation_date, creation_id, modified_date, modified_id,
-				province_input, creation_search, modified_search', 'safe', 'on'=>'search'),
+			array('location_id, publish, province_id, province_code, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_country, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email, creation_date, creation_id, modified_date, modified_id,
+				address_search, email_search, phone_search, province_input, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -103,6 +119,10 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'country_r' => array(self::BELONGS_TO, 'OmmuZoneCountry', 'office_country'),
+			'city_r' => array(self::BELONGS_TO, 'OmmuZoneCity', 'office_city'),
+			'district_r' => array(self::BELONGS_TO, 'OmmuZoneDistricts', 'office_district'),	
+			'village_r' => array(self::BELONGS_TO, 'OmmuZoneVillage', 'office_village'),	
 			'view' => array(self::BELONGS_TO, 'ViewArticleLocations', 'location_id'),
 			'tags' => array(self::HAS_MANY, 'ArticleLocationTag', 'location_id'),
 			'users' => array(self::HAS_MANY, 'ArticleLocationUser', 'location_id'),
@@ -126,12 +146,26 @@ class ArticleLocations extends CActiveRecord
 			'province_photo' => Yii::t('attribute', 'Photo'),
 			'province_header_photo' => Yii::t('attribute', 'Header Photo'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'office_name' => Yii::t('attribute', 'Office Name'),
+			'office_location' => Yii::t('attribute', 'Office Maps Location'),
+			'office_place' => Yii::t('attribute', 'Office Address'),
+			'office_country' => Yii::t('attribute', 'Office Country'),
+			'office_city' => Yii::t('attribute', 'Office City'),
+			'office_district' => Yii::t('attribute', 'Office District'),
+			'office_village' => Yii::t('attribute', 'Office Village'),
+			'office_zipcode' => Yii::t('attribute', 'Office Zipcode'),
+			'office_phone' => Yii::t('attribute', 'Office Phone'),
+			'office_fax' => Yii::t('attribute', 'Office Fax'),
+			'office_email' => Yii::t('attribute', 'Office Email'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
 			'province_input' => Yii::t('attribute', 'Province'),
 			'tag_input' => Yii::t('attribute', 'Tag'),
 			'user_input' => Yii::t('attribute', 'User'),
+			'address_search' => Yii::t('attribute', 'Address'),
+			'phone_search' => Yii::t('attribute', 'Phone'),
+			'email_search' => Yii::t('attribute', 'Email'),
 			'old_photo_input' => Yii::t('attribute', 'Old Photo'),
 			'old_header_photo_input' => Yii::t('attribute', 'Old Photo Header'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
@@ -183,6 +217,17 @@ class ArticleLocations extends CActiveRecord
 		$criteria->compare('t.province_desc',$this->province_desc, true);
 		$criteria->compare('t.province_photo',$this->province_photo, true);
 		$criteria->compare('t.province_header_photo',$this->province_header_photo, true);
+		$criteria->compare('t.office_name',$this->office_name,true);
+		$criteria->compare('t.office_location',$this->office_location,true);
+		$criteria->compare('t.office_place',$this->office_place,true);
+		$criteria->compare('t.office_country',$this->office_country);
+		$criteria->compare('t.office_city',$this->office_city);
+		$criteria->compare('t.office_district',$this->office_district);
+		$criteria->compare('t.office_village',$this->office_village);
+		$criteria->compare('t.office_zipcode',$this->office_zipcode,true);
+		$criteria->compare('t.office_phone',$this->office_phone,true);
+		$criteria->compare('t.office_fax',$this->office_fax,true);
+		$criteria->compare('t.office_email',$this->office_email,true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -214,6 +259,9 @@ class ArticleLocations extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('view.address',strtolower($this->address_search), true);
+		$criteria->compare('view.phone',strtolower($this->phone_search), true);
+		$criteria->compare('view.email',strtolower($this->email_search), true);
 		$criteria->compare('view.tags',strtolower($this->tag_input), true);
 		$criteria->compare('view.users',strtolower($this->user_input), true);
 		$criteria->compare('province_relation.province',strtolower($this->province_input), true);
@@ -256,6 +304,17 @@ class ArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = 'province_desc';
 			$this->defaultColumns[] = 'province_photo';
 			$this->defaultColumns[] = 'province_header_photo';
+			$this->defaultColumns[] = 'office_name';
+			$this->defaultColumns[] = 'office_location';
+			$this->defaultColumns[] = 'office_place';
+			$this->defaultColumns[] = 'office_country';
+			$this->defaultColumns[] = 'office_city';
+			$this->defaultColumns[] = 'office_district';
+			$this->defaultColumns[] = 'office_village';
+			$this->defaultColumns[] = 'office_zipcode';
+			$this->defaultColumns[] = 'office_phone';
+			$this->defaultColumns[] = 'office_fax';
+			$this->defaultColumns[] = 'office_email';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -303,6 +362,42 @@ class ArticleLocations extends CActiveRecord
 				'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id)))',
 				'htmlOptions' => array(
 					'class' => 'center',
+				),
+				'type' => 'raw',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'address_search',
+				'value' => '$data->view->address == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter'=>array(
+					1=>Yii::t('phrase', 'Yes'),
+					0=>Yii::t('phrase', 'No'),
+				),
+				'type' => 'raw',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'phone_search',
+				'value' => '$data->view->phone == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter'=>array(
+					1=>Yii::t('phrase', 'Yes'),
+					0=>Yii::t('phrase', 'No'),
+				),
+				'type' => 'raw',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'email_search',
+				'value' => '$data->view->email == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter'=>array(
+					1=>Yii::t('phrase', 'Yes'),
+					0=>Yii::t('phrase', 'No'),
 				),
 				'type' => 'raw',
 			);
@@ -415,9 +510,10 @@ class ArticleLocations extends CActiveRecord
 					)));
 			}
 			
-			if($this->isNewRecord)
+			if($this->isNewRecord) {
+				$this->office_country = 72;	
 				$this->creation_id = Yii::app()->user->id;	
-			else
+			} else
 				$this->modified_id = Yii::app()->user->id;
 		}
 		return true;
