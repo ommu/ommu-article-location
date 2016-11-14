@@ -1,5 +1,5 @@
 article
+banner
 report
 support
 users
-province
