@@ -148,19 +148,27 @@ content_menu	:
 
 	- urlTitle: Back to Manage
 		urlRules: {article, location/admin, edit,address, siteType: 0,1, userLevel: 1}
-		urlPath: {url: location/admin/manage, attr: -, icon: -}
+		urlPath: {url: manage, attr: -, icon: -}
 
 	- urlTitle: Settings
 		urlRules: {article, location/admin, edit,address, siteType: 0,1, userLevel: 1}
-		urlPath: {url: location/admin/edit, attr: id=$_GET*id, icon: -}
+		urlPath: {url: edit, attr: id=$_GET*id, icon: -}
 
 	- urlTitle: Address
 		urlRules: {article, location/admin, edit,address, siteType: 0,1, userLevel: 1}
-		urlPath: {url: location/admin/address, attr: id=$_GET*id, icon: -}
+		urlPath: {url: address, attr: id=$_GET*id, icon: -}
 
 	- urlTitle: Back to Article Manage
-		urlRules: {article, location/admin, setting, siteType: 0,1, userLevel: 2}
+		urlRules: {article, location/admin, setting,address, siteType: 0,1, userLevel: 2}
 		urlPath: {url: o/admin/manage, attr: -, icon: -}
+
+	- urlTitle: Settings
+		urlRules: {article, location/admin, setting,address, siteType: 0,1, userLevel: 2}
+		urlPath: {url: setting, attr: -, icon: -}
+
+	- urlTitle: Address
+		urlRules: {article, location/admin, setting,address, siteType: 0,1, userLevel: 2}
+		urlPath: {url: address, attr: -, icon: -}
 		
 # controller location/tag
 	- urlTitle: Back to Manage

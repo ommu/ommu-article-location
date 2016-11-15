@@ -110,7 +110,6 @@ mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\assets
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\components" "D:\htdocs\_project_ommu_module_articles\modules\article\components"
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\models" "D:\htdocs\_project_ommu_module_articles\modules\article\models"
 --
-mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\controllers\api" "D:\htdocs\_project_ommu_module_articles\modules\article\controllers\api"
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\controllers\o" "D:\htdocs\_project_ommu_module_articles\modules\article\controllers\o"
 --
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\views\o" "D:\htdocs\_project_ommu_module_articles\modules\article\views\o"

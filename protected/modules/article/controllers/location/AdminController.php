@@ -189,9 +189,25 @@ class AdminController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionAddress($id) 
+	public function actionAddress() 
 	{
-		$model=$this->loadModel($id);
+		$id = $_GET['id'];
+		
+		if(isset($id))
+			$model=$this->loadModel($id);		
+		else {
+			$location = ArticleLocationUser::model()->find(array(
+				'select' => 'location_id, user_id',
+				'condition' => 'user_id = :user',
+				'params' => array(
+					':user' => Yii::app()->user->id,
+				),
+			));
+			if($location == null)
+				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
+				
+			$model=$this->loadModel($location->location_id);			
+		}
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
