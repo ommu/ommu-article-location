@@ -5,8 +5,13 @@
         <!-- Slides -->
         <div class="slides-container relative">
             <!-- Slider Images -->
-            <div class="background22 xxdark-bg parallax"></div>
-            <div class="background24 xxdark-bg parallax"></div>
+			<?php if($banner != null) {
+				foreach($banner as $key => $val) {?>
+				<div class="background46 xxdark-bg parallax" style="background-image:url(<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl.'/public/banner/'.$val->media;?>);"></div>
+			<?php }
+			} else {?>
+				<div class="background46 xxdark-bg parallax"></div>
+			<?php }?>
             <!-- End Slider Images -->	 
         </div>
         <!-- End Slides -->
@@ -68,8 +73,8 @@
                     </h2>
                     <!-- Socials -->
                     <p class="white thin">
-						<?php foreach($model as $key => $val) {?>
-                        <a href="<?php echo $val->value;?>" target="_blank" class="social inline-block">
+						<?php foreach($social as $key => $val) {?>
+                        <a href="<?php echo $val->value;?>" target="_blank" class="social inline-block" title="<?php echo Phrase::trans($val->cat->name, 2);?>">
 							<i class="fa <?php echo $val->contact_icon != '' ? $val->contact_icon : 'fa-star';?>"></i>
                         </a>
 						<?php }?>
@@ -86,7 +91,7 @@
     <!-- Home Bottom Note -->
     <div class="home-extra-note fullwidth t-center white thin absolute">
         <!-- Text Link -->
-        <a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>$about->page_id,'t'=>Utility::getUrlTitle(Phrase::trans($about->name, 2))));?>" class="scroll">
+        <a href="<?php echo Yii::app()->createUrl('page/view', array('id'=>$about->page_id,'t'=>Utility::getUrlTitle(Phrase::trans($about->name, 2))));?>" title="<?php echo Phrase::trans($about->name, 2);?>" class="scroll">
             <!-- Bottom Text -->
 			<?php /*
             <p>Crexis Stunning OnePage&amp;MultiPage Theme</p>

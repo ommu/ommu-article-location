@@ -9,7 +9,7 @@ EOP;
 	$cs->registerScript($ukey, $js);	
 ?>
 <!-- Address Type2 -->
-<section class="address type-2 background37 parallax9 dark-bg">
+<section class="address type-2 background37 parallax dark-bg">
     <!-- Boxed div -->
     <div class="boxed clearfix relative">
         <!-- Box -->

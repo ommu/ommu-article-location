@@ -1,6 +1,7 @@
-<?php if($model != null) {?>
+<?php if($model != null) {
+	$mediaRandom = $random->medias;?>
 <!-- Clients Section -->
-<section id="clients" class="background10 parallax6 <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>">
+<section id="clients" class="background10 parallax-radio <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>" <?php echo !empty($mediaRandom) ? 'style="background-image:url('.Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl.'/public/article/'.$random->article_id.'/'.$mediaRandom[0]->media.')";' : '';?>>
 	<!-- Inner -->
 	<div class="inner t-center clearfix">
 		<!-- Header -->

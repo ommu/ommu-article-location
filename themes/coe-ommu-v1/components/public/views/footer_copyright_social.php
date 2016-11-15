@@ -12,7 +12,7 @@
 	<?php if($model != null) {
 		foreach($model as $key => $val) {?>
 		<!-- Link -->
-		<a href="<?php echo $val->value;?>" target="_blank" class="social">
+		<a href="<?php echo $val->value;?>" title="<?php echo Phrase::trans($val->cat->name, 2);?>" target="_blank" class="social">
 			<i class="fa <?php echo $val->contact_icon != '' ? $val->contact_icon : 'fa-star';?>"></i>
 		</a>
 	<?php }

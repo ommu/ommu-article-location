@@ -299,7 +299,10 @@
 	body.parallax .parallax9,
 	body.parallax .parallax10,
 	body.parallax .parallax11,
-	body.parallax .parallax12{
+	body.parallax .parallax12,
+	body.parallax .parallax-location,
+	body.parallax .parallax-collection,
+	body.parallax .parallax-radio{
 		background-attachment: fixed;
 		background-size:cover;
 	}

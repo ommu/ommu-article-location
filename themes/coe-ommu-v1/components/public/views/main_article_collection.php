@@ -1,6 +1,7 @@
-<?php if($model != null) {?>
+<?php if($model != null) {
+	$mediaRandom = $random->article->medias;?>
 <!-- Portfolio Section -->
-<section id="portfolio" class="background20 parallax5 container 4-columns <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>">
+<section id="portfolio" class="background37 parallax-collection container 4-columns <?php echo $this->theme != null && $this->theme == 'dark' ? 'dark-bg' : '';?>" <?php echo !empty($mediaRandom) ? 'style="background-image:url('.Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl.'/public/article/'.$random->article_id.'/'.$mediaRandom[0]->media.')";' : '';?>>
 	<!-- Portfolio Inner -->
 	<div class="inner t-center animated" data-animation="fadeIn" data-animation-delay="100">
 		<!-- Header -->

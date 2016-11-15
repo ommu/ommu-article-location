@@ -49,6 +49,9 @@ class MainArticle extends CWidget
 			
 		$model = Articles::model()->findAll($criteria);
 		
+		$criteria->order = 'RAND()';
+		$random = Articles::model()->find($criteria);
+		
 		$render = 'main_article_news';
 		if($this->layout != null)
 			$render = $this->layout;
@@ -61,6 +64,7 @@ class MainArticle extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
+			'random' => $random,
 		));
 	}
 }

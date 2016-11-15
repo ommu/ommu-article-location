@@ -617,6 +617,10 @@ MOBILE BACKGROUND FOR VIDEO BACKGROUNDS
         $('body.parallax .parallax9').parallax("50%", 0.5);
         $('body.parallax .parallax10').parallax("50%", 0.5);
         $('body.parallax .parallax11').parallax("50%", 0.5);
+        $('body.parallax .parallax12').parallax("50%", 0.5);
+        $('body.parallax .parallax-location').parallax("50%", 0.5);
+        $('body.parallax .parallax-collection').parallax("50%", 0.5);
+        $('body.parallax .parallax-radio').parallax("50%", 0.5);
 
     }
 

@@ -47,7 +47,10 @@ class MainArticleCollection extends CWidget
 		$criteria->limit = $this->limit == null ? 4 : $this->limit;
 		$criteria->order = 't.creation_date DESC';
 			
-		$model = ArticleCollections::model()->findAll($criteria);	
+		$model = ArticleCollections::model()->findAll($criteria);
+		
+		$criteria->order = 'RAND()';
+		$random = ArticleCollections::model()->find($criteria);
 		
 		$render = 'main_article_collection';
 		if($this->layout != null)
@@ -61,6 +64,7 @@ class MainArticleCollection extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
+			'random' => $random,
 		));
 	}
 }

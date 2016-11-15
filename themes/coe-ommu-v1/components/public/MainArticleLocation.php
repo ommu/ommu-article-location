@@ -30,7 +30,10 @@ class MainArticleLocation extends CWidget
 		);
 		$criteria->order = 'creation_date DESC';
 			
-		$model = ArticleLocations::model()->findAll($criteria);	
+		$model = ArticleLocations::model()->findAll($criteria);
+		
+		$criteria->order = 'RAND()';
+		$random = ArticleLocations::model()->find($criteria);
 		
 		$render = 'main_article_location';
 		if($this->layout != null)
@@ -44,6 +47,7 @@ class MainArticleLocation extends CWidget
 			'currentModule' => $currentModule,
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
+			'random' => $random,
 		));
 	}
 }
