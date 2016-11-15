@@ -41,6 +41,7 @@
 class ArticleCollections extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $author_input;
 	public $subject_input;
 	
 	// Variable Search
@@ -83,7 +84,7 @@ class ArticleCollections extends CActiveRecord
 			array('publish_location', 'length', 'max'=>64),
 			array('isbn', 'length', 'max'=>32),
 			array('article_id, publisher_id, publish_year, publish_location, isbn, pages, series,
-				subject_input', 'safe'),
+				author_input, subject_input', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('collection_id, publish, cat_id, article_id, publisher_id, publish_year, publish_location, isbn, pages, series, creation_date, creation_id, modified_date, modified_id,
@@ -102,6 +103,7 @@ class ArticleCollections extends CActiveRecord
 			'category' => array(self::BELONGS_TO, 'ArticleCollectionCategory', 'cat_id'),
 			'article' => array(self::BELONGS_TO, 'Articles', 'article_id'),
 			'publisher' => array(self::BELONGS_TO, 'ArticleCollectionPublisher', 'publisher_id'),
+			'authors' => array(self::HAS_MANY, 'ArticleCollectionAuthors', 'collection_id'),
 			'subjects' => array(self::HAS_MANY, 'ArticleCollectionSubjects', 'collection_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
@@ -128,6 +130,7 @@ class ArticleCollections extends CActiveRecord
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
+			'author_input' => Yii::t('attribute', 'Authors'),
 			'subject_input' => Yii::t('attribute', 'Subjects'),
 			'article_search' => Yii::t('attribute', 'Collection'),
 			'publisher_search' => Yii::t('attribute', 'Publisher'),
@@ -429,15 +432,32 @@ class ArticleCollections extends CActiveRecord
 	protected function afterSave() {
 		parent::afterSave();
 		
-		if($this->isNewRecord) {
-			$subject_input = Utility::formatFileType($this->subject_input);
-			if(!empty($subject_input)) {
-				foreach($subject_input as $key => $val) {
-					$subject = new ArticleCollectionSubjects;
-					$subject->collection_id = $this->collection_id;
-					$subject->tag_id = 0;
-					$subject->tag_input = $val;
-					$subject->save();
+		if($this->isNewRecord) {			
+			//input author
+			if(trim($this->author_input) != '') {
+				$author_input = Utility::formatFileType($this->author_input, true, '#');
+				if(!empty($author_input)) {
+					foreach($author_input as $key => $val) {
+						$author = new ArticleCollectionAuthors;
+						$author->collection_id = $this->collection_id;
+						$author->author_id = 0;
+						$author->author_input = $val;
+						$author->save();
+					}
+				}
+			}
+			
+			//input subject
+			if(trim($this->subject_input) != '') {
+				$subject_input = Utility::formatFileType($this->subject_input);
+				if(!empty($subject_input)) {
+					foreach($subject_input as $key => $val) {
+						$subject = new ArticleCollectionSubjects;
+						$subject->collection_id = $this->collection_id;
+						$subject->tag_id = 0;
+						$subject->tag_input = $val;
+						$subject->save();
+					}
 				}
 			}
 		}

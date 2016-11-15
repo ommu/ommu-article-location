@@ -37,6 +37,15 @@ class MainHome extends CWidget
 		$model = ArticleCategory::model()->findAll($criteria);
 	
 		$about = OmmuPages::model()->findByPk(6);
+
+		$social = SupportContacts::model()->findAll(array(
+			//'select' => 'publish, name',
+			'condition' => 'publish = :publish',
+			'params' => array(
+				':publish' => 1,
+			),
+			//'order' => 'id ASC'
+		));
 		
 		$render = 'main_home_default';
 		if($this->layout != null)
@@ -51,6 +60,7 @@ class MainHome extends CWidget
 			'currentModuleAction' => $currentModuleAction,
 			'model' => $model,
 			'about' => $about,
+			'social' => $social,
 		));
 	}
 }

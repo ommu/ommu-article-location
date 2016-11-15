@@ -42,7 +42,8 @@
             <!-- Boxes -->
             <div class="boxes white-boxes box-carousel-dragable three-items">
 				<?php if($model != null) {
-				foreach($model as $key => $val) {?>
+				foreach($model as $key => $val) {
+					if($val->view->article_id != null) {?>
                 <!-- Box -->
                 <a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->view->article->article_id, 't'=>Utility::getUrlTitle($val->view->article->title)))?>" class="scroll box inline-block" title="<?php echo $val->view->article->title;?>">
                     <!-- Header -->
@@ -56,8 +57,10 @@
                 </a>
                 <!-- End Box -->
 				<?php }
+					}
 				}?>
                 <!-- Box -->
+				<?php if($social != null) {?>
                 <div  class="box socials inline-block">
                     <!-- Header -->
                     <h2 class="white thin">
@@ -65,28 +68,14 @@
                     </h2>
                     <!-- Socials -->
                     <p class="white thin">
-                        <!-- Facebook -->
-                        <a href="#" target="_blank" class="facebook social inline-block">
-                        <i class="fa fa-facebook"></i>
+						<?php foreach($model as $key => $val) {?>
+                        <a href="<?php echo $val->value;?>" target="_blank" class="social inline-block">
+							<i class="fa <?php echo $val->contact_icon != '' ? $val->contact_icon : 'fa-star';?>"></i>
                         </a>
-                        <!-- Twitter -->
-                        <a href="#" target="_blank" class="twitter social inline-block">
-                        <i class="fa fa-twitter"></i>
-                        </a>
-                        <!-- Pinterest -->
-                        <a href="#" target="_blank" class="pinterest social inline-block">
-                        <i class="fa fa-pinterest"></i>
-                        </a>
-                        <!-- linkedin -->
-                        <a href="#" target="_blank" class="linkedin social inline-block">
-                        <i class="fa fa-linkedin"></i>
-                        </a>
-                        <!-- linkedin -->
-                        <a href="#" target="_blank" class="flickr social inline-block">
-                        <i class="fa fa-flickr"></i>
-                        </a>
+						<?php }?>
                     </p>
                 </div>
+				<?php }?>
                 <!-- End Box -->
             </div>
             <!-- End Boxes -->

@@ -92,6 +92,61 @@
 						<?php /*<div class="small-px silent"></div>*/?>
 					</div>
 				</div>
+				
+				<div class="clearfix">
+					<?php echo $form->labelEx($model,'author_input'); ?>
+					<div class="desc">
+						<?php 
+						if($model->isNewRecord) {
+							echo $form->textArea($model,'author_input',array('rows'=>6, 'cols'=>50, 'class'=>'span-10 smaller'));
+							
+						} else {
+							//echo $form->textField($model,'author_input',array('maxlength'=>32,'class'=>'span-6'));
+							$url = Yii::app()->controller->createUrl('collection/authors/add', array('type'=>'article'));
+							$collection = $model->collection_id;
+							$authorId = 'ArticleCollections_author_input';
+							$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+								'model' => $model,
+								'attribute' => 'author_input',
+								'source' => Yii::app()->controller->createUrl('collection/author/suggest'),
+								'options' => array(
+									//'delay '=> 50,
+									'minLength' => 1,
+									'showAnim' => 'fold',
+									'select' => "js:function(event, ui) {
+										$.ajax({
+											type: 'post',
+											url: '$url',
+											data: { collection_id: '$collection', author_id: ui.item.id, author: ui.item.value },
+											dataType: 'json',
+											success: function(response) {
+												$('form #$authorId').val('');
+												$('form #author-suggest').append(response.data);
+											}
+										});
+
+									}"
+								),
+								'htmlOptions' => array(
+									'class'	=> 'span-7',
+								),
+							));
+							echo $form->error($model,'author_input');
+						}?>
+						<div id="author-suggest" class="suggest clearfix">
+							<?php 
+							if(!$model->isNewRecord) {
+								$authors = $model->authors;
+								if(!empty($authors)) {
+									foreach($authors as $key => $val) {?>
+									<div><?php echo $val->author->author_name;?><a href="<?php echo Yii::app()->controller->createUrl('collection/authors/delete',array('id'=>$val->id,'type'=>'article'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+								<?php }
+								}
+							}?>				
+						</div>
+						<?php if($model->isNewRecord) {?><span class="small-px">tambahkan tanda pagar (#) jika ingin menambahkan aothor lebih dari satu</span><?php }?>
+					</div>
+				</div>
 
 				<div class="clearfix">
 					<?php echo $form->labelEx($model,'publish_year'); ?>

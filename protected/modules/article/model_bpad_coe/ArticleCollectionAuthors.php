@@ -310,7 +310,7 @@ class ArticleCollectionAuthors extends CActiveRecord
 				if($this->author_id == 0) {
 					$author = ArticleCollectionAuthor::model()->find(array(
 						'select' => 'author_id, author_name',
-						'condition' => 'publish = 1 AND author_name = :name',
+						'condition' => 'author_name = :name',
 						'params' => array(
 							':name' => $this->author_input,
 						),
