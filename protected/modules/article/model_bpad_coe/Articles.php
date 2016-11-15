@@ -123,6 +123,7 @@ class Articles extends CActiveRecord
 			'medias' => array(self::HAS_MANY, 'ArticleMedia', 'article_id'),
 			'tags' => array(self::HAS_MANY, 'ArticleTag', 'article_id'),
 			'tag_ONE' => array(self::HAS_ONE, 'ArticleTag', 'article_id'),
+			'collection' => array(self::HAS_ONE, 'ArticleCollections', 'article_id'),
 		);
 	}
 

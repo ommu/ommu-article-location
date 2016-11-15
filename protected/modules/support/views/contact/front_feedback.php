@@ -43,6 +43,14 @@
 						'enctype' => 'multipart/form-data',
 					),
 				));
+				 if(!Yii::app()->user->isGuest && $user != null) {
+					$model->user_id = $user->user_id;
+					$model->email = $user->email;
+					$model->displayname = $user->displayname;
+				} else
+					$model->user_id = 0;
+				echo $form->hiddenField($model,'user_id'); 
+				
 				if(!isset($_GET['email'])) {?>
                     <!-- 50% inputs -->
                     <div class="fullwidth clearfix">

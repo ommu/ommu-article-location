@@ -27,6 +27,8 @@ class FooterArticle extends CWidget
 		Yii::import('application.modules.article.model_bpad_coe.Articles');
 		Yii::import('application.modules.article.model_bpad_coe.ArticleMedia');
 		Yii::import('application.modules.article.model_bpad_coe.ViewArticles');
+		Yii::import('application.modules.article.model_bpad_coe.ArticleCollections');
+		Yii::import('application.modules.article.model_bpad_coe.ArticleCollectionCategory');
 		
 		$criteria=new CDbCriteria;
 		$criteria->condition = 't.publish = :publish AND t.published_date <= curdate()';

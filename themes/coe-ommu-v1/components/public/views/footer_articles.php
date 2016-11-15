@@ -23,7 +23,7 @@
 					<a href="<?php echo Yii::app()->createUrl('article/site/view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" title="<?php echo $val->title;?>" class="no-icon">
 						<?php echo $val->title;?>
 						<span>
-							<i class="fa fa-clock-o"></i> <?php echo Phrase::trans($val->cat->name, 2);?>
+							<i class="fa fa-tags"></i> <?php echo $val->collection->category->category_name;?>
 							<i class="fa fa-map-marker"></i> <?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 						</span>
 					</a>
