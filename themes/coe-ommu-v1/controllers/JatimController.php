@@ -180,6 +180,7 @@ class JatimController extends Controller
 		));
 		
 		$this->pageTitleShow = true;
+		$this->pageDescriptionShow = true;
 		$this->pageTitle = '';
 		$this->pageDescription = $this->location_desc;
 		$this->pageMeta = '';
