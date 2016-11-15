@@ -142,6 +142,7 @@ class JakartaController extends Controller
 		
 		$this->pageTitleShow = true;
 		$this->adsSidebar = false;
+		$this->pageDescriptionShow = true;
 		$this->pageTitle = $this->location_name;
 		$this->pageDescription = $this->location_desc;
 		$this->pageMeta = $setting->meta_keyword;
@@ -213,6 +214,7 @@ class JakartaController extends Controller
 		$random = Articles::model()->findAll($criteria);
 		
 		$this->pageTitleShow = true;
+		$this->pageDescriptionShow = true;
 		$this->pageTitle = $model->title;
 		$this->pageDescription = Utility::shortText(Utility::hardDecode($model->body),300);
 		$this->pageMeta = ArticleTag::getKeyword($setting->meta_keyword, $id);

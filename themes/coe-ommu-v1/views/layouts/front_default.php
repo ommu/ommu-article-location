@@ -56,7 +56,7 @@
 					<?php echo CHtml::encode($location == true && $action == 'view' ? $this->pageTitle : $title); ?>
 				</h2>
 				<!-- Sub Page Text -->
-				<?php if($description != '') {?>
+				<?php if($description != '' && $this->pageDescriptionShow == true) {?>
 				<h5 class="page_note light">
 					<?php echo $location == true && $action == 'view' ? $title : $description; ?>
 				</h5>

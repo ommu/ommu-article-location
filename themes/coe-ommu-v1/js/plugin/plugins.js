@@ -631,59 +631,6 @@ MOBILE BACKGROUND FOR VIDEO BACKGROUNDS
     else{}
 
 /* ==============================================
-CREXIS MARGIN AND PADDING RULER
-=============================================== */
- 
-    // Calculate Margin Left
-    $('[class*="ml-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("ml-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("ml-")[1].split("")[1]
-        $(this).css({'margin-left': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Margin Top
-    $('[class*="mt-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("mt-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("mt-")[1].split("")[1]
-       $(this).css({'margin-top': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Margin Right
-    $('[class*="mr-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("mr-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("mr-")[1].split("")[1]
-       $(this).css({'margin-right': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Margin Bottom
-    $('[class*="mb-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("mb-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("mb-")[1].split("")[1]
-       $(this).css({'margin-bottom': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Padding Left
-    $('[class*="pl-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("pl-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("pl-")[1].split("")[1]
-       $(this).css({'padding-left': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Padding Top
-    $('[class*="pt-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("pt-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("pt-")[1].split("")[1]
-       $(this).css({'padding-top': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Padding Right
-    $('[class*="pr-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("pr-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("pr-")[1].split("")[1]
-       $(this).css({'padding-right': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-    // Calculate Padding Bottom
-    $('[class*="pb-"]').each(function() {
-        var valueRulerPointOne = $(this).attr('class').split("pb-")[1].split("")[0]
-        var valueRulerPointTwo = $(this).attr('class').split("pb-")[1].split("")[1]
-       $(this).css({'padding-bottom': valueRulerPointOne + valueRulerPointTwo + 'px'});
-    });
-
-/* ==============================================
 CHECK FOR INTERNET EXPLORER
 =============================================== */
 
