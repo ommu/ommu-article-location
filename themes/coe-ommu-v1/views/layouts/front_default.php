@@ -93,6 +93,7 @@
             <!-- End Posts -->
             <!-- Sidebar -->
             <div class="sidebar col-md-3 pl-20 pr-00 mt-90 gray">
+				<?php /*
                 <!-- Widget -->
                 <div class="widget mb-75">
                     <!-- Head -->
@@ -154,8 +155,11 @@
                     <a href="#" class="tag">Branding</a>
                 </div>
                 <!-- End Widget -->
+				*/?>
             </div>
             <!-- End Sidebar -->
+			
+			<?php /*
             <!-- Pagination -->
             <div class="col-md-12 pagination block t-center mt-90 mb-00">
                 <ul class="pagination">
@@ -176,6 +180,7 @@
                     </li>
                 </ul>
             </div>
+			*/?>
         </section>
         <!-- End Blog -->	
 		
