@@ -34,6 +34,9 @@ class BantenController extends Controller
 	public $location_id = 4;
 	public $location_name = '';
 	public $location_desc = '';
+	public $location_office = '';
+	public $location_office_url = '';
+	public $location_office_address = '';
 
 	/**
 	 * Initialize admin page theme
@@ -50,6 +53,18 @@ class BantenController extends Controller
 		$location = ArticleLocations::model()->findByPk($this->location_id);
 		$this->location_name = $location->province_relation->province;
 		$this->location_desc = $location->province_desc;
+		$this->location_office = trim($location->office_location);
+		$this->location_office_url = Yii::app()->createUrl($location->province_code.'/office');
+		
+		$office_place = $location->office_place != '' && $location->office_place != '-' ? $location->office_place : '';
+		$office_village = $location->office_village != '' && $location->office_village != '-' ? ', '.$location->office_village : '';
+		$office_district = $location->office_district != '' && $location->office_district != '-' ? ', '.$location->office_district : '';
+		$city = $location->office_city != '' && $location->office_city != 0 ? ', '.$location->city_r->city : '';
+		$province = $location->province_id != null && $location->province_id != 0 ? ', '.$location->province_relation->province : '';
+		$country = $location->office_country != null && $location->office_country != 0 ? ', '.$location->country_r->country : '';
+		$office_zipcode = $location->office_zipcode != '' && $location->office_zipcode != '-' ? ', '.$location->office_zipcode : '';
+		$this->location_office_address = $office_place.$office_village.$office_district.$city.$province.$country.$office_zipcode;
+			
 		if($location != null && $location->province_header_photo != '')
 			$this->pageImage = Yii::app()->request->baseUrl.'/public/article/location/'.$location->province_header_photo;
 	}
@@ -74,7 +89,7 @@ class BantenController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','article','view'),
+				'actions'=>array('index','article','view','office'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -214,6 +229,37 @@ class BantenController extends Controller
 			'model'=>$model,
 			'random'=>$random,
 		));
+	}
+	
+	/**
+	 * Lists all models.
+	 */
+	public function actionOffice() 
+	{
+		$this->layout = false;
+		$model = ArticleLocations::model()->findByPk($this->location_id, array(
+			'select' => 'office_name'
+		));
+		$setting = OmmuSettings::model()->findByPk(1,array(
+			'select' => 'site_title'
+		));
+		
+		$return = array();
+		$return['maps'] = array(
+			'icon'=>Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl.'/public/marker_default.png',
+			'width'=>42,
+			'height'=>48,
+		);
+		$point = explode(',', $model->office_location);
+		$return['data'][] = array(
+			'id'=>1,
+			'lat'=>trim($point[0]),
+			'lng'=>trim($point[1]),
+			'name'=>$model->office_name != '' && $model->office_name != '-' ? $model->office_name : $setting->site_title,
+			'address'=>$this->location_office_address,
+		);
+		
+		echo CJSON::encode($return);
 	}
 
 	/**

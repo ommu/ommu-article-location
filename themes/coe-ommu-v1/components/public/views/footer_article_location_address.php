@@ -1,3 +1,13 @@
+<?php	
+	$cs = Yii::app()->getClientScript();
+	$cs->registerScriptFile('https://maps.googleapis.com/maps/api/js?key=AIzaSyAfBXOjA19jV6eA65puYWfM2jyHYOpSCeA', CClientScript::POS_END);
+	$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/custom/location_maps.js', CClientScript::POS_END);
+$js = <<<EOP
+	initialize();
+EOP;
+	$ukey = md5(uniqid(mt_rand(), true));
+	$cs->registerScript($ukey, $js);	
+?>
 <!-- Address Type2 -->
 <section class="address type-2 background37 parallax9 dark-bg">
     <!-- Boxed div -->
@@ -87,9 +97,6 @@
 
 <!-- Map Section -->
 <section id="map" class="fullwidth">
-    <!-- Google Map Script -->
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <!-- Google Map ID -->
     <div id="google_map"></div>
 </section>
 <!-- End Map Section -->

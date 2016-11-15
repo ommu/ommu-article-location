@@ -61,7 +61,7 @@
 				$link = 'article/collection/view';
 			else
 				$link = $val->article->views->location->province_code.'/view';?>
-			<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->collection_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">
+			<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">
 				<!-- Item Image -->
 				<div class="cbp-caption-defaultWrap">
 					<?php 
