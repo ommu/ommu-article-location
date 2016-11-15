@@ -621,7 +621,7 @@ MOBILE BACKGROUND FOR VIDEO BACKGROUNDS
         $('body.parallax .parallax-location').parallax("50%", 0.5);
         $('body.parallax .parallax-collection').parallax("50%", 0.5);
         $('body.parallax .parallax-radio').parallax("50%", 0.5);
-
+        $('body.parallax .parallax-loader').parallax("50%", 0.5);
     }
 
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {

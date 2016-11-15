@@ -155,17 +155,6 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
  <body <?php echo $this->dialogDetail == true ? 'style="overflow-y: hidden;"' : '';?> class="parallax">
  
 	<!-- Page Loader -->
-	<?php if($module == null && $currentAction == 'site/index' || $location == true) {?>
-	<article id="pageloader" class="white-loader">
-		<div class="spinner">
-			<div class="bounce1"></div>
-			<div class="bounce2"></div>
-			<div class="bounce3"></div>
-		</div>
-	</article>
-	<?php }?>
-
-	<!-- Navigation - select your nav color - dark-nav or white-nav -->
 	<?php 
 	$location = false;
 	$location_footer = false;
@@ -173,8 +162,12 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		$location_footer = true;
 		if($action == 'index')
 			$location = true;
+	}
+	if($module == null && $currentAction == 'site/index' || $location == true) {
+		$this->widget('MainBannerLoader');
 	}?>
-	
+
+	<!-- Navigation - select your nav color - dark-nav or white-nav -->
 	<nav id="navigation" class="white-nav <?php echo $module == null && $currentAction == 'site/index' ? '' : ($location == true ? '' : 'relative-nav');?>">
 		<!-- Navigation -->
 		<div class="navigation <?php echo ($module == null && $currentAction == 'site/index' || $location == true) ? 'first-nav' : '';?> double-nav raleway">

@@ -302,7 +302,8 @@
 	body.parallax .parallax12,
 	body.parallax .parallax-location,
 	body.parallax .parallax-collection,
-	body.parallax .parallax-radio{
+	body.parallax .parallax-radio,
+	body.parallax .parallax-loader{
 		background-attachment: fixed;
 		background-size:cover;
 	}
