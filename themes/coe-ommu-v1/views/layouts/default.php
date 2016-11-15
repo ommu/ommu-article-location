@@ -227,9 +227,11 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 							)); ?>
 							<!-- End DropDown -->
 						</li>
+						<?php /*
 						<li class="dropdown-toggle nav-toggle">
 							<a href="<?php echo Yii::app()->createUrl('article/collection/index');?>"><?php echo Phrase::trans(1547, 2);?></a>
 						</li>
+						*/?>
 						<li class="dropdown-toggle nav-toggle">
 							<a href="<?php echo Yii::app()->createUrl('support/contact/feedback')?>"><?php echo Yii::t('phrase', 'Kontak Kami');?></a>
 						</li>
@@ -287,34 +289,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		<div class="footer_bottom">
 			<!-- Bottom Inner -->
 			<div class="boxed clearfix">
-				<!-- Left, Copyright Area -->
-				<div class="left f-left">
-					<!-- Text and Link -->
-					<p class="copyright">
-						<?php $this->widget('FrontFooterCopyright'); ?>
-					</p>
-				</div>
-				<!-- End Left -->
-				<!-- Right, Socials -->
-				<div class="right f-right">
-					<!-- Link -->
-					<a href="#" target="_blank" class="social">
-					<i class="fa fa-twitter"></i>
-					</a>
-					<!-- Link -->
-					<a href="#" target="_blank" class="social">
-					<i class="fa fa-facebook"></i>
-					</a>
-					<!-- Link -->
-					<a href="#" target="_blank" class="social">
-					<i class="fa fa-pinterest"></i>
-					</a>
-					<!-- Link -->
-					<a href="#" target="_blank" class="social">
-					<i class="fa fa-tumblr"></i>
-					</a>
-				</div>
-				<!-- End Right -->
+				<?php $this->widget('FooterCopyrightAndSocial'); ?>
 			</div>
 			<!-- End Inner -->
 		</div>
@@ -322,7 +297,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	</footer>
 	<!-- End Footer -->	
 	
-	<div id="back-top"><a href="#home" class="scroll t-center white"><i class="fa fa-angle-up"></i></a></div>
+	<div id="back-top"><a href="#<?php echo $module == null && $currentAction == 'site/index' ? 'home' : ($location == true ? 'page-header' : 'page-header');?>" class="scroll t-center white"><i class="fa fa-angle-up"></i></a></div>
 	
 	<?php $this->widget('FrontGoogleAnalytics'); ?>
  </body>
