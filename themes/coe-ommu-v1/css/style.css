@@ -6491,10 +6491,19 @@
 
 /* Map */
 
-	#map,
-	#map #google_map{
-		height: 375px;
-	}
+#map,
+#map #google_map {
+	height: 375px;
+}
+#map #google_map .bubble {
+	width: 250px;
+}
+#map #google_map .bubble strong {
+	display: block;
+	margin: 0 0 4px 0;
+	text-transform: uppercase;
+}
+	
 
 /* Footer */
 

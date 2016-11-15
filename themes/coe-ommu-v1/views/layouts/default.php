@@ -133,6 +133,10 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		);
 		if($this->contentOther == true)
 			$jsAttribute['contentOther'] = $this->contentAttribute;
+		if(!empty($this->location_id)) {
+			$jsAttribute['location_office'] = Utility::formatFileType(Utility::formatFileType($this->location_office), false);
+			$jsAttribute['location_office_url'] = Utility::getProtocol().'://'.Yii::app()->request->serverName.$this->location_office_url;			
+		}
 	?>
 <!DOCTYPE html>
 <html>
@@ -143,10 +147,6 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
   <meta name="author" content="Ommu Platform (support@ommu.co)" />
   <script type="text/javascript">
 	var globals = '<?php echo CJSON::encode($jsAttribute);?>';
-	<?php if(!empty($this->location_id)) {?>
-		var location_office = '<?php echo $this->location_office;?>';
-		var location_office_url = '<?php echo Utility::getProtocol().'://'.Yii::app()->request->serverName.$this->location_office_url;?>';
-	<?php }?>
   </script>
   <?php echo $setting->general_include != '' ? $setting->general_include : ''?>
   <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl?>/favicon.ico" />

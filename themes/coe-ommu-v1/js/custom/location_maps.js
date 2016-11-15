@@ -1,13 +1,21 @@
 //Global Variable
 var o = $.parseJSON(globals);
 var baseUrl = o.baseUrl;
+var location_office = o.location_office;
+var location_office_url = o.location_office_url;
+
+var locationToStringed = location_office;
+var input = locationToStringed.replace('(', '');
+var latlngStr = input.split(",", 2);
+var lat = parseFloat(latlngStr[0]);
+var lng = parseFloat(latlngStr[1]);
 
 var map;
 var gmarkers = [];
 
 function initialize() {
 	var infoWindow = new google.maps.InfoWindow();
-	var haightAshbury = new google.maps.LatLng(location_office);
+	var haightAshbury = new google.maps.LatLng(lat, lng);
 	var mapOptions = {
 		zoom: 16,
 		center: haightAshbury,
