@@ -537,7 +537,8 @@ class ArticleLocations extends CActiveRecord
 					// Add file in article directory (index.php)
 					$newFile = $location_path.'/index.php';
 					$FileHandle = fopen($newFile, 'w');
-				}
+				} else
+					@chmod($location_path, 0755, true);
 				
 				$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 				if($this->province_photo instanceOf CUploadedFile) {
@@ -584,7 +585,8 @@ class ArticleLocations extends CActiveRecord
 				// Add file in article directory (index.php)
 				$newFile = $location_path.'/index.php';
 				$FileHandle = fopen($newFile, 'w');
-			}
+			} else
+				@chmod($location_path, 0755, true);
 			
 			$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 			if($this->province_photo instanceOf CUploadedFile) {
