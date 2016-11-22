@@ -116,7 +116,6 @@ mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\article\views\
 
 ///banner\\\
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\externals\banner" "D:\htdocs\_project_ommu_module_banner\externals\banner"
-mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\banner.yaml" "D:\htdocs\_project_ommu_module_banner\modules\banner\banner.yaml"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\BannerModule.php" "D:\htdocs\_project_ommu_module_banner\modules\banner\BannerModule.php"
 mklink /H "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\LICENSE" "D:\htdocs\_project_ommu_module_banner\modules\banner\LICENSE"
 mklink /J "D:\htdocs\_client_bpadjogja.info.coe\protected\modules\banner\assets" "D:\htdocs\_project_ommu_module_banner\modules\banner\assets"
