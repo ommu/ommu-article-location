@@ -41,7 +41,7 @@
 	button:hover{
 		text-decoration:none;
 		outline:none;
-		color: #e54343;
+		color: #fff;
 	}
 
 	a:focus,
@@ -8084,6 +8084,9 @@ footer.big-footer.light-footer .footer_bottom a.social:hover{
 		color:#444;
 		font-size:13px;
 		line-height: 22px;
+	}
+	.post .post-inner .post-text a {
+		color: #e54343;
 	}
 
 	.post .post-inner .post-header + .post-text,

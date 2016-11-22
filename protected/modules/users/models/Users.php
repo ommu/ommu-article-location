@@ -601,7 +601,7 @@ class Users extends CActiveRecord
 		
 		if($this->isNewRecord) {
 			$setting = OmmuSettings::model()->findByPk(1, array(
-				'select' => 'site_type, signup_welcome, signup_adminemail',
+				'select' => 'site_type, site_title, signup_welcome, signup_adminemail',
 			));
 			
 			if($setting->site_type == 1) {
@@ -619,16 +619,15 @@ class Users extends CActiveRecord
 			// Send Welcome Email
 			if($setting->signup_welcome == 1) {
 				$welcome_search = array(
-					'{$baseURL}',
-					'{$index}','{$displayname}',
+					'{$baseURL}', '{$displayname}', '{$site_support_email}',
+					'{$site_title}', '{$index}',
 				);
 				$welcome_replace = array(
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/index'),
-					$this->displayname,	
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo('mail_contact'), 
+					$setting->site_title, Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/index'),
 				);
 				$welcome_template = 'user_welcome';
-				$welcome_title = 'Welcome to SSO-GTP by BPAD Yogyakarta';
+				$welcome_title = 'Welcome to '.$setting->site_title;
 				$welcome_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$welcome_template.'.php');
 				$welcome_ireplace = str_ireplace($welcome_search, $welcome_replace, $welcome_message);
 				SupportMailSetting::sendEmail($this->email, $this->displayname, $welcome_title, $welcome_ireplace, 1);
@@ -636,16 +635,15 @@ class Users extends CActiveRecord
 
 			// Send Account Information
 			$account_search = array(
-				'{$baseURL}',
-				'{$login}','{$displayname}','{$email}','{$password}',
+				'{$baseURL}', '{$displayname}', '{$site_support_email}',
+				'{$site_title}','{$email}','{$password}',,'{$login}'
 			);
 			$account_replace = array(
-				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
-				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
-				$this->displayname, $this->email, $this->newPassword,
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo('mail_contact'),
+				$setting->site_title, $this->email, $this->newPassword, Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
 			);
 			$account_template = 'user_welcome_account';
-			$account_title = 'SSO-GTP Account ('.$this->displayname.')';
+			$account_title = $setting->site_title.' Account ('.$this->displayname.')';
 			$account_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$account_template.'.php');
 			$account_ireplace = str_ireplace($account_search, $account_replace, $account_message);
 			SupportMailSetting::sendEmail($this->email, $this->displayname, $account_title, $account_ireplace, 1);
@@ -659,13 +657,12 @@ class Users extends CActiveRecord
 			//if($this->enabled == 1) {}
 			if($controller == 'password') {
 				$account_search = array(
-					'{$baseURL}',
-					'{$login}','{$displayname}','{$email}','{$password}',
+					'{$baseURL}', '{$displayname}', '{$site_support_email}',
+					'{$site_title}', '{$email}', '{$password}', '{$login}',
 				);
 				$account_replace = array(
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
-					$this->displayname, $this->email, $this->newPassword,
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo('mail_contact'),
+					$setting->site_title, $this->email, $this->newPassword, Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
 				);
 				$account_template = 'user_forgot_new_password';
 				$account_title = 'Your password changed';
