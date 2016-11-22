@@ -99,7 +99,7 @@ class Users extends CActiveRecord
 			array('salt, email, password, username, 
 				oldPassword, newPassword, confirmPassword', 'length', 'max'=>32),
 			array('displayname', 'length', 'max'=>64),
-			array('level_id, password, username, photos,
+			array('level_id, password, username, photos, enabled, verified,
 				oldPassword, newPassword, confirmPassword, inviteCode, referenceId', 'safe'),
 			array('oldPassword','filter','filter'=>array($this,'validatePassword')),
 			array('email', 'email'),
@@ -479,8 +479,9 @@ class Users extends CActiveRecord
 						$this->enabled = 1;
 				
 					// Auto Verified Email User
-					if($setting->signup_verifyemail == 1)
-						$this->verified = 0;
+					if($setting->signup_verifyemail == 0)
+						$this->verified = 1;
+						
 				
 					// Generate user by admin
 					$this->modified_id = !Yii::app()->user->isGuest ? Yii::app()->user->id : 0;
@@ -488,7 +489,7 @@ class Users extends CActiveRecord
 				} else {
 					$this->level_id = UserLevel::getDefault();
 					$this->enabled = $setting->signup_approve == 1 ? 1 : 0;
-					$this->verified = $setting->signup_verifyemail == 1 ? 0 : 1;
+					$this->verified = $setting->signup_verifyemail == 0 ? 1 : 0;
 
 					// Signup by Invite (Admin or User)
 					if($setting->site_type == 1 && $setting->signup_inviteonly != 0) {
@@ -623,7 +624,7 @@ class Users extends CActiveRecord
 					'{$site_title}', '{$index}',
 				);
 				$welcome_replace = array(
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo('mail_contact'), 
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo(1, 'mail_contact'), 
 					$setting->site_title, Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/index'),
 				);
 				$welcome_template = 'user_welcome';
@@ -636,10 +637,10 @@ class Users extends CActiveRecord
 			// Send Account Information
 			$account_search = array(
 				'{$baseURL}', '{$displayname}', '{$site_support_email}',
-				'{$site_title}','{$email}','{$password}',,'{$login}'
+				'{$site_title}', '{$email}', '{$password}', '{$login}'
 			);
 			$account_replace = array(
-				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo('mail_contact'),
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo(1, 'mail_contact'),
 				$setting->site_title, $this->email, $this->newPassword, Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
 			);
 			$account_template = 'user_welcome_account';
@@ -661,7 +662,7 @@ class Users extends CActiveRecord
 					'{$site_title}', '{$email}', '{$password}', '{$login}',
 				);
 				$account_replace = array(
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo('mail_contact'),
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->displayname, SupportMailSetting::getInfo(1, 'mail_contact'),
 					$setting->site_title, $this->email, $this->newPassword, Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
 				);
 				$account_template = 'user_forgot_new_password';

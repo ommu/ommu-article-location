@@ -99,7 +99,7 @@
 		</div>
 		<?php }?>
 
-		<?php if(($model->isNewRecord && $setting->signup_approve == 1) || !$model->isNewRecord) {?>
+		<?php if(($model->isNewRecord && $setting->signup_approve == 0) || !$model->isNewRecord) {?>
 		<div class="clearfix publish">
 			<?php echo $form->labelEx($model,'enabled'); ?>
 			<div class="desc">
