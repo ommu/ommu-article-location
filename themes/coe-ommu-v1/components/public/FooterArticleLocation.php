@@ -22,11 +22,17 @@ class FooterArticleLocation extends CWidget
 		Yii::import('application.modules.article.model_bpad_coe.ArticleLocations');
 		
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish';
+		$criteria->with = array(
+			'province_relation' => array(
+				'alias'=>'province_relation',
+				'select'=>'province'
+			),
+		);
+		$criteria->condition = 't.publish = :publish';
 		$criteria->params = array(
 			':publish'=>1,
 		);
-		$criteria->order = 'creation_date DESC';
+		$criteria->order = 'province_relation.province ASC';
 			
 		$model = ArticleLocations::model()->findAll($criteria);	
 		

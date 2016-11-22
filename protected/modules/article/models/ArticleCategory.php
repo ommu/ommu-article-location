@@ -132,6 +132,22 @@ class ArticleCategory extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'view' => array(
+				'alias'=>'view',
+				'select'=>'category_name, category_desc, articles'
+			),
+			'creation_relation' => array(
+				'alias'=>'creation_relation',
+				'select'=>'displayname'
+			),
+			'modified_relation' => array(
+				'alias'=>'modified_relation',
+				'select'=>'displayname'
+			),
+		);
 
 		$criteria->compare('t.cat_id',$this->cat_id);
 		if(isset($_GET['type']) && $_GET['type'] == 'publish') {
@@ -155,21 +171,6 @@ class ArticleCategory extends CActiveRecord
 			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
 		$criteria->compare('t.modified_id',$this->modified_id);
 		
-		// Custom Search
-		$criteria->with = array(
-			'view' => array(
-				'alias'=>'view',
-				'select'=>'category_name, category_desc, articles'
-			),
-			'creation_relation' => array(
-				'alias'=>'creation_relation',
-				'select'=>'displayname'
-			),
-			'modified_relation' => array(
-				'alias'=>'modified_relation',
-				'select'=>'displayname'
-			),
-		);
 		$criteria->compare('view.category_name',strtolower($this->title), true);
 		$criteria->compare('view.category_desc',strtolower($this->description), true);
 		$criteria->compare('creation_relation.displayname',strtolower($this->creation_search), true);
