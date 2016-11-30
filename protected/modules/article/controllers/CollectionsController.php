@@ -1,7 +1,7 @@
 <?php
 /**
- * CollectionController
- * @var $this CollectionController
+ * CollectionsController
+ * @var $this CollectionsController
  * @var $model Articles
  * @var $form CActiveForm
  * version: 0.0.1
@@ -23,7 +23,7 @@
  *----------------------------------------------------------------------------------------------------------
  */
 
-class CollectionController extends Controller
+class CollectionsController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -124,7 +124,7 @@ class CollectionController extends Controller
 		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? Phrase::trans($title->name, 2) : 'Articles';
 		$this->pageDescription = $setting->meta_description;
 		$this->pageMeta = $setting->meta_keyword;
-		$this->render('/collection_public/front_index',array(
+		$this->render('front_index',array(
 			'dataProvider'=>$dataProvider,
 			'model'=>$model,
 		));
@@ -175,7 +175,7 @@ class CollectionController extends Controller
 			}
 			$this->pageImage = $media;
 		}
-		$this->render('/collection_public/front_view',array(
+		$this->render('front_view',array(
 			'model'=>$model,
 			'photo'=>$photo,
 			'random'=>$random,
