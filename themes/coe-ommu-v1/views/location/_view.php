@@ -41,13 +41,17 @@
 				*/?>
 				<!-- Tags -->
 				<?php $tags = $data->article->tags;
-				if(!empty($tags)) {?>
-				<li>
-					<a href="#">Design</a>,
-					<a href="#">Web</a>,
-					<a href="#">Video</a>
-					<i class="fa fa-comments"></i>
-				</li>
+				if(!empty($tags)) {
+					$countTags = count($tags);?>
+					<li>
+						<?php 
+						$i = 0;
+						foreach($tags as $key => $val) {
+							$i++;?>
+							<a href="javascript:void(0);" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
+						<?php }?>
+						<i class="fa fa-comments"></i>
+					</li>
 				<?php }?>
 				<!-- Liked -->
 				<?php /*
