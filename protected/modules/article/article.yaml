@@ -34,7 +34,7 @@ plugin_menu		:
 			- urlTitle: Authors
 				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/author/manage, attr: -, icon: -}
-			- urlTitle: Subjecs
+			- urlTitle: Subjects
 				urlRules: {siteType: 0,1, userLevel: 1}
 				urlPath: {url: collection/subjects/manage, attr: -, icon: -}
 			- urlTitle: Settings
