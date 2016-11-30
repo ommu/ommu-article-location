@@ -251,21 +251,21 @@
 			
 			<div class="right">				
 				<div class="clearfix">
-					<?php echo $form->labelEx($article,'media'); ?>
+					<?php echo $form->labelEx($article,'media_input'); ?>
 					<div class="desc">
 						<?php 
 						if(!$article->isNewRecord) {
-							$article->old_media = $article->cover->media;
-							echo $form->hiddenField($article,'old_media');
+							$article->old_media_input = $article->cover->media;
+							echo $form->hiddenField($article,'old_media_input');
 							if($article->media_id != 0) {
-								$file = Yii::app()->request->baseUrl.'/public/article/'.$article->article_id.'/'.$article->cover->media;
+								$image = Yii::app()->request->baseUrl.'/public/article/'.$article->article_id.'/'.$article->old_media_input;
 								if($article->article_type == 1) {?>
-									<img class="mb-10" src="<?php echo Utility::getTimThumb($file, 320, 150, 1);?>" alt="">
+									<img class="mb-10" src="<?php echo Utility::getTimThumb($image, 320, 150, 1);?>" alt="">
 						<?php 	}
 							}
 						}
-						echo $form->fileField($article,'media'); ?>
-						<?php echo $form->error($article,'media'); ?>
+						echo $form->fileField($article,'media_input'); ?>
+						<?php echo $form->error($article,'media_input'); ?>
 						<span class="small-px">extensions are allowed: <?php echo Utility::formatFileType(unserialize($setting->media_file_type), false);?></span>
 					</div>
 				</div>
