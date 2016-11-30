@@ -12,98 +12,103 @@
  *
  */
 
+	$cs = Yii::app()->getClientScript();
+	//$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/masonry-blog.js', CClientScript::POS_END);
+	
 	$this->breadcrumbs=array(
 		'Articles',
 	);
 ?>
 
 <!-- Portfolio Section -->
-<section id="portfolio" class="container masonry ms-5-columns">
+<section id="blog" class="container masonry-blog bl-5-col">
 	<!-- Filters -->
-	<div id="portfolio-filters" class="cbp-l-filters-alignCenter normal type2">
+	<div id="blog-filters" class="cbp-l-filters-alignCenter normal type2">
 		<!-- Filter -->
 		<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
-			All
+			<?php echo Yii::t('phrase', 'All');?>
 			<!-- Filter Counter -->
 			<div class="cbp-filter-counter"></div>
 		</div>
-		<!-- Filter -->
-		<div data-filter=".graphic" class="cbp-filter-item">
-			Graphic
-			<!-- Filter Counter -->
-			<div class="cbp-filter-counter"></div>
-		</div>
-		<!-- Filter -->
-		<div data-filter=".design" class="cbp-filter-item">
-			Design
-			<!-- Filter Counter -->
-			<div class="cbp-filter-counter"></div>
-		</div>
-		<!-- Filter -->
-		<div data-filter=".photography" class="cbp-filter-item">
-			Photography
-			<!-- Filter Counter -->
-			<div class="cbp-filter-counter"></div>
-		</div>
-		<!-- Filter -->
-		<div data-filter=".web" class="cbp-filter-item">
-			Web
-			<!-- Filter Counter -->
-			<div class="cbp-filter-counter"></div>
-		</div>
+		<?php if($category != null) {
+			foreach($category as $key => $val) {?>		
+			<!-- Filter -->
+			<div data-filter=".<?php echo Utility::getUrlTitle($val->category_name);?>" class="cbp-filter-item">
+				<?php echo $val->category_name;?>
+				<!-- Filter Counter -->
+				<div class="cbp-filter-counter"></div>
+			</div>
+		<?php }
+		}?>
 	</div>
 	<!-- End Filters -->
 	<!-- Portfolio Items -->
-	<div id="portfolio-items" class="boxed type2">
+	<div id="blog-items" class="boxed">
 		<?php if($model != null) {
-			foreach($model as $key => $val) {?>
+			foreach($model as $key => $val) {?>	
 			<!-- Item -->
-			<div class="cbp-item item design">
-				<!-- Item Link -->
-				<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" class="cbp-caption">
-					<?php $medias = $val->medias;
-					if(!empty($medias)) {
-						$image = Yii::app()->request->baseUrl.'/public/article/'.$val->article_id.'/'.$medias[0]->media;?>
-						<!-- Item Image -->
-						<div class="cbp-caption-defaultWrap">
+			<div class="cbp-item item <?php echo Utility::getUrlTitle($val->category->category_name);?>">
+				<?php $medias = $val->article->medias;
+				if(!empty($medias)) {
+					$image = Yii::app()->request->baseUrl.'/public/article/'.$val->article_id.'/'.$medias[0]->media;?>
+					<!-- Item Image -->
+					<div class="item-top">
+						<!-- Post Link -->
+						<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="item_image">
 							<!-- Image Src -->
-							<img src="<?php echo Utility::getTimThumb($image, 300, 500, 3)?>" alt="Crexis">
-							<!-- Item Note -->
-							<div class="item_icon">
-								<!-- Icon -->
-								<p><i class="fa fa-image"></i></p>
-								<p><?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?></p>
-							</div>
-							<!-- End Item Note -->
-						</div>
-						<!-- End Item Image -->					
-					<?php }?>
-					
-					<!-- Item Details -->
-					<div class="cbp-caption-activeWrap">
-						<!-- Centered Details -->
-						<div class="center-details">
-							<div class="details">
-								<!-- Item Name -->
-								<h2 class="name ">
-									<?php echo $val->title;?>
-								</h2>
-								<!-- Tags -->
-								<p class="tags">
-									<a href="<?php echo Yii::app()->createUrl('article/site/index', array('category'=>$val->cat_id, 't'=>Utility::getUrlTitle(Phrase::trans($val->cat->name, 2))))?>" title="<?php echo Phrase::trans($val->cat->name, 2);?>"><?php echo Phrase::trans($val->cat->name, 2);?></a>
-									<?php if($val->views->location_id != null) {
-										$locationCode = $val->views->location->province_code;?>
-										<a href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $val->views->location->province_relation->province;?>"><?php echo $val->views->location->province_relation->province;?></a>
-									<?php } else
-										echo Yii::t('phrase', 'Indonesia');?>
-								</p>
-							</div>
-						</div>
-						<!-- End Center Details Div -->
+							<img src="<?php echo Utility::getTimThumb($image, 300, 500, 3)?>" alt="<?php echo $val->article->title;?>">
+						</a>
+						<?php /*
+						<!-- Icon -->
+						<a href="<?php echo $image;?>" class="item_button first">
+						<i class="fa fa-heart"></i>
+						</a>
+						*/?>
+						<!-- Icon -->
+						<a href="<?php echo $image;?>" class="item_button first">
+						<i class="fa fa-image"></i>
+						</a>
 					</div>
-					<!-- End Item Details -->
+					<!-- End Item Image -->					
+				<?php }?>
+				
+				<!-- Details -->
+				<div class="details">
+					<!-- Item Name -->
+					<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->article->title)))?>">
+						<h2 class="head normal colored">
+							<?php echo $val->article->title;?>
+						</h2>
+					</a>
+					<!-- Description -->
+					<p class="note mt-5 light">
+						<?php if($val->article->views->location_id != null) {
+							$locationCode = $val->article->views->location->province_code;?>
+							<a class="colored" href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $val->article->views->location->province_relation->province;?>"><?php echo $val->article->views->location->province_relation->province;?></a>
+						<?php } else
+							echo Yii::t('phrase', 'Indonesia');?>
+						
+						<?php //echo Utility::dateFormat($val->article->published_date);?>
+					</p>
+					<?php if(empty($medias)) {?>
+						<!-- Description -->
+						<p class="description light">
+							<?php echo Utility::shortText(Utility::hardDecode($val->article->body), 150);?>
+						</p>
+					<?php }?>
+				</div>
+				<!-- End Center Details Div -->
+				<?php /*
+				<!-- Posted By -->
+				<a href="#" class="posted_button">
+					<!-- Image SRC -->
+					<img src="../images/user_01.jpg" alt="user">
+					<p>
+						Posted By Amanda
+						<span>@WebDesign</span>
+					</p>
 				</a>
-				<!-- End Item Link -->
+				*/?>
 			</div>
 			<!-- End Item -->
 			<?php }
@@ -112,5 +117,12 @@
 		<?php }?>
 	</div>
 	<!-- End Portfolio Items -->
+	<div id="loadMore-container" class="cbp-l-loadMore-text">
+		<a href="ajax/loadMoreBlog.html" class="cbp-l-loadMore-link">
+		<span class="cbp-l-loadMore-defaultText">MORE</span>
+		<span class="cbp-l-loadMore-loadingText"><img src="../images/loader.gif" alt="loader" /></span>
+		<span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
+		</a>
+	</div>
 </section>
 <!-- End Portfolio Section -->

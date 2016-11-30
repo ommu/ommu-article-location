@@ -116,7 +116,9 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		// Page Plugins
 		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/plugins.js', CClientScript::POS_END);
 		// Portfolio Plugins
-		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/portfolio.js', CClientScript::POS_END);	
+		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/portfolio.js', CClientScript::POS_END);
+		if($currentModuleAction == 'article/collections/index')
+			$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/masonry-blog.js', CClientScript::POS_END);
 		Yii::app()->clientScript->scriptMap=array(
 			'jquery.js'=>false,
 		);		
@@ -163,7 +165,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		if($action == 'index')
 			$location = true;
 	}
-	if($module == null && $currentAction == 'site/index' || $location == true) {
+	if($module == null && $currentAction == 'site/index' || $location == true || $currentModuleAction == 'article/collections/index') {
 		$this->widget('MainBannerLoader');
 	}?>
 

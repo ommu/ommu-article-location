@@ -97,20 +97,30 @@ class CollectionsController extends Controller
 		$setting = ArticleSetting::model()->findByPk(1,array(
 			'select' => 'meta_description, meta_keyword',
 		));
+		$category = ArticleCollectionCategory::model()->findAll(array(
+			'select'    => 'cat_id, publish, category_name',
+			'condition' => 'publish= :publish',
+			'params'    => array(':publish' => 1),
+		));
 		
 		if(isset($_GET['category']) && $_GET['category'] != '')
-			$category = ArticleCollectionCategory::model()->findByPk($_GET['category']);
+			$title = ArticleCollectionCategory::model()->findByPk($_GET['category']);
 
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish AND published_date <= curdate()';
+		$criteria->with = array(
+			'article' => array(
+				'alias'=>'article',
+			),
+		);
+		$criteria->condition = 't.publish = :publish AND article.published_date <= curdate()';
 		$criteria->params = array(
 			':publish'=>1,
 		);
-		$criteria->order = 'published_date DESC';
+		$criteria->order = 'article.published_date DESC';
 		if(isset($_GET['category']) && $_GET['category'] != '')
-			$criteria->compare('cat_id',$_GET['category']);
+			$criteria->compare('t.cat_id',$_GET['category']);
 
-		$dataProvider = new CActiveDataProvider('Articles', array(
+		$dataProvider = new CActiveDataProvider('ArticleCollections', array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
 				'pageSize'=>20,
@@ -121,10 +131,11 @@ class CollectionsController extends Controller
 		
 		$this->pageTitleShow = true;
 		$this->adsSidebar = false;
-		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? 'Collection: '.$category->category_name : 'Collections';
+		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? 'Collection: '.$title->category_name : 'Collections';
 		$this->pageDescription = $setting->meta_description;
 		$this->pageMeta = $setting->meta_keyword;
 		$this->render('front_index',array(
+			'category'=>$category,
 			'dataProvider'=>$dataProvider,
 			'model'=>$model,
 		));

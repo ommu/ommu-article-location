@@ -476,79 +476,7 @@
 		font-size:14px;
 		color:#999;
 	}
-
-/* Page Font Classes */
-
-	.raleway{
-		font-family: 'raleway', sans-serif !important;
-	}
-
-	.georgia{
-		font-family: Georgia, Times, 'Times New Roman', serif !important;
-	}
-
-	.tahoma{
-		font-family: Tahoma, Verdana, Segoe, sans-serif !important;
-	}
-
-	.pacifico{
-		font-family: 'Pacifico', cursive !important;
-	}
-
-	.oswald{
-		font-family: 'Oswald', sans-serif !important;
-	}
-
-	.helvetica{
-		font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;
-	}
-
-/* Font Styles */
-
-	.extrabold{
-		font-weight: 900;
-	}
-
-	.bold{
-		font-weight: 700;
-	}
-
-	.semibold{
-		font-weight: 600;
-	}
-
-	.normal{
-		font-weight: 400;
-	}
-
-	.light{
-		font-weight: 300;
-	}
-
-	.extra-light{
-		font-weight: 200;
-	}
-
-	.thin{
-		font-weight: 100;
-	}
-
-	.italic{
-		font-style: italic;
-	}
-
-	.uppercase{
-		text-transform: uppercase;
-	}
-
-	.capitalize{
-		text-transform: capitalize !important;
-	}
-
-	.antialiased{
-		-webkit-font-smoothing: antialiased !important;
-	}
-
+	
 	.h1{
 		font-size:36px;
 	}
@@ -7777,10 +7705,10 @@ footer.big-footer.light-footer .footer_bottom a.social:hover{
 	}
 
 	#blog.masonry-blog .item .details h2.head{
-		font-size:26px;
+		font-size:20px;
+		line-height: 27px;
 		margin:0;
 		padding:0;
-		font-weight: 100;
 		color:#6f6f6f;
 		-webkit-transition: all 0.5s;
 		-moz-transition: all 0.5s;
@@ -7790,14 +7718,19 @@ footer.big-footer.light-footer .footer_bottom a.social:hover{
 	#blog.masonry-blog .item .details h2.head:hover{
 		opacity: .8;
 	}
-
+	#blog.masonry-blog .item .details p.note:last-child {
+		margin-bottom: 0;
+	}
+	#blog.masonry-blog .item .details p.note a:hover {
+		color: #e54343;
+		text-decoration: underline;
+	}
 	#blog.masonry-blog .item .details p.description{
 		font-size:13px;
 		margin:8px 0 0;
 		padding:0;
 		line-height: 22px;
 		color:#909090;
-		font-weight: 200;
 	}
 
 	#blog.masonry-blog .item a.posted_button{

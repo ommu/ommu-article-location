@@ -62,6 +62,27 @@
 /* Page Elements Color */
 @import url('colors/red.css');
 
+/* Page Font Classes */
+.raleway {font-family: 'raleway', sans-serif !important;}
+.georgia {font-family: Georgia, Times, 'Times New Roman', serif !important;}
+.tahoma {font-family: Tahoma, Verdana, Segoe, sans-serif !important;}
+.pacifico {font-family: 'Pacifico', cursive !important;}
+.oswald {font-family: 'Oswald', sans-serif !important;}
+.helvetica {font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;}
+
+/* Font Styles */
+.extrabold {font-weight: 900;}
+.bold {font-weight: 700;}
+.semibold {font-weight: 600;}
+.normal {font-weight: 400;}
+.light {font-weight: 300;}
+.extra-light {font-weight: 200;}
+.thin {font-weight: 100;}
+.italic {font-style: italic;}
+.uppercase {text-transform: uppercase;}
+.capitalize {text-transform: capitalize !important;}
+.antialiased {-webkit-font-smoothing: antialiased !important;}
+
 /* Padding and Margin */
 .pt-0 {padding-top: 0px;} .pt-5 {padding-top: 5px;} .pt-10 {padding-top: 10px;} .pt-15 {padding-top: 15px;} .pt-20 {padding-top: 20px;} .pt-25 {padding-top: 25px;}
 .pt-30 {padding-top: 30px;} .pt-35 {padding-top: 35px;} .pt-40 {padding-top: 40px;} .pt-45 {padding-top: 45px;} .pt-50 {padding-top: 50px;} .pt-55 {padding-top: 55px;} .pt-60 {padding-top: 60px;} .pt-65 {padding-top: 65px;} .pt-70 {padding-top: 70px;} .pt-75 {padding-top: 75px;} .pt-80 {padding-top: 80px;} .pt-85 {padding-top: 85px;} .pt-90 {padding-top: 90px;} .pt-95 {padding-top: 95px;} .pt-100 {padding-top: 100px;} 
