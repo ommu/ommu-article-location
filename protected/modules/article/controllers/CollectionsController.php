@@ -99,7 +99,7 @@ class CollectionsController extends Controller
 		));
 		
 		if(isset($_GET['category']) && $_GET['category'] != '')
-			$title = ArticleCategory::model()->findByPk($_GET['category']);
+			$category = ArticleCollectionCategory::model()->findByPk($_GET['category']);
 
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'publish = :publish AND published_date <= curdate()';
@@ -113,7 +113,7 @@ class CollectionsController extends Controller
 		$dataProvider = new CActiveDataProvider('Articles', array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
-				'pageSize'=>6,
+				'pageSize'=>20,
 			),
 		));
 		
@@ -121,7 +121,7 @@ class CollectionsController extends Controller
 		
 		$this->pageTitleShow = true;
 		$this->adsSidebar = false;
-		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? Phrase::trans($title->name, 2) : 'Articles';
+		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? 'Collection: '.$category->category_name : 'Collections';
 		$this->pageDescription = $setting->meta_description;
 		$this->pageMeta = $setting->meta_keyword;
 		$this->render('front_index',array(

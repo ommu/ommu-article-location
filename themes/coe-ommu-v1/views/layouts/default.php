@@ -220,11 +220,9 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 							)); ?>
 							<!-- End DropDown -->
 						</li>
-						<?php /*
 						<li class="dropdown-toggle nav-toggle">
-							<a href="<?php echo Yii::app()->createUrl('article/collection/index');?>"><?php echo Phrase::trans(1547, 2);?></a>
+							<a href="<?php echo Yii::app()->createUrl('article/collections/index');?>"><?php echo Phrase::trans(1547, 2);?></a>
 						</li>
-						*/?>
 						<li class="dropdown-toggle nav-toggle">
 							<a href="<?php echo Yii::app()->createUrl('support/contact/feedback')?>"><?php echo Yii::t('phrase', 'Kontak Kami');?></a>
 						</li>

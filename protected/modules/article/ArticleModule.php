@@ -25,7 +25,7 @@ class ArticleModule extends CWebModule
 			$publicControllers = array(
 				'search',
 				'site',
-				'collection',
+				'collections',
 				'province/banten',
 				'province/jabar',
 				'province/jakarta',
