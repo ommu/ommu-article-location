@@ -271,19 +271,19 @@
 				</div>
 				
 				<div class="clearfix">
-					<?php echo $form->labelEx($article,'file'); ?>
+					<?php echo $form->labelEx($article,'media_file'); ?>
 					<div class="desc">
 						<?php 
 						if(!$article->isNewRecord) {
-							$article->old_file = $article->media_file;
-							echo $form->hiddenField($article,'old_file');
+							$article->old_media_file = $article->media_file;
+							echo $form->hiddenField($article,'old_media_file');
 							if($article->media_file != '') {
-								$file = Yii::app()->request->baseUrl.'/public/article/'.$article->article_id.'/'.$article->media_file;?>
-								<div class="mb-10"><a href="<?php echo $file;?>" title="<?php echo $article->media_file;?>"><?php echo $article->media_file;?></a></div>
+								$file = Yii::app()->request->baseUrl.'/public/article/'.$article->article_id.'/'.$article->old_media_file;?>
+								<div class="mb-10"><a href="<?php echo $file;?>" title="<?php echo $article->old_media_file;?>"><?php echo $article->old_media_file;?></a></div>
 						<?php }
 						}
-						echo $form->fileField($article,'file'); ?>
-						<?php echo $form->error($article,'file'); ?>
+						echo $form->fileField($article,'media_file'); ?>
+						<?php echo $form->error($article,'media_file'); ?>
 						<span class="small-px">extensions are allowed: <?php echo Utility::formatFileType(unserialize($setting->upload_file_type), false);?></span>
 					</div>
 				</div>
