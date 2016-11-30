@@ -46,11 +46,15 @@
 				*/?>
 				<!-- Tags -->
 				<?php $tags = $model->tags;
-				if(!empty($model->tags)) {?>
+				if(!empty($model->tags)) {
+					$countTags = count($tags);?>
 				<li>
-					<a href="#">Design</a>,
-					<a href="#">Web</a>,
-					<a href="#">Video</a>
+					<?php 
+					$i = 0;
+					foreach($tags as $key => $val) {
+						$i++;?>
+						<a href="javascript:void(0);" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
+					<?php }?>
 					<i class="fa fa-comments"></i>
 				</li>
 				<?php }?>
