@@ -174,9 +174,9 @@ class SiteController extends Controller
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
-	public function actionSendEmail()
+	public function actionSendEmail($email='putra.sudaryanto@gmail.com', $name='Putra Sudaryanto', $subject='testing', $message='testing')
 	{
-		if(SupportMailSetting::sendEmail('putra.sudaryanto@gmail.com', 'Putra Sudaryanto', 'testing', 'testing', 1))
+		if(SupportMailSetting::sendEmail($email, $name, $subject, $message))
 			echo 'send';
 		else 
 			echo 'notsend';

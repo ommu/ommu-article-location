@@ -7721,8 +7721,10 @@ footer.big-footer.light-footer .footer_bottom a.social:hover{
 	#blog.masonry-blog .item .details p.note:last-child {
 		margin-bottom: 0;
 	}
-	#blog.masonry-blog .item .details p.note a:hover {
+	#blog.masonry-blog .item .details p.note * {
 		color: #e54343;
+	}
+	#blog.masonry-blog .item .details p.note a:hover {
 		text-decoration: underline;
 	}
 	#blog.masonry-blog .item .details p.description{

@@ -82,7 +82,9 @@
 					</a>
 					<!-- Description -->
 					<p class="note mt-5 light">
-						<?php if($val->article->views->location_id != null) {
+						<span><?php echo $val->category->category_name;?></span> /
+						<?php
+						if($val->article->views->location_id != null) {
 							$locationCode = $val->article->views->location->province_code;?>
 							<a class="colored" href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $val->article->views->location->province_relation->province;?>"><?php echo $val->article->views->location->province_relation->province;?></a>
 						<?php } else
