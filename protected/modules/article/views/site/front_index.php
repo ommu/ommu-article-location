@@ -29,4 +29,18 @@
 		));?>
 	</div>	
 <?php } else {?>
+	<div class="contact">
+		<div class="white-form">
+			<!-- Submit Message -->
+			<div class="submit_message">
+				<p class="t-left no-margin">
+					<!-- Error Message Icon -->
+					<i class="fa fa-check"></i>
+					<?php echo $this->pageTitle;?>
+					<br/>
+					<span>Tidak ada Artikel pada kategori <?php echo $this->pageTitle;?></span>
+				</p>
+			</div>
+		</div>
+	</div>
 <?php }?>

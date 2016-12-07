@@ -102,13 +102,31 @@ class SiteController extends Controller
 			$title = ArticleCategory::model()->findByPk($_GET['category']);
 
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'publish = :publish AND published_date <= curdate()';
+		if(isset($_GET['tag']) && $_GET['tag'] != '') {
+			$criteria->with = array(
+				'tags' => array(
+					'alias'=>'tags',
+					'together'=>true,
+				),
+				'tags.tag_TO' => array(
+					'alias'=>'tag',
+					'select'=>'body',
+					'together'=>true,
+				),
+			);
+		}
+		$criteria->condition = 't.publish = :publish AND t.published_date <= curdate()';
 		$criteria->params = array(
 			':publish'=>1,
 		);
-		$criteria->order = 'published_date DESC';
+		if(isset($_GET['tag']) && $_GET['tag'] != '')
+			$criteria->compare('tag.body', strtolower($_GET['tag']));
+		
 		if(isset($_GET['category']) && $_GET['category'] != '')
-			$criteria->compare('cat_id',$_GET['category']);
+			$criteria->compare('t.cat_id', $_GET['category']);
+		$criteria->order = 't.published_date DESC';
+		if(isset($_GET['tag']) && $_GET['tag'] != '')
+			$criteria->group = 't.article_id';
 
 		$dataProvider = new CActiveDataProvider('Articles', array(
 			'criteria'=>$criteria,

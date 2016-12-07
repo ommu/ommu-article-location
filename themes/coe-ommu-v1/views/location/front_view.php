@@ -53,7 +53,7 @@
 					$i = 0;
 					foreach($tags as $key => $val) {
 						$i++;?>
-						<a href="javascript:void(0);" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
+						<a href="<?php echo Yii::app()->createUrl('article/site/index', array('tag'=>$val->tag_TO->body));?>" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
 					<?php }?>
 					<i class="fa fa-tags"></i>
 				</li>

@@ -29,4 +29,18 @@
 		));?>
 	</div>	
 <?php } else {?>
+	<div class="contact">
+		<div class="white-form">
+			<!-- Submit Message -->
+			<div class="submit_message">
+				<p class="t-left no-margin">
+					<!-- Error Message Icon -->
+					<i class="fa fa-check"></i>
+					<?php echo $this->pageTitle;?>
+					<br/>
+					<span>Tidak ada Artikel pada halaman member Centre of Excellence Budaya Jawa - <?php echo $this->location_name;?></span>
+				</p>
+			</div>
+		</div>
+	</div>
 <?php }?>
