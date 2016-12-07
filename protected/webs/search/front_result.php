@@ -77,7 +77,7 @@
 		<?php }
 	}?>
 	
-	<div class="pager">
+	<div class="pagination block t-center mt-70 mb-00">
 		<?php $this->widget('OLinkPager', array(
 			'pages' => $pages,
 			'header' => '',
