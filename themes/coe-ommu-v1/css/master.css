@@ -56,12 +56,6 @@
 @import url('backgrounds.css');
 @import url('responsive.css');
 
-/* Page Layout Color, night or dark */
-@import url('page_tones/dark.css');
-
-/* Page Elements Color */
-@import url('colors/red.css');
-
 /* Page Font Classes */
 .raleway {font-family: 'raleway', sans-serif !important;}
 .georgia {font-family: Georgia, Times, 'Times New Roman', serif !important;}

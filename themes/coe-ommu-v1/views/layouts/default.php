@@ -84,6 +84,10 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	} else {
 		$cs = Yii::app()->getClientScript();
 		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/master.css');
+		/* Page Layout Color, night or dark */
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/page_tones/dark.css');
+		/* Page Elements Color */
+		$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/colors/red.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');

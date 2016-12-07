@@ -32,7 +32,7 @@
 	.feature-boxes.type-3 .feature-box:hover .feature-icon,
 	body.dark-layout .feature-boxes.type-3 .feature-box:hover .feature-icon,
 	.feature-boxes.type-3 .feature-box:hover .feature-text h4{
-		color:#e54343;
+		color:#e54343 !important;
 	}
 
 	.colored-bg,
@@ -85,10 +85,9 @@
 	.colored-icon,
 	.dark-icon:hover,
 	.icons-listing div:hover i,
-	::selection,
 	a.content-button:hover,
 	body.dark-layout .contact .contact_form.type-2.white-form button:hover{
-		background-color:#f35050;
+		background-color: #f35050 !important;
 	}
 
 	.colored-border,
@@ -104,16 +103,16 @@
 	}
 
 	section#features .feature-boxes .feature-box:hover .feature-icon:after{
-		border-left-color:#f35050;
+		border-left-color:#f35050 !important;
 	}
 
 	.skills .skill .progress .progress-bar:after,
 	section.address a.box:hover .texts span.arrow{
-		border-top-color:#f35050;
+		border-top-color:#f35050 !important;
 	}
 
 	section.address a.box:hover .texts span.arrow{
-		border-bottom-color:#f35050;
+		border-bottom-color:#f35050 !important;
 	}
 
 	.skills .progress-bar,

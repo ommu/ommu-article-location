@@ -94,6 +94,9 @@ class CollectionsController extends Controller
 	 */
 	public function actionIndex() 
 	{
+		if(!Yii::app()->request->isAjaxRequest)
+			unset(Yii::app()->session['article_collection_currentPage']);
+			
 		$setting = ArticleSetting::model()->findByPk(1,array(
 			'select' => 'meta_description, meta_keyword',
 		));
@@ -119,26 +122,45 @@ class CollectionsController extends Controller
 		$criteria->order = 'article.published_date DESC';
 		if(isset($_GET['category']) && $_GET['category'] != '')
 			$criteria->compare('t.cat_id',$_GET['category']);
-
+		
 		$dataProvider = new CActiveDataProvider('ArticleCollections', array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
-				'pageSize'=>20,
+				'pageSize'=>10,
+				'currentPage'=>isset(Yii::app()->session['article_collection_currentPage']) ? Yii::app()->session['article_collection_currentPage'] : 0,
 			),
 		));
 		
 		$model = $dataProvider->getData();
+		$pager = OFunction::getDataProviderPager($dataProvider);
+		Yii::app()->session['article_collection_currentPage'] = $pager['nextPage']-1;
 		
-		$this->pageTitleShow = true;
-		$this->adsSidebar = false;
-		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? 'Collection: '.$title->category_name : 'Collections';
-		$this->pageDescription = $setting->meta_description;
-		$this->pageMeta = $setting->meta_keyword;
-		$this->render('front_index',array(
-			'category'=>$category,
-			'dataProvider'=>$dataProvider,
-			'model'=>$model,
-		));
+		if(Yii::app()->request->isAjaxRequest) {			
+			echo '<div class="cbp-loadMore-block'.($pager['currentPage']-1).'">';
+			if($model != null) {				
+				foreach($model as $key => $val) {
+					$this->renderPartial('_view', array('data'=>$val), false, false);
+				}
+			}
+			echo '</div>';
+			if($pager['nextPage'] != 0) {
+				echo '<div class="cbp-loadMore-block'.$pager['currentPage'].'">';
+				echo '</div>';
+			}
+			
+		} else {
+			$this->pageTitleShow = true;
+			$this->adsSidebar = false;
+			$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? 'Collection: '.$title->category_name : 'Collections';
+			$this->pageDescription = $setting->meta_description;
+			$this->pageMeta = $setting->meta_keyword;
+			$this->render('front_index',array(
+				'category'=>$category,
+				'dataProvider'=>$dataProvider,
+				'model'=>$model,
+				'pager'=>$pager,
+			));			
+		}
 	}
 
 	/**

@@ -59,7 +59,7 @@
 		<div class="cbp-item item design">
 			<!-- Item Link -->
 			<?php if($this->location == null)
-				$link = 'article/collection/view';
+				$link = 'article/collections/view';
 			else
 				$link = $val->article->views->location->province_code.'/view';?>
 			<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">

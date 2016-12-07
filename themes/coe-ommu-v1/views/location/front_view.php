@@ -89,13 +89,13 @@
 						<!-- Slide -->
 						<li class="slide">
 							<a href="<?php echo $image;?>" title="Post image">
-								<img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt="">
+								<img src="<?php echo Utility::getTimThumb($image, 470, 880, 3)?>" alt="">
 							</a>
 						</li>
 						<!-- Slide -->
 					<?php } else {?>
 						<a href="<?php echo $image;?>" title="Post image">
-						<img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt="">
+							<img src="<?php echo Utility::getTimThumb($image, 470, 880, 3)?>" alt="">
 						</a>
 				<?php }
 				}?>

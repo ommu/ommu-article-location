@@ -37,6 +37,15 @@
 					Posted By <a><?php echo $model->creation_relation->displayname?></a>
 					<i class="fa fa-user"></i>
 				</li>
+				<li>
+					<?php
+					if($model->views->location_id != null) {
+						$locationCode = $model->views->location->province_code;?>
+						<a href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $model->views->location->province_relation->province;?>"><?php echo $model->views->location->province_relation->province;?></a>
+					<?php } else
+						echo Yii::t('phrase', 'Indonesia');?>
+					<i class="fa fa-map-marker"></i>
+				</li>
 				<!-- Comments -->
 				<?php /*
 				<li>
@@ -55,7 +64,7 @@
 						$i++;?>
 						<a href="javascript:void(0);" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
 					<?php }?>
-					<i class="fa fa-comments"></i>
+					<i class="fa fa-tags"></i>
 				</li>
 				<?php }?>
 				<!-- Liked -->
@@ -89,22 +98,22 @@
 						<!-- Slide -->
 						<li class="slide">
 							<a href="<?php echo $image;?>" title="Post image">
-								<img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt="">
+								<img src="<?php echo Utility::getTimThumb($image, 470, 880, 3)?>" alt="">
 							</a>
 						</li>
 						<!-- Slide -->
 					<?php } else {?>
 						<a href="<?php echo $image;?>" title="Post image">
-						<img src="<?php echo Utility::getTimThumb($image, 880, 470, 1)?>" alt="">
+						<img src="<?php echo Utility::getTimThumb($image, 470, 880, 3)?>" alt="">
 						</a>
 				<?php }
 				}?>
 			</div>
 		<?php }?>
 		<!-- Description -->
-		<p class="post-text light">
+		<div class="post-text light">
 			<?php echo $model->body;?>
-		</p>
+		</div>
 	</div>
 	<!-- End Post Inner -->
 </div>

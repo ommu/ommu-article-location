@@ -102,7 +102,7 @@
 			echo Utility::shortText(Utility::hardDecode($data->body), $shortText);?>
 		</p>
 		<!-- Load More Button -->
-		<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$data->article_id, 't'=>Utility::getUrlTitle($data->title)))?>" class="ex-link post-more uppercase light st">
+		<a href="<?php echo Yii::app()->controller->createUrl('view', array('id'=>$data->article_id, 't'=>Utility::getUrlTitle($data->title)))?>" class="post-more uppercase light st">
 			<?php echo Yii::t('phrase', 'Selengkapnya');?>
 		</a>
 	</div>
