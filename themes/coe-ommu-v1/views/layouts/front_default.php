@@ -85,14 +85,14 @@
 	
 	if($this->adsSidebar == true) {?>
         <!-- Blog -->
-        <section id="blog" class="clearfix boxed pt-40 mb-80">
+        <section id="blog" class="clearfix boxed pt-80 mb-80">
             <!-- Posts -->
-            <div class="posts col-md-9 pl-00 pr-10 mt-90">
+            <div class="posts col-md-9 pl-00 pr-10">
 				<?php echo $content;?>
             </div>
             <!-- End Posts -->
             <!-- Sidebar -->
-            <div class="sidebar col-md-3 pl-20 pr-00 mt-90 gray">
+            <div class="sidebar col-md-3 pl-20 pr-00 gray">
 				<?php /*
                 <!-- Widget -->
                 <div class="widget mb-75">

@@ -237,7 +237,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 							<!-- DropDown Menu -->
 							<ul class="dropdown-menu pull-right clearfix">
 								<li class="ml-20 mt-15 mr-20 mb-15 raleway mini-text gray">
-									<form action="<?php echo Yii::app()->createUrl('search/result');?>" method="post" class="search-form">
+									<form action="<?php echo Yii::app()->createUrl('search/result');?>" method="get" class="search-form">
 										<input type="text" name="keyword" id="search" class="transparent uppercase" placeholder="<?php echo Yii::t('phrase', 'Kata Kunci...');?>">
 										<button type="submit">
 										<i class="fa fa-search"></i>

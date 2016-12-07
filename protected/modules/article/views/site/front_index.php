@@ -24,6 +24,6 @@
 		'header' => '',
 	), 
 	'summaryText' => '',
-	'itemsCssClass' => 'items clearfix blog-inner blog-style-classic blog-items boxed',
-	'pagerCssClass'=>'pager clearfix col-md-12 blog-pagination pagination block t-center',
+	'itemsCssClass' => '',
+	'pagerCssClass'=>'pagination block t-center mt-70 mb-00',
 )); ?>
