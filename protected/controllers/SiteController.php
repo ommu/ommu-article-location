@@ -154,8 +154,7 @@ class SiteController extends Controller
 			$this->redirect(array('site/index'));
 
 		else {
-			$setting = OmmuSettings::getInfo('site_type');
-			if($setting == 1)
+			if(OmmuSettings::getInfo('site_type') == 1)
 				$this->redirect(Yii::app()->createUrl('users/account'));
 			else
 				$this->redirect(Yii::app()->createUrl('users/admin'));
