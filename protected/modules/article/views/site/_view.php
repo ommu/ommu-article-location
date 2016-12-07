@@ -32,6 +32,15 @@
 					Posted By <a><?php echo $data->creation_relation->displayname?></a>
 					<i class="fa fa-user"></i>
 				</li>
+				<li>
+					<?php
+					if($data->views->location_id != null) {
+						$locationCode = $data->views->location->province_code;?>
+						<a href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $data->views->location->province_relation->province;?>"><?php echo $data->views->location->province_relation->province;?></a>
+					<?php } else
+						echo Yii::t('phrase', 'Indonesia');?>
+					<i class="fa fa-map-marker"></i>
+				</li>
 				<!-- Comments -->
 				<?php /*
 				<li>
@@ -50,7 +59,7 @@
 							$i++;?>
 							<a href="javascript:void(0);" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
 						<?php }?>
-						<i class="fa fa-comments"></i>
+						<i class="fa fa-tags"></i>
 					</li>
 				<?php }?>
 				<!-- Liked -->

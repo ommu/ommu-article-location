@@ -50,7 +50,7 @@
 							$i++;?>
 							<a href="javascript:void(0);" title="<?php echo $val->tag_TO->body?>"><?php echo $val->tag_TO->body?></a><?php echo $i != $countTags ? ',' : '';?>
 						<?php }?>
-						<i class="fa fa-comments"></i>
+						<i class="fa fa-tags"></i>
 					</li>
 				<?php }?>
 				<!-- Liked -->
