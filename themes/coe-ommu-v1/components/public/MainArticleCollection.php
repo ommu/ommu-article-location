@@ -30,14 +30,16 @@ class MainArticleCollection extends CWidget
 		Yii::import('application.modules.article.model_bpad_coe.ViewArticles');
 		
 		$criteria=new CDbCriteria;
-		$criteria->with = array(
-			'article' => array(
-				'alias'=>'article',
-			),
-			'article.views' => array(
-				'alias'=>'views',
-			),
-		);
+		if($this->location != null) {
+			$criteria->with = array(
+				'article' => array(
+					'alias'=>'article',
+				),
+				'article.views' => array(
+					'alias'=>'views',
+				),
+			);
+		}
 		$criteria->condition = 't.publish = :publish';
 		$criteria->params = array(
 			':publish'=>1,

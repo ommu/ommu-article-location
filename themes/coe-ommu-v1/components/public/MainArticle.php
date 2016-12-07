@@ -31,11 +31,13 @@ class MainArticle extends CWidget
 		Yii::import('application.modules.article.model_bpad_coe.ViewArticles');
 		
 		$criteria=new CDbCriteria;
-		$criteria->with = array(
-			'views' => array(
-				'alias'=>'views',
-			),
-		);
+		if($this->location != null) {
+			$criteria->with = array(
+				'views' => array(
+					'alias'=>'views',
+				),
+			);
+		}
 		$criteria->condition = 't.publish = :publish AND t.published_date <= curdate()';
 		$criteria->params = array(
 			':publish'=>1,
