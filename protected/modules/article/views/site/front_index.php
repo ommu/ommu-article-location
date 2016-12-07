@@ -17,13 +17,16 @@
 	);
 ?>
 
-<?php $this->widget('application.components.system.FListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-	'pager' => array(
-		'header' => '',
-	), 
-	'summaryText' => '',
-	'itemsCssClass' => '',
-	'pagerCssClass'=>'pagination block t-center mt-70 mb-00',
-)); ?>
+<?php if($model != null) {
+	foreach($model as $key => $val) {
+		$this->renderPartial('_view', array('data'=>$val), false, false);
+	}?>
+	
+	<div class="pagination block t-center mt-70 mb-00">
+		<?php $this->widget('application.components.system.OLinkPager', array(
+			'pages' => $dataProvider->pagination,
+			'header' => '',
+		));?>
+	</div>	
+<?php } else {?>
+<?php }?>

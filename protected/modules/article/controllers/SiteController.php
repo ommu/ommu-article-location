@@ -116,6 +116,7 @@ class SiteController extends Controller
 				'pageSize'=>6,
 			),
 		));
+		$model = $dataProvider->getData();
 		
 		$this->pageTitleShow = true;
 		$this->pageTitle = (isset($_GET['category']) && $_GET['category'] != '') ? Phrase::trans($title->name, 2) : 'Articles';
@@ -123,6 +124,7 @@ class SiteController extends Controller
 		$this->pageMeta = $setting->meta_keyword;
 		$this->render('front_index',array(
 			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 

@@ -178,6 +178,7 @@ class BantenController extends Controller
 				'pageSize'=>6,
 			),
 		));
+		$model = $dataProvider->getData();
 		
 		$this->pageTitleShow = true;
 		$this->pageDescriptionShow = true;
@@ -186,6 +187,7 @@ class BantenController extends Controller
 		$this->pageMeta = '';
 		$this->render('/location/front_article',array(
 			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
