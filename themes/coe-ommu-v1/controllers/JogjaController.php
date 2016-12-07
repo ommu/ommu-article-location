@@ -181,7 +181,7 @@ class JogjaController extends Controller
 		
 		$this->pageTitleShow = true;
 		$this->pageDescriptionShow = true;
-		$this->pageTitle = '';
+		$this->pageTitle = Yii::t('phrase', 'Article').' '.$this->location_name;
 		$this->pageDescription = $this->location_desc;
 		$this->pageMeta = '';
 		$this->render('/location/front_article',array(
