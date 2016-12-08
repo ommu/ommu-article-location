@@ -36,6 +36,12 @@
 					<?php echo $model->view->views != null ? $model->view->views : 0;?> view
 					<i class="fa fa-eye"></i>
 				</li>
+				<?php if($model->media_file != '') {?>
+				<li>
+					<?php echo $model->view->downloads != null ? $model->view->downloads : 0;?> download
+					<i class="fa fa-download"></i>
+				</li>
+				<?php }?>
 				<!-- Posted By -->
 				<li>
 					Posted By <a><?php echo $model->creation_relation->displayname?></a>

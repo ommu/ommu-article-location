@@ -27,6 +27,7 @@
  * @property string $category_name
  * @property string $views
  * @property string $view_all
+ * @property string $downloads
  * @property integer $location_id
  */
 class ViewArticles extends CActiveRecord
@@ -68,12 +69,12 @@ class ViewArticles extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('article_id, views, view_all, location_id', 'numerical', 'integerOnly'=>true),
+			array('article_id, views, view_all, location_id, downloads', 'numerical', 'integerOnly'=>true),
 			array('article_id', 'length', 'max'=>11),
 			array('category_name', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('article_id, category_name, views, view_all, location_id', 'safe', 'on'=>'search'),
+			array('article_id, category_name, views, view_all, location_id, downloads', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,6 +100,7 @@ class ViewArticles extends CActiveRecord
 			'category_name' => Yii::t('attribute', 'Category Name'),
 			'views' => Yii::t('attribute', 'View'),
 			'view_all' => Yii::t('attribute', 'All View'),
+			'downloads' => Yii::t('attribute', 'Downloads'),
 			'location_id' => Yii::t('attribute', 'Location'),
 		);
 		/*
@@ -131,6 +133,7 @@ class ViewArticles extends CActiveRecord
 		$criteria->compare('t.category_name',strtolower($this->category_name),true);
 		$criteria->compare('t.views',strtolower($this->views),true);
 		$criteria->compare('t.view_all',strtolower($this->view_all),true);
+		$criteria->compare('t.downloads',strtolower($this->downloads),true);
 		$criteria->compare('t.location_id',$this->location_id);
 
 		if(!isset($_GET['ViewArticles_sort']))
@@ -166,6 +169,7 @@ class ViewArticles extends CActiveRecord
 			$this->defaultColumns[] = 'category_name';
 			$this->defaultColumns[] = 'views';
 			$this->defaultColumns[] = 'view_all';
+			$this->defaultColumns[] = 'downloads';
 			$this->defaultColumns[] = 'location_id';
 		}
 
@@ -185,6 +189,7 @@ class ViewArticles extends CActiveRecord
 			$this->defaultColumns[] = 'category_name';
 			$this->defaultColumns[] = 'views';
 			$this->defaultColumns[] = 'view_all';
+			$this->defaultColumns[] = 'downloads';
 			$this->defaultColumns[] = 'location_id';
 		}
 		parent::afterConstruct();

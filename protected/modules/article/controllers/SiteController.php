@@ -213,7 +213,23 @@ class SiteController extends Controller
 	public function actionDownload($id) 
 	{
 		$model=$this->loadModel($id);
-		Articles::model()->updateByPk($id, array('download'=>$model->download + 1));
+		
+		$downloadFind = ArticleDownloads::model()->find(array(
+			'select' => 'download_id, article_id, user_id, downloads',
+			'condition' => 'article_id = :article AND user_id = :user',
+			'params' => array(
+				':article' => $model->article_id,
+				':user' => !Yii::app()->user->isGuest ? Yii::app()->user->id : 0,
+			),
+		));
+		if($downloadFind != null)
+			ArticleDownloads::model()->updateByPk($downloadFind->download_id, array('downloads'=>$downloadFind->downloads + 1));
+		
+		else {
+			$view=new ArticleDownloads;
+			$view->article_id = $model->article_id;
+			$view->save();
+		}
 		$this->redirect(Yii::app()->request->baseUrl.'/public/article/'.$id.'/'.$model->media_file);
 	}
 

@@ -10,7 +10,6 @@
  * TOC :
  *	Index
  *	View
- *	Download
  *
  *	LoadModel
  *	performAjaxValidation
@@ -66,7 +65,7 @@ class CollectionsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','download'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -221,17 +220,6 @@ class CollectionsController extends Controller
 			'model'=>$model,
 			'random'=>$random,
 		));
-	}
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionDownload($id) 
-	{
-		$model=$this->loadModel($id);
-		Articles::model()->updateByPk($id, array('download'=>$model->download + 1));
-		$this->redirect(Yii::app()->request->baseUrl.'/public/article/'.$id.'/'.$model->media_file);
 	}
 
 	/**

@@ -31,6 +31,12 @@
 					<?php echo $data->article->view->views != null ? $data->article->view->views : 0;?> view
 					<i class="fa fa-eye"></i>
 				</li>
+				<?php if($data->article->media_file != '') {?>
+				<li>
+					<?php echo $data->article->view->downloads != null ? $data->article->view->downloads : 0;?> download
+					<i class="fa fa-download"></i>
+				</li>
+				<?php }?>
 				<!-- Posted By -->
 				<li>
 					Posted By <a><?php echo $data->article->creation_relation->displayname?></a>
