@@ -174,15 +174,24 @@ class CollectionsController extends Controller
 		));
 
 		$model=$this->loadModel($id);
-		Articles::model()->updateByPk($id, array('view'=>$model->view + 1));
-
-		$photo = ArticleMedia::model()->findAll(array(
-			'condition' => 'article_id = :id',
+		
+		$viewFind = ArticleViews::model()->find(array(
+			'select' => 'view_id, publish, article_id, user_id, views',
+			'condition' => 'publish = :publish AND article_id = :article AND user_id = :user',
 			'params' => array(
-				':id' => $model->article_id,
+				':publish' => 1,
+				':article' => $model->article_id,
+				':user' => !Yii::app()->user->isGuest ? Yii::app()->user->id : 0,
 			),
-			'order' => 'media_id DESC',
 		));
+		if($viewFind != null)
+			ArticleViews::model()->updateByPk($viewFind->view_id, array('views'=>$viewFind->views + 1));
+		
+		else {
+			$view=new ArticleViews;
+			$view->article_id = $model->article_id;
+			$view->save();
+		}
 		
 		//Random Article
 		$criteria=new CDbCriteria;
@@ -210,7 +219,6 @@ class CollectionsController extends Controller
 		}
 		$this->render('front_view',array(
 			'model'=>$model,
-			'photo'=>$photo,
 			'random'=>$random,
 		));
 	}

@@ -1,11 +1,11 @@
 <?php
 /**
- * ViewArticles
+ * ArticleViewDetail
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
- * @created date 9 November 2016, 18:13 WIB
+ * @created date 8 December 2016, 10:18 WIB
  * @link http://company.ommu.co
  * @contact (+62)856-299-4114
  *
@@ -20,23 +20,26 @@
  *
  * --------------------------------------------------------------------------------------
  *
- * This is the model class for table "_view_articles".
+ * This is the model class for table "ommu_article_view_detail".
  *
- * The followings are the available columns in table '_view_articles':
- * @property string $article_id
- * @property string $category_name
- * @property string $views
- * @property string $view_all
+ * The followings are the available columns in table 'ommu_article_view_detail':
+ * @property string $id
+ * @property string $view_id
+ * @property string $views_date
+ * @property string $views_ip
  */
-class ViewArticles extends CActiveRecord
+class ArticleViewDetail extends CActiveRecord
 {
 	public $defaultColumns = array();
+	
+	// Variable Search
+	public $article_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ViewArticles the static model class
+	 * @return ArticleViewDetail the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -48,15 +51,7 @@ class ViewArticles extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '_view_articles';
-	}
-
-	/**
-	 * @return string the primarykey column
-	 */
-	public function primaryKey()
-	{
-		return 'article_id';
+		return 'ommu_article_view_detail';
 	}
 
 	/**
@@ -67,12 +62,14 @@ class ViewArticles extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('article_id, views, view_all', 'numerical', 'integerOnly'=>true),
-			array('article_id', 'length', 'max'=>11),
-			array('category_name', 'safe'),
+			array('view_id, views_ip', 'required'),
+			array('view_id', 'length', 'max'=>11),
+			array('views_ip', 'length', 'max'=>20),
+			array('views_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('article_id, category_name, views, view_all', 'safe', 'on'=>'search'),
+			array('id, view_id, views_date, views_ip,
+				article_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,6 +81,7 @@ class ViewArticles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'view' => array(self::BELONGS_TO, 'ArticleViews', 'view_id'),
 		);
 	}
 
@@ -93,15 +91,16 @@ class ViewArticles extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'article_id' => Yii::t('attribute', 'Article'),
-			'category_name' => Yii::t('attribute', 'Category Name'),
-			'views' => Yii::t('attribute', 'View'),
-			'view_all' => Yii::t('attribute', 'All View'),
+			'id' => Yii::t('attribute', 'ID'),
+			'view_id' => Yii::t('attribute', 'View'),
+			'views_date' => Yii::t('attribute', 'Views Date'),
+			'views_ip' => Yii::t('attribute', 'Views Ip'),
 		);
 		/*
-			'Article' => 'Article',
-			'Category Name' => 'Category Name',
-			'Location' => 'Location',
+			'ID' => 'ID',
+			'View' => 'View',
+			'Views Date' => 'Views Date',
+			'Views Ip' => 'Views Ip',
 		
 		*/
 	}
@@ -123,14 +122,31 @@ class ViewArticles extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'view' => array(
+				'alias'=>'view',
+			),
+			'view.article' => array(
+				'alias'=>'article',
+				'select'=>'title'
+			),
+		);
 
-		$criteria->compare('t.article_id',strtolower($this->article_id),true);
-		$criteria->compare('t.category_name',strtolower($this->category_name),true);
-		$criteria->compare('t.views',strtolower($this->views),true);
-		$criteria->compare('t.view_all',strtolower($this->view_all),true);
+		$criteria->compare('t.id',strtolower($this->id),true);
+		if(isset($_GET['view']))
+			$criteria->compare('t.view_id',$_GET['view']);
+		else
+			$criteria->compare('t.view_id',$this->view_id);
+		if($this->views_date != null && !in_array($this->views_date, array('0000-00-00 00:00:00', '0000-00-00')))
+			$criteria->compare('date(t.views_date)',date('Y-m-d', strtotime($this->views_date)));
+		$criteria->compare('t.views_ip',strtolower($this->views_ip),true);
+		
+		$criteria->compare('article.title',strtolower($this->article_search), true);
 
-		if(!isset($_GET['ViewArticles_sort']))
-			$criteria->order = 't.article_id DESC';
+		if(!isset($_GET['ArticleViewDetail_sort']))
+			$criteria->order = 't.id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -158,10 +174,10 @@ class ViewArticles extends CActiveRecord
 				$this->defaultColumns[] = $val;
 			}
 		} else {
-			$this->defaultColumns[] = 'article_id';
-			$this->defaultColumns[] = 'category_name';
-			$this->defaultColumns[] = 'views';
-			$this->defaultColumns[] = 'view_all';
+			//$this->defaultColumns[] = 'id';
+			$this->defaultColumns[] = 'view_id';
+			$this->defaultColumns[] = 'views_date';
+			$this->defaultColumns[] = 'views_ip';
 		}
 
 		return $this->defaultColumns;
@@ -176,10 +192,49 @@ class ViewArticles extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'article_id';
-			$this->defaultColumns[] = 'category_name';
-			$this->defaultColumns[] = 'views';
-			$this->defaultColumns[] = 'view_all';
+			if(!isset($_GET['view'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'article_search',
+					'value' => '$data->view->article->title."<br/><span>".Utility::shortText(Utility::hardDecode($data->view->article->body),150)."</span>"',
+					'htmlOptions' => array(
+						'class' => 'bold',
+					),
+					'type' => 'raw',
+				);
+			}
+			$this->defaultColumns[] = array(
+				'name' => 'views_date',
+				'value' => 'Utility::dateFormat($data->views_date)',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
+					'model'=>$this,
+					'attribute'=>'views_date',
+					'language' => 'ja',
+					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					//'mode'=>'datetime',
+					'htmlOptions' => array(
+						'id' => 'views_date_filter',
+					),
+					'options'=>array(
+						'showOn' => 'focus',
+						'dateFormat' => 'dd-mm-yy',
+						'showOtherMonths' => true,
+						'selectOtherMonths' => true,
+						'changeMonth' => true,
+						'changeYear' => true,
+						'showButtonPanel' => true,
+					),
+				), true),
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'views_ip',
+				'value' => '$data->views_ip',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+			);
 		}
 		parent::afterConstruct();
 	}

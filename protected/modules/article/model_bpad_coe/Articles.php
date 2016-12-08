@@ -34,7 +34,6 @@
  * @property string $media_file
  * @property string $published_date
  * @property integer $comment
- * @property integer $view
  * @property integer $likes
  * @property integer $download
  * @property string $creation_date
@@ -88,7 +87,7 @@ class Articles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('cat_id, article_type, published_date', 'required'),
-			array('publish, cat_id, user_id, media_id, headline, comment_code, comment, view, likes, creation_id, modified_id', 'numerical', 'integerOnly'=>true),
+			array('publish, cat_id, user_id, media_id, headline, comment_code, comment, likes, creation_id, modified_id', 'numerical', 'integerOnly'=>true),
 			array('user_id, media_id', 'length', 'max'=>11),
 			array('
 				video_input, keyword', 'length', 'max'=>32),
@@ -98,7 +97,7 @@ class Articles extends CActiveRecord
 				media_input, old_media_input, video_input, keyword, old_media_file', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('article_id, publish, cat_id, user_id, media_id, headline, comment_code, article_type, title, body, quote, media_file, published_date, comment, view, likes, download, creation_date, creation_id, modified_date, modified_id,
+			array('article_id, publish, cat_id, user_id, media_id, headline, comment_code, article_type, title, body, quote, media_file, published_date, comment, likes, download, creation_date, creation_id, modified_date, modified_id,
 				user_search, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -111,7 +110,7 @@ class Articles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'views' => array(self::BELONGS_TO, 'ViewArticles', 'article_id'),
+			'view' => array(self::BELONGS_TO, 'ViewArticles', 'article_id'),
 			'cat' => array(self::BELONGS_TO, 'ArticleCategory', 'cat_id'),
 			'cover' => array(self::BELONGS_TO, 'ArticleMedia', 'media_id'),
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
@@ -144,7 +143,6 @@ class Articles extends CActiveRecord
 			'media_file' => Yii::t('attribute', 'File (Download)'),
 			'published_date' => Yii::t('attribute', 'Published Date'),
 			'comment' => Yii::t('attribute', 'Comment'),
-			'view' => Yii::t('attribute', 'View'),
 			'likes' => Yii::t('attribute', 'Likes'),
 			'download' => Yii::t('attribute', 'Download'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
@@ -243,7 +241,6 @@ class Articles extends CActiveRecord
 		if($this->published_date != null && !in_array($this->published_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.published_date)',date('Y-m-d', strtotime($this->published_date)));
 		$criteria->compare('t.comment',$this->comment);
-		$criteria->compare('t.view',$this->view);
 		$criteria->compare('t.likes',$this->likes);
 		$criteria->compare('t.download',$this->download);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
@@ -322,7 +319,6 @@ class Articles extends CActiveRecord
 			$this->defaultColumns[] = 'media_file';
 			$this->defaultColumns[] = 'published_date';
 			$this->defaultColumns[] = 'comment';
-			$this->defaultColumns[] = 'view';
 			$this->defaultColumns[] = 'likes';
 			$this->defaultColumns[] = 'download';
 			$this->defaultColumns[] = 'creation_date';
@@ -488,29 +484,18 @@ class Articles extends CActiveRecord
 		Yii::import('application.modules.article.models.*');
 		
 		$criteria=new CDbCriteria;
-		$now = new CDbExpression("NOW()");
 		$criteria->compare('t.publish', 1);
-		$criteria->compare('date(published_date) <', $now);
-		$criteria->order = 'article_id DESC';
+		$criteria->compare('date(t.published_date) <', date('Y-m-d H:i:s'));
+		$criteria->order = 't.article_id DESC';
 		//$criteria->limit = 10;
 		$model = Articles::model()->findAll($criteria);
 		foreach($model as $key => $item) {
-			if($item->media_id != 0)
-				$images = Yii::app()->request->baseUrl.'/public/article/'.$item->article_id.'/'.$item->cover->media;
+			$medias = $item->medias;
+			if($medias != null)
+				$images = Yii::app()->request->baseUrl.'/public/article/'.$item->article_id.'/'.$medias[0]->media;
 			else
 				$images = '';
-			if(in_array($item->cat_id, array(2,3,5,6,7,18)))
-				$url = Yii::app()->createUrl('article/news/site/view', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
-			else if(in_array($item->cat_id, array(9)))
-				$url = Yii::app()->createUrl('article/site/view', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
-			else if(in_array($item->cat_id, array(10,15,16)))
-				$url = Yii::app()->createUrl('article/archive/site/view', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
-			else if(in_array($item->cat_id, array(23,24,25)))
-				$url = Yii::app()->createUrl('article/newspaper/site/view', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
-			else if(in_array($item->cat_id, array(13,14,20,21)))
-				$url = Yii::app()->createUrl('article/regulation/site/download', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
-			else if(in_array($item->cat_id, array(19)))
-				$url = Yii::app()->createUrl('article/announcement/site/download', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
+			$url = Yii::app()->createUrl('article/site/view', array('id'=>$item->article_id,'t'=>Utility::getUrlTitle($item->title)));
 				
 			$doc = new Zend_Search_Lucene_Document();
 			$doc->addField(Zend_Search_Lucene_Field::UnIndexed('id', CHtml::encode($item->article_id), 'utf-8')); 
@@ -519,7 +504,7 @@ class Articles extends CActiveRecord
 			$doc->addField(Zend_Search_Lucene_Field::Text('title', CHtml::encode($item->title), 'utf-8'));
 			$doc->addField(Zend_Search_Lucene_Field::Text('body', CHtml::encode(Utility::hardDecode(Utility::softDecode($item->body))), 'utf-8'));
 			$doc->addField(Zend_Search_Lucene_Field::Text('url', CHtml::encode(Utility::getProtocol().'://'.Yii::app()->request->serverName.$url), 'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnIndexed('date', CHtml::encode(Utility::dateFormat($item->published_date, true).' WIB'), 'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnIndexed('date', CHtml::encode($item->published_date), 'utf-8'));
 			$doc->addField(Zend_Search_Lucene_Field::UnIndexed('creation', CHtml::encode($item->user->displayname), 'utf-8'));
 			$index->addDocument($doc);			
 		}

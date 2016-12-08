@@ -50,9 +50,9 @@
 		<p class="note mt-5 light">
 			<span><?php echo $data->category->category_name;?></span> /
 			<?php
-			if($data->article->views->location_id != null) {
-				$locationCode = $data->article->views->location->province_code;?>
-				<a class="colored" href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $data->article->views->location->province_relation->province;?>"><?php echo $data->article->views->location->province_relation->province;?></a>
+			if($data->article->view->location_id != null) {
+				$locationCode = $data->article->view->location->province_code;?>
+				<a class="colored" href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $data->article->view->location->province_relation->province;?>"><?php echo $data->article->view->location->province_relation->province;?></a>
 			<?php } else
 				echo Yii::t('phrase', 'Indonesia');?>
 			
@@ -67,14 +67,14 @@
 	</div>
 	<!-- End Center Details Div -->
 	<!-- Posted By -->
-	<a href="<?php echo $data->article->views->location_id != null ? Yii::app()->createUrl($data->article->views->location->province_code.'/index') : 'javascript:void(0);';?>" class="posted_button">
+	<a href="<?php echo $data->article->view->location_id != null ? Yii::app()->createUrl($data->article->view->location->province_code.'/index') : 'javascript:void(0);';?>" class="posted_button">
 		<!-- Image SRC -->
 		<?php 
-		if($data->article->views->location->province_photo != '')
-			$imageLocation = Yii::app()->request->baseUrl.'/public/article/location/'.$data->article->views->location->province_photo;
+		if($data->article->view->location->province_photo != '')
+			$imageLocation = Yii::app()->request->baseUrl.'/public/article/location/'.$data->article->view->location->province_photo;
 		else
 			$imageLocation = Yii::app()->request->baseUrl.'/public/article/article_default.png';?>
-		<img src="<?php echo Utility::getTimThumb($imageLocation, 100, 100, 1)?>" alt="<?php echo $data->article->views->location_id != null ? $data->article->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>">
+		<img src="<?php echo Utility::getTimThumb($imageLocation, 100, 100, 1)?>" alt="<?php echo $data->article->view->location_id != null ? $data->article->view->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>">
 		<p>
 			<?php echo $data->article->creation_relation->displayname;?>
 			<span><?php echo Utility::dateFormat($data->article->published_date);?></span>

@@ -61,7 +61,7 @@
 			<?php if($this->location == null)
 				$link = 'article/collections/view';
 			else
-				$link = $val->article->views->location->province_code.'/view';?>
+				$link = $val->article->view->location->province_code.'/view';?>
 			<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->article->title)))?>" class="cbp-caption">
 				<!-- Item Image -->
 				<div class="cbp-caption-defaultWrap">
@@ -85,7 +85,7 @@
 							</h2>
 							<!-- Tags -->
 							<p class="tags">
-								<?php echo $val->article->views->location_id != null ? $val->article->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
+								<?php echo $val->article->view->location_id != null ? $val->article->view->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 							</p>
 						</div>
 					</div>

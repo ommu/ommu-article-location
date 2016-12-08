@@ -37,7 +37,7 @@
                     </h3>
                     <!-- Position -->
                     <h5>
-                       <?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
+                       <?php echo $val->view->location_id != null ? $val->view->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
                     </h5>
                     <!-- Strip -->
                     <div class="strip"></div>
@@ -66,7 +66,7 @@
 					<?php if($this->location == null)
 						$link = 'article/site/view';
 					else
-						$link = $val->views->location->province_code.'/view';?>
+						$link = $val->view->location->province_code.'/view';?>
                     <a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" data-toggle="modal" data-target="#member<?php echo $i;?>" class="member-more uppercase normal team_modal"><?php echo Yii::t('phrase', 'Selengkapnya');?></a>
                 </div>
                 <!-- End Member Details -->
@@ -103,7 +103,7 @@
                         </h2>
                         <!-- Member Position -->
                         <h4 class="member-position extra-light colored">
-                            <?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
+                            <?php echo $val->view->location_id != null ? $val->view->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
                         </h4>
                         <!-- Description -->
                         <p class="no-padding extra-light">

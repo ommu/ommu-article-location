@@ -27,7 +27,7 @@
 					<?php if($this->location == null)
 						$link = 'article/site/view';
 					else
-						$link = $val->views->location->province_code.'/view';?>
+						$link = $val->view->location->province_code.'/view';?>
 					<a href="<?php echo Yii::app()->createUrl($link, array('id'=>$val->article_id, 't'=>Utility::getUrlTitle($val->title)))?>" class="changeable-image">
 						<img src="<?php echo Utility::getTimThumb($image, 100, 100, 1)?>" alt="<?php echo $val->title?>">
 					</a>
@@ -41,7 +41,7 @@
 				</a>
 				<!-- Position -->
 				<h5 class="colored ">
-					<?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
+					<?php echo $val->view->location_id != null ? $val->view->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 				</h5>
 				<!-- Box Description -->
 				<p class="no-padding no-margin">

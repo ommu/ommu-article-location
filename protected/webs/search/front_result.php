@@ -40,6 +40,10 @@
 								Posted By <a><?php echo $query->highlightMatches(CHtml::encode($results[$i]->creation));?></a>
 								<i class="fa fa-user"></i>
 							</li>
+							<li>
+								<?php echo CHtml::encode($results[$i]->category);?>
+								<i class="fa fa-flag"></i>
+							</li>
 						</ul>
 					</div>
 					<!-- End Details -->

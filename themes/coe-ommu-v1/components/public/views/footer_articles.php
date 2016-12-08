@@ -24,7 +24,7 @@
 						<?php echo $val->title;?>
 						<span>
 							<i class="fa fa-tags"></i> <?php echo $val->collection != null ? Phrase::trans($val->cat->name,2).' '.$val->collection->category->category_name : Phrase::trans($val->cat->name,2) ;?>
-							<i class="fa fa-map-marker"></i> <?php echo $val->views->location_id != null ? $val->views->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
+							<i class="fa fa-map-marker"></i> <?php echo $val->view->location_id != null ? $val->view->location->province_relation->province : Yii::t('phrase', 'Indonesia');?>
 						</span>
 					</a>
 				</li>				

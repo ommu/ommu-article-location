@@ -27,6 +27,10 @@
 		<!-- Details -->
 		<div class="details">
 			<ul class="t-right fullwidth">
+				<li>
+					<?php echo $data->view->views != null ? $data->view->views : 0;?> view
+					<i class="fa fa-eye"></i>
+				</li>
 				<!-- Posted By -->
 				<li>
 					Posted By <a><?php echo $data->creation_relation->displayname?></a>
@@ -34,20 +38,13 @@
 				</li>
 				<li>
 					<?php
-					if($data->views->location_id != null) {
-						$locationCode = $data->views->location->province_code;?>
-						<a href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $data->views->location->province_relation->province;?>"><?php echo $data->views->location->province_relation->province;?></a>
+					if($data->view->location_id != null) {
+						$locationCode = $data->view->location->province_code;?>
+						<a href="<?php echo Yii::app()->createUrl($locationCode.'/index')?>" title="<?php echo $data->view->location->province_relation->province;?>"><?php echo $data->view->location->province_relation->province;?></a>
 					<?php } else
 						echo Yii::t('phrase', 'Indonesia');?>
 					<i class="fa fa-map-marker"></i>
 				</li>
-				<!-- Comments -->
-				<?php /*
-				<li>
-					<a href="#">12 Comments</a>
-					<i class="fa fa-comments"></i>
-				</li>
-				*/?>
 				<!-- Tags -->
 				<?php $tags = $data->tags;
 				if(!empty($tags)) {
@@ -62,13 +59,6 @@
 						<i class="fa fa-tags"></i>
 					</li>
 				<?php }?>
-				<!-- Liked -->
-				<?php /*
-				<li>
-					<a href="#">Extra Link</a>
-					<i class="fa fa-link"></i>
-				</li>
-				*/?>
 			</ul>
 		</div>
 		<!-- End Details -->

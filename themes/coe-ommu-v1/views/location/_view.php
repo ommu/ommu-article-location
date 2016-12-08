@@ -27,6 +27,10 @@
 		<!-- Details -->
 		<div class="details">
 			<ul class="t-right fullwidth">
+				<li>
+					<?php echo $data->article->view->views != null ? $data->article->view->views : 0;?> view
+					<i class="fa fa-eye"></i>
+				</li>
 				<!-- Posted By -->
 				<li>
 					Posted By <a><?php echo $data->article->creation_relation->displayname?></a>

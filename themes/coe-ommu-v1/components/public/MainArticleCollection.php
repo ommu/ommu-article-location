@@ -35,8 +35,8 @@ class MainArticleCollection extends CWidget
 				'article' => array(
 					'alias'=>'article',
 				),
-				'article.views' => array(
-					'alias'=>'views',
+				'article.view' => array(
+					'alias'=>'view',
 				),
 			);
 		}
@@ -45,7 +45,7 @@ class MainArticleCollection extends CWidget
 			':publish'=>1,
 		);
 		if($this->location != null)
-			$criteria->compare('views.location_id', $this->location);
+			$criteria->compare('view.location_id', $this->location);
 		$criteria->limit = $this->limit == null ? 4 : $this->limit;
 		$criteria->order = 't.creation_date DESC';
 			

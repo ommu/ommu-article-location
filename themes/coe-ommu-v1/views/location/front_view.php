@@ -32,6 +32,10 @@
 		<!-- Details -->
 		<div class="details">
 			<ul class="t-right fullwidth">
+				<li>
+					<?php echo $model->view->views != null ? $model->view->views : 0;?> view
+					<i class="fa fa-eye"></i>
+				</li>
 				<!-- Posted By -->
 				<li>
 					Posted By <a><?php echo $model->creation_relation->displayname?></a>

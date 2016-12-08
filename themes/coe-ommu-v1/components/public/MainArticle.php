@@ -33,8 +33,8 @@ class MainArticle extends CWidget
 		$criteria=new CDbCriteria;
 		if($this->location != null) {
 			$criteria->with = array(
-				'views' => array(
-					'alias'=>'views',
+				'view' => array(
+					'alias'=>'view',
 				),
 			);
 		}
@@ -46,7 +46,7 @@ class MainArticle extends CWidget
 		//$criteria->addInCondition('cat_id',array(2,3,5,6,7,18));
 		$criteria->compare('t.cat_id', $this->category);
 		if($this->location != null)
-			$criteria->compare('views.location_id', $this->location);
+			$criteria->compare('view.location_id', $this->location);
 		$criteria->limit = $this->limit == null ? 3 : $this->limit;
 			
 		$model = Articles::model()->findAll($criteria);
