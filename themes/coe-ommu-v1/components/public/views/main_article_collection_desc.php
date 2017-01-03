@@ -111,6 +111,13 @@
 		</div>
 		<!-- End Item -->
 		<?php }?>
+	
+		<?php if($this->location != null) {?>
+		<div class="clearfix"></div>
+		<div class="mt-20">
+			<a class="colored" href="<?php echo Yii::app()->createUrl($model[0]->article->view->location->province_code.'/article', array('category'=>$model[0]->article->cat_id, 't'=>Utility::getUrlTitle(Yii::t('phrase', 'Koleksi Budaya'))))?>" title="<?php echo Yii::t('phrase', 'Selengkapnya');?>"><?php echo Yii::t('phrase', 'Selengkapnya');?></a>
+		</div>	
+		<?php }?>
 	</div>
 	<!-- End Portfolio Items -->
 

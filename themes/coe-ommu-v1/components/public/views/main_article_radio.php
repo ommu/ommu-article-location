@@ -52,6 +52,13 @@
 			<?php }?>
 		</div>
 		<!-- End Boxes -->
+	
+		<?php if($this->location != null) {?>
+		<div class="clearfix"></div>
+		<div class="mt-20">
+			<a class="colored" href="<?php echo Yii::app()->createUrl($model[0]->view->location->province_code.'/article', array('category'=>$model[0]->cat_id, 't'=>Utility::getUrlTitle(Phrase::trans($model[0]->cat->name, 2))))?>" title="<?php echo Yii::t('phrase', 'Selengkapnya');?>"><?php echo Yii::t('phrase', 'Selengkapnya');?></a>
+		</div>	
+		<?php }?>
 	</div>
 	<!-- End Inner -->
 </section>

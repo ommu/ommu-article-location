@@ -1,9 +1,12 @@
 <?php
 /**
- * ViewArticleCategory
+ * ViewArticleTag
+ * version: 0.0.1
+ *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2015 Ommu Platform (ommu.co)
- * @link https://github.com/oMMu/Ommu-Articles
+ * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @created date 19 December 2016, 16:48 WIB
+ * @link http://company.ommu.co
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -17,19 +20,14 @@
  *
  * --------------------------------------------------------------------------------------
  *
- * This is the model class for table "_view_article_category".
+ * This is the model class for table "_view_article_tag".
  *
- * The followings are the available columns in table '_view_article_category':
- * @property integer $cat_id
- * @property string $category_name
- * @property string $category_desc
+ * The followings are the available columns in table '_view_article_tag':
+ * @property string $tag_id
  * @property string $articles
- * @property string $article_pending
- * @property string $article_unpublish
  * @property string $article_all
- * @property string $article_id
  */
-class ViewArticleCategory extends CActiveRecord
+class ViewArticleTag extends CActiveRecord
 {
 	public $defaultColumns = array();
 
@@ -37,7 +35,7 @@ class ViewArticleCategory extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ViewArticleCategory the static model class
+	 * @return ViewArticleTag the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -49,7 +47,7 @@ class ViewArticleCategory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '_view_article_category';
+		return '_view_article_tag';
 	}
 
 	/**
@@ -57,7 +55,7 @@ class ViewArticleCategory extends CActiveRecord
 	 */
 	public function primaryKey()
 	{
-		return 'cat_id';
+		return 'tag_id';
 	}
 
 	/**
@@ -68,12 +66,13 @@ class ViewArticleCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cat_id', 'numerical', 'integerOnly'=>true),
-			array('articles, article_pending, article_unpublish, article_all, article_id', 'length', 'max'=>21),
-			array('category_name, category_desc', 'safe'),
+			array('tag_id', 'required'),
+			array('tag_id', 'length', 'max'=>11),
+			array('articles', 'length', 'max'=>23),
+			array('article_all', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('cat_id, category_name, category_desc, articles, article_pending, article_unpublish, article_all, article_id', 'safe', 'on'=>'search'),
+			array('tag_id, articles, article_all', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,7 +84,6 @@ class ViewArticleCategory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'article' => array(self::BELONGS_TO, 'Articles', 'article_id'),
 		);
 	}
 
@@ -95,15 +93,16 @@ class ViewArticleCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'cat_id' => Yii::t('attribute', 'Cat'),
-			'category_name' => Yii::t('attribute', 'Category Name'),
-			'category_desc' => Yii::t('attribute', 'Category Desc'),
+			'tag_id' => Yii::t('attribute', 'Tag'),
 			'articles' => Yii::t('attribute', 'Articles'),
-			'article_pending' => Yii::t('attribute', 'Article Pending'),
-			'article_unpublish' => Yii::t('attribute', 'Article Unpublish'),
 			'article_all' => Yii::t('attribute', 'Article All'),
-			'article_id' => Yii::t('attribute', 'Article'),
 		);
+		/*
+			'Tag' => 'Tag',
+			'Articles' => 'Articles',
+			'Article All' => 'Article All',
+		
+		*/
 	}
 
 	/**
@@ -124,17 +123,12 @@ class ViewArticleCategory extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.cat_id',$this->cat_id);
-		$criteria->compare('t.category_name',strtolower($this->category_name),true);
-		$criteria->compare('t.category_desc',strtolower($this->category_desc),true);
+		$criteria->compare('t.tag_id',strtolower($this->tag_id),true);
 		$criteria->compare('t.articles',strtolower($this->articles),true);
-		$criteria->compare('t.article_pending',strtolower($this->article_pending),true);
-		$criteria->compare('t.article_unpublish',strtolower($this->article_unpublish),true);
 		$criteria->compare('t.article_all',strtolower($this->article_all),true);
-		$criteria->compare('t.article_id',strtolower($this->article_id),true);
 
-		if(!isset($_GET['ViewArticleCategory_sort']))
-			$criteria->order = 't.cat_id DESC';
+		if(!isset($_GET['ViewArticleTag_sort']))
+			$criteria->order = 't.tag_id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -162,14 +156,9 @@ class ViewArticleCategory extends CActiveRecord
 				$this->defaultColumns[] = $val;
 			}
 		} else {
-			$this->defaultColumns[] = 'cat_id';
-			$this->defaultColumns[] = 'category_name';
-			$this->defaultColumns[] = 'category_desc';
+			$this->defaultColumns[] = 'tag_id';
 			$this->defaultColumns[] = 'articles';
-			$this->defaultColumns[] = 'article_pending';
-			$this->defaultColumns[] = 'article_unpublish';
 			$this->defaultColumns[] = 'article_all';
-			$this->defaultColumns[] = 'article_id';
 		}
 
 		return $this->defaultColumns;
@@ -184,14 +173,9 @@ class ViewArticleCategory extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'cat_id';
-			$this->defaultColumns[] = 'category_name';
-			$this->defaultColumns[] = 'category_desc';
+			$this->defaultColumns[] = 'tag_id';
 			$this->defaultColumns[] = 'articles';
-			$this->defaultColumns[] = 'article_pending';
-			$this->defaultColumns[] = 'article_unpublish';
 			$this->defaultColumns[] = 'article_all';
-			$this->defaultColumns[] = 'article_id';
 		}
 		parent::afterConstruct();
 	}

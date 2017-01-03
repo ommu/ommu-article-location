@@ -37,6 +37,12 @@
 					<i class="fa fa-download"></i>
 				</li>
 				<?php }?>
+				<?php if(!isset($_GET['category']) || (isset($_GET['category']) && $_GET['category'] == '')) {?>
+				<li>
+					<a href="<?php echo Yii::app()->controller->createUrl('article', array('category'=>$data->article->cat->cat_id,'t'=>Utility::getUrlTitle(Phrase::trans($data->article->cat->name, 2))));?>" title="<?php echo Phrase::trans($data->article->cat->name, 2);?>"><?php echo Phrase::trans($data->article->cat->name, 2);?></a>
+					<i class="fa fa-user"></i>
+				</li>
+				<?php }?>
 				<!-- Posted By -->
 				<li>
 					Posted By <a><?php echo $data->article->creation_relation->displayname?></a>

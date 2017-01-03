@@ -169,6 +169,8 @@ class JabarController extends Controller
 			$criteria->addInCondition('t.tag_id',$items);
 		}
 		$criteria->compare('article.publish', 1);
+		if(isset($_GET['category']) && $_GET['category'] != '')
+			$criteria->compare('article.cat_id', $_GET['category']);
 		$criteria->order = 'article.published_date DESC';
 		$criteria->group = 'article.article_id';
 
@@ -182,7 +184,7 @@ class JabarController extends Controller
 		
 		$this->pageTitleShow = true;
 		$this->pageDescriptionShow = true;
-		$this->pageTitle = Yii::t('phrase', 'Article').' '.$this->location_name;
+		$this->pageTitle = Yii::t('phrase', 'Article {$location}', array('{$location}'=>$this->location_name));
 		$this->pageDescription = $this->location_desc;
 		$this->pageMeta = '';
 		$this->render('/location/front_article',array(
