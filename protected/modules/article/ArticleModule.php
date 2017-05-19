@@ -3,6 +3,11 @@
 class ArticleModule extends CWebModule
 {
 	public $defaultController = 'site';
+	
+	// getAssetsUrl()
+	//	return the URL for this module's assets, performing the publish operation
+	//	the first time, and caching the result for subsequent use.
+	private $_assetsUrl;
 
 	public function init() {
 		// this method is called when the module is being created
@@ -13,25 +18,27 @@ class ArticleModule extends CWebModule
 			'article.models.*',
 			'article.components.*',
 			'article.model_bpad_coe.*',
-			'article.model_bpad_sync.*',
 		));
 	}
+ 
+	public function getAssetsUrl()
+	{
+		if ($this->_assetsUrl === null)
+			$this->_assetsUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('article.assets'));
+		
+		return $this->_assetsUrl;
+	}
 
-	public function beforeControllerAction($controller, $action) {
-		if(parent::beforeControllerAction($controller, $action)) {
+	public function beforeControllerAction($controller, $action) 
+	{
+		if(parent::beforeControllerAction($controller, $action)) 
+		{
 			// this method is called before any module controller action is performed
 			// you may place customized code here
 			//list public controller in this module
 			$publicControllers = array(
-				'search',
 				'site',
 				'collections',
-				'province/banten',
-				'province/jabar',
-				'province/jakarta',
-				'province/jateng',
-				'province/jatim',
-				'province/yogyakarta',
 			);
 			
 			// pake ini untuk set theme per action di controller..

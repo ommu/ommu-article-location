@@ -91,7 +91,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/form.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/typography.css');
 		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/layout.css');
-		//$cs->registerCssFile(Yii::app()->request->baseUrl.'/externals/content.css');
+		//$cs->registerCssFile(Yii::app()->theme->baseUrl.'/css/content.css');
 		//$cs->registerCoreScript('jquery', CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/jquery-2.1.3.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/bootstrap.min.js', CClientScript::POS_END);
@@ -125,7 +125,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 			$cs->registerScriptFile(Yii::app()->theme->baseUrl.'/js/plugin/masonry-blog.js', CClientScript::POS_END);
 		Yii::app()->clientScript->scriptMap=array(
 			'jquery.js'=>false,
-		);		
+		);
 		
 		//Javascript Attribute
 		$jsAttribute = array(

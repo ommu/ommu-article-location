@@ -31,6 +31,7 @@ class BantenController extends Controller
 	 */
 	//public $layout='//layouts/column2';
 	public $defaultAction = 'index';
+	
 	public $location_id = 4;
 	public $location_name = '';
 	public $location_desc = '';

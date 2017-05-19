@@ -4,6 +4,13 @@
  * OauthIdentity represents the data needed to identity a user.
  * It contains the authentication method that checks if the provided
  * data can identity the user.
+ * version: 1.2.0
+ * 
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
+ * @link https://github.com/ommu/Core
+ * @contact (+62)856-299-4114
+ *
  */
 class OauthIdentity extends OUserIdentity
 {
@@ -20,15 +27,18 @@ class OauthIdentity extends OUserIdentity
 	 */
 	public function authenticate()
 	{
-		$oauthConnected = self::getOauthServerConnected();
-		$url = $oauthConnected.'/users/api/oauth/login';
+		$server = $this->getConnected();
+		$url = $server.preg_replace('('.Yii::app()->request->baseUrl.')', '', Yii::app()->createUrl('users/api/oauth/login'));
 		
 		$item = array(
-			'email' => $this->username,
+			'username' => $this->username,
 			'password' => $this->password,
 			'access' => Yii::app()->params['product_access_system'],
 			'ipaddress' => $_SERVER['REMOTE_ADDR'],
 		);
+		if($this->token != null)
+			$item['token'] = $this->token;
+		
 		$items = http_build_query($item);
 		
 		$ch = curl_init();
@@ -52,6 +62,9 @@ class OauthIdentity extends OUserIdentity
 				else {
 					$model=new Users;
 					$model->email = $object->email;
+					$model->username = $object->username;
+					$model->first_name = $object->first_name;
+					$model->last_name = $object->last_name;
 					$model->displayname = $object->displayname;
 					if($model->save()) {
 						$user = Users::model()->findByAttributes(array('email'=>$object->email));
@@ -79,10 +92,9 @@ class OauthIdentity extends OUserIdentity
 	{
 		$this->_id = $user->user_id;
 		$this->setState('level', $user->level_id);
-		$this->setState('profile', $user->profile_id);
 		$this->setState('language', $user->language_id);
 		$this->email = $user->email;
-		$this->setState('username', $record->username);
+		$this->setState('username', $user->username);
 		$this->setState('displayname', $user->displayname);
 		$this->setState('creation_date', $user->creation_date);
 		$this->setState('lastlogin_date', date('Y-m-d H:i:s'));
@@ -90,50 +102,15 @@ class OauthIdentity extends OUserIdentity
 		return true;
 	}
 
-	/**
-	 * get alternatif connected domain for ommu.oauth
-	 * @param type $operator not yet using
-	 * @return type
-	 */
-	public static function getOauthServerConnected() {
-		//todo with operator
-		$oauthServerOptions = Yii::app()->params['oauth_server_options'];
-		$connectedUrl = 'neither-connected';
-		
-		foreach ($oauthServerOptions as $val)
-		{
-			if (self::getServerAvailible($val))
-			{
-				$connectedUrl = $val;
-				break;
-			}
-		}
-		file_put_contents('assets/oauth_server_is_active.txt', $connectedUrl);
-
-		return $connectedUrl;
-	}
-
-	//returns true, if domain is availible, false if not
-	public static function getServerAvailible($domain) 
+	public function getConnected() 
 	{
-		//check, if a valid url is provided
-		if (!filter_var($domain, FILTER_VALIDATE_URL))
-			return false;
-
-		//initialize curl
-		$curlInit = curl_init($domain);
-		curl_setopt($curlInit,CURLOPT_CONNECTTIMEOUT,10);
-		curl_setopt($curlInit,CURLOPT_HEADER,true);
-		curl_setopt($curlInit,CURLOPT_NOBODY,true);
-		curl_setopt($curlInit,CURLOPT_RETURNTRANSFER,true);
-
-		//get answer
-		$response = curl_exec($curlInit);
-		curl_close($curlInit);
-		if($response)
-			return true;
-
-		return false;
+		$connected = strtolower(Yii::app()->request->serverName);
+		
+		$server = Yii::app()->params['server_options']['oauth'][$connected];
+		if(in_array($connected, array('localhost', '127.0.0.1')) && Yii::app()->params['server_options']['status'] == false)
+			$server = Yii::app()->params['server_options']['oauth']['default_host'];
+		
+		return $server;
 	}
 
 }

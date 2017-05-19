@@ -206,7 +206,7 @@ class AdminController extends Controller
 			if($location == null)
 				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 				
-			$model=$this->loadModel($location->location_id);			
+			$model=$this->loadModel($location->location_id);
 		}
 
 		// Uncomment the following line if AJAX validation is needed
