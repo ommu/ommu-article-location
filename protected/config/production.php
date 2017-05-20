@@ -16,6 +16,11 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'CoE',
 
+	// Language setting
+	'sourceLanguage' => '00',
+	'language'       => 'id',
+	'behaviors' => array('AppConfigBehavior'),
+
 	// preloading 'log' component
 	'preload'=>array('log', 'ommu'),
 
