@@ -4,7 +4,7 @@
  * @var $this CategoryController
  * @var $model BannerCategory
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
@@ -31,17 +31,22 @@
 
 		<li>
 			<?php echo $model->getAttributeLabel('name'); ?><br/>
-			<?php echo $form->textField($model,'name',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'name'); ?>
 		</li>
 
 		<li>
 			<?php echo $model->getAttributeLabel('desc'); ?><br/>
-			<?php echo $form->textField($model,'desc',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'desc'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('cat_code'); ?><br/>
+			<?php echo $form->textField($model,'cat_code'); ?>
 		</li>
 
 		<li>
 			<?php echo $model->getAttributeLabel('banner_size'); ?><br/>
-			<?php echo $form->textField($model,'banner_size',array('size'=>9,'maxlength'=>9)); ?>
+			<?php echo $form->textField($model,'banner_size'); ?>
 		</li>
 
 		<li>
@@ -56,7 +61,7 @@
 
 		<li>
 			<?php echo $model->getAttributeLabel('creation_id'); ?><br/>
-			<?php echo $form->textField($model,'creation_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'creation_id'); ?>
 		</li>
 
 		<li>
@@ -66,7 +71,7 @@
 
 		<li>
 			<?php echo $model->getAttributeLabel('modified_id'); ?><br/>
-			<?php echo $form->textField($model,'modified_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'modified_id'); ?>
 		</li>
 
 		<li class="submit">

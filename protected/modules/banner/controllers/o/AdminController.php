@@ -4,7 +4,7 @@
  * @var $this AdminController
  * @var $model Banners
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -108,8 +108,14 @@ class AdminController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($category=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Banners');
+		if($category != null) {
+			$data = BannerCategory::model()->findByPk($category);
+			$pageTitle = Yii::t('phrase', 'Banners: Category {category_name}', array ('{category_name}'=>Phrase::trans($data->name)));
+		}
+		
 		$model=new Banners('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Banners'])) {
@@ -126,7 +132,7 @@ class AdminController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Manage Banner');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -199,7 +205,7 @@ class AdminController extends Controller
 			}
 		}
 
-		$this->pageTitle = Yii::t('phrase', 'Update Banner').': '.$model->title;
+		$this->pageTitle = Yii::t('phrase', 'Update Banner: {banner_title}', array('{banner_title}'=>$model->title));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -216,7 +222,7 @@ class AdminController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		$this->pageTitle = 'View Banners: '.$model->title;
+		$this->pageTitle = Yii::t('phrase', 'View Banner: {banner_title}', array('{banner_title}'=>$model->title));		
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_view',array(
@@ -287,7 +293,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Delete Banner').': '.$model->title;
+			$this->pageTitle = Yii::t('phrase', 'Delete Banner: {banner_title}', array('{banner_title}'=>$model->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -310,6 +316,7 @@ class AdminController extends Controller
 			$title = Yii::t('phrase', 'Publish');
 			$replace = 1;
 		}
+		$pageTitle = Yii::t('phrase', '{title}: {banner_title}', array('{title}'=>$title, '{banner_title}'=>$model->title));
 
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
@@ -332,7 +339,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = $title;
+			$this->pageTitle = $pageTitle;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_publish',array(

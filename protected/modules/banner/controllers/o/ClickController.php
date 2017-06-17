@@ -4,13 +4,12 @@
  * @var $this ClickController
  * @var $model BannerClicks
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
  *	Index
  *	Manage
- *	View
  *	Delete
  *
  *	LoadModel
@@ -80,7 +79,7 @@ class ClickController extends Controller
 				//'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level != 1)',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('manage','view','delete'),
+				'actions'=>array('manage','delete'),
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && in_array(Yii::app()->user->level, array(1,2))',
 			),
@@ -105,8 +104,14 @@ class ClickController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($banner=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Banner Clicks');
+		if($banner != null) {
+			$data = Banners::model()->findByPk($banner);
+			$pageTitle = Yii::t('phrase', 'Banner Clicks: {banner_title} from category {category_name}', array ('{banner_title}'=>$data->title, '{category_name}'=>Phrase::trans($data->category->name)));
+		}
+		
 		$model=new BannerClicks('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['BannerClicks'])) {
@@ -123,31 +128,12 @@ class ClickController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Banner Clicks Manage');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
 			'model'=>$model,
 			'columns' => $columns,
-		));
-	}	
-	
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id) 
-	{
-		$model=$this->loadModel($id);
-		
-		$this->dialogDetail = true;
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
-		$this->dialogWidth = 600;
-		$this->pageTitle = Yii::t('phrase', 'View Banner Clicks');
-		$this->pageDescription = '';
-		$this->pageMeta = '';
-		$this->render('admin_view',array(
-			'model'=>$model,
 		));
 	}
 
@@ -178,7 +164,7 @@ class ClickController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'BannerClicks Delete.');
+			$this->pageTitle = Yii::t('phrase', 'Delete Click: {banner_title} from category {category_name}', array ('{banner_title}'=>$model->banner->title, '{category_name}'=>Phrase::trans($model->banner->category->name)));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');

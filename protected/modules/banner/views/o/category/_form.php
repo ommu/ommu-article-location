@@ -4,7 +4,7 @@
  * @var $this CategoryController
  * @var $model BannerCategory
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
@@ -62,7 +62,7 @@
 		</div>
 		
 		<div class="clearfix">
-			<?php echo $form->labelEx($model,'banner_size'); ?>
+			<label><?php echo $model->getAttributeLabel('banner_size');?> <span class="required">*</span></label>
 			<div class="desc">
 				<?php 
 				if(!$model->getErrors())

@@ -4,7 +4,7 @@
  * @var $this SettingController
  * @var $model BannerSetting
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
@@ -12,6 +12,17 @@
  * @contact (+62)856-299-4114
  *
  */
+	
+	$cs = Yii::app()->getClientScript();
+$js=<<<EOP
+	$('input[name="BannerSetting[banner_validation]"]').on('change', function() {
+		var id = $(this).val();
+		if(id == '1') {
+			$('input[name="BannerSetting[banner_resize]"][value="0"]').prop('checked', true);
+		}
+	});
+EOP;
+	$cs->registerScript('validation', $js, CClientScript::POS_END);
 ?>
 
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
@@ -26,6 +37,7 @@
 	</div>
 	<?php //begin.Messages ?>
 
+	<h3><?php echo Yii::t('phrase', 'Public Settings');?></h3>
 	<fieldset>
 
 		<div class="clearfix">

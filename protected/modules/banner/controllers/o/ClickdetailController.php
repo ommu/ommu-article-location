@@ -4,7 +4,7 @@
  * @var $this ClickdetailController
  * @var $model BannerClickDetail
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -103,8 +103,16 @@ class ClickdetailController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($click=null)
 	{
+		$pageTitle = Yii::t('phrase', 'Banner Clicks Data');
+		if($click != null) {
+			$data = BannerClicks::model()->findByPk($click);
+			$pageTitle = Yii::t('phrase', 'Banner Clicks Data: {banner_title} from category {category_name} - user Guest', array ('{banner_title}'=>$data->banner->title, '{category_name}'=>Phrase::trans($data->banner->category->name)));	
+			if($data->user->displayname)
+				$pageTitle = Yii::t('phrase', 'Banner Clicks Data: {banner_title} from category {category_name} - user {user_displayname}', array ('{banner_title}'=>$data->banner->title, '{category_name}'=>Phrase::trans($data->banner->category->name), '{user_displayname}'=>$data->user->displayname));
+		}
+		
 		$model=new BannerClickDetail('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['BannerClickDetail'])) {
@@ -121,7 +129,7 @@ class ClickdetailController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Banner Click Details Manage');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('/o/click_detail/admin_manage',array(

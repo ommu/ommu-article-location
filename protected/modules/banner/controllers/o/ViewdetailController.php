@@ -4,7 +4,7 @@
  * @var $this ViewdetailController
  * @var $model BannerViewDetail
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -103,8 +103,16 @@ class ViewdetailController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($view=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Banner Views Data');
+		if($view != null) {
+			$data = BannerViews::model()->findByPk($view);
+			$pageTitle = Yii::t('phrase', 'Banner Views Data: {banner_title} from category {category_name} - user Guest', array ('{banner_title}'=>$data->banner->title, '{category_name}'=>Phrase::trans($data->banner->category->name)));	
+			if($data->user->displayname)
+				$pageTitle = Yii::t('phrase', 'Banner Views Data: {banner_title} from category {category_name} - user {user_displayname}', array ('{banner_title}'=>$data->banner->title, '{category_name}'=>Phrase::trans($data->banner->category->name), '{user_displayname}'=>$data->user->displayname));
+		}
+		
 		$model=new BannerViewDetail('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['BannerViewDetail'])) {
@@ -121,7 +129,7 @@ class ViewdetailController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Banner View Details Manage');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('/o/view_detail/admin_manage',array(
