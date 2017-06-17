@@ -3,7 +3,7 @@
  * ArticleMedia (article-media)
  * @var $this MediaController
  * @var $model ArticleMedia
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -16,6 +16,7 @@
 		'Article Medias'=>array('manage'),
 		'Manage',
 	);
+	
 	$this->menu=array(
 		array(
 			'label' => Yii::t('phrase', 'Filter'), 
@@ -80,9 +81,8 @@
 						'imageUrl' => false,
 						'options' => array(							
 							'class' => 'view',
-							'target' => '_blank',
 						),
-						'url' => 'Yii::app()->controller->createUrl("site/view",array("id"=>$data->primaryKey))'),
+						'url' => 'Yii::app()->controller->createUrl("view",array("id"=>$data->primaryKey))'),
 					'update' => array(
 						'label' => 'update',
 						'imageUrl' => false,
@@ -98,7 +98,7 @@
 						),
 						'url' => 'Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))')
 				),
-				'template' => '{update}|{delete}',
+				'template' => '{view}|{update}|{delete}',
 			));
 
 			$this->widget('application.components.system.OGridView', array(

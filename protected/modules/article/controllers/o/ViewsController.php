@@ -4,7 +4,7 @@
  * @var $this ViewsController
  * @var $model ArticleViews
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -106,14 +106,12 @@ class ViewsController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($article=null) 
 	{
-		$id = $_GET['article'];
-		$title = '';
-		if(isset($id) && $id != '') {
-			$article = Articles::model()->findByPk($id);
-			if($article != null)
-				$title = ': '.$article->title;
+		$pageTitle = Yii::t('phrase', 'Article Views');
+		if($article != null) {
+			$data = Articles::model()->findByPk($article);
+			$pageTitle = Yii::t('phrase', 'Article Views: {article_title} from category {category_name}', array ('{article_title}'=>$data->title, '{category_name}'=>Phrase::trans($data->cat->name)));
 		}
 		
 		$model=new ArticleViews('search');
@@ -132,7 +130,7 @@ class ViewsController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Article Views Manage').$title;
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -194,7 +192,7 @@ class ViewsController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-article-views',
-						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleViews success deleted.').'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article views success deleted.').'</strong></div>',
 					));
 				}
 			}
@@ -204,7 +202,7 @@ class ViewsController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'ArticleViews Delete.');
+			$this->pageTitle = Yii::t('phrase', 'Delete Views: {article_title}', array('{article_title}'=>$model->article->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -227,6 +225,7 @@ class ViewsController extends Controller
 			$title = Yii::t('phrase', 'Publish');
 			$replace = 1;
 		}
+		$pageTitle = Yii::t('phrase', '{title}: {article_title}', array('{title}'=>$title, '{article_title}'=>$model->article->title));
 
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
@@ -239,7 +238,7 @@ class ViewsController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-article-views',
-						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleViews success updated.').'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article views success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -249,7 +248,7 @@ class ViewsController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = $title;
+			$this->pageTitle = $pageTitle;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_publish',array(

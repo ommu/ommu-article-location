@@ -4,12 +4,13 @@
  * @var $this SettingController
  * @var $model ArticleSetting
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
  *	Index
  *	Edit
+ *	Manual
  *
  *	LoadModel
  *	performAjaxValidation
@@ -37,7 +38,7 @@ class SettingController extends Controller
 	public function init() 
 	{
 		if(!Yii::app()->user->isGuest) {
-			if(Yii::app()->user->level == 1) {
+			if(in_array(Yii::app()->user->level, array(1,2))) {
 				$arrThemes = Utility::getCurrentTemplate('admin');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
@@ -81,6 +82,11 @@ class SettingController extends Controller
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level == 1)',
 			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('manual'),
+				'users'=>array('@'),
+				'expression'=>'isset(Yii::app()->user->level) && (in_array(Yii::app()->user->level, array(1,2)))',
+			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(),
 				'users'=>array('admin'),
@@ -104,6 +110,9 @@ class SettingController extends Controller
 	 */
 	public function actionEdit() 
 	{
+		if(Yii::app()->user->level != 1)
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
+		
 		$category=new ArticleCategory('search');
 		$category->unsetAttributes();  // clear any default values
 		if(isset($_GET['ArticleCategory'])) {
@@ -123,6 +132,7 @@ class SettingController extends Controller
 		$model = ArticleSetting::model()->findByPk(1);
 		if($model == null)
 			$model=new ArticleSetting;
+		$article=new Articles;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -165,8 +175,28 @@ class SettingController extends Controller
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
 			'model'=>$model,
+			'article'=>$article,
 			'category' => $category,
 			'columns' => $columns,
+		));
+	}
+	
+	/**
+	 * Lists all models.
+	 */
+	public function actionManual() 
+	{
+		$manual_path = $this->module->basePath.'/assets/manual';
+		
+		$this->dialogDetail = true;
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('o/admin/manage');
+		$this->dialogWidth = 400;
+		
+		$this->pageTitle = Yii::t('phrase', 'Article Manual Book');
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_manual', array(
+			'manual_path'=>$manual_path,			
 		));
 	}
 

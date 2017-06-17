@@ -4,7 +4,7 @@
  * @var $this SettingController
  * @var $model ArticleSetting
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -79,5 +79,8 @@
 </div>
 
 <div class="form" name="post-on">
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+	<?php echo $this->renderPartial('_form', array(
+		'model'=>$model,
+		'article'=>$article,
+	)); ?>
 </div>

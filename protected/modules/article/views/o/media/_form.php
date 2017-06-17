@@ -4,7 +4,7 @@
  * @var $this MediaController
  * @var $model ArticleMedia
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -90,6 +90,14 @@
 			<div class="desc">
 				<?php echo $form->checkBox($model,'cover'); ?>
 				<?php echo $form->error($model,'cover'); ?>
+			</div>
+		</div>
+
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'publish'); ?>
+			<div class="desc">
+				<?php echo $form->checkBox($model,'publish'); ?>
+				<?php echo $form->error($model,'publish'); ?>
 			</div>
 		</div>
 

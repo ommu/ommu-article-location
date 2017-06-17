@@ -4,7 +4,7 @@
  * @var $this MediaController
  * @var $model ArticleMedia
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
@@ -15,7 +15,7 @@
  */
 
 	$this->breadcrumbs=array(
-		'Digital Covers'=>array('manage'),
+		'Article Medias'=>array('manage'),
 		'Publish',
 	);
 ?>

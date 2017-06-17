@@ -1,7 +1,7 @@
 <?php
 /**
  * ArticleTag
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -37,6 +37,7 @@ class ArticleTag extends CActiveRecord
 	public $tag_input;
 	
 	// Variable Search
+	public $category_search;
 	public $article_search;
 	public $tag_search;
 	public $creation_search;
@@ -74,7 +75,7 @@ class ArticleTag extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, article_id, tag_id, creation_date,
-				article_search, tag_search, creation_search', 'safe', 'on'=>'search'),
+				category_search, article_search, tag_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -101,9 +102,11 @@ class ArticleTag extends CActiveRecord
 			'id' => Yii::t('attribute', 'Tags'),
 			'article_id' => Yii::t('attribute', 'Article'),
 			'tag_id' => Yii::t('attribute', 'Tags'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'category_search' => Yii::t('attribute', 'Category'),
 			'article_search' => Yii::t('attribute', 'Article'),
 			'tag_search' => Yii::t('attribute', 'Tags'),
-			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 		);
 	}
@@ -123,7 +126,7 @@ class ArticleTag extends CActiveRecord
 		$criteria->with = array(
 			'article' => array(
 				'alias'=>'article',
-				'select'=>'title'
+				'select'=>'publish, cat_id, title'
 			),
 			'tag' => array(
 				'alias'=>'tag',
@@ -143,11 +146,18 @@ class ArticleTag extends CActiveRecord
 		$criteria->compare('t.tag_id',$this->tag_id);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		$criteria->compare('t.creation_id',$this->creation_id);
+		if(isset($_GET['creation']))
+			$criteria->compare('t.creation_id',$_GET['creation']);
+		else
+			$criteria->compare('t.creation_id',$this->creation_id);
 		
-		$criteria->compare('article.title',strtolower($this->article_search), true);
-		$criteria->compare('tag.body',Utility::getUrlTitle(strtolower(trim($this->tag_search))), true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
+		$criteria->compare('article.cat_id',$this->category_search);
+		$criteria->compare('article.title',strtolower($this->article_search),true);
+		if(isset($_GET['article']) && isset($_GET['publish']))
+			$criteria->compare('article.publish',$_GET['publish']);
+		$tag_search = Utility::getUrlTitle(strtolower(trim($this->tag_search)));
+		$criteria->compare('tag.body',$tag_search,true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
 
 		if(!isset($_GET['ArticleTag_sort']))
 			$criteria->order = 't.id DESC';
@@ -198,6 +208,12 @@ class ArticleTag extends CActiveRecord
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
 			if(!isset($_GET['article'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'category_search',
+					'value' => 'Phrase::trans($data->article->cat->name)',
+					'filter'=> ArticleCategory::getCategory(),
+					'type' => 'raw',
+				);
 				$this->defaultColumns[] = array(
 					'name' => 'article_search',
 					'value' => '$data->article->title',

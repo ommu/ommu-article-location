@@ -4,13 +4,14 @@
  * @var $this MediaController
  * @var $model ArticleMedia
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
  *	Index
  *	Manage
  *	Edit
+ *	View
  *	RunAction
  *	Delete
  *	Publish
@@ -81,7 +82,7 @@ class MediaController extends Controller
 				'expression'=>'isset(Yii::app()->user->level)',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('manage','edit','runaction','delete','publish','setcover'),
+				'actions'=>array('manage','edit','view','runaction','delete','publish','setcover'),
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && in_array(Yii::app()->user->level, array(1,2))',
 			),
@@ -106,8 +107,14 @@ class MediaController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($article=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Article Media');
+		if($article != null) {
+			$data = Articles::model()->findByPk($article);
+			$pageTitle = Yii::t('phrase', 'Article Media: {article_title} from category {category_name}', array ('{article_title}'=>$data->title, '{category_name}'=>Phrase::trans($data->cat->name)));
+		}
+		
 		$model=new ArticleMedia('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ArticleMedia'])) {
@@ -123,15 +130,8 @@ class MediaController extends Controller
 			}
 		}
 		$columns = $model->getGridColumn($columnTemp);
-		
-		if(isset($_GET['article'])) {
-			$article = Articles::model()->findByPk($_GET['article']);
-			$title = ': '.$article->title.' '.Yii::t('phrase', 'by').' '.$article->user->displayname;
-		} else {
-			$title = '';
-		}
 
-		$this->pageTitle = Yii::t('phrase', 'Article Media Manage').$title;
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -168,12 +168,28 @@ class MediaController extends Controller
 			}
 		}
 
-		$this->pageTitle = Yii::t('phrase', 'Update Media').': '.$model->article->title;
+		$this->pageTitle = Yii::t('phrase', 'Update Media: {photo_media} from article {article_title}', array('{article_title}'=>$model->article->title));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
 			'model'=>$model,
 			'media_file_type'=>$media_file_type,
+		));
+	}
+	
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id) 
+	{
+		$model=$this->loadModel($id);
+
+		$this->pageTitle = Yii::t('phrase', 'View Media: {photo_media} from article {article_title}', array('{photo_media}'=>$model->media, '{article_title}'=>$model->article->title));
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_view',array(
+			'model'=>$model,
 		));
 	}
 
@@ -253,7 +269,7 @@ class MediaController extends Controller
 			$this->dialogGroundUrl = $dialogGroundUrl;
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Delete Media');
+			$this->pageTitle = Yii::t('phrase', 'Delete Media: {photo_media} from article {article_title}', array('{photo_media}'=>$model->media, '{article_title}'=>$model->article->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -276,6 +292,7 @@ class MediaController extends Controller
 			$title = Yii::t('phrase', 'Publish');
 			$replace = 1;
 		}
+		$pageTitle = Yii::t('phrase', '{title}: {photo_media} from article {article_title}', array('{title}'=>$title, '{photo_media}'=>$model->media, '{article_title}'=>$model->article->title));
 
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
@@ -298,7 +315,7 @@ class MediaController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = $title;
+			$this->pageTitle = $pageTitle;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_publish',array(
@@ -350,7 +367,7 @@ class MediaController extends Controller
 			$this->dialogGroundUrl = $dialogGroundUrl;
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Cover Photo');
+			$this->pageTitle = Yii::t('phrase', 'Cover Photo: {photo_media} from article {article_title}', array('{photo_media}'=>$model->media, '{article_title}'=>$model->article->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_cover');

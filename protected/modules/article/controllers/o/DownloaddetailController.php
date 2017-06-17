@@ -4,7 +4,7 @@
  * @var $this DownloaddetailController
  * @var $model ArticleDownloadDetail
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -103,8 +103,16 @@ class DownloaddetailController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($download=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Data Article Downloads');
+		if($download != null) {
+			$data = ArticleDownloads::model()->findByPk($download);
+			$pageTitle = Yii::t('phrase', 'Article Downloads Data: {article_title} from category {category_name} - user Guest', array ('{article_title}'=>$data->article->title, '{category_name}'=>Phrase::trans($data->article->cat->name)));	
+			if($data->user->displayname)
+				$pageTitle = Yii::t('phrase', 'Article Downloads Data: {article_title} from category {category_name} - user {user_displayname}', array ('{article_title}'=>$data->article->title, '{category_name}'=>Phrase::trans($data->article->cat->name), '{user_displayname}'=>$data->user->displayname));
+		}
+		
 		$model=new ArticleDownloadDetail('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ArticleDownloadDetail'])) {
@@ -121,7 +129,7 @@ class DownloaddetailController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Article Download Details Manage');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('/o/download_detail/admin_manage',array(

@@ -1,7 +1,7 @@
 <?php
 /**
  * ArticleCategory
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -45,6 +45,7 @@ class ArticleCategory extends CActiveRecord
 	// Variable Search
 	public $creation_search;
 	public $modified_search;
+	public $article_search;
 
 	/**
 	 * Behaviors for this model
@@ -98,7 +99,7 @@ class ArticleCategory extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('cat_id, publish, parent, name, desc, single_photo, creation_date, creation_id, modified_date, modified_id,
-				title_i, description_i, creation_search, modified_search', 'safe', 'on'=>'search'),
+				title_i, description_i, creation_search, modified_search, article_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -139,6 +140,7 @@ class ArticleCategory extends CActiveRecord
 			'description_i' => Yii::t('attribute', 'Description'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
+			'article_search' => Yii::t('attribute', 'Articles'),
 		);
 	}
 	
@@ -150,6 +152,8 @@ class ArticleCategory extends CActiveRecord
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
+		
+		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 
 		$criteria=new CDbCriteria;
 		
@@ -183,13 +187,13 @@ class ArticleCategory extends CActiveRecord
 		);
 
 		$criteria->compare('t.cat_id',$this->cat_id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish') {
+		if(isset($_GET['type']) && $_GET['type'] == 'publish')
 			$criteria->compare('t.publish',1);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish') {
+		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
 			$criteria->compare('t.publish',0);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'trash') {
+		elseif(isset($_GET['type']) && $_GET['type'] == 'trash')
 			$criteria->compare('t.publish',2);
-		} else {
+		else {
 			$criteria->addInCondition('t.publish',array(0,1));
 			$criteria->compare('t.publish',$this->publish);
 		}
@@ -199,21 +203,31 @@ class ArticleCategory extends CActiveRecord
 		$criteria->compare('t.single_photo',$this->single_photo);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		$criteria->compare('t.creation_id',$this->creation_id);
+		if(isset($_GET['creation']))
+			$criteria->compare('t.creation_id',$_GET['creation']);
+		else
+			$criteria->compare('t.creation_id',$this->creation_id);
 		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		$criteria->compare('t.modified_id',$this->modified_id);
+		if(isset($_GET['modified']))
+			$criteria->compare('t.modified_id',$_GET['modified']);
+		else
+			$criteria->compare('t.modified_id',$this->modified_id);
 		
-		$criteria->compare('title.'.$language,strtolower($this->title_i), true);
-		$criteria->compare('description.'.$language,strtolower($this->description_i), true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
+		$criteria->compare('title.'.$language,strtolower($this->title_i),true);
+		$criteria->compare('description.'.$language,strtolower($this->description_i),true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
+		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
+		$criteria->compare('view.articles',$this->article_search);
 
 		if(!isset($_GET['ArticleCategory_sort']))
 			$criteria->order = 't.cat_id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>$currentAction != 'o/setting/edit' ? 30 : 5,
+			),
 		));
 	}
 
@@ -271,21 +285,15 @@ class ArticleCategory extends CActiveRecord
 				'name' => 'title_i',
 				'value' => 'Phrase::trans($data->name)',
 			);
+			/*
 			$this->defaultColumns[] = array(
 				'name' => 'description_i',
 				'value' => 'Phrase::trans($data->desc)',
 			);
+			*/
 			$this->defaultColumns[] = array(
 				'name' => 'parent',
 				'value' => '$data->parent != 0 ? Phrase::trans(ArticleCategory::model()->findByPk($data->parent)->name) : "-"',
-			);
-			$this->defaultColumns[] = array(
-				'header' => Yii::t('phrase', 'Articles'),
-				'value' => 'CHtml::link($data->view->articles ? $data->view->articles : 0, Yii::app()->controller->createUrl("o/admin/manage",array("category"=>$data->cat_id)))',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'type' => 'raw',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
@@ -316,6 +324,14 @@ class ArticleCategory extends CActiveRecord
 						'showButtonPanel' => true,
 					),
 				), true),
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'article_search',
+				'value' => 'CHtml::link($data->view->articles ? $data->view->articles : 0, Yii::app()->controller->createUrl("o/admin/manage",array("category"=>$data->cat_id)))',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'type' => 'raw',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'single_photo',
@@ -400,8 +416,8 @@ class ArticleCategory extends CActiveRecord
 	 */
 	protected function beforeSave() 
 	{
-		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
-		$location = Utility::getUrlTitle($currentAction);
+		$currentModule = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
+		$location = Utility::getUrlTitle($currentModule);
 		
 		if(parent::beforeSave()) {
 			if($this->isNewRecord || (!$this->isNewRecord && $this->name == 0)) {

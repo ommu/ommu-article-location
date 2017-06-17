@@ -1,7 +1,7 @@
 <?php
 /**
  * ArticleLikes
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -38,10 +38,11 @@ class ArticleLikes extends CActiveRecord
 	public $defaultColumns = array();
 	
 	// Variable Search
-	public $like_search;
-	public $unlike_search;
+	public $category_search;
 	public $article_search;
 	public $user_search;
+	public $like_search;
+	public $unlike_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -77,7 +78,7 @@ class ArticleLikes extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('like_id, publish, article_id, user_id, likes_date, likes_ip, updated_date,
-				like_search, unlike_search, article_search, user_search', 'safe', 'on'=>'search'),
+				category_search, like_search, unlike_search, article_search, user_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -108,10 +109,11 @@ class ArticleLikes extends CActiveRecord
 			'likes_date' => Yii::t('attribute', 'Likes Date'),
 			'likes_ip' => Yii::t('attribute', 'Likes Ip'),
 			'updated_date' => Yii::t('attribute', 'Updated Date'),
-			'like_search' => Yii::t('attribute', 'Like'),
-			'unlike_search' => Yii::t('attribute', 'Unlike'),
+			'category_search' => Yii::t('attribute', 'Category'),
 			'article_search' => Yii::t('attribute', 'Article'),
 			'user_search' => Yii::t('attribute', 'User'),
+			'like_search' => Yii::t('attribute', 'Like'),
+			'unlike_search' => Yii::t('attribute', 'Unlike'),
 		);
 	}
 	
@@ -133,7 +135,7 @@ class ArticleLikes extends CActiveRecord
 			),
 			'article' => array(
 				'alias'=>'article',
-				'select'=>'publish, title'
+				'select'=>'publish, cat_id, title'
 			),
 			'user' => array(
 				'alias'=>'user',
@@ -166,12 +168,13 @@ class ArticleLikes extends CActiveRecord
 		if($this->updated_date != null && !in_array($this->updated_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.updated_date)',date('Y-m-d', strtotime($this->updated_date)));
 
-		$criteria->compare('view.likes',$this->like_search);
-		$criteria->compare('view.unlikes',$this->unlike_search);
-		$criteria->compare('article.title',strtolower($this->article_search), true);
+		$criteria->compare('article.cat_id',$this->category_search);
+		$criteria->compare('article.title',strtolower($this->article_search),true);
 		if(isset($_GET['article']) && isset($_GET['publish']))
 			$criteria->compare('digital.publish',$_GET['publish']);
-		$criteria->compare('user.displayname',strtolower($this->user_search), true);
+		$criteria->compare('user.displayname',strtolower($this->user_search),true);
+		$criteria->compare('view.likes',$this->like_search);
+		$criteria->compare('view.unlikes',$this->unlike_search);
 
 		if(!isset($_GET['ArticleLikes_sort']))
 			$criteria->order = 't.like_id DESC';
@@ -233,6 +236,12 @@ class ArticleLikes extends CActiveRecord
 			);
 			if(!isset($_GET['article'])) {
 				$this->defaultColumns[] = array(
+					'name' => 'category_search',
+					'value' => 'Phrase::trans($data->article->cat->name)',
+					'filter'=> ArticleCategory::getCategory(),
+					'type' => 'raw',
+				);
+				$this->defaultColumns[] = array(
 					'name' => 'article_search',
 					'value' => '$data->article->title',
 				);
@@ -240,7 +249,7 @@ class ArticleLikes extends CActiveRecord
 			if(!isset($_GET['user'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'user_search',
-					'value' => '$data->user->displayname',
+					'value' => '$data->user->displayname ? $data->user->displayname : "-"',
 				);
 			}
 			$this->defaultColumns[] = array(
@@ -292,6 +301,7 @@ class ArticleLikes extends CActiveRecord
 					'class' => 'center',
 				),
 			);
+			/*
 			$this->defaultColumns[] = array(
 				'name' => 'updated_date',
 				'value' => 'Utility::dateFormat($data->updated_date)',
@@ -318,6 +328,7 @@ class ArticleLikes extends CActiveRecord
 					),
 				), true),
 			);
+			*/
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
@@ -354,12 +365,33 @@ class ArticleLikes extends CActiveRecord
 	}
 
 	/**
+	 * User get information
+	 */
+	public static function updateLike($article_id)
+	{
+		$criteria=new CDbCriteria;
+		$criteria->select = 'like_id, publish, article_id, user_id';
+		$criteria->compare('banner_id', $article_id);
+		$criteria->compare('user_id', Yii::app()->user->id);
+		$findLike = self::model()->find($criteria);
+		
+		if($findLike != null) {
+			$replace = $findLike->publish == 0 ? 1 : 0;
+			self::model()->updateByPk($findLike->like_id, array('publish'=>$replace, 'likes_ip'=>$_SERVER['REMOTE_ADDR']));
+		} else {
+			$like=new ArticleLikes;
+			$like->article_id = $article_id;
+			$like->save();
+		}
+	}
+
+	/**
 	 * before validate attributes
 	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
 			if($this->isNewRecord)
-				$this->user_id = !Yii::app()->user->isGuest ? Yii::app()->user->id : 0;
+				$this->user_id = Yii::app()->user->id;
 				
 			$this->likes_ip = $_SERVER['REMOTE_ADDR'];
 		}

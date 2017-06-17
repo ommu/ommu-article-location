@@ -1,7 +1,7 @@
 <?php
 /**
  * ArticleSetting
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -28,6 +28,7 @@
  * @property string $meta_keyword
  * @property string $meta_description
  * @property string $type_active
+ * @property string $gridview_column
  * @property integer $headline
  * @property integer $headline_limit
  * @property string $headline_category
@@ -73,14 +74,14 @@ class ArticleSetting extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('license, permission, meta_keyword, meta_description, type_active, headline, headline_limit, media_limit, media_resize, media_file_type, upload_file_type', 'required'),
+			array('license, permission, meta_keyword, meta_description, type_active, gridview_column, headline, headline_limit, media_limit, media_resize, media_file_type, upload_file_type', 'required'),
 			array('permission, headline, headline_limit, media_limit, media_resize, modified_id', 'numerical', 'integerOnly'=>true),
 			array('license', 'length', 'max'=>32),
 			array('headline_limit', 'length', 'max'=>3),
 			array('headline_category, media_resize_size, media_view_size, media_file_type, upload_file_type', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, license, permission, meta_keyword, meta_description, type_active, headline, headline_limit, headline_category, media_limit, media_resize, media_resize_size, media_view_size, media_file_type, upload_file_type, modified_date, modified_id,
+			array('id, license, permission, meta_keyword, meta_description, type_active, gridview_column, headline, headline_limit, headline_category, media_limit, media_resize, media_resize_size, media_view_size, media_file_type, upload_file_type, modified_date, modified_id,
 				modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -109,6 +110,7 @@ class ArticleSetting extends CActiveRecord
 			'meta_keyword' => Yii::t('attribute', 'Meta Keyword'),
 			'meta_description' => Yii::t('attribute', 'Meta Description'),
 			'type_active' => Yii::t('attribute', 'Type Active'),
+			'gridview_column' => Yii::t('attribute', 'Gridview Column'),
 			'headline' => Yii::t('attribute', 'Headline'),
 			'headline_limit' => Yii::t('attribute', 'Headline Limit'),
 			'headline_category' => Yii::t('attribute', 'Headline Category'),
@@ -148,7 +150,8 @@ class ArticleSetting extends CActiveRecord
 		$criteria->compare('t.permission',$this->permission);
 		$criteria->compare('t.meta_keyword',$this->meta_keyword,true);
 		$criteria->compare('t.meta_description',$this->meta_description,true);
-		$criteria->compare('t.type_active',$this->type_active);
+		$criteria->compare('t.type_active',$this->type_active,true);
+		$criteria->compare('t.gridview_column',$this->gridview_column,true);
 		$criteria->compare('t.headline',$this->headline);
 		$criteria->compare('t.headline_limit',$this->headline_limit);
 		$criteria->compare('t.headline_category',$this->headline_category,true);
@@ -160,9 +163,12 @@ class ArticleSetting extends CActiveRecord
 		$criteria->compare('t.upload_file_type',$this->upload_file_type,true);
 		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		$criteria->compare('t.modified_id',$this->modified_id);
+		if(isset($_GET['modified']))
+			$criteria->compare('t.modified_id',$_GET['modified']);
+		else
+			$criteria->compare('t.modified_id',$this->modified_id);
 		
-		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
+		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
 
 		if(!isset($_GET['ArticleSetting_sort']))
 			$criteria->order = 't.id DESC';
@@ -196,6 +202,7 @@ class ArticleSetting extends CActiveRecord
 			$this->defaultColumns[] = 'meta_keyword';
 			$this->defaultColumns[] = 'meta_description';
 			$this->defaultColumns[] = 'type_active';
+			$this->defaultColumns[] = 'gridview_column';
 			$this->defaultColumns[] = 'headline';
 			$this->defaultColumns[] = 'headline_limit';
 			$this->defaultColumns[] = 'headline_category';
@@ -222,6 +229,7 @@ class ArticleSetting extends CActiveRecord
 			$this->defaultColumns[] = 'meta_keyword';
 			$this->defaultColumns[] = 'meta_description';
 			$this->defaultColumns[] = 'type_active';
+			$this->defaultColumns[] = 'gridview_column';
 			$this->defaultColumns[] = 'headline';
 			$this->defaultColumns[] = 'headline_limit';
 			$this->defaultColumns[] = 'headline_category';
@@ -340,6 +348,7 @@ class ArticleSetting extends CActiveRecord
 	protected function beforeSave() {
 		if(parent::beforeSave()) {
 			$this->type_active = serialize($this->type_active);
+			$this->gridview_column = serialize($this->gridview_column);
 			$this->headline_category = serialize($this->headline_category);
 			$this->media_resize_size = serialize($this->media_resize_size);
 			$this->media_view_size = serialize($this->media_view_size);

@@ -4,7 +4,7 @@
  * @var $this AdminController
  * @var $model Articles
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -109,8 +109,14 @@ class AdminController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($category=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Articles');
+		if($category != null) {
+			$data = ArticleCategory::model()->findByPk($category);
+			$pageTitle = Yii::t('phrase', 'Articles: Category {category_name}', array ('{category_name}'=>Phrase::trans($data->name)));
+		}
+		
 		$model=new Articles('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Articles'])) {
@@ -126,15 +132,8 @@ class AdminController extends Controller
 			}
 		}
 		$columns = $model->getGridColumn($columnTemp);
-		
-		if(isset($_GET['category'])) {
-			$category = ArticleCategory::model()->findByPk($_GET['category']);
-			$title = ': '.Phrase::trans($category->name);
-		} else {
-			$title = '';
-		}
 
-		$this->pageTitle = Yii::t('phrase', 'View Articles').$title;
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = Yii::t('phrase', 'Use this page to search for and manage article entries. To Approve or Feature an article, just click on the icon, it will automate turn on and off per that setting. To edit, delete, or manage an article, please login as that user, and perform your actions.');
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -259,7 +258,7 @@ class AdminController extends Controller
 			//}
 		}
 
-		$this->pageTitle = Yii::t('phrase', 'Update Article').': '.$model->title;
+		$this->pageTitle = Yii::t('phrase', 'Update Article: {article_title}', array('{article_title}'=>$model->title));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -313,11 +312,11 @@ class AdminController extends Controller
 	 */
 	public function actionDelete($id) 
 	{
+		$model=$this->loadModel($id);
+		
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
-			if(isset($id)) {
-				$this->loadModel($id)->delete();
-
+			if($model->delete()) {
 				echo CJSON::encode(array(
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
@@ -331,7 +330,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Delete Article');
+			$this->pageTitle = Yii::t('phrase', 'Delete Article: {article_title}', array('{article_title}'=>$model->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -353,6 +352,7 @@ class AdminController extends Controller
 			$title = Yii::t('phrase', 'Publish');
 			$replace = 1;
 		}
+		$pageTitle = Yii::t('phrase', '{title}: {article_title}', array('{title}'=>$title, '{article_title}'=>$model->title));
 
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
@@ -375,7 +375,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = $title;
+			$this->pageTitle = $pageTitle;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_publish',array(
@@ -416,7 +416,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Headline');
+			$this->pageTitle = Yii::t('phrase', 'Headline: {article_title}', array('{article_title}'=>$model->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_headline');

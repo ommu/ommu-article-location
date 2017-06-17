@@ -3,7 +3,7 @@
  * Article Category (article-category)
  * @var $this CategoryController
  * @var $model ArticleCategory
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
@@ -16,7 +16,43 @@
 		'Article Categories'=>array('manage'),
 		'Manage',
 	);
+	$this->menu=array(
+		array(
+			'label' => Yii::t('phrase', 'Filter'), 
+			'url' => array('javascript:void(0);'),
+			'itemOptions' => array('class' => 'search-button'),
+			'linkOptions' => array(
+				'title' => Yii::t('phrase', 'Filter'),
+				'off_address' => '',
+			),
+		),
+		array(
+			'label' => Yii::t('phrase', 'Grid Options'), 
+			'url' => array('javascript:void(0);'),
+			'itemOptions' => array('class' => 'grid-button'),
+			'linkOptions' => array(
+				'title' => Yii::t('phrase', 'Grid Options'),
+				'off_address' => '',
+			),
+		),
+	);
 ?>
+
+<?php //begin.Search ?>
+<div class="search-form">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div>
+<?php //end.Search ?>
+
+<?php //begin.Grid Option ?>
+<div class="grid-form">
+<?php $this->renderPartial('_option_form',array(
+	'model'=>$model,
+)); ?>
+</div>
+<?php //end.Grid Option ?>
 
 <div id="partial-article-category">
 	<?php //begin.Messages ?>
@@ -43,7 +79,6 @@
 						'imageUrl' => false,
 						'options' => array(							
 							'class' => 'view',
-							'target' => '_blank',
 						),
 						'url' => 'Yii::app()->controller->createUrl("view",array("id"=>$data->primaryKey))'),
 					'update' => array(
@@ -61,7 +96,7 @@
 						),
 						'url' => 'Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))')
 				),
-				'template' => '{update}|{delete}',
+				'template' => '{view}|{update}|{delete}',
 			));
 
 			$this->widget('application.components.system.OGridView', array(

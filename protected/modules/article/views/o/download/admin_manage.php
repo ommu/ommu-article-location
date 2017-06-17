@@ -3,7 +3,7 @@
  * Article Downloads (article-downloads)
  * @var $this DownloadController
  * @var $model ArticleDownloads
- * version: 0.0.1
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
@@ -92,7 +92,7 @@
 						),
 						'url' => 'Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))')
 				),
-				'template' => '{view}|{delete}',
+				'template' => '{delete}',
 			));
 
 			$this->widget('application.components.system.OGridView', array(

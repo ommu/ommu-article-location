@@ -4,7 +4,7 @@
  * @var $this TagController
  * @var $model ArticleTag
  * @var $form CActiveForm
- * version: 0.0.1
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -104,8 +104,14 @@ class TagController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($article=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Article Tags');
+		if($article != null) {
+			$data = Articles::model()->findByPk($article);
+			$pageTitle = Yii::t('phrase', 'Article Tag: {article_title} from category {category_name}', array ('{article_title}'=>$data->title, '{category_name}'=>Phrase::trans($data->cat->name)));
+		}
+		
 		$model=new ArticleTag('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ArticleTag'])) {
@@ -121,15 +127,8 @@ class TagController extends Controller
 			}
 		}
 		$columns = $model->getGridColumn($columnTemp);
-		
-		if(isset($_GET['article'])) {
-			$article = Articles::model()->findByPk($_GET['article']);
-			$title = ': '.$article->title.' '.Yii::t('phrase', 'by').' '.$article->user->displayname;
-		} else {
-			$title = '';
-		}
 
-		$this->pageTitle = Yii::t('phrase', 'View Article Tags').$title;
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -209,7 +208,7 @@ class TagController extends Controller
 			$this->dialogGroundUrl = $url;
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Delete Article Tag');
+			$this->pageTitle = Yii::t('phrase', 'Delete Tag: {tag_body} from article {article_title}', array('{tag_body}'=>$model->tag->body, '{article_title}'=>$model->article->title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
