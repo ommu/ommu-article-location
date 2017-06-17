@@ -1,10 +1,10 @@
 <?php
 /**
- * AuthorcontactController
- * @var $this AuthorcontactController
- * @var $model OmmuAuthorContact
+ * ContactController
+ * @var $this ContactController
+ * @var $model OmmuAuthorContacts
  * @var $form CActiveForm
- * version: 1.2.0
+ * version: 1.3.0
  * Reference start
  *
  * TOC :
@@ -12,20 +12,23 @@
  *	Manage
  *	Add
  *	Edit
+ *	View
+ *	RunAction
  *	Delete
+ *	Publish
  *
  *	LoadModel
  *	performAjaxValidation
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2015 Ommu Platform (opensource.ommu.co)
- * @link https://github.com/ommu/Core
+ * @link https://github.com/ommu/core
  * @contact (+62)856-299-4114
  *
  *----------------------------------------------------------------------------------------------------------
  */
 
-class AuthorcontactController extends Controller
+class ContactController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -84,7 +87,7 @@ class AuthorcontactController extends Controller
 				//'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level != 1)',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('manage','add','edit','delete'),
+				'actions'=>array('manage','add','edit','view','runaction','delete','publish'),
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && in_array(Yii::app()->user->level, array(1,2))',
 			),
@@ -109,12 +112,22 @@ class AuthorcontactController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($author=null, $category=null) 
 	{
-		$model=new OmmuAuthorContact('search');
+		$pageTitle = Yii::t('phrase', 'Author Contacts');
+		if($author != null) {
+			$data = OmmuAuthors::model()->findByPk($author);
+			$pageTitle = Yii::t('phrase', 'Author Contacts: author $author_name', array ('$author_name'=>$data->name));
+		}
+		if($category != null) {
+			$data = OmmuAuthorContactCategory::model()->findByPk($category);
+			$pageTitle = Yii::t('phrase', 'Author Contacts: category $category_name', array ('$category_name'=>Phrase::trans($data->name)));
+		}
+		
+		$model=new OmmuAuthorContacts('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['OmmuAuthorContact'])) {
-			$model->attributes=$_GET['OmmuAuthorContact'];
+		if(isset($_GET['OmmuAuthorContacts'])) {
+			$model->attributes=$_GET['OmmuAuthorContacts'];
 		}
 
 		$columnTemp = array();
@@ -127,10 +140,10 @@ class AuthorcontactController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = 'Ommu Author Contacts Manage';
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('/author_contact/admin_manage',array(
+		$this->render('admin_manage',array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -142,13 +155,13 @@ class AuthorcontactController extends Controller
 	 */
 	public function actionAdd() 
 	{
-		$model=new OmmuAuthorContact;
+		$model=new OmmuAuthorContacts;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['OmmuAuthorContact'])) {
-			$model->attributes=$_POST['OmmuAuthorContact'];
+		if(isset($_POST['OmmuAuthorContacts'])) {
+			$model->attributes=$_POST['OmmuAuthorContacts'];
 			
 			$jsonError = CActiveForm::validate($model);
 			if(strlen($jsonError) > 2) {
@@ -161,7 +174,7 @@ class AuthorcontactController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-ommu-author-contact',
-							'msg' => '<div class="errorSummary success"><strong>OmmuAuthorContact success created.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Author contact success created').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -175,10 +188,10 @@ class AuthorcontactController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 500;
 			
-			$this->pageTitle = 'Create Ommu Author Contacts';
+			$this->pageTitle = Yii::t('phrase', 'Create Contact');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('/author_contact/admin_add',array(
+			$this->render('admin_add',array(
 				'model'=>$model,
 			));
 			
@@ -197,8 +210,8 @@ class AuthorcontactController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['OmmuAuthorContact'])) {
-			$model->attributes=$_POST['OmmuAuthorContact'];
+		if(isset($_POST['OmmuAuthorContacts'])) {
+			$model->attributes=$_POST['OmmuAuthorContacts'];
 			
 			$jsonError = CActiveForm::validate($model);
 			if(strlen($jsonError) > 2) {
@@ -211,7 +224,7 @@ class AuthorcontactController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-ommu-author-contact',
-							'msg' => '<div class="errorSummary success"><strong>OmmuAuthorContact success updated.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Author contact success updated').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -225,12 +238,68 @@ class AuthorcontactController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 500;
 			
-			$this->pageTitle = 'Update Ommu Author Contacts';
+			$this->pageTitle = Yii::t('phrase', 'Update Contact: $contact_value ($category_name) author $author_name', array('$contact_value'=>$model->contact_value, '$category_name'=>Phrase::trans($model->category->name), '$author_name'=>$model->author->name));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('/author_contact/admin_edit',array(
+			$this->render('admin_edit',array(
 				'model'=>$model,
 			));			
+		}
+	}
+	
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id) 
+	{
+		$model=$this->loadModel($id);
+		
+		$this->dialogDetail = true;
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+		$this->dialogWidth = 500;
+
+		$this->pageTitle = Yii::t('phrase', 'View Contact: $contact_value ($category_name) author $author_name', array('$contact_value'=>$model->contact_value, '$category_name'=>Phrase::trans($model->category->name), '$author_name'=>$model->author->name));
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_view',array(
+			'model'=>$model,
+		));
+	}	
+
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionRunAction() {
+		$id       = $_POST['trash_id'];
+		$criteria = null;
+		$actions  = $_GET['action'];
+
+		if(count($id) > 0) {
+			$criteria = new CDbCriteria;
+			$criteria->addInCondition('id', $id);
+
+			if($actions == 'publish') {
+				OmmuAuthorContacts::model()->updateAll(array(
+					'publish' => 1,
+				),$criteria);
+			} elseif($actions == 'unpublish') {
+				OmmuAuthorContacts::model()->updateAll(array(
+					'publish' => 0,
+				),$criteria);
+			} elseif($actions == 'trash') {
+				OmmuAuthorContacts::model()->updateAll(array(
+					'publish' => 2,
+				),$criteria);
+			} elseif($actions == 'delete') {
+				OmmuAuthorContacts::model()->deleteAll($criteria);
+			}
+		}
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax'])) {
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('manage'));
 		}
 	}
 
@@ -251,7 +320,7 @@ class AuthorcontactController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-ommu-author-contact',
-						'msg' => '<div class="errorSummary success"><strong>OmmuAuthorContact success deleted.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Author contact success deleted').'</strong></div>',
 					));
 				}
 			}
@@ -261,10 +330,59 @@ class AuthorcontactController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = 'OmmuAuthorContact Delete.';
+			$this->pageTitle = Yii::t('phrase', 'Delete Contact: $contact_value ($category_name) author $author_name', array('$contact_value'=>$model->contact_value, '$category_name'=>Phrase::trans($model->category->name), '$author_name'=>$model->author->name));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('/author_contact/admin_delete');
+			$this->render('admin_delete');
+		}
+	}
+
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionPublish($id) 
+	{
+		$model=$this->loadModel($id);
+		
+		if($model->publish == 1) {
+			$title = Yii::t('phrase', 'Unpublish');
+			$replace = 0;
+		} else {
+			$title = Yii::t('phrase', 'Publish');
+			$replace = 1;
+		}
+		$pageTitle = Yii::t('phrase', '$title Contact: $contact_value ($category_name) author $author_name', array('$title'=>$title, '$contact_value'=>$model->contact_value, '$category_name'=>Phrase::trans($model->category->name), '$author_name'=>$model->author->name));
+
+		if(Yii::app()->request->isPostRequest) {
+			// we only allow deletion via POST request
+			if(isset($id)) {
+				//change value active or publish
+				$model->publish = $replace;
+
+				if($model->update()) {
+					echo CJSON::encode(array(
+						'type' => 5,
+						'get' => Yii::app()->controller->createUrl('manage'),
+						'id' => 'partial-ommu-author-contact',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Author contact success updated.').'</strong></div>',
+					));
+				}
+			}
+
+		} else {
+			$this->dialogDetail = true;
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogWidth = 350;
+
+			$this->pageTitle = $pageTitle;
+			$this->pageDescription = '';
+			$this->pageMeta = '';
+			$this->render('/contact_category/admin_publish',array(
+				'title'=>$title,
+				'model'=>$model,
+			));
 		}
 	}
 
@@ -275,7 +393,7 @@ class AuthorcontactController extends Controller
 	 */
 	public function loadModel($id) 
 	{
-		$model = OmmuAuthorContact::model()->findByPk($id);
+		$model = OmmuAuthorContacts::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 		return $model;

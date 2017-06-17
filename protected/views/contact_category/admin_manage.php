@@ -1,19 +1,20 @@
 <?php
 /**
- * Ommu Author Contacts (ommu-author-contact)
- * @var $this AuthorcontactController
- * @var $model OmmuAuthorContact
- * version: 1.2.0
+ * Ommu Author Contact Categories (ommu-author-contact-category)
+ * @var $this ContactCategoryController
+ * @var $model OmmuAuthorContactCategory
+ * version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2015 Ommu Platform (opensource.ommu.co)
- * @link https://github.com/ommu/Core
+ * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @created date 1 June 2017, 05:41 WIB
+ * @link https://github.com/ommu/core
  * @contact (+62)856-299-4114
  *
  */
 
 	$this->breadcrumbs=array(
-		'Ommu Author Contacts'=>array('manage'),
+		'Ommu Author Contact Categories'=>array('manage'),
 		'Manage',
 	);
 	$this->menu=array(
@@ -35,7 +36,7 @@
 
 <?php //begin.Search ?>
 <div class="search-form">
-<?php $this->renderPartial('/author_contact/_search',array(
+<?php $this->renderPartial('/contact_category/_search',array(
 	'model'=>$model,
 )); ?>
 </div>
@@ -43,13 +44,13 @@
 
 <?php //begin.Grid Option ?>
 <div class="grid-form">
-<?php $this->renderPartial('/author_contact/_option_form',array(
+<?php $this->renderPartial('/contact_category/_option_form',array(
 	'model'=>$model,
 )); ?>
 </div>
 <?php //end.Grid Option ?>
 
-<div id="partial-ommu-author-contact">
+<div id="partial-ommu-author-contact-category">
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 	<?php
@@ -91,11 +92,11 @@
 						),
 						'url' => 'Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))')
 				),
-				'template' => '{update}|{delete}',
+				'template' => '{view}|{update}|{delete}',
 			));
 
 			$this->widget('application.components.system.OGridView', array(
-				'id'=>'ommu-author-contact-grid',
+				'id'=>'ommu-author-contact-category-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
 				'afterAjaxUpdate' => 'reinstallDatePicker',
