@@ -153,7 +153,7 @@ class ArticleLocationUser extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
-			'location.province_relation' => array(
+			'location.province' => array(
 				'alias'=>'provinces',
 				'select'=>'province'
 			),
@@ -228,7 +228,7 @@ class ArticleLocationUser extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'location_search',
-				'value' => '$data->location->province_relation->province',
+				'value' => '$data->location->province->province_name',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'user_search',

@@ -155,9 +155,9 @@ class ArticleLocationTag extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
-			'location.province_relation' => array(
-				'alias'=>'provinces',
-				'select'=>'province'
+			'location.province' => array(
+				'alias'=>'location_provinces',
+				'select'=>'province_name'
 			),
 			'tag' => array(
 				'alias'=>'tag',
@@ -168,7 +168,7 @@ class ArticleLocationTag extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('provinces.province',strtolower($this->location_search), true);
+		$criteria->compare('location_provinces.province_name',strtolower($this->location_search), true);
 		$criteria->compare('tag.body',strtolower($this->tag_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 
@@ -230,7 +230,7 @@ class ArticleLocationTag extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'location_search',
-				'value' => '$data->location->province_relation->province',
+				'value' => '$data->location->province->province_name',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'tag_search',

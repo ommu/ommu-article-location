@@ -120,16 +120,14 @@ class ArticleLocations extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'country_r' => array(self::BELONGS_TO, 'OmmuZoneCountry', 'office_country'),
-			'city_r' => array(self::BELONGS_TO, 'OmmuZoneCity', 'office_city'),
-			'district_r' => array(self::BELONGS_TO, 'OmmuZoneDistricts', 'office_district'),	
-			'village_r' => array(self::BELONGS_TO, 'OmmuZoneVillage', 'office_village'),	
 			'view' => array(self::BELONGS_TO, 'ViewArticleLocations', 'location_id'),
-			'tags' => array(self::HAS_MANY, 'ArticleLocationTag', 'location_id'),
-			'users' => array(self::HAS_MANY, 'ArticleLocationUser', 'location_id'),
-			'province_relation' => array(self::BELONGS_TO, 'OmmuZoneProvince', 'province_id'),
+			'country' => array(self::BELONGS_TO, 'OmmuZoneCountry', 'office_country'),
+			'province' => array(self::BELONGS_TO, 'OmmuZoneProvince', 'province_id'),
+			'city' => array(self::BELONGS_TO, 'OmmuZoneCity', 'office_city'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
+			'tags' => array(self::HAS_MANY, 'ArticleLocationTag', 'location_id'),
+			'users' => array(self::HAS_MANY, 'ArticleLocationUser', 'location_id'),
 		);
 	}
 
@@ -247,9 +245,9 @@ class ArticleLocations extends CActiveRecord
 			'view' => array(
 				'alias'=>'view',
 			),
-			'province_relation' => array(
-				'alias'=>'province_relation',
-				'select'=>'province'
+			'province' => array(
+				'alias'=>'province',
+				'select'=>'province_name'
 			),
 			'creation' => array(
 				'alias'=>'creation',
@@ -265,7 +263,7 @@ class ArticleLocations extends CActiveRecord
 		$criteria->compare('view.email',strtolower($this->email_search), true);
 		$criteria->compare('view.tags',strtolower($this->tag_input), true);
 		$criteria->compare('view.users',strtolower($this->user_input), true);
-		$criteria->compare('province_relation.province',strtolower($this->province_input), true);
+		$criteria->compare('province.province_name',strtolower($this->province_input), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
@@ -344,7 +342,7 @@ class ArticleLocations extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'province_input',
-				'value' => '$data->province_relation->province',
+				'value' => '$data->province->province_name',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'province_code',
@@ -542,7 +540,7 @@ class ArticleLocations extends CActiveRecord
 				
 				$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 				if($this->province_photo instanceOf CUploadedFile) {
-					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_photo->extensionName);
+					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_photo->extensionName);
 					if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
 						if($this->old_photo_input != '' && file_exists($location_path.'/'.$this->old_photo_input))
 							rename($location_path.'/'.$this->old_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_input);
@@ -554,7 +552,7 @@ class ArticleLocations extends CActiveRecord
 				
 				$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
 				if($this->province_header_photo instanceOf CUploadedFile) {
-					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_header_photo->extensionName);
+					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_header_photo->extensionName);
 					if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
 						if($this->old_header_photo_input != '' && file_exists($location_path.'/'.$this->old_header_photo_input))
 							rename($location_path.'/'.$this->old_header_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_input);
@@ -590,7 +588,7 @@ class ArticleLocations extends CActiveRecord
 			
 			$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 			if($this->province_photo instanceOf CUploadedFile) {
-				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_photo->extensionName);
+				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_photo->extensionName);
 				if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
 					self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
 				}
@@ -598,7 +596,7 @@ class ArticleLocations extends CActiveRecord
 			
 			$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
 			if($this->province_header_photo instanceOf CUploadedFile) {
-				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province_relation->province).'.'.strtolower($this->province_header_photo->extensionName);
+				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_header_photo->extensionName);
 				if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
 					self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName));
 				}

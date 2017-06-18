@@ -49,7 +49,7 @@
 		<div class="desc">
 			<?php 
 			//echo $form->textField($model,'province_id');
-			$model->province_input = $model->province_relation->province;
+			$model->province_input = $model->province->province_name;
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'model' => $model,
 				'attribute' => 'province_input',
