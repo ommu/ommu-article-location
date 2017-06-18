@@ -48,15 +48,9 @@ content_menu	:
 	- urlTitle: Address
 		urlRules: {article, location/admin, "edit,address", siteType: "0,1", userLevel: 1}
 		urlPath: {url: address, attr: id=$_GET*id, icon: -}
-	- urlTitle: Back to Article Manage
+	- urlTitle: Back to Articles
 		urlRules: {article, location/admin, "setting,address", siteType: "0,1", userLevel: 2}
 		urlPath: {url: o/admin/manage, attr: -, icon: -}
-	- urlTitle: Settings
-		urlRules: {article, location/admin, "setting,address", siteType: "0,1", userLevel: 2}
-		urlPath: {url: setting, attr: -, icon: -}
-	- urlTitle: Address
-		urlRules: {article, location/admin, "setting,address", siteType: "0,1", userLevel: 2}
-		urlPath: {url: address, attr: -, icon: -}
 		
 # controller location/tag
 	- urlTitle: Back to Locations
