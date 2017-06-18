@@ -4,9 +4,9 @@
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
  * @created date 18 October 2016, 02:26 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/ommu/plu-article-location
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -53,11 +53,11 @@
 class ArticleLocations extends CActiveRecord
 {
 	public $defaultColumns = array();
-	public $province_input;
-	public $tag_input;
-	public $user_input;
-	public $old_photo_input;
-	public $old_header_photo_input;
+	public $province_i;
+	public $tag_i;
+	public $user_i;
+	public $old_photo_i;
+	public $old_header_photo_i;
 	
 	// Variable Search
 	public $address_search;
@@ -95,20 +95,20 @@ class ArticleLocations extends CActiveRecord
 		return array(
 			array('publish, province_code', 'required'),
 			array('
-				province_input', 'required', 'on'=>'setting'),
+				province_i', 'required', 'on'=>'setting'),
 			array('office_location, office_place, office_city, office_phone, office_email', 'required', 'on'=>'address'),
 			array('location_id, publish, province_id, office_country, office_city', 'numerical', 'integerOnly'=>true),
 			array('office_location, office_district, office_village, office_phone, office_fax, office_email,
-				tag_input, user_input', 'length', 'max'=>32),
+				tag_i, user_i', 'length', 'max'=>32),
 			array('province_code', 'length', 'max'=>16),
 			array('office_city, creation_id, modified_id', 'length', 'max'=>11),
 			array('office_country, office_zipcode', 'length', 'max'=>5),
 			array('province_id, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_country, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email,
-				province_input, tag_input, user_input, old_photo_input, old_header_photo_input', 'safe'),
+				province_i, tag_i, user_i, old_photo_i, old_header_photo_i', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('location_id, publish, province_id, province_code, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_country, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email, creation_date, creation_id, modified_date, modified_id,
-				address_search, email_search, phone_search, province_input, creation_search, modified_search', 'safe', 'on'=>'search'),
+				address_search, email_search, phone_search, province_i, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -159,27 +159,17 @@ class ArticleLocations extends CActiveRecord
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
-			'province_input' => Yii::t('attribute', 'Province'),
-			'tag_input' => Yii::t('attribute', 'Tag'),
-			'user_input' => Yii::t('attribute', 'User'),
+			'province_i' => Yii::t('attribute', 'Province'),
+			'tag_i' => Yii::t('attribute', 'Tag'),
+			'user_i' => Yii::t('attribute', 'User'),
+			'old_photo_i' => Yii::t('attribute', 'Old Photo'),
+			'old_header_photo_i' => Yii::t('attribute', 'Old Photo Header'),
 			'address_search' => Yii::t('attribute', 'Address'),
 			'phone_search' => Yii::t('attribute', 'Phone'),
 			'email_search' => Yii::t('attribute', 'Email'),
-			'old_photo_input' => Yii::t('attribute', 'Old Photo'),
-			'old_header_photo_input' => Yii::t('attribute', 'Old Photo Header'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
-		/*
-			'Location' => 'Location',
-			'Publish' => 'Publish',
-			'Province' => 'Province',
-			'Creation Date' => 'Creation Date',
-			'Creation' => 'Creation',
-			'Modified Date' => 'Modified Date',
-			'Modified' => 'Modified',
-		
-		*/
 	}
 
 	/**
@@ -212,21 +202,21 @@ class ArticleLocations extends CActiveRecord
 			$criteria->compare('t.publish',$this->publish);
 		}
 		$criteria->compare('t.province_id',$this->province_id);
-		$criteria->compare('t.province_code',$this->province_code, true);
-		$criteria->compare('t.province_desc',$this->province_desc, true);
-		$criteria->compare('t.province_photo',$this->province_photo, true);
-		$criteria->compare('t.province_header_photo',$this->province_header_photo, true);
-		$criteria->compare('t.office_name',$this->office_name,true);
-		$criteria->compare('t.office_location',$this->office_location,true);
-		$criteria->compare('t.office_place',$this->office_place,true);
+		$criteria->compare('t.province_code',strtolower($this->province_code),true);
+		$criteria->compare('t.province_desc',strtolower($this->province_desc),true);
+		$criteria->compare('t.province_photo',strtolower($this->province_photo),true);
+		$criteria->compare('t.province_header_photo',strtolower($this->province_header_photo),true);
+		$criteria->compare('t.office_name',strtolower($this->office_name),true);
+		$criteria->compare('t.office_location',strtolower($this->office_location),true);
+		$criteria->compare('t.office_place',strtolower($this->office_place),true);
 		$criteria->compare('t.office_country',$this->office_country);
 		$criteria->compare('t.office_city',$this->office_city);
-		$criteria->compare('t.office_district',$this->office_district);
-		$criteria->compare('t.office_village',$this->office_village);
+		$criteria->compare('t.office_district',strtolower($this->office_district),true);
+		$criteria->compare('t.office_village',strtolower($this->office_village),true);
 		$criteria->compare('t.office_zipcode',$this->office_zipcode,true);
 		$criteria->compare('t.office_phone',$this->office_phone,true);
 		$criteria->compare('t.office_fax',$this->office_fax,true);
-		$criteria->compare('t.office_email',$this->office_email,true);
+		$criteria->compare('t.office_email',strtolower($this->office_email),true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -258,14 +248,14 @@ class ArticleLocations extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('view.address',strtolower($this->address_search), true);
-		$criteria->compare('view.phone',strtolower($this->phone_search), true);
-		$criteria->compare('view.email',strtolower($this->email_search), true);
-		$criteria->compare('view.tags',strtolower($this->tag_input), true);
-		$criteria->compare('view.users',strtolower($this->user_input), true);
-		$criteria->compare('province.province_name',strtolower($this->province_input), true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
+		$criteria->compare('view.address',$this->address_search);
+		$criteria->compare('view.phone',$this->phone_search);
+		$criteria->compare('view.email',$this->email_search);
+		$criteria->compare('view.tags',$this->tag_i);
+		$criteria->compare('view.users',$this->user_i);
+		$criteria->compare('province.province_name',strtolower($this->province_i),true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
+		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
 
 		if(!isset($_GET['ArticleLocations_sort']))
 			$criteria->order = 't.location_id DESC';
@@ -341,7 +331,7 @@ class ArticleLocations extends CActiveRecord
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
 			$this->defaultColumns[] = array(
-				'name' => 'province_input',
+				'name' => 'province_i',
 				'value' => '$data->province->province_name',
 			);
 			$this->defaultColumns[] = array(
@@ -349,7 +339,37 @@ class ArticleLocations extends CActiveRecord
 				'value' => '$data->province_code',
 			);
 			$this->defaultColumns[] = array(
-				'name' => 'tag_input',
+				'name' => 'creation_search',
+				'value' => '$data->creation->displayname',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'creation_date',
+				'value' => 'Utility::dateFormat($data->creation_date)',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
+					'model'=>$this,
+					'attribute'=>'creation_date',
+					'language' => 'ja',
+					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					//'mode'=>'datetime',
+					'htmlOptions' => array(
+						'id' => 'creation_date_filter',
+					),
+					'options'=>array(
+						'showOn' => 'focus',
+						'dateFormat' => 'dd-mm-yy',
+						'showOtherMonths' => true,
+						'selectOtherMonths' => true,
+						'changeMonth' => true,
+						'changeYear' => true,
+						'showButtonPanel' => true,
+					),
+				), true),
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'tag_i',
 				'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 				'htmlOptions' => array(
 					'class' => 'center',
@@ -357,7 +377,7 @@ class ArticleLocations extends CActiveRecord
 				'type' => 'raw',
 			);
 			$this->defaultColumns[] = array(
-				'name' => 'user_input',
+				'name' => 'user_i',
 				'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 				'htmlOptions' => array(
 					'class' => 'center',
@@ -399,36 +419,6 @@ class ArticleLocations extends CActiveRecord
 					0=>Yii::t('phrase', 'No'),
 				),
 				'type' => 'raw',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'creation_search',
-				'value' => '$data->creation->displayname',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'creation_date',
-				'value' => 'Utility::dateFormat($data->creation_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'creation_date',
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
-					//'mode'=>'datetime',
-					'htmlOptions' => array(
-						'id' => 'creation_date_filter',
-					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
-					),
-				), true),
 			);
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
@@ -473,24 +463,33 @@ class ArticleLocations extends CActiveRecord
 			'select' => 'media_file_type',
 		));
 		$media_file_type = unserialize($setting->media_file_type);
+		if(empty($media_file_type))
+			$media_file_type = array();
 		
-		if(parent::beforeValidate()) {
-			if($this->province_input != '' && ($this->province_id == '' || ($this->province_id != '' && $this->province_id == 0))) {
+		if(parent::beforeValidate()) {			
+			if($this->isNewRecord) {
+				$this->office_country = 72;	
+				$this->creation_id = Yii::app()->user->id;	
+			} else
+				$this->modified_id = Yii::app()->user->id;
+			
+			if($this->province_id && $this->province_i != '') {
 				$province = OmmuZoneProvince::model()->find(array(
-					'select' => 'province_id, province',
-					'condition' => 'publish = 1 AND province = :province',
+					'select' => 'province_id, province_name',
+					'condition' => 'publish = :publish AND province_name = :province',
 					'params' => array(
-						':province' => $this->province_input,
+						':publish' => 1,
+						':province' => strtolower($this->province_i),
 					),
 				));
 				if($province != null)
 					$this->province_id = $province->province_id;
 				else
-					$this->addError('province_input', Yii::t('phrase', 'Province tidak ditemukan pada database.'));
+					$this->addError('province_i', Yii::t('phrase', 'Province tidak ditemukan pada database.'));
 			}
 			
 			$province_photo = CUploadedFile::getInstance($this, 'province_photo');
-			if($province_photo->name != '') {
+			if($province_photo->name != null) {
 				$extension = pathinfo($province_photo->name, PATHINFO_EXTENSION);
 				if(!in_array(strtolower($extension), $media_file_type))
 					$this->addError('province_photo', Yii::t('phrase', 'The file {name} cannot be uploaded. Only files with these extensions are allowed: {extensions}.', array(
@@ -500,7 +499,7 @@ class ArticleLocations extends CActiveRecord
 			}
 			
 			$province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
-			if($province_header_photo->name != '') {
+			if($province_header_photo->name != null) {
 				$extension = pathinfo($province_header_photo->name, PATHINFO_EXTENSION);
 				if(!in_array(strtolower($extension), $media_file_type))
 					$this->addError('province_header_photo', Yii::t('phrase', 'The file {name} cannot be uploaded. Only files with these extensions are allowed: {extensions}.', array(
@@ -508,12 +507,6 @@ class ArticleLocations extends CActiveRecord
 						'{extensions}'=>Utility::formatFileType($media_file_type, false),
 					)));
 			}
-			
-			if($this->isNewRecord) {
-				$this->office_country = 72;	
-				$this->creation_id = Yii::app()->user->id;	
-			} else
-				$this->modified_id = Yii::app()->user->id;
 		}
 		return true;
 	}
@@ -526,41 +519,47 @@ class ArticleLocations extends CActiveRecord
 		if(parent::beforeSave()) {
 			if(!$this->isNewRecord && in_array($action, array('edit','setting'))) {
 				//Update article location photo
-				$location_path = "public/article/location";
+				$location_path = 'public/article/location';
 				
 				// Add article directory
 				if(!file_exists($location_path)) {
-					@mkdir($location_path, 0777, true);
+					@mkdir($location_path, 0777,true);
 
 					// Add file in article directory (index.php)
 					$newFile = $location_path.'/index.php';
 					$FileHandle = fopen($newFile, 'w');
 				} else
-					@chmod($location_path, 0755, true);
+					@chmod($location_path, 0755,true);
 				
 				$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
-				if($this->province_photo instanceOf CUploadedFile) {
-					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
-					if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
-						if($this->old_photo_input != '' && file_exists($location_path.'/'.$this->old_photo_input))
-							rename($location_path.'/'.$this->old_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_input);
-						$this->province_photo = $fileName;
-					}
-				}					
-				if($this->province_photo == '')
-					$this->province_photo = $this->old_photo_input;
+				if($this->province_photo != null) {
+					if($this->province_photo instanceOf CUploadedFile) {
+						$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
+						if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
+							if($this->old_photo_i != '' && file_exists($location_path.'/'.$this->old_photo_i))
+								rename($location_path.'/'.$this->old_photo_i, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_i);
+							$this->province_photo = $fileName;
+						}
+					}					
+				} else {			
+					if($this->province_photo == '')
+						$this->province_photo = $this->old_photo_i;
+				}
 				
 				$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
-				if($this->province_header_photo instanceOf CUploadedFile) {
-					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
-					if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
-						if($this->old_header_photo_input != '' && file_exists($location_path.'/'.$this->old_header_photo_input))
-							rename($location_path.'/'.$this->old_header_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_input);
-						$this->province_header_photo = $fileName;
-					}
-				}					
-				if($this->province_header_photo == '')
-					$this->province_header_photo = $this->old_header_photo_input;
+				if($this->province_header_photo != null) {
+					if($this->province_header_photo instanceOf CUploadedFile) {
+						$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
+						if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
+							if($this->old_header_photo_i != '' && file_exists($location_path.'/'.$this->old_header_photo_i))
+								rename($location_path.'/'.$this->old_header_photo_i, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_i);
+							$this->province_header_photo = $fileName;
+						}
+					}					
+				} else {
+					if($this->province_header_photo == '')
+						$this->province_header_photo = $this->old_header_photo_i;
+				}
 			}
 		}
 		return true;
@@ -574,31 +573,33 @@ class ArticleLocations extends CActiveRecord
 		
 		if($this->isNewRecord) {
 			//Update article location photo
-			$location_path = "public/article/location";
+			$location_path = 'public/article/location';
 			
 			// Add article directory
 			if(!file_exists($location_path)) {
-				@mkdir($location_path, 0777, true);
+				@mkdir($location_path, 0777,true);
 
 				// Add file in article directory (index.php)
 				$newFile = $location_path.'/index.php';
 				$FileHandle = fopen($newFile, 'w');
 			} else
-				@chmod($location_path, 0755, true);
+				@chmod($location_path, 0755,true);
 			
 			$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
-			if($this->province_photo instanceOf CUploadedFile) {
-				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
-				if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
-					self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
+			if($this->province_photo != null) {
+				if($this->province_photo instanceOf CUploadedFile) {
+					$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
+					if($this->province_photo->saveAs($location_path.'/'.$fileName))
+						self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
 				}
 			}
 			
 			$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
-			if($this->province_header_photo instanceOf CUploadedFile) {
-				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
-				if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
-					self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName));
+			if($this->province_header_photo != null) {
+				if($this->province_header_photo instanceOf CUploadedFile) {
+					$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
+					if($this->province_header_photo->saveAs($location_path.'/'.$fileName))
+						self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName));
 				}
 			}
 		}
@@ -610,7 +611,8 @@ class ArticleLocations extends CActiveRecord
 	protected function afterDelete() {
 		parent::afterDelete();
 		//delete article location image
-		$location_path = "public/article/location";
+		$location_path = 'public/article/location';
+		
 		if($this->province_photo != '' && file_exists($location_path.'/'.$this->province_photo))
 			rename($location_path.'/'.$this->province_photo, 'public/article/verwijderen/'.$this->location_id.'_'.$this->province_photo);
 		

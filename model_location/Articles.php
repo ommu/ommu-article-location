@@ -1,11 +1,12 @@
 <?php
 /**
  * Articles
- * version: 1.3.0
+ * version: 0.0.1
+ * article version: 1.3.0
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
- * @link https://github.com/ommu/mod-article
+ * @link https://github.com/ommu/plu-article-location
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.

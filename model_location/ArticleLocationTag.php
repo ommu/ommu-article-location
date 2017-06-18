@@ -4,9 +4,9 @@
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
  * @created date 18 October 2016, 02:27 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/ommu/plu-article-location
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -168,9 +168,9 @@ class ArticleLocationTag extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('location_provinces.province_name',strtolower($this->location_search), true);
-		$criteria->compare('tag.body',strtolower($this->tag_search), true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
+		$criteria->compare('location_provinces.province_name',strtolower($this->location_search),true);
+		$criteria->compare('tag.body',strtolower($this->tag_search),true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
 
 		if(!isset($_GET['ArticleLocationTag_sort']))
 			$criteria->order = 't.id DESC';

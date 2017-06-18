@@ -7,9 +7,9 @@
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
  * @created date 18 October 2016, 02:29 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/ommu/plu-article-location
  * @contect (+62)856-299-4114
  *
  */
@@ -45,21 +45,22 @@
 <fieldset>
 
 	<div class="clearfix">
-		<?php echo $form->labelEx($model,'province_input'); ?>
+		<?php echo $form->labelEx($model,'province_i'); ?>
 		<div class="desc">
 			<?php 
 			//echo $form->textField($model,'province_id');
-			$model->province_input = $model->province->province_name;
+			if(!$model->getErrors())
+				$model->province_i = $model->province->province_name;
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'model' => $model,
-				'attribute' => 'province_input',
+				'attribute' => 'province_i',
 				'source' => Yii::app()->createUrl('zoneprovince/suggest'),
 				'options' => array(
 					//'delay '=> 50,
 					'minLength' => 1,
 					'showAnim' => 'fold',
 					'select' => "js:function(event, ui) {
-						$('form #ArticleLocations_province_input').val(ui.item.value);
+						$('form #ArticleLocations_province_i').val(ui.item.value);
 						$('form #ArticleLocations_province_id').val(ui.item.id);
 					}"
 				),
@@ -67,7 +68,7 @@
 					'class'	=> 'span-6',
 				),
 			));
-			echo $form->error($model,'province_input');?>
+			echo $form->error($model,'province_i');?>
 			<?php echo $form->hiddenField($model,'province_id'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -97,10 +98,10 @@
 			<?php 
 			if(!$model->isNewRecord) {
 				if(!$model->getErrors())
-					$model->old_photo_input = $model->province_photo;
-				echo $form->hiddenField($model,'old_photo_input');
+					$model->old_photo_i = $model->province_photo;
+				echo $form->hiddenField($model,'old_photo_i');
 				if($model->province_photo != '') {
-					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_input;?>
+					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_i;?>
 					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 300, 400, 3);?>" alt="">					
 			<?php }
 			}
@@ -116,10 +117,10 @@
 			<?php 
 			if(!$model->isNewRecord) {
 				if(!$model->getErrors())
-					$model->old_header_photo_input = $model->province_header_photo;
-				echo $form->hiddenField($model,'old_header_photo_input');
+					$model->old_header_photo_i = $model->province_header_photo;
+				echo $form->hiddenField($model,'old_header_photo_i');
 				if($model->province_header_photo != '') {
-					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_header_photo_input;?>
+					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_header_photo_i;?>
 					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 700, 250, 1);?>" alt="">					
 			<?php }
 			}
@@ -131,16 +132,16 @@
 	
 	<?php if(!$model->isNewRecord) {?>
 	<div class="clearfix">
-		<?php echo $form->labelEx($model,'tag_input'); ?>
+		<?php echo $form->labelEx($model,'tag_i'); ?>
 		<div class="desc">
 			<?php 
-			//echo $form->textField($model,'tag_input',array('maxlength'=>32,'class'=>'span-6'));
+			//echo $form->textField($model,'tag_i',array('maxlength'=>32,'class'=>'span-6'));
 			$url = Yii::app()->controller->createUrl('location/tag/add', array('type'=>'location','plugin'=>'location'));
 			$location = $model->location_id;
-			$tagId = 'ArticleLocations_tag_input';
+			$tagId = 'ArticleLocations_tag_i';
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'model' => $model,
-				'attribute' => 'tag_input',
+				'attribute' => 'tag_i',
 				'source' => Yii::app()->createUrl('globaltag/suggest'),
 				'options' => array(
 					//'delay '=> 50,
@@ -163,7 +164,7 @@
 					'class'	=> 'span-6',
 				),
 			));
-			echo $form->error($model,'tag_input');?>
+			echo $form->error($model,'tag_i');?>
 			<div id="tag-suggest" class="suggest clearfix">
 				<?php
 				if($tags != null) {
@@ -178,16 +179,16 @@
 	
 	<?php if(!$model->isNewRecord) {?>
 	<div class="clearfix">
-		<?php echo $form->labelEx($model,'user_input'); ?>
+		<?php echo $form->labelEx($model,'user_i'); ?>
 		<div class="desc">
 			<?php 
-			//echo $form->textField($model,'user_input',array('maxlength'=>32,'class'=>'span-6'));
+			//echo $form->textField($model,'user_i',array('maxlength'=>32,'class'=>'span-6'));
 			$url = Yii::app()->controller->createUrl('location/user/add', array('type'=>'location','plugin'=>'location'));
 			$location = $model->location_id;
-			$userId = 'ArticleLocations_user_input';
+			$userId = 'ArticleLocations_user_i';
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'model' => $model,
-				'attribute' => 'user_input',
+				'attribute' => 'user_i',
 				'source' => Yii::app()->createUrl('users/o/member/suggest'),
 				'options' => array(
 					//'delay '=> 50,
@@ -210,7 +211,7 @@
 					'class'	=> 'span-6',
 				),
 			));
-			echo $form->error($model,'user_input');?>
+			echo $form->error($model,'user_i');?>
 			<div id="user-suggest" class="suggest clearfix">
 				<?php
 				if($users != null) {

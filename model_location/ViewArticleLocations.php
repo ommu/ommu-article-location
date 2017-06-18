@@ -4,9 +4,9 @@
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
  * @created date 18 October 2016, 15:30 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/ommu/plu-article-location
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -128,11 +128,11 @@ class ViewArticleLocations extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('t.location_id',$this->location_id);
-		$criteria->compare('t.tags',strtolower($this->tags),true);
-		$criteria->compare('t.users',strtolower($this->users),true);
-		$criteria->compare('t.address',strtolower($this->address),true);
-		$criteria->compare('t.phone',strtolower($this->phone),true);
-		$criteria->compare('t.email',strtolower($this->email),true);
+		$criteria->compare('t.tags',$this->tags);
+		$criteria->compare('t.users',$this->users);
+		$criteria->compare('t.address',$this->address);
+		$criteria->compare('t.phone',$this->phone);
+		$criteria->compare('t.email',$this->email);
 
 		if(!isset($_GET['ViewArticleLocations_sort']))
 			$criteria->order = 't.location_id DESC';

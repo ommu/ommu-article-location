@@ -7,9 +7,9 @@
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
  * @created date 18 October 2016, 02:29 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/ommu/plu-article-location
  * @contect (+62)856-299-4114
  *
  */
@@ -92,7 +92,7 @@
 		</div>
 
 		<div class="clearfix">
-			<label><?php echo $model->getAttributeLabel('office_zipcode');?> <span class="required">*</span></label>
+			<?php echo $form->labelEx($model,'office_zipcode'); ?>
 			<div class="desc">
 				<?php echo $form->textField($model,'office_zipcode',array('maxlength'=>6, 'class'=>'span-3')); ?>
 				<?php echo $form->error($model,'office_zipcode'); ?>
