@@ -350,7 +350,7 @@ class ArticleLocations extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'tag_input',
-				'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id)))',
+				'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
@@ -358,7 +358,7 @@ class ArticleLocations extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'user_input',
-				'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id)))',
+				'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
@@ -433,7 +433,7 @@ class ArticleLocations extends CActiveRecord
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->location_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->location_id,\'plugin\'=>\'location\')), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -540,7 +540,7 @@ class ArticleLocations extends CActiveRecord
 				
 				$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 				if($this->province_photo instanceOf CUploadedFile) {
-					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_photo->extensionName);
+					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
 					if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
 						if($this->old_photo_input != '' && file_exists($location_path.'/'.$this->old_photo_input))
 							rename($location_path.'/'.$this->old_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_input);
@@ -552,7 +552,7 @@ class ArticleLocations extends CActiveRecord
 				
 				$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
 				if($this->province_header_photo instanceOf CUploadedFile) {
-					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_header_photo->extensionName);
+					$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
 					if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
 						if($this->old_header_photo_input != '' && file_exists($location_path.'/'.$this->old_header_photo_input))
 							rename($location_path.'/'.$this->old_header_photo_input, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_input);
@@ -588,7 +588,7 @@ class ArticleLocations extends CActiveRecord
 			
 			$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 			if($this->province_photo instanceOf CUploadedFile) {
-				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_photo->extensionName);
+				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
 				if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
 					self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
 				}
@@ -596,7 +596,7 @@ class ArticleLocations extends CActiveRecord
 			
 			$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
 			if($this->province_header_photo instanceOf CUploadedFile) {
-				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province).'.'.strtolower($this->province_header_photo->extensionName);
+				$fileName = $this->location_id.'_'.time().'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
 				if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
 					self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName));
 				}

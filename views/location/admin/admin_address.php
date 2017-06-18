@@ -73,7 +73,9 @@
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('office_city');?> <span class="required">*</span></label>
 			<div class="desc">
-				<?php echo $form->dropDownList($model,'office_city', OmmuZoneCity::getCity($model->province_id)); ?>
+				<?php 
+				$province_id = $model->province_id ? $model->province_id : null;
+				echo $form->dropDownList($model,'office_city', OmmuZoneCity::getCity($province_id)); ?>
 				<?php echo $form->error($model,'office_city'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'The city (or locality) line of the postal address for this business');?></span>
 			</div>
@@ -82,7 +84,9 @@
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('province_id');?> <span class="required">*</span></label>
 			<div class="desc">
-				<?php echo $form->dropDownList($model,'province_id', OmmuZoneProvince::getProvince($model->office_country)); ?>
+				<?php 				
+				$office_country = $model->office_country ? $model->office_country : null;
+				echo $form->dropDownList($model,'province_id', OmmuZoneProvince::getProvince($office_country)); ?>
 				<?php echo $form->error($model,'province_id'); ?>
 			</div>
 		</div>

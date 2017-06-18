@@ -154,8 +154,8 @@ class ArticleLocationUser extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'location.province' => array(
-				'alias'=>'provinces',
-				'select'=>'province'
+				'alias'=>'location_province',
+				'select'=>'province_name'
 			),
 			'user' => array(
 				'alias'=>'user',
@@ -166,7 +166,7 @@ class ArticleLocationUser extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('provinces.province',strtolower($this->location_search), true);
+		$criteria->compare('location_province.province_name',strtolower($this->location_search), true);
 		$criteria->compare('user.displayname',strtolower($this->user_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 

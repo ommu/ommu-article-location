@@ -135,7 +135,7 @@
 		<div class="desc">
 			<?php 
 			//echo $form->textField($model,'tag_input',array('maxlength'=>32,'class'=>'span-6'));
-			$url = Yii::app()->controller->createUrl('location/tag/add', array('type'=>'article'));
+			$url = Yii::app()->controller->createUrl('location/tag/add', array('type'=>'location','plugin'=>'location'));
 			$location = $model->location_id;
 			$tagId = 'ArticleLocations_tag_input';
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -168,7 +168,7 @@
 				<?php
 				if($tags != null) {
 					foreach($tags as $key => $val) {?>
-					<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('location/tag/delete',array('id'=>$val->id,'type'=>'article'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+					<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('location/tag/delete',array('id'=>$val->id,'type'=>'location','plugin'=>'location'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
 				<?php }
 				}?>
 			</div>
@@ -182,7 +182,7 @@
 		<div class="desc">
 			<?php 
 			//echo $form->textField($model,'user_input',array('maxlength'=>32,'class'=>'span-6'));
-			$url = Yii::app()->controller->createUrl('location/user/add', array('type'=>'article'));
+			$url = Yii::app()->controller->createUrl('location/user/add', array('type'=>'location','plugin'=>'location'));
 			$location = $model->location_id;
 			$userId = 'ArticleLocations_user_input';
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -215,7 +215,7 @@
 				<?php
 				if($users != null) {
 					foreach($users as $key => $val) {?>
-					<div><?php echo $val->user->displayname;?><a href="<?php echo Yii::app()->controller->createUrl('location/user/delete',array('id'=>$val->id,'type'=>'article'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+					<div><?php echo $val->user->displayname;?><a href="<?php echo Yii::app()->controller->createUrl('location/user/delete',array('id'=>$val->id,'type'=>'location','plugin'=>'location'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
 				<?php }
 				}?>
 			</div>

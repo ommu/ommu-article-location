@@ -10,14 +10,14 @@
  * TOC :
  *	Index
  *	Manage
- *	Setting
- *	Address
  *	Add
  *	Edit
  *	View
  *	RunAction
  *	Delete
  *	Publish
+ *	Setting
+ *	Address
  *
  *	LoadModel
  *	performAjaxValidation
@@ -139,96 +139,6 @@ class AdminController extends Controller
 			'columns' => $columns,
 		));
 	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionSetting() 
-	{
-		$location = ArticleLocationUser::model()->find(array(
-			'select' => 'location_id, user_id',
-			'condition' => 'user_id = :user',
-			'params' => array(
-				':user' => Yii::app()->user->id,
-			),
-		));
-		if($location == null)
-			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
-			
-		$model=$this->loadModel($location->location_id);
-		$tags=$model->tags;
-		$users=$model->users;
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if(isset($_POST['ArticleLocations'])) {
-			$model->attributes=$_POST['ArticleLocations'];
-			$model->scenario = 'setting';
-			
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
-				$this->redirect(Yii::app()->controller->createUrl('setting'));
-			}
-		}
-		
-		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
-		$this->pageDescription = '';
-		$this->pageMeta = '';
-		$this->render('admin_edit',array(
-			'model'=>$model,
-			'tags'=>$tags,
-			'users'=>$users,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionAddress() 
-	{
-		$id = $_GET['id'];
-		
-		if(isset($id))
-			$model=$this->loadModel($id);		
-		else {
-			$location = ArticleLocationUser::model()->find(array(
-				'select' => 'location_id, user_id',
-				'condition' => 'user_id = :user',
-				'params' => array(
-					':user' => Yii::app()->user->id,
-				),
-			));
-			if($location == null)
-				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
-				
-			$model=$this->loadModel($location->location_id);
-		}
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if(isset($_POST['ArticleLocations'])) {
-			$model->attributes=$_POST['ArticleLocations'];
-			$model->scenario = 'address';
-			
-			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
-				$this->redirect(Yii::app()->controller->createUrl('address', array('id'=>$model->location_id)));
-			}
-		}
-		
-		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
-		$this->pageDescription = '';
-		$this->pageMeta = '';
-		$this->render('admin_address',array(
-			'model'=>$model,
-		));
-	}
 	
 	/**
 	 * Creates a new model.
@@ -247,12 +157,12 @@ class AdminController extends Controller
 			
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success created.'));
-				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)));
+				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id,'plugin'=>'location')));
 			}
 		}
 		
 		$this->dialogDetail = true;
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 		$this->dialogWidth = 600;
 
 		$this->pageTitle = Yii::t('phrase', 'Create Article Locations');
@@ -283,7 +193,7 @@ class AdminController extends Controller
 			
 			if($model->save()) {
 				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
-				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id)));
+				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id,'plugin'=>'location')));
 			}
 		}
 		
@@ -306,7 +216,7 @@ class AdminController extends Controller
 		$model=$this->loadModel($id);
 		
 		$this->dialogDetail = true;
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 		$this->dialogWidth = 550;
 
 		$this->pageTitle = Yii::t('phrase', 'View Article Locations');
@@ -368,7 +278,7 @@ class AdminController extends Controller
 				if($model->delete()) {
 					echo CJSON::encode(array(
 						'type' => 5,
-						'get' => Yii::app()->controller->createUrl('manage'),
+						'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'location')),
 						'id' => 'partial-article-locations',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success deleted.').'</strong></div>',
 					));
@@ -377,7 +287,7 @@ class AdminController extends Controller
 
 		} else {
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = Yii::t('phrase', 'ArticleLocations Delete.');
@@ -413,7 +323,7 @@ class AdminController extends Controller
 				if($model->update()) {
 					echo CJSON::encode(array(
 						'type' => 5,
-						'get' => Yii::app()->controller->createUrl('manage'),
+						'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'location')),
 						'id' => 'partial-article-locations',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success updated.').'</strong></div>',
 					));
@@ -422,7 +332,7 @@ class AdminController extends Controller
 
 		} else {
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = $title;
@@ -433,6 +343,96 @@ class AdminController extends Controller
 				'model'=>$model,
 			));
 		}
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionSetting() 
+	{
+		$location = ArticleLocationUser::model()->find(array(
+			'select' => 'location_id, user_id',
+			'condition' => 'user_id = :user',
+			'params' => array(
+				':user' => Yii::app()->user->id,
+			),
+		));
+		if($location == null)
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
+			
+		$model=$this->loadModel($location->location_id);
+		$tags=$model->tags;
+		$users=$model->users;
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['ArticleLocations'])) {
+			$model->attributes=$_POST['ArticleLocations'];
+			$model->scenario = 'setting';
+			
+			if($model->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				$this->redirect(Yii::app()->controller->createUrl('setting', array('plugin'=>'location')));
+			}
+		}
+		
+		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_edit',array(
+			'model'=>$model,
+			'tags'=>$tags,
+			'users'=>$users,
+		));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionAddress() 
+	{
+		$id = $_GET['id'];
+		
+		if(isset($id))
+			$model=$this->loadModel($id);		
+		else {
+			$location = ArticleLocationUser::model()->find(array(
+				'select' => 'location_id, user_id',
+				'condition' => 'user_id = :user',
+				'params' => array(
+					':user' => Yii::app()->user->id,
+				),
+			));
+			if($location == null)
+				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
+				
+			$model=$this->loadModel($location->location_id);
+		}
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['ArticleLocations'])) {
+			$model->attributes=$_POST['ArticleLocations'];
+			$model->scenario = 'address';
+			
+			if($model->save()) {
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				$this->redirect(Yii::app()->controller->createUrl('address', array('id'=>$model->location_id,'plugin'=>'location')));
+			}
+		}
+		
+		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('admin_address',array(
+			'model'=>$model,
+		));
 	}
 
 	/**

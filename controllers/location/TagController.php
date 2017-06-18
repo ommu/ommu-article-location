@@ -152,10 +152,10 @@ class TagController extends Controller
 				$model->body = $_POST['tag'];
 
 				if($model->save()) {
-					if(isset($_GET['type']) && $_GET['type'] == 'article')
-						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'type'=>'article'));
+					if(isset($_GET['type']) && $_GET['type'] == 'location')
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'type'=>'location','plugin'=>'location'));
 					else 
-						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id));
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'plugin'=>'location'));
 					echo CJSON::encode(array(
 						'data' => '<div>'.$model->tag->body.'<a href="'.$url.'" title="'.Yii::t('phrase', 'Delete').'">'.Yii::t('phrase', 'Delete').'</a></div>',
 					));
@@ -179,14 +179,14 @@ class TagController extends Controller
 			// we only allow deletion via POST request
 			if(isset($id)) {
 				$model->delete();
-				if(isset($_GET['type']) && $_GET['type'] == 'article') {
+				if(isset($_GET['type']) && $_GET['type'] == 'location') {
 					echo CJSON::encode(array(
 						'type' => 4,
 					));
 				} else {
 					echo CJSON::encode(array(
 						'type' => 5,
-						'get' => Yii::app()->controller->createUrl('manage'),
+						'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'location')),
 						'id' => 'partial-article-location-tag',
 						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocationTag success deleted.').'</strong></div>',
 					));
@@ -194,10 +194,10 @@ class TagController extends Controller
 			}
 
 		} else {			
-			if(isset($_GET['type']) && $_GET['type'] == 'article')
-				$url = Yii::app()->controller->createUrl('location/admin/edit', array('id'=>$model->location_id));
+			if(isset($_GET['type']) && $_GET['type'] == 'location')
+				$url = Yii::app()->controller->createUrl('location/admin/edit', array('id'=>$model->location_id,'plugin'=>'location'));
 			else
-				$url = Yii::app()->controller->createUrl('manage');
+				$url = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 			$this->dialogDetail = true;
 			$this->dialogGroundUrl = $url;
 			$this->dialogWidth = 350;
