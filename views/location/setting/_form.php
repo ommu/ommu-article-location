@@ -97,15 +97,15 @@ EOP;
 			<div class="desc">
 				<?php 
 				$customField = array(
-					'creation_search' => $article->getAttributeLabel('creation_search'),
-					'creation_date' => $article->getAttributeLabel('creation_date'),
-					'tag_i' => $article->getAttributeLabel('tag_i'),
-					'user_i' => $article->getAttributeLabel('user_i'),
-					'address_search' => $article->getAttributeLabel('address_search'),
-					'email_search' => $article->getAttributeLabel('email_search'),
-					'phone_search' => $article->getAttributeLabel('phone_search'),
-					'photo_search' => $article->getAttributeLabel('photo_search'),
-					'photo_header_search' => $article->getAttributeLabel('photo_header_search'),
+					'creation_search' => $location->getAttributeLabel('creation_search'),
+					'creation_date' => $location->getAttributeLabel('creation_date'),
+					'tag_i' => $location->getAttributeLabel('tag_i'),
+					'user_i' => $location->getAttributeLabel('user_i'),
+					'address_search' => $location->getAttributeLabel('address_search'),
+					'email_search' => $location->getAttributeLabel('email_search'),
+					'phone_search' => $location->getAttributeLabel('phone_search'),
+					'photo_search' => $location->getAttributeLabel('photo_search'),
+					'photo_header_search' => $location->getAttributeLabel('photo_header_search'),
 				);
 				if(!$model->getErrors())
 					$model->gridview_column = unserialize($model->gridview_column);
