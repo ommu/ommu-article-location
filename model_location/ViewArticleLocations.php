@@ -29,6 +29,8 @@
  * @property integer $address
  * @property integer $phone
  * @property integer $email
+ * @property integer $photo
+ * @property integer $photo_header
  */
 class ViewArticleLocations extends CActiveRecord
 {
@@ -70,10 +72,10 @@ class ViewArticleLocations extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('location_id', 'numerical', 'integerOnly'=>true),
-			array('tags, users, address, phone, email', 'length', 'max'=>21),
+			array('tags, users', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('location_id, tags, users, address, phone, email', 'safe', 'on'=>'search'),
+			array('location_id, tags, users, address, phone, email, photo, photo_header', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +102,8 @@ class ViewArticleLocations extends CActiveRecord
 			'address' => Yii::t('attribute', 'Address'),
 			'phone' => Yii::t('attribute', 'Phone'),
 			'email' => Yii::t('attribute', 'Email'),
+			'photo' => Yii::t('attribute', 'Photo'),
+			'photo_header' => Yii::t('attribute', 'Photo Header'),
 		);
 		/*
 			'Location' => 'Location',
@@ -133,6 +137,8 @@ class ViewArticleLocations extends CActiveRecord
 		$criteria->compare('t.address',$this->address);
 		$criteria->compare('t.phone',$this->phone);
 		$criteria->compare('t.email',$this->email);
+		$criteria->compare('t.photo',$this->photo);
+		$criteria->compare('t.photo_header',$this->photo_header);
 
 		if(!isset($_GET['ViewArticleLocations_sort']))
 			$criteria->order = 't.location_id DESC';
@@ -169,6 +175,8 @@ class ViewArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = 'address';
 			$this->defaultColumns[] = 'phone';
 			$this->defaultColumns[] = 'email';
+			$this->defaultColumns[] = 'photo';
+			$this->defaultColumns[] = 'photo_header';
 		}
 
 		return $this->defaultColumns;
@@ -189,6 +197,8 @@ class ViewArticleLocations extends CActiveRecord
 			$this->defaultColumns[] = 'address';
 			$this->defaultColumns[] = 'phone';
 			$this->defaultColumns[] = 'email';
+			$this->defaultColumns[] = 'photo';
+			$this->defaultColumns[] = 'photo_header';
 		}
 		parent::afterConstruct();
 	}

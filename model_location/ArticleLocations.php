@@ -63,6 +63,8 @@ class ArticleLocations extends CActiveRecord
 	public $address_search;
 	public $email_search;
 	public $phone_search;
+	public $photo_search;
+	public $photo_header_search;
 	public $creation_search;
 	public $modified_search;
 
@@ -108,7 +110,7 @@ class ArticleLocations extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('location_id, publish, province_id, province_code, province_desc, province_photo, province_header_photo, office_name, office_location, office_place, office_country, office_city, office_district, office_village, office_zipcode, office_phone, office_fax, office_email, creation_date, creation_id, modified_date, modified_id,
-				address_search, email_search, phone_search, province_i, creation_search, modified_search', 'safe', 'on'=>'search'),
+				address_search, email_search, phone_search, photo_search, photo_header_search, province_i, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -167,6 +169,8 @@ class ArticleLocations extends CActiveRecord
 			'address_search' => Yii::t('attribute', 'Address'),
 			'phone_search' => Yii::t('attribute', 'Phone'),
 			'email_search' => Yii::t('attribute', 'Email'),
+			'photo_search' => Yii::t('attribute', 'Photo'),
+			'photo_header_search' => Yii::t('attribute', 'Photo Header'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -251,6 +255,8 @@ class ArticleLocations extends CActiveRecord
 		$criteria->compare('view.address',$this->address_search);
 		$criteria->compare('view.phone',$this->phone_search);
 		$criteria->compare('view.email',$this->email_search);
+		$criteria->compare('view.photo',$this->photo_search);
+		$criteria->compare('view.photo_header',$this->photo_header_search);
 		$criteria->compare('view.tags',$this->tag_i);
 		$criteria->compare('view.users',$this->user_i);
 		$criteria->compare('province.province_name',strtolower($this->province_i),true);
@@ -432,6 +438,34 @@ class ArticleLocations extends CActiveRecord
 				$this->defaultColumns[] = array(
 					'name' => 'email_search',
 					'value' => '$data->view->email == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			if(in_array('photo_search', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'photo_search',
+					'value' => '$data->view->photo == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			if(in_array('photo_header_search', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'photo_header_search',
+					'value' => '$data->view->photo_header == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),

@@ -104,6 +104,8 @@ EOP;
 					'address_search' => $article->getAttributeLabel('address_search'),
 					'email_search' => $article->getAttributeLabel('email_search'),
 					'phone_search' => $article->getAttributeLabel('phone_search'),
+					'photo_search' => $article->getAttributeLabel('photo_search'),
+					'photo_header_search' => $article->getAttributeLabel('photo_header_search'),
 				);
 				if(!$model->getErrors())
 					$model->gridview_column = unserialize($model->gridview_column);
