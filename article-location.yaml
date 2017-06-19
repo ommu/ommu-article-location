@@ -33,6 +33,14 @@ plugin_menu		:
 			- urlTitle: Tags
 				urlRules: {siteType: "0,1", userLevel: 1}
 				urlPath: {url: location/tag/manage, attr: -, icon: -}
+                
+	- urlTitle: Settings
+		urlRules: {siteType: "0,1", userLevel: 1}
+		urlPath: {url: location/setting/edit, attr: -, icon: -}
+                
+	- urlTitle: Location Manual
+		urlRules: {siteType: "0,1", userLevel: 2}
+		urlPath: {url: location/setting/manual, attr: -, icon: -}
 
 content_menu	:
 # controller location/admin
@@ -61,3 +69,11 @@ content_menu	:
 	- urlTitle: Back to Locations
 		urlRules: {article, location/user, manage, siteType: "0,1", userLevel: 1}
 		urlPath: {url: location/admin/manage, attr: -, icon: -}
+		
+# controller location/setting
+	- urlTitle: Back to Locations
+		urlRules: {article, location/setting, edit, siteType: "0,1", userLevel: 1}
+		urlPath: {url: location/admin/manage, attr: -, icon: -}
+	- urlTitle: Location Manual
+		urlRules: {article, location/setting, edit, siteType: "0,1", userLevel: 1}
+		urlPath: {url: manual, attr: -, icon: -}

@@ -31,13 +31,18 @@
 		</li>
 
 		<li>
+			<?php echo $model->getAttributeLabel('tag_id'); ?><br/>
+			<?php echo $form->textField($model,'tag_id'); ?>
+		</li>
+
+		<li>
 			<?php echo $model->getAttributeLabel('creation_date'); ?><br/>
 			<?php echo $form->textField($model,'creation_date'); ?>
 		</li>
 
 		<li>
 			<?php echo $model->getAttributeLabel('creation_id'); ?><br/>
-			<?php echo $form->textField($model,'creation_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'creation_id'); ?>
 		</li>
 
 		<li class="submit">

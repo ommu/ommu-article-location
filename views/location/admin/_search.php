@@ -36,13 +36,88 @@
 		</li>
 
 		<li>
+			<?php echo $model->getAttributeLabel('province_code'); ?><br/>
+			<?php echo $form->textField($model,'province_code'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('province_desc'); ?><br/>
+			<?php echo $form->textField($model,'province_desc'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('province_photo'); ?><br/>
+			<?php echo $form->textField($model,'province_photo'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('province_header_photo'); ?><br/>
+			<?php echo $form->textField($model,'province_header_photo'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_name'); ?><br/>
+			<?php echo $form->textField($model,'office_name'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_location'); ?><br/>
+			<?php echo $form->textField($model,'office_location'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_place'); ?><br/>
+			<?php echo $form->textField($model,'office_place'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_country'); ?><br/>
+			<?php echo $form->textField($model,'office_country'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_city'); ?><br/>
+			<?php echo $form->textField($model,'office_city'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_district'); ?><br/>
+			<?php echo $form->textField($model,'office_district'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_village'); ?><br/>
+			<?php echo $form->textField($model,'office_village'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_zipcode'); ?><br/>
+			<?php echo $form->textField($model,'office_zipcode'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_phone'); ?><br/>
+			<?php echo $form->textField($model,'office_phone'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_fax'); ?><br/>
+			<?php echo $form->textField($model,'office_fax'); ?>
+		</li>
+
+		<li>
+			<?php echo $model->getAttributeLabel('office_email'); ?><br/>
+			<?php echo $form->textField($model,'office_email'); ?>
+		</li>
+
+		<li>
 			<?php echo $model->getAttributeLabel('creation_date'); ?><br/>
 			<?php echo $form->textField($model,'creation_date'); ?>
 		</li>
 
 		<li>
 			<?php echo $model->getAttributeLabel('creation_id'); ?><br/>
-			<?php echo $form->textField($model,'creation_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'creation_id'); ?>
 		</li>
 
 		<li>
@@ -52,7 +127,7 @@
 
 		<li>
 			<?php echo $model->getAttributeLabel('modified_id'); ?><br/>
-			<?php echo $form->textField($model,'modified_id',array('size'=>11,'maxlength'=>11)); ?>
+			<?php echo $form->textField($model,'modified_id'); ?>
 		</li>
 
 		<li class="submit">

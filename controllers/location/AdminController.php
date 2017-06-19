@@ -131,7 +131,7 @@ class AdminController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Article Locations Manage');
+		$this->pageTitle = Yii::t('phrase', 'Locations');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -156,7 +156,7 @@ class AdminController extends Controller
 			$model->scenario = 'setting';
 			
 			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success created.'));
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'Article location success created.'));
 				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id,'plugin'=>'location')));
 			}
 		}
@@ -165,7 +165,7 @@ class AdminController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = Yii::t('phrase', 'Create Article Locations');
+		$this->pageTitle = Yii::t('phrase', 'Create Location');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
@@ -192,12 +192,12 @@ class AdminController extends Controller
 			$model->scenario = 'setting';
 			
 			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'Article location success updated'));
 				$this->redirect(Yii::app()->controller->createUrl('edit', array('id'=>$model->location_id,'plugin'=>'location')));
 			}
 		}
 		
-		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageTitle = Yii::t('phrase', 'Update Location: $province_name', array('$province_name'=>$model->province->province_name));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -219,7 +219,7 @@ class AdminController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 		$this->dialogWidth = 550;
 
-		$this->pageTitle = Yii::t('phrase', 'View Article Locations');
+		$this->pageTitle = Yii::t('phrase', 'View Location: $province_name', array('$province_name'=>$model->province->province_name));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_view',array(
@@ -280,7 +280,7 @@ class AdminController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'location')),
 						'id' => 'partial-article-locations',
-						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success deleted.').'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article location success deleted.').'</strong></div>',
 					));
 				}
 			}
@@ -290,7 +290,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'ArticleLocations Delete.');
+			$this->pageTitle = Yii::t('phrase', 'Delete location: $province_name', array('$province_name'=>$model->province->province_name));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -313,6 +313,7 @@ class AdminController extends Controller
 			$title = Yii::t('phrase', 'Publish');
 			$replace = 1;
 		}
+		$pageTitle = Yii::t('phrase', '{title} location: $province_name', array('{title}'=>$title, '$province_name'=>$model->province->province_name));
 
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
@@ -325,7 +326,7 @@ class AdminController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'location')),
 						'id' => 'partial-article-locations',
-						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'ArticleLocations success updated.').'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article location success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -335,7 +336,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = $title;
+			$this->pageTitle = $pageTitle;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_publish',array(
@@ -374,12 +375,12 @@ class AdminController extends Controller
 			$model->scenario = 'setting';
 			
 			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'Article location success updated'));
 				$this->redirect(Yii::app()->controller->createUrl('setting', array('plugin'=>'location')));
 			}
 		}
 		
-		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageTitle = Yii::t('phrase', 'Location Setting: $province_name', array('$province_name'=>$model->province->province_name));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -422,12 +423,12 @@ class AdminController extends Controller
 			$model->scenario = 'address';
 			
 			if($model->save()) {
-				Yii::app()->user->setFlash('success', Yii::t('phrase', 'ArticleLocations success updated'));
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'Article location success updated'));
 				$this->redirect(Yii::app()->controller->createUrl('address', array('id'=>$model->location_id,'plugin'=>'location')));
 			}
 		}
 		
-		$this->pageTitle = Yii::t('phrase', 'Update Article Locations');
+		$this->pageTitle = Yii::t('phrase', 'Location Address: $province_name', array('$province_name'=>$model->province->province_name));
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_address',array(

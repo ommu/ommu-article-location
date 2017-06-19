@@ -316,7 +316,15 @@ class ArticleLocations extends CActiveRecord
 	/**
 	 * Set default columns to display
 	 */
-	protected function afterConstruct() {
+	protected function afterConstruct() 
+	{
+		$setting = ArticleLocationSetting::model()->findByPk(1, array(
+			'select' => 'gridview_column',
+		));
+		$gridview_column = unserialize($setting->gridview_column);		
+		if(empty($gridview_column))
+			$gridview_column = array();
+
 		if(count($this->defaultColumns) == 0) {
 			/*
 			$this->defaultColumns[] = array(
@@ -338,88 +346,102 @@ class ArticleLocations extends CActiveRecord
 				'name' => 'province_code',
 				'value' => '$data->province_code',
 			);
-			$this->defaultColumns[] = array(
-				'name' => 'creation_search',
-				'value' => '$data->creation->displayname',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'creation_date',
-				'value' => 'Utility::dateFormat($data->creation_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'creation_date',
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
-					//'mode'=>'datetime',
+			if(in_array('creation_search', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'creation_search',
+					'value' => '$data->creation->displayname',
+				);
+			}
+			if(in_array('creation_date', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'creation_date',
+					'value' => 'Utility::dateFormat($data->creation_date)',
 					'htmlOptions' => array(
-						'id' => 'creation_date_filter',
+						'class' => 'center',
 					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
+					'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
+						'model'=>$this,
+						'attribute'=>'creation_date',
+						'language' => 'ja',
+						'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+						//'mode'=>'datetime',
+						'htmlOptions' => array(
+							'id' => 'creation_date_filter',
+						),
+						'options'=>array(
+							'showOn' => 'focus',
+							'dateFormat' => 'dd-mm-yy',
+							'showOtherMonths' => true,
+							'selectOtherMonths' => true,
+							'changeMonth' => true,
+							'changeYear' => true,
+							'showButtonPanel' => true,
+						),
+					), true),
+				);
+			}
+			if(in_array('tag_i', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'tag_i',
+					'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
+					'htmlOptions' => array(
+						'class' => 'center',
 					),
-				), true),
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'tag_i',
-				'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'type' => 'raw',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'user_i',
-				'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'type' => 'raw',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'address_search',
-				'value' => '$data->view->address == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter'=>array(
-					1=>Yii::t('phrase', 'Yes'),
-					0=>Yii::t('phrase', 'No'),
-				),
-				'type' => 'raw',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'phone_search',
-				'value' => '$data->view->phone == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter'=>array(
-					1=>Yii::t('phrase', 'Yes'),
-					0=>Yii::t('phrase', 'No'),
-				),
-				'type' => 'raw',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'email_search',
-				'value' => '$data->view->email == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter'=>array(
-					1=>Yii::t('phrase', 'Yes'),
-					0=>Yii::t('phrase', 'No'),
-				),
-				'type' => 'raw',
-			);
+					'type' => 'raw',
+				);
+			}
+			if(in_array('user_i', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'user_i',
+					'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'type' => 'raw',
+				);
+			}
+			if(in_array('address_search', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'address_search',
+					'value' => '$data->view->address == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			if(in_array('phone_search', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'phone_search',
+					'value' => '$data->view->phone == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			if(in_array('email_search', $gridview_column)) {
+				$this->defaultColumns[] = array(
+					'name' => 'email_search',
+					'value' => '$data->view->email == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
@@ -456,10 +478,26 @@ class ArticleLocations extends CActiveRecord
 	}
 
 	/**
+	 * Resize Photo
+	 */
+	public static function resizePhoto($photo, $size) {
+		Yii::import('ext.phpthumb.PhpThumbFactory');
+		$resizePhoto = PhpThumbFactory::create($photo, array('jpegQuality' => 90, 'correctPermissions' => true));
+		if($size['height'] == 0)
+			$resizePhoto->resize($size['width']);
+		else			
+			$resizePhoto->adaptiveResize($size['width'], $size['height']);
+		
+		$resizePhoto->save($photo);
+		
+		return true;
+	}
+
+	/**
 	 * before validate attributes
 	 */
 	protected function beforeValidate() {
-		$setting = ArticleSetting::model()->findByPk(1, array(
+		$setting = ArticleLocationSetting::model()->findByPk(1, array(
 			'select' => 'media_file_type',
 		));
 		$media_file_type = unserialize($setting->media_file_type);
@@ -514,8 +552,14 @@ class ArticleLocations extends CActiveRecord
 	/**
 	 * before save attributes
 	 */
-	protected function beforeSave() {
-		$action = strtolower(Yii::app()->controller->action->id);
+	protected function beforeSave() 
+	{
+		$action = strtolower(Yii::app()->controller->action->id);		
+		$setting = ArticleLocationSetting::model()->findByPk(1, array(
+			'select' => 'media_resize, media_resize_size',
+		));
+		$media_resize_size = unserialize($setting->media_resize_size);
+		
 		if(parent::beforeSave()) {
 			if(!$this->isNewRecord && in_array($action, array('edit','setting'))) {
 				//Update article location photo
@@ -539,6 +583,9 @@ class ArticleLocations extends CActiveRecord
 							if($this->old_photo_i != '' && file_exists($location_path.'/'.$this->old_photo_i))
 								rename($location_path.'/'.$this->old_photo_i, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_i);
 							$this->province_photo = $fileName;
+							
+							if($setting->media_resize == 1)
+								self::resizePhoto($location_path.'/'.$fileName, $media_resize_size['photo']);
 						}
 					}					
 				} else {			
@@ -554,6 +601,9 @@ class ArticleLocations extends CActiveRecord
 							if($this->old_header_photo_i != '' && file_exists($location_path.'/'.$this->old_header_photo_i))
 								rename($location_path.'/'.$this->old_header_photo_i, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_i);
 							$this->province_header_photo = $fileName;
+							
+							if($setting->media_resize == 1)
+								self::resizePhoto($location_path.'/'.$fileName, $media_resize_size['header']);
 						}
 					}					
 				} else {
@@ -568,8 +618,14 @@ class ArticleLocations extends CActiveRecord
 	/**
 	 * After save attributes
 	 */
-	protected function afterSave() {
+	protected function afterSave() 
+	{
 		parent::afterSave();
+		
+		$setting = ArticleLocationSetting::model()->findByPk(1, array(
+			'select' => 'media_resize, media_resize_size',
+		));
+		$media_resize_size = unserialize($setting->media_resize_size);
 		
 		if($this->isNewRecord) {
 			//Update article location photo
@@ -589,8 +645,11 @@ class ArticleLocations extends CActiveRecord
 			if($this->province_photo != null) {
 				if($this->province_photo instanceOf CUploadedFile) {
 					$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
-					if($this->province_photo->saveAs($location_path.'/'.$fileName))
+					if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
+						if($setting->media_resize == 1)
+							self::resizePhoto($location_path.'/'.$fileName, $media_resize_size['photo']);
 						self::model()->updateByPk($this->location_id, array('province_photo'=>$fileName));
+					}
 				}
 			}
 			
@@ -598,8 +657,11 @@ class ArticleLocations extends CActiveRecord
 			if($this->province_header_photo != null) {
 				if($this->province_header_photo instanceOf CUploadedFile) {
 					$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
-					if($this->province_header_photo->saveAs($location_path.'/'.$fileName))
-						self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName));
+					if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
+						if($setting->media_resize == 1)
+							self::resizePhoto($location_path.'/'.$fileName, $media_resize_size['header']);		
+						if(self::model()->updateByPk($this->location_id, array('province_header_photo'=>$fileName)));
+					}
 				}
 			}
 		}
