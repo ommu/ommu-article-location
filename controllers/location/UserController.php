@@ -112,8 +112,14 @@ class UserController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($location=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Location Users');
+		if($location != null) {
+			$data = ArticleLocations::model()->findByPk($location);
+			$pageTitle = Yii::t('phrase', 'Location User: $province_name', array ('$province_name'=>$data->province->province_name));
+		}
+		
 		$model=new ArticleLocationUser('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ArticleLocationUser'])) {
@@ -130,7 +136,7 @@ class UserController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Article Location Users Manage');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -207,7 +213,7 @@ class UserController extends Controller
 			$this->dialogGroundUrl = $url;
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'ArticleLocationUser Delete.');
+			$this->pageTitle = Yii::t('phrase', 'Delete $province_name User: $user_displayname', array('$province_name'=>$model->location->province->province_name,'$user_displayname'=>$model->user->displayname));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');

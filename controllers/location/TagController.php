@@ -112,8 +112,14 @@ class TagController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionManage() 
+	public function actionManage($location=null) 
 	{
+		$pageTitle = Yii::t('phrase', 'Location Tags');
+		if($location != null) {
+			$data = ArticleLocations::model()->findByPk($location);
+			$pageTitle = Yii::t('phrase', 'Location Tag: $province_name', array ('$province_name'=>$data->province->province_name));
+		}
+		
 		$model=new ArticleLocationTag('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ArticleLocationTag'])) {
@@ -130,7 +136,7 @@ class TagController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Yii::t('phrase', 'Article Location Tags Manage');
+		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -207,7 +213,7 @@ class TagController extends Controller
 			$this->dialogGroundUrl = $url;
 			$this->dialogWidth = 350;
 			
-			$this->pageTitle = Yii::t('phrase', 'ArticleLocationTag Delete.');
+			$this->pageTitle = Yii::t('phrase', 'Delete $province_name Tag: $tag_body', array('$province_name'=>$model->location->province->province_name,'$tag_body'=>$model->tag->body));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
