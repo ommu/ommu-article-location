@@ -1,6 +1,6 @@
 <?php
 /**
- * ViewArticles
+ * ViewArticlesLocations
  * version: 0.0.1
  * article version: 1.3.0
  *
@@ -38,7 +38,7 @@
  * @property string $tags
  * @property integer $location_id
  */
-class ViewArticles extends CActiveRecord
+class ViewArticlesLocations extends CActiveRecord
 {
 	public $defaultColumns = array();
 
@@ -46,7 +46,7 @@ class ViewArticles extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ViewArticles the static model class
+	 * @return ViewArticlesLocations the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -58,7 +58,7 @@ class ViewArticles extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '_view_articles';
+		return '_view_articles_locations';
 	}
 
 	/**
@@ -152,7 +152,7 @@ class ViewArticles extends CActiveRecord
 		$criteria->compare('t.tags',$this->tags);
 		$criteria->compare('t.location_id',$this->location_id);
 
-		if(!isset($_GET['ViewArticles_sort']))
+		if(!isset($_GET['ViewArticlesLocations_sort']))
 			$criteria->order = 't.article_id DESC';
 
 		return new CActiveDataProvider($this, array(
