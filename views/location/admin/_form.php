@@ -107,7 +107,7 @@
 			}
 			echo $form->fileField($model,'province_photo'); ?>
 			<?php echo $form->error($model,'province_photo'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+			<span class="small-px">extensions are allowed: <?php echo Utility::formatFileType($media_file_type, false);?></span>
 		</div>
 	</div>
 
@@ -126,7 +126,7 @@
 			}
 			echo $form->fileField($model,'province_header_photo'); ?>
 			<?php echo $form->error($model,'province_header_photo'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+			<span class="small-px">extensions are allowed: <?php echo Utility::formatFileType($media_file_type, false);?></span>
 		</div>
 	</div>
 	

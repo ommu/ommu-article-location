@@ -145,6 +145,13 @@ class AdminController extends Controller
 	public function actionAdd() 
 	{
 		$model=new ArticleLocations;
+		
+		$setting = ArticleLocationSetting::model()->findByPk(1,array(
+			'select' => 'media_file_type',
+		));
+		$media_file_type = unserialize($setting->media_file_type);
+		if(empty($media_file_type))
+			$media_file_type = array();
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -168,6 +175,7 @@ class AdminController extends Controller
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
 			'model'=>$model,
+			'media_file_type'=>$media_file_type,
 		));
 	}
 
@@ -181,6 +189,13 @@ class AdminController extends Controller
 		$model=$this->loadModel($id);
 		$tags=$model->tags;
 		$users=$model->users;
+		
+		$setting = ArticleLocationSetting::model()->findByPk(1,array(
+			'select' => 'media_file_type',
+		));
+		$media_file_type = unserialize($setting->media_file_type);
+		if(empty($media_file_type))
+			$media_file_type = array();
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -202,6 +217,7 @@ class AdminController extends Controller
 			'model'=>$model,
 			'tags'=>$tags,
 			'users'=>$users,
+			'media_file_type'=>$media_file_type,
 		));
 	}
 	

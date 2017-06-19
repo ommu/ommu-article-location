@@ -26,5 +26,6 @@
 		'model'=>$model,
 		'tags'=>$tags,
 		'users'=>$users,
+		'media_file_type'=>$media_file_type,
 	)); ?>
 </div>
