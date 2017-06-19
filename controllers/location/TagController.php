@@ -163,8 +163,8 @@ class TagController extends Controller
 				$model->body = $_POST['tag'];
 
 				if($model->save()) {
-					if(isset($_GET['type']) && $_GET['type'] == 'location')
-						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'type'=>'location','plugin'=>'location'));
+					if(isset($_GET['hook']) && $_GET['hook'] == 'location')
+						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'hook'=>'location','plugin'=>'location'));
 					else 
 						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'plugin'=>'location'));
 					echo CJSON::encode(array(
@@ -190,7 +190,7 @@ class TagController extends Controller
 			// we only allow deletion via POST request
 			if(isset($id)) {
 				$model->delete();
-				if(isset($_GET['type']) && $_GET['type'] == 'location') {
+				if(isset($_GET['hook']) && $_GET['hook'] == 'location') {
 					echo CJSON::encode(array(
 						'type' => 4,
 					));
@@ -205,7 +205,7 @@ class TagController extends Controller
 			}
 
 		} else {			
-			if(isset($_GET['type']) && $_GET['type'] == 'location')
+			if(isset($_GET['hook']) && $_GET['hook'] == 'location')
 				$url = Yii::app()->controller->createUrl('location/admin/edit', array('id'=>$model->location_id,'plugin'=>'location'));
 			else
 				$url = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
