@@ -105,12 +105,6 @@ class ViewArticleLocations extends CActiveRecord
 			'photo' => Yii::t('attribute', 'Photo'),
 			'photo_header' => Yii::t('attribute', 'Photo Header'),
 		);
-		/*
-			'Location' => 'Location',
-			'Tags' => 'Tags',
-			'Users' => 'Users',
-		
-		*/
 	}
 
 	/**

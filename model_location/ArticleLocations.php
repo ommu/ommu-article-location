@@ -193,6 +193,25 @@ class ArticleLocations extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'view' => array(
+				'alias'=>'view',
+			),
+			'province' => array(
+				'alias'=>'province',
+				'select'=>'province_name'
+			),
+			'creation' => array(
+				'alias'=>'creation',
+				'select'=>'displayname'
+			),
+			'modified' => array(
+				'alias'=>'modified',
+				'select'=>'displayname'
+			),
+		);
 
 		$criteria->compare('t.location_id',$this->location_id);
 		if(isset($_GET['type']) && $_GET['type'] == 'publish')
@@ -234,24 +253,6 @@ class ArticleLocations extends CActiveRecord
 		else
 			$criteria->compare('t.modified_id',$this->modified_id);
 		
-		// Custom Search
-		$criteria->with = array(
-			'view' => array(
-				'alias'=>'view',
-			),
-			'province' => array(
-				'alias'=>'province',
-				'select'=>'province_name'
-			),
-			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
-			),
-			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname'
-			),
-		);
 		$criteria->compare('view.address',$this->address_search);
 		$criteria->compare('view.phone',$this->phone_search);
 		$criteria->compare('view.email',$this->email_search);
@@ -389,7 +390,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('tag_i', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'tag_i',
-					'value' => 'CHtml::link($data->view->tags, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
+					'value' => 'CHtml::link($data->view->tags ? $data->view->tags : 0, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -399,7 +400,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('user_i', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'user_i',
-					'value' => 'CHtml::link($data->view->users, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
+					'value' => 'CHtml::link($data->view->users ? $data->view->users : 0, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),

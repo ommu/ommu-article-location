@@ -50,12 +50,10 @@ class AdminController extends Controller
 				$arrThemes = Utility::getCurrentTemplate('admin');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
-			} else {
-				$this->redirect(Yii::app()->createUrl('site/login'));
-			}
-		} else {
+			} else
+				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
+		} else
 			$this->redirect(Yii::app()->createUrl('site/login'));
-		}
 	}
 
 	/**
@@ -290,7 +288,7 @@ class AdminController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'location'));
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Yii::t('phrase', 'Delete location: $province_name', array('$province_name'=>$model->province->province_name));
+			$this->pageTitle = Yii::t('phrase', 'Delete Location: $province_name', array('$province_name'=>$model->province->province_name));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -313,7 +311,7 @@ class AdminController extends Controller
 			$title = Yii::t('phrase', 'Publish');
 			$replace = 1;
 		}
-		$pageTitle = Yii::t('phrase', '{title} location: $province_name', array('{title}'=>$title, '$province_name'=>$model->province->province_name));
+		$pageTitle = Yii::t('phrase', '{title} Location: $province_name', array('{title}'=>$title, '$province_name'=>$model->province->province_name));
 
 		if(Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request

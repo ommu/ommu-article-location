@@ -319,12 +319,13 @@ class ArticleTag extends CActiveRecord
 	protected function beforeSave() {
 		if(parent::beforeSave()) {
 			if($this->isNewRecord) {
+				$tag_input = Utility::getUrlTitle(strtolower(trim($this->tag_input)));
 				if($this->tag_id == 0) {
 					$tag = OmmuTags::model()->find(array(
 						'select' => 'tag_id, body',
 						'condition' => 'body = :body',
 						'params' => array(
-							':body' => Utility::getUrlTitle(strtolower(trim($this->tag_input))),
+							':body' => $tag_input,
 						),
 					));
 					if($tag != null)

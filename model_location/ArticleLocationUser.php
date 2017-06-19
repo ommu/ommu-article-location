@@ -108,13 +108,6 @@ class ArticleLocationUser extends CActiveRecord
 			'user_search' => Yii::t('attribute', 'User'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 		);
-		/*
-			'ID' => 'ID',
-			'Location' => 'Location',
-			'Creation Date' => 'Creation Date',
-			'Creation' => 'Creation',
-		
-		*/
 	}
 
 	/**
@@ -134,6 +127,22 @@ class ArticleLocationUser extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		
+		// Custom Search
+		$criteria->with = array(
+			'location.province' => array(
+				'alias'=>'location_province',
+				'select'=>'province_name'
+			),
+			'user' => array(
+				'alias'=>'user',
+				'select'=>'displayname'
+			),
+			'creation' => array(
+				'alias'=>'creation',
+				'select'=>'displayname'
+			),
+		);
 
 		$criteria->compare('t.id',$this->id);
 		if(isset($_GET['location']))
@@ -151,21 +160,6 @@ class ArticleLocationUser extends CActiveRecord
 		else
 			$criteria->compare('t.creation_id',$this->creation_id);
 		
-		// Custom Search
-		$criteria->with = array(
-			'location.province' => array(
-				'alias'=>'location_province',
-				'select'=>'province_name'
-			),
-			'user' => array(
-				'alias'=>'user',
-				'select'=>'displayname'
-			),
-			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
-			),
-		);
 		$criteria->compare('location_province.province_name',strtolower($this->location_search),true);
 		$criteria->compare('user.displayname',strtolower($this->user_search),true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);

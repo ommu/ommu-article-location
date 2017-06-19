@@ -118,12 +118,6 @@ class ViewArticles extends CActiveRecord
 			'tags' => Yii::t('attribute', 'Tags'),
 			'location_id' => Yii::t('attribute', 'Location'),
 		);
-		/*
-			'Article' => 'Article',
-			'Category Name' => 'Category Name',
-			'Location' => 'Location',
-		
-		*/
 	}
 
 	/**
