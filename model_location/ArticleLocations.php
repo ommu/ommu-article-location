@@ -47,8 +47,8 @@
  * @property string $modified_id
  *
  * The followings are the available model relations:
- * @property OmmuArticleLocationTag[] $ommuArticleLocationTags
- * @property OmmuArticleLocationUser[] $ommuArticleLocationUsers
+ * @property ArticleLocationTag[] $ArticleLocationTags
+ * @property ArticleLocationUser[] $ArticleLocationUsers
  */
 class ArticleLocations extends CActiveRecord
 {

@@ -30,7 +30,7 @@
  * @property string $creation_id
  *
  * The followings are the available model relations:
- * @property OmmuArticleLocations $location
+ * @property ArticleLocations $location
  */
 class ArticleLocationUser extends CActiveRecord
 {

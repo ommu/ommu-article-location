@@ -171,8 +171,7 @@ class UserController extends Controller
 			}
 			
 		} else
-			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
-		
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));		
 	}
 
 	/**
