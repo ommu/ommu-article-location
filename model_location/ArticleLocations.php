@@ -410,7 +410,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('address_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'address_search',
-					'value' => '$data->view->address == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'value' => '$data->view->address == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -424,7 +424,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('phone_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'phone_search',
-					'value' => '$data->view->phone == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'value' => '$data->view->phone == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -438,7 +438,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('email_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'email_search',
-					'value' => '$data->view->email == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'value' => '$data->view->email == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -452,7 +452,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('photo_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'photo_search',
-					'value' => '$data->view->photo == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'value' => '$data->view->photo == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -466,7 +466,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('photo_header_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'photo_header_search',
-					'value' => '$data->view->photo_header == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
+					'value' => '$data->view->photo_header == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/unpublish.png\') ',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
