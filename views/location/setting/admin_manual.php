@@ -8,7 +8,7 @@
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
  * @created date 19 Juny 2017, 04:10 WIB
- * @link https://github.com/ommu/plu-article-location
+ * @link https://github.com/ommu/ommu-article-location
  * @contact (+62)856-299-4114
  *
  */

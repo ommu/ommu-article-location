@@ -6,7 +6,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
- * @link https://github.com/ommu/plu-article-location
+ * @link https://github.com/ommu/ommu-article-location
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
