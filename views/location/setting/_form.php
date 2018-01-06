@@ -4,13 +4,12 @@
  * @var $this SettingController
  * @var $model ArticleLocationSetting
  * @var $form CActiveForm
- * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
  * @created date 19 Juny 2017, 04:10 WIB
  * @link https://github.com/ommu/ommu-article-location
- * @contact (+62)856-299-4114
  *
  */
 
