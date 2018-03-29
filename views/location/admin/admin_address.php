@@ -78,7 +78,7 @@
 				<?php echo $form->error($model,'office_city'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'The city (or locality) line of the postal address for this business');?></span>
 			</div>
-		</div>	
+		</div>
 		
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('province_id');?> <span class="required">*</span></label>

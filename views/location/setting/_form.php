@@ -129,13 +129,13 @@ EOP;
 					$model->media_resize_size = unserialize($model->media_resize_size);
 				}?>
 				
-				<div id="resize_size" class="mt-15 <?php echo $model->media_resize == 0 ? 'hide' : '';?>">			
-					<p><?php echo Yii::t('phrase', 'Photo Size');?></p>				
+				<div id="resize_size" class="mt-15 <?php echo $model->media_resize == 0 ? 'hide' : '';?>">
+					<p><?php echo Yii::t('phrase', 'Photo Size');?></p>
 					<?php echo Yii::t('phrase', 'Width').': ';?><?php echo $form->textField($model,'media_resize_size[photo][width]',array('maxlength'=>4,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
 					<?php echo Yii::t('phrase', 'Height').': ';?><?php echo $form->textField($model,'media_resize_size[photo][height]',array('maxlength'=>4,'class'=>'span-2')); ?>
 					<?php echo $form->error($model,'media_resize_size[photo]'); ?>
 					
-					<p><?php echo Yii::t('phrase', 'Photo Header Size');?></p>				
+					<p><?php echo Yii::t('phrase', 'Photo Header Size');?></p>
 					<?php echo Yii::t('phrase', 'Width').': ';?><?php echo $form->textField($model,'media_resize_size[header][width]',array('maxlength'=>4,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
 					<?php echo Yii::t('phrase', 'Height').': ';?><?php echo $form->textField($model,'media_resize_size[header][height]',array('maxlength'=>4,'class'=>'span-2')); ?>
 					<?php echo $form->error($model,'media_resize_size[header]'); ?>

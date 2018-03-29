@@ -36,7 +36,7 @@
 		echo Utility::flashError(Yii::app()->user->getFlash('error'));
 	if(Yii::app()->user->hasFlash('success'))
 		echo Utility::flashSuccess(Yii::app()->user->getFlash('success'));
-	?>	
+	?>
 </div>
 <?php //begin.Messages ?>
 <?php }?>
@@ -101,7 +101,7 @@
 				echo $form->hiddenField($model,'old_photo_i');
 				if($model->province_photo != '') {
 					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_photo_i;?>
-					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 300, 400, 3);?>" alt="">					
+					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 300, 400, 3);?>" alt="">
 			<?php }
 			}
 			echo $form->fileField($model,'province_photo'); ?>
@@ -120,7 +120,7 @@
 				echo $form->hiddenField($model,'old_header_photo_i');
 				if($model->province_header_photo != '') {
 					$file = Yii::app()->request->baseUrl.'/public/article/location/'.$model->old_header_photo_i;?>
-					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 700, 250, 1);?>" alt="">					
+					<img class="mb-15" src="<?php echo Utility::getTimThumb($file, 700, 250, 1);?>" alt="">
 			<?php }
 			}
 			echo $form->fileField($model,'province_header_photo'); ?>
