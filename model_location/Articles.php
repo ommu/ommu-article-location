@@ -539,13 +539,16 @@ class Articles extends CActiveRecord
 	{
 		if($column != null) {
 			$model = self::model()->findByPk($id,array(
-				'select' => $column
+				'select' => $column,
 			));
-			return $model->$column;
+ 			if(count(explode(',', $column)) == 1)
+ 				return $model->$column;
+ 			else
+ 				return $model;
 			
 		} else {
 			$model = self::model()->findByPk($id);
-			return $model;			
+			return $model;
 		}
 	}
 
