@@ -16,7 +16,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 19 Juny 2017, 04:10 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -156,7 +156,7 @@ class SettingController extends Controller
 				echo $encode;
 
 			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+				if(Yii::app()->getRequest()->getParam('enablesave') == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 0,
@@ -172,7 +172,7 @@ class SettingController extends Controller
 
 		$this->pageTitle = Yii::t('phrase', 'Location Settings');
 		$this->pageMeta = '';
-		$this->render('admin_edit',array(
+		$this->render('admin_edit', array(
 			'model'=>$model,
 			'location'=>$location,
 			'category' => $category,

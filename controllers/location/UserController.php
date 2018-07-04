@@ -17,7 +17,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (www.ommu.co)
  * @created date 18 October 2016, 02:29 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -136,7 +136,7 @@ class UserController extends Controller
 		$this->pageTitle = $pageTitle;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_manage',array(
+		$this->render('admin_manage', array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -160,9 +160,9 @@ class UserController extends Controller
 
 				if($model->save()) {
 					if(isset($_GET['hook']) && $_GET['hook'] == 'location')
-						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'hook'=>'location','plugin'=>'location'));
+						$url = Yii::app()->controller->createUrl('delete', array('id'=>$model->id,'hook'=>'location','plugin'=>'location'));
 					else 
-						$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'plugin'=>'location'));
+						$url = Yii::app()->controller->createUrl('delete', array('id'=>$model->id,'plugin'=>'location'));
 					echo CJSON::encode(array(
 						'data' => '<div>'.$model->user->displayname.'<a href="'.$url.'" title="'.Yii::t('phrase', 'Delete').'">'.Yii::t('phrase', 'Delete').'</a></div>',
 					));

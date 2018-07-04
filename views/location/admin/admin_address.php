@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (www.ommu.co)
  * @created date 18 October 2016, 02:29 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -51,7 +51,7 @@
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('office_location');?> <span class="required">*</span></label>
 			<div class="desc">
-				<?php echo $form->textField($model,'office_location',array('maxlength'=>32, 'class'=>'span-4')); ?>
+				<?php echo $form->textField($model,'office_location', array('maxlength'=>32, 'class'=>'span-4')); ?>
 				<?php echo $form->error($model,'office_location'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'A struct containing metadata defining the location of a place');?></span>
 			</div>
@@ -60,7 +60,7 @@
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('office_place');?> <span class="required">*</span></label>
 			<div class="desc">
-				<?php echo $form->textArea($model,'office_place',array('rows'=>6, 'cols'=>50, 'class'=>'span-8 smaller')); ?>
+				<?php echo $form->textArea($model,'office_place', array('rows'=>6, 'cols'=>50, 'class'=>'span-8 smaller')); ?>
 				<div class="pt-10"></div>
 				<?php echo $form->textField($model,'office_village', array('maxlength'=>32, 'class'=>'span-4', 'placeholder'=>$model->getAttributeLabel('office_village'))); ?>
 				<?php echo $form->textField($model,'office_district', array('maxlength'=>32, 'class'=>'span-4', 'placeholder'=>$model->getAttributeLabel('office_district'))); ?>
@@ -93,7 +93,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'office_zipcode'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'office_zipcode',array('maxlength'=>6, 'class'=>'span-3')); ?>
+				<?php echo $form->textField($model,'office_zipcode', array('maxlength'=>6, 'class'=>'span-3')); ?>
 				<?php echo $form->error($model,'office_zipcode'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'The postcode (or ZIP code) of the postal address for this business');?></span>
 			</div>
@@ -102,7 +102,7 @@
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('office_phone');?> <span class="required">*</span></label>
 			<div class="desc">
-				<?php echo $form->textField($model,'office_phone',array('maxlength'=>32, 'class'=>'span-5')); ?>
+				<?php echo $form->textField($model,'office_phone', array('maxlength'=>32, 'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'office_phone'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'A telephone number to contact this business');?></span>
 			</div>
@@ -111,7 +111,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'office_fax'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'office_fax',array('maxlength'=>32, 'class'=>'span-5')); ?>
+				<?php echo $form->textField($model,'office_fax', array('maxlength'=>32, 'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'office_fax'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'A fax number to contact this business');?></span>
 			</div>
@@ -120,7 +120,7 @@
 		<div class="clearfix">
 			<label><?php echo $model->getAttributeLabel('office_email');?> <span class="required">*</span></label>
 			<div class="desc">
-				<?php echo $form->textField($model,'office_email',array('maxlength'=>32, 'class'=>'span-5')); ?>
+				<?php echo $form->textField($model,'office_email', array('maxlength'=>32, 'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'office_email'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'An email address to contact this business');?></span>
 			</div>

@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2012 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-article-location
  *
  * This is the template for generating the model class of a specified table.
@@ -69,7 +69,7 @@ class Articles extends CActiveRecord
 	{
 		return array(
 			'sluggable' => array(
-				'class'=>'ext.yii-behavior-sluggable.SluggableBehavior',
+				'class'=>'ext.yii-sluggable.SluggableBehavior',
 				'columns' => array('title'),
 				'unique' => true,
 				'update' => true,
@@ -211,22 +211,22 @@ class Articles extends CActiveRecord
 			),
 		);
 
-		$criteria->compare('t.article_id',$this->article_id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish')
-			$criteria->compare('t.publish',1);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
-			$criteria->compare('t.publish',0);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'trash')
-			$criteria->compare('t.publish',2);
+		$criteria->compare('t.article_id', $this->article_id);
+		if(Yii::app()->getRequest()->getParam('type') == 'publish')
+			$criteria->compare('t.publish', 1);
+		elseif(Yii::app()->getRequest()->getParam('type') == 'unpublish')
+			$criteria->compare('t.publish', 0);
+		elseif(Yii::app()->getRequest()->getParam('type') == 'trash')
+			$criteria->compare('t.publish', 2);
 		else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
+			$criteria->addInCondition('t.publish', array(0,1));
+			$criteria->compare('t.publish', $this->publish);
 		}
 
-		if(isset($_GET['category'])) {
-			$category = ArticleCategory::model()->findByPk($_GET['category']);
+		if(Yii::app()->getRequest()->getParam('category')) {
+			$category = ArticleCategory::model()->findByPk(Yii::app()->getRequest()->getParam('category'));
 			if($category->parent == 0) {
-				$parent = $_GET['category'];
+				$parent = Yii::app()->getRequest()->getParam('category');
 				$categoryFind = ArticleCategory::model()->findAll(array(
 					'condition' => 'parent = :parent',
 					'params' => array(
@@ -234,30 +234,30 @@ class Articles extends CActiveRecord
 					),
 				));
 				$items = array();
-				$items[] = $_GET['category'];
+				$items[] = Yii::app()->getRequest()->getParam('category');
 				if($categoryFind != null) {
 					foreach($categoryFind as $key => $val) {
 						$items[] = $val->cat_id;
 					}
 				}
 				$criteria->addInCondition('t.cat_id',$items);
-				$criteria->compare('t.cat_id',$this->cat_id);
+				$criteria->compare('t.cat_id', $this->cat_id);
 				
 			} else
-				$criteria->compare('t.cat_id',$_GET['category']);
+				$criteria->compare('t.cat_id', Yii::app()->getRequest()->getParam('category'));
 		} else
-			$criteria->compare('t.cat_id',$this->cat_id);
-		$criteria->compare('t.article_type',strtolower($this->article_type),true);
-		$criteria->compare('t.title',strtolower($this->title),true);
-		$criteria->compare('t.body',strtolower($this->body),true);
-		$criteria->compare('t.quote',strtolower($this->quote),true);
-		$criteria->compare('t.media_file',strtolower($this->media_file),true);
-		if($this->published_date != null && !in_array($this->published_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.published_date)',date('Y-m-d', strtotime($this->published_date)));
-		$criteria->compare('t.headline',$this->headline);
-		$criteria->compare('t.comment_code',$this->comment_code);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
+			$criteria->compare('t.cat_id', $this->cat_id);
+		$criteria->compare('t.article_type', strtolower($this->article_type), true);
+		$criteria->compare('t.title', strtolower($this->title), true);
+		$criteria->compare('t.body', strtolower($this->body), true);
+		$criteria->compare('t.quote', strtolower($this->quote), true);
+		$criteria->compare('t.media_file', strtolower($this->media_file), true);
+		if($this->published_date != null && !in_array($this->published_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.published_date)', date('Y-m-d', strtotime($this->published_date)));
+		$criteria->compare('t.headline', $this->headline);
+		$criteria->compare('t.comment_code', $this->comment_code);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
 		
 		if(Yii::app()->user->level == 2) {
 			$location = ArticleLocationUser::model()->find(array(
@@ -279,25 +279,25 @@ class Articles extends CActiveRecord
 				$criteria->compare('t.creation_id',Yii::app()->user->id);
 			
 		} else
-			$criteria->compare('t.creation_id',$this->creation_id);
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		if(isset($_GET['modified']))
-			$criteria->compare('t.modified_id',$_GET['modified']);
+			$criteria->compare('t.creation_id', $this->creation_id);
+		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.modified_date)', date('Y-m-d', strtotime($this->modified_date)));
+		if(Yii::app()->getRequest()->getParam('modified'))
+			$criteria->compare('t.modified_id', Yii::app()->getRequest()->getParam('modified'));
 		else
-			$criteria->compare('t.modified_id',$this->modified_id);
-		if($this->headline_date != null && !in_array($this->headline_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.headline_date)',date('Y-m-d', strtotime($this->headline_date)));
+			$criteria->compare('t.modified_id', $this->modified_id);
+		if($this->headline_date != null && !in_array($this->headline_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.headline_date)', date('Y-m-d', strtotime($this->headline_date)));
 		
-		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
-		$criteria->compare('view.medias',$this->media_search);
-		$criteria->compare('view.views',$this->view_search);
-		$criteria->compare('view.likes',$this->like_search);
-		$criteria->compare('view.downloads',$this->downlaod_search);
-		$criteria->compare('view.tags',$this->tag_search);
+		$criteria->compare('creation.displayname', strtolower($this->creation_search), true);
+		$criteria->compare('modified.displayname', strtolower($this->modified_search), true);
+		$criteria->compare('view.medias', $this->media_search);
+		$criteria->compare('view.views', $this->view_search);
+		$criteria->compare('view.likes', $this->like_search);
+		$criteria->compare('view.downloads', $this->downlaod_search);
+		$criteria->compare('view.tags', $this->tag_search);
 
-		if(!isset($_GET['Articles_sort']))
+		if(!Yii::app()->getRequest()->getParam('Articles_sort'))
 			$criteria->order = 't.article_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -375,10 +375,10 @@ class Articles extends CActiveRecord
 				'name' => 'title',
 				'value' => '$data->title',
 			);
-			$category = ArticleCategory::model()->findByPk($_GET['category']);
-			if(!isset($_GET['category']) || (isset($_GET['category']) && $category->parent == 0)) {
+			$category = ArticleCategory::model()->findByPk(Yii::app()->getRequest()->getParam('category'));
+			if(!Yii::app()->getRequest()->getParam('category') || (Yii::app()->getRequest()->getParam('category') && $category->parent == 0)) {
 				if($category->parent == 0)
-					$parent = $_GET['category'];
+					$parent = Yii::app()->getRequest()->getParam('category');
 				else
 					$parent = null;
 				$this->defaultColumns[] = array(
@@ -412,7 +412,7 @@ class Articles extends CActiveRecord
 						),
 						'options'=>array(
 							'showOn' => 'focus',
-							'dateFormat' => 'dd-mm-yy',
+							'dateFormat' => 'yy-mm-dd',
 							'showOtherMonths' => true,
 							'selectOtherMonths' => true,
 							'changeMonth' => true,
@@ -440,7 +440,7 @@ class Articles extends CActiveRecord
 						),
 						'options'=>array(
 							'showOn' => 'focus',
-							'dateFormat' => 'dd-mm-yy',
+							'dateFormat' => 'yy-mm-dd',
 							'showOtherMonths' => true,
 							'selectOtherMonths' => true,
 							'changeMonth' => true,
@@ -453,7 +453,7 @@ class Articles extends CActiveRecord
 			if(in_array('media_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'media_search',
-					'value' => 'CHtml::link($data->view->medias ? $data->view->medias : 0, Yii::app()->controller->createUrl("o/media/manage",array(\'article\'=>$data->article_id)))',
+					'value' => 'CHtml::link($data->view->medias ? $data->view->medias : 0, Yii::app()->controller->createUrl("o/media/manage", array(\'article\'=>$data->article_id)))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -463,7 +463,7 @@ class Articles extends CActiveRecord
 			if(in_array('view_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'view_search',
-					'value' => 'CHtml::link($data->view->views ? $data->view->views : 0, Yii::app()->controller->createUrl("o/views/manage",array(\'article\'=>$data->article_id)))',
+					'value' => 'CHtml::link($data->view->views ? $data->view->views : 0, Yii::app()->controller->createUrl("o/views/manage", array(\'article\'=>$data->article_id)))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -473,7 +473,7 @@ class Articles extends CActiveRecord
 			if(in_array('like_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'like_search',
-					'value' => 'CHtml::link($data->view->likes ? $data->view->likes : 0, Yii::app()->controller->createUrl("o/like/manage",array(\'article\'=>$data->article_id)))',
+					'value' => 'CHtml::link($data->view->likes ? $data->view->likes : 0, Yii::app()->controller->createUrl("o/like/manage", array(\'article\'=>$data->article_id)))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -483,7 +483,7 @@ class Articles extends CActiveRecord
 			if(in_array('downlaod_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'downlaod_search',
-					'value' => 'CHtml::link($data->view->downloads ? $data->view->downloads : 0, Yii::app()->controller->createUrl("o/download/manage",array(\'article\'=>$data->article_id)))',
+					'value' => 'CHtml::link($data->view->downloads ? $data->view->downloads : 0, Yii::app()->controller->createUrl("o/download/manage", array(\'article\'=>$data->article_id)))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -493,7 +493,7 @@ class Articles extends CActiveRecord
 			if(in_array('tag_search', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'tag_search',
-					'value' => 'CHtml::link($data->view->tags ? $data->view->tags : 0, Yii::app()->controller->createUrl("o/tag/manage",array(\'article\'=>$data->article_id)))',
+					'value' => 'CHtml::link($data->view->tags ? $data->view->tags : 0, Yii::app()->controller->createUrl("o/tag/manage", array(\'article\'=>$data->article_id)))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -503,7 +503,7 @@ class Articles extends CActiveRecord
 			if($setting->headline == 1) {
 				$this->defaultColumns[] = array(
 					'name' => 'headline',
-					'value' => 'in_array($data->cat_id, ArticleSetting::getHeadlineCategory()) ? ($data->headline == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Utility::getPublish(Yii::app()->controller->createUrl("headline",array("id"=>$data->article_id)), $data->headline, 9)) : \'-\'',
+					'value' => 'in_array($data->cat_id, ArticleSetting::getHeadlineCategory()) ? ($data->headline == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Utility::getPublish(Yii::app()->controller->createUrl("headline", array("id"=>$data->article_id)), $data->headline, 9)) : \'-\'',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -514,10 +514,10 @@ class Articles extends CActiveRecord
 					'type' => 'raw',
 				);
 			}
-			if(!isset($_GET['type'])) {
+			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->article_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish", array("id"=>$data->article_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -538,7 +538,7 @@ class Articles extends CActiveRecord
 	public static function getInfo($id, $column=null)
 	{
 		if($column != null) {
-			$model = self::model()->findByPk($id,array(
+			$model = self::model()->findByPk($id, array(
 				'select' => $column,
 			));
  			if(count(explode(',', $column)) == 1)

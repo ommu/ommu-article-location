@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (www.ommu.co)
  * @created date 9 November 2016, 18:13 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -136,21 +136,21 @@ class ViewArticlesLocations extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.article_id',$this->article_id);
-		$criteria->compare('t.media_id',$this->media_id);
-		$criteria->compare('t.media_cover',strtolower($this->media_cover),true);
-		$criteria->compare('t.media_caption',strtolower($this->media_caption),true);
-		$criteria->compare('t.medias',$this->medias);
-		$criteria->compare('t.media_all',$this->media_all);
-		$criteria->compare('t.likes',$this->likes);
-		$criteria->compare('t.like_all',$this->like_all);
-		$criteria->compare('t.views',$this->views);
-		$criteria->compare('t.view_all',$this->view_all);
-		$criteria->compare('t.downloads',$this->downloads);
-		$criteria->compare('t.tags',$this->tags);
-		$criteria->compare('t.location_id',$this->location_id);
+		$criteria->compare('t.article_id', $this->article_id);
+		$criteria->compare('t.media_id', $this->media_id);
+		$criteria->compare('t.media_cover', strtolower($this->media_cover), true);
+		$criteria->compare('t.media_caption', strtolower($this->media_caption), true);
+		$criteria->compare('t.medias', $this->medias);
+		$criteria->compare('t.media_all', $this->media_all);
+		$criteria->compare('t.likes', $this->likes);
+		$criteria->compare('t.like_all', $this->like_all);
+		$criteria->compare('t.views', $this->views);
+		$criteria->compare('t.view_all', $this->view_all);
+		$criteria->compare('t.downloads', $this->downloads);
+		$criteria->compare('t.tags', $this->tags);
+		$criteria->compare('t.location_id', $this->location_id);
 
-		if(!isset($_GET['ViewArticlesLocations_sort']))
+		if(!Yii::app()->getRequest()->getParam('ViewArticlesLocations_sort'))
 			$criteria->order = 't.article_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -229,7 +229,7 @@ class ViewArticlesLocations extends CActiveRecord
 	public static function getInfo($id, $column=null)
 	{
 		if($column != null) {
-			$model = self::model()->findByPk($id,array(
+			$model = self::model()->findByPk($id, array(
 				'select' => $column,
 			));
  			if(count(explode(',', $column)) == 1)

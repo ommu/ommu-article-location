@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2012 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-article-location
  *
  * This is the template for generating the model class of a specified table.
@@ -142,26 +142,26 @@ class ArticleTag extends CActiveRecord
 			),
 		);
 
-		$criteria->compare('t.id',$this->id);
-		if(isset($_GET['article']))
-			$criteria->compare('t.article_id',$_GET['article']);
+		$criteria->compare('t.id', $this->id);
+		if(Yii::app()->getRequest()->getParam('article'))
+			$criteria->compare('t.article_id', Yii::app()->getRequest()->getParam('article'));
 		else
-			$criteria->compare('t.article_id',$this->article_id);
-		$criteria->compare('t.tag_id',$this->tag_id);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		if(isset($_GET['creation']))
-			$criteria->compare('t.creation_id',$_GET['creation']);
+			$criteria->compare('t.article_id', $this->article_id);
+		$criteria->compare('t.tag_id', $this->tag_id);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
+		if(Yii::app()->getRequest()->getParam('creation'))
+			$criteria->compare('t.creation_id', Yii::app()->getRequest()->getParam('creation'));
 		else
-			$criteria->compare('t.creation_id',$this->creation_id);
+			$criteria->compare('t.creation_id', $this->creation_id);
 		
-		$criteria->compare('article.cat_id',$this->category_search);
-		$criteria->compare('article.title',strtolower($this->article_search),true);
-		if(isset($_GET['article']) && isset($_GET['publish']))
-			$criteria->compare('article.publish',$_GET['publish']);
+		$criteria->compare('article.cat_id', $this->category_search);
+		$criteria->compare('article.title', strtolower($this->article_search), true);
+		if(Yii::app()->getRequest()->getParam('article') && Yii::app()->getRequest()->getParam('publish'))
+			$criteria->compare('article.publish', Yii::app()->getRequest()->getParam('publish'));
 		$tag_search = Utility::getUrlTitle(strtolower(trim($this->tag_search)));
 		$criteria->compare('tag.body',$tag_search,true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
+		$criteria->compare('creation.displayname', strtolower($this->creation_search), true);
 		
 		if(Yii::app()->user->level == 2) {
 			$location = ArticleLocationUser::model()->find(array(
@@ -183,7 +183,7 @@ class ArticleTag extends CActiveRecord
 				$criteria->compare('article.creation_id',Yii::app()->user->id);
 		}
 
-		if(!isset($_GET['ArticleTag_sort']))
+		if(!Yii::app()->getRequest()->getParam('ArticleTag_sort'))
 			$criteria->order = 't.id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -231,7 +231,7 @@ class ArticleTag extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			if(!isset($_GET['article'])) {
+			if(!Yii::app()->getRequest()->getParam('article')) {
 				$this->defaultColumns[] = array(
 					'name' => 'category_search',
 					'value' => 'Phrase::trans($data->article->cat->name)',
@@ -268,7 +268,7 @@ class ArticleTag extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,

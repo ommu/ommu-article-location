@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (www.ommu.co)
  * @created date 18 October 2016, 02:26 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -212,58 +212,58 @@ class ArticleLocations extends CActiveRecord
 			),
 		);
 
-		$criteria->compare('t.location_id',$this->location_id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish')
-			$criteria->compare('t.publish',1);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
-			$criteria->compare('t.publish',0);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'trash')
-			$criteria->compare('t.publish',2);
+		$criteria->compare('t.location_id', $this->location_id);
+		if(Yii::app()->getRequest()->getParam('type') == 'publish')
+			$criteria->compare('t.publish', 1);
+		elseif(Yii::app()->getRequest()->getParam('type') == 'unpublish')
+			$criteria->compare('t.publish', 0);
+		elseif(Yii::app()->getRequest()->getParam('type') == 'trash')
+			$criteria->compare('t.publish', 2);
 		else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
+			$criteria->addInCondition('t.publish', array(0,1));
+			$criteria->compare('t.publish', $this->publish);
 		}
-		$criteria->compare('t.province_id',$this->province_id);
-		$criteria->compare('t.province_code',strtolower($this->province_code),true);
-		$criteria->compare('t.province_desc',strtolower($this->province_desc),true);
-		$criteria->compare('t.province_photo',strtolower($this->province_photo),true);
-		$criteria->compare('t.province_header_photo',strtolower($this->province_header_photo),true);
-		$criteria->compare('t.office_name',strtolower($this->office_name),true);
-		$criteria->compare('t.office_location',strtolower($this->office_location),true);
-		$criteria->compare('t.office_place',strtolower($this->office_place),true);
-		$criteria->compare('t.office_country',$this->office_country);
-		$criteria->compare('t.office_city',$this->office_city);
-		$criteria->compare('t.office_district',strtolower($this->office_district),true);
-		$criteria->compare('t.office_village',strtolower($this->office_village),true);
-		$criteria->compare('t.office_zipcode',$this->office_zipcode,true);
-		$criteria->compare('t.office_phone',$this->office_phone,true);
-		$criteria->compare('t.office_fax',$this->office_fax,true);
-		$criteria->compare('t.office_email',strtolower($this->office_email),true);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		if(isset($_GET['creation']))
-			$criteria->compare('t.creation_id',$_GET['creation']);
+		$criteria->compare('t.province_id', $this->province_id);
+		$criteria->compare('t.province_code', strtolower($this->province_code), true);
+		$criteria->compare('t.province_desc', strtolower($this->province_desc), true);
+		$criteria->compare('t.province_photo', strtolower($this->province_photo), true);
+		$criteria->compare('t.province_header_photo', strtolower($this->province_header_photo), true);
+		$criteria->compare('t.office_name', strtolower($this->office_name), true);
+		$criteria->compare('t.office_location', strtolower($this->office_location), true);
+		$criteria->compare('t.office_place', strtolower($this->office_place), true);
+		$criteria->compare('t.office_country', $this->office_country);
+		$criteria->compare('t.office_city', $this->office_city);
+		$criteria->compare('t.office_district', strtolower($this->office_district), true);
+		$criteria->compare('t.office_village', strtolower($this->office_village), true);
+		$criteria->compare('t.office_zipcode', $this->office_zipcode,true);
+		$criteria->compare('t.office_phone', $this->office_phone,true);
+		$criteria->compare('t.office_fax', $this->office_fax,true);
+		$criteria->compare('t.office_email', strtolower($this->office_email), true);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
+		if(Yii::app()->getRequest()->getParam('creation'))
+			$criteria->compare('t.creation_id', Yii::app()->getRequest()->getParam('creation'));
 		else
-			$criteria->compare('t.creation_id',$this->creation_id);
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		if(isset($_GET['modified']))
-			$criteria->compare('t.modified_id',$_GET['modified']);
+			$criteria->compare('t.creation_id', $this->creation_id);
+		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.modified_date)', date('Y-m-d', strtotime($this->modified_date)));
+		if(Yii::app()->getRequest()->getParam('modified'))
+			$criteria->compare('t.modified_id', Yii::app()->getRequest()->getParam('modified'));
 		else
-			$criteria->compare('t.modified_id',$this->modified_id);
+			$criteria->compare('t.modified_id', $this->modified_id);
 		
-		$criteria->compare('view.address',$this->address_search);
-		$criteria->compare('view.phone',$this->phone_search);
-		$criteria->compare('view.email',$this->email_search);
-		$criteria->compare('view.photo',$this->photo_search);
-		$criteria->compare('view.photo_header',$this->photo_header_search);
-		$criteria->compare('view.tags',$this->tag_i);
-		$criteria->compare('view.users',$this->user_i);
-		$criteria->compare('province.province_name',strtolower($this->province_i),true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
+		$criteria->compare('view.address', $this->address_search);
+		$criteria->compare('view.phone', $this->phone_search);
+		$criteria->compare('view.email', $this->email_search);
+		$criteria->compare('view.photo', $this->photo_search);
+		$criteria->compare('view.photo_header', $this->photo_header_search);
+		$criteria->compare('view.tags', $this->tag_i);
+		$criteria->compare('view.users', $this->user_i);
+		$criteria->compare('province.province_name', strtolower($this->province_i), true);
+		$criteria->compare('creation.displayname', strtolower($this->creation_search), true);
+		$criteria->compare('modified.displayname', strtolower($this->modified_search), true);
 
-		if(!isset($_GET['ArticleLocations_sort']))
+		if(!Yii::app()->getRequest()->getParam('ArticleLocations_sort'))
 			$criteria->order = 't.location_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -376,7 +376,7 @@ class ArticleLocations extends CActiveRecord
 						),
 						'options'=>array(
 							'showOn' => 'focus',
-							'dateFormat' => 'dd-mm-yy',
+							'dateFormat' => 'yy-mm-dd',
 							'showOtherMonths' => true,
 							'selectOtherMonths' => true,
 							'changeMonth' => true,
@@ -389,7 +389,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('tag_i', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'tag_i',
-					'value' => 'CHtml::link($data->view->tags ? $data->view->tags : 0, Yii::app()->controller->createUrl("location/tag/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
+					'value' => 'CHtml::link($data->view->tags ? $data->view->tags : 0, Yii::app()->controller->createUrl("location/tag/manage", array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -399,7 +399,7 @@ class ArticleLocations extends CActiveRecord
 			if(in_array('user_i', $gridview_column)) {
 				$this->defaultColumns[] = array(
 					'name' => 'user_i',
-					'value' => 'CHtml::link($data->view->users ? $data->view->users : 0, Yii::app()->controller->createUrl("location/user/manage",array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
+					'value' => 'CHtml::link($data->view->users ? $data->view->users : 0, Yii::app()->controller->createUrl("location/user/manage", array(\'location\'=>$data->location_id,\'plugin\'=>\'location\')))',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -476,10 +476,10 @@ class ArticleLocations extends CActiveRecord
 					'type' => 'raw',
 				);
 			}
-			if(!isset($_GET['type'])) {
+			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->location_id,\'plugin\'=>\'location\')), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish", array("id"=>$data->location_id,\'plugin\'=>\'location\')), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -500,7 +500,7 @@ class ArticleLocations extends CActiveRecord
 	public static function getInfo($id, $column=null)
 	{
 		if($column != null) {
-			$model = self::model()->findByPk($id,array(
+			$model = self::model()->findByPk($id, array(
 				'select' => $column,
 			));
  			if(count(explode(',', $column)) == 1)

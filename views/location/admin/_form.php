@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (www.ommu.co)
  * @created date 18 October 2016, 02:29 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -76,7 +76,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'province_code'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'province_code',array('maxlength'=>16,'class'=>'span-4')); ?>
+			<?php echo $form->textField($model,'province_code', array('maxlength'=>16,'class'=>'span-4')); ?>
 			<?php echo $form->error($model,'province_code'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -85,7 +85,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'province_desc'); ?>
 		<div class="desc">
-			<?php echo $form->textArea($model,'province_desc',array('class'=>'span-10 smaller')); ?>
+			<?php echo $form->textArea($model,'province_desc', array('class'=>'span-10 smaller')); ?>
 			<?php echo $form->error($model,'province_desc'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -134,7 +134,7 @@
 		<?php echo $form->labelEx($model,'tag_i'); ?>
 		<div class="desc">
 			<?php 
-			//echo $form->textField($model,'tag_i',array('maxlength'=>32,'class'=>'span-6'));
+			//echo $form->textField($model,'tag_i', array('maxlength'=>32,'class'=>'span-6'));
 			$url = Yii::app()->controller->createUrl('location/tag/add', array('hook'=>'location','plugin'=>'location'));
 			$location = $model->location_id;
 			$tagId = 'ArticleLocations_tag_i';
@@ -168,7 +168,7 @@
 				<?php
 				if($tags != null) {
 					foreach($tags as $key => $val) {?>
-					<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('location/tag/delete',array('id'=>$val->id,'hook'=>'location','plugin'=>'location'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+					<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('location/tag/delete', array('id'=>$val->id,'hook'=>'location','plugin'=>'location'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
 				<?php }
 				}?>
 			</div>
@@ -181,7 +181,7 @@
 		<?php echo $form->labelEx($model,'user_i'); ?>
 		<div class="desc">
 			<?php 
-			//echo $form->textField($model,'user_i',array('maxlength'=>32,'class'=>'span-6'));
+			//echo $form->textField($model,'user_i', array('maxlength'=>32,'class'=>'span-6'));
 			$url = Yii::app()->controller->createUrl('location/user/add', array('hook'=>'location','plugin'=>'location'));
 			$location = $model->location_id;
 			$userId = 'ArticleLocations_user_i';
@@ -215,7 +215,7 @@
 				<?php
 				if($users != null) {
 					foreach($users as $key => $val) {?>
-					<div><?php echo $val->user->displayname;?><a href="<?php echo Yii::app()->controller->createUrl('location/user/delete',array('id'=>$val->id,'hook'=>'location','plugin'=>'location'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+					<div><?php echo $val->user->displayname;?><a href="<?php echo Yii::app()->controller->createUrl('location/user/delete', array('id'=>$val->id,'hook'=>'location','plugin'=>'location'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
 				<?php }
 				}?>
 			</div>
@@ -249,7 +249,7 @@
 <?php if($model->isNewRecord) {?>
 	</div>
 	<div class="dialog-submit">
-		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('phrase', 'Create') : Yii::t('phrase', 'Save') ,array('onclick' => 'setEnableSave()')); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('phrase', 'Create') : Yii::t('phrase', 'Save') , array('onclick' => 'setEnableSave()')); ?>
 		<?php echo CHtml::button(Yii::t('phrase', 'Cancel'), array('id'=>'closed')); ?>
 	</div>
 <?php }?>

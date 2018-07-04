@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (www.ommu.co)
  * @created date 18 October 2016, 15:30 WIB
  * @link https://github.com/ommu/ommu-article-location
  *
@@ -124,16 +124,16 @@ class ViewArticleLocations extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.location_id',$this->location_id);
-		$criteria->compare('t.tags',$this->tags);
-		$criteria->compare('t.users',$this->users);
-		$criteria->compare('t.address',$this->address);
-		$criteria->compare('t.phone',$this->phone);
-		$criteria->compare('t.email',$this->email);
-		$criteria->compare('t.photo',$this->photo);
-		$criteria->compare('t.photo_header',$this->photo_header);
+		$criteria->compare('t.location_id', $this->location_id);
+		$criteria->compare('t.tags', $this->tags);
+		$criteria->compare('t.users', $this->users);
+		$criteria->compare('t.address', $this->address);
+		$criteria->compare('t.phone', $this->phone);
+		$criteria->compare('t.email', $this->email);
+		$criteria->compare('t.photo', $this->photo);
+		$criteria->compare('t.photo_header', $this->photo_header);
 
-		if(!isset($_GET['ViewArticleLocations_sort']))
+		if(!Yii::app()->getRequest()->getParam('ViewArticleLocations_sort'))
 			$criteria->order = 't.location_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -202,7 +202,7 @@ class ViewArticleLocations extends CActiveRecord
 	public static function getInfo($id, $column=null)
 	{
 		if($column != null) {
-			$model = self::model()->findByPk($id,array(
+			$model = self::model()->findByPk($id, array(
 				'select' => $column,
 			));
  			if(count(explode(',', $column)) == 1)
