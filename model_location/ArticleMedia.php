@@ -37,6 +37,8 @@
  */
 class ArticleMedia extends CActiveRecord
 {
+	use UtilityTrait;
+
 	public $defaultColumns = array();
 	public $video_input;
 	public $old_media_input;
@@ -482,7 +484,7 @@ class ArticleMedia extends CActiveRecord
 					$this->media = CUploadedFile::getInstance($this, 'media');
 					if($this->media != null) {
 						if($this->media instanceOf CUploadedFile) {
-							$fileName = time().'_'.Utility::getUrlTitle($this->article->title).'.'.strtolower($this->media->extensionName);
+							$fileName = time().'_'.$this->urlTitle($this->article->title).'.'.strtolower($this->media->extensionName);
 							if($this->media->saveAs($article_path.'/'.$fileName)) {
 								if(!$this->isNewRecord) {
 									if($this->old_media_input != '' && file_exists($article_path.'/'.$this->old_media_input))

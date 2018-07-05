@@ -46,6 +46,8 @@
 
 class Articles extends CActiveRecord
 {
+	use UtilityTrait;
+
 	public $defaultColumns = array();
 	public $media_input;
 	public $old_media_input;
@@ -605,7 +607,7 @@ class Articles extends CActiveRecord
 				$image = Yii::app()->request->baseUrl.'/public/article/'.$item->article_id.'/'.$media;
 			} else 
 				$image = '';
-			$url = Yii::app()->createUrl('article/site/view', array('id'=>$item->article_id,'slug'=>Utility::getUrlTitle($item->title)));
+			$url = Yii::app()->createUrl('article/site/view', array('id'=>$item->article_id,'slug'=>$this->urlTitle($item->title)));
 				
 			$doc = new Zend_Search_Lucene_Document();
 			$doc->addField(Zend_Search_Lucene_Field::UnIndexed('id', CHtml::encode($item->article_id), 'utf-8')); 
@@ -628,7 +630,7 @@ class Articles extends CActiveRecord
 	public static function getShareUrl($id, $slug=null)
 	{
 		if($slug && $slug != '-')
-			return Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->controller->createUrl('site/view', array('id'=>$id, 'slug'=>Utility::getUrlTitle($slug)));
+			return Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->controller->createUrl('site/view', array('id'=>$id, 'slug'=>$this->urlTitle($slug)));
 		else
 			return Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->controller->createUrl('site/view', array('id'=>$id));
 	}
@@ -701,7 +703,7 @@ class Articles extends CActiveRecord
 				$this->media_file = CUploadedFile::getInstance($this, 'media_file');
 				if($this->media_file != null) {
 					if($this->media_file instanceOf CUploadedFile) {
-						$fileName = time().'_'.Utility::getUrlTitle($this->title).'.'.strtolower($this->media_file->extensionName);
+						$fileName = time().'_'.$this->urlTitle($this->title).'.'.strtolower($this->media_file->extensionName);
 						if($this->media_file->saveAs($article_path.'/'.$fileName)) {
 							if($this->old_media_file_input != '' && file_exists($article_path.'/'.$this->old_media_file_input))
 								rename($article_path.'/'.$this->old_media_file_input, 'public/article/verwijderen/'.$this->article_id.'_'.$this->old_media_file_input);
@@ -781,7 +783,7 @@ class Articles extends CActiveRecord
 			$this->media_file = CUploadedFile::getInstance($this, 'media_file');
 			if($this->media_file != null) {
 				if($this->media_file instanceOf CUploadedFile) {
-					$fileName = time().'_'.Utility::getUrlTitle($this->title).'.'.strtolower($this->media_file->extensionName);
+					$fileName = time().'_'.$this->urlTitle($this->title).'.'.strtolower($this->media_file->extensionName);
 					if($this->media_file->saveAs($article_path.'/'.$fileName))
 						Articles::model()->updateByPk($this->article_id, array('media_file'=>$fileName));
 				}
@@ -792,7 +794,7 @@ class Articles extends CActiveRecord
 			$this->media_input = CUploadedFile::getInstance($this, 'media_input');
 			if($this->media_input != null && ($this->isNewRecord || (!$this->isNewRecord && ($setting->media_limit == 1 || ($setting->media_limit != 1 && $this->cat->single_photo == 1))))) {
 				if($this->media_input instanceOf CUploadedFile) {
-					$fileName = time().'_'.Utility::getUrlTitle($this->title).'.'.strtolower($this->media_input->extensionName);
+					$fileName = time().'_'.$this->urlTitle($this->title).'.'.strtolower($this->media_input->extensionName);
 					if($this->media_input->saveAs($article_path.'/'.$fileName)) {
 						if($this->isNewRecord || (!$this->isNewRecord && $this->medias == null)) {
 							$images = new ArticleMedia;

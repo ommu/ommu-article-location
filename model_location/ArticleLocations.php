@@ -51,6 +51,8 @@
  */
 class ArticleLocations extends CActiveRecord
 {
+	use UtilityTrait;
+
 	public $defaultColumns = array();
 	public $province_i;
 	public $tag_i;
@@ -615,7 +617,7 @@ class ArticleLocations extends CActiveRecord
 				$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 				if($this->province_photo != null) {
 					if($this->province_photo instanceOf CUploadedFile) {
-						$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
+						$fileName = time().'_'.$this->location_id.'_'.$this->urlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
 						if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
 							if($this->old_photo_i != '' && file_exists($location_path.'/'.$this->old_photo_i))
 								rename($location_path.'/'.$this->old_photo_i, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_photo_i);
@@ -633,7 +635,7 @@ class ArticleLocations extends CActiveRecord
 				$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
 				if($this->province_header_photo != null) {
 					if($this->province_header_photo instanceOf CUploadedFile) {
-						$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
+						$fileName = time().'_'.$this->location_id.'_'.$this->urlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
 						if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
 							if($this->old_header_photo_i != '' && file_exists($location_path.'/'.$this->old_header_photo_i))
 								rename($location_path.'/'.$this->old_header_photo_i, 'public/article/verwijderen/'.$this->location_id.'_'.$this->old_header_photo_i);
@@ -681,7 +683,7 @@ class ArticleLocations extends CActiveRecord
 			$this->province_photo = CUploadedFile::getInstance($this, 'province_photo');
 			if($this->province_photo != null) {
 				if($this->province_photo instanceOf CUploadedFile) {
-					$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
+					$fileName = time().'_'.$this->location_id.'_'.$this->urlTitle($this->province->province_name).'.'.strtolower($this->province_photo->extensionName);
 					if($this->province_photo->saveAs($location_path.'/'.$fileName)) {
 						if($setting->media_resize == 1)
 							self::resizePhoto($location_path.'/'.$fileName, $media_resize_size['photo']);
@@ -693,7 +695,7 @@ class ArticleLocations extends CActiveRecord
 			$this->province_header_photo = CUploadedFile::getInstance($this, 'province_header_photo');
 			if($this->province_header_photo != null) {
 				if($this->province_header_photo instanceOf CUploadedFile) {
-					$fileName = time().'_'.$this->location_id.'_'.Utility::getUrlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
+					$fileName = time().'_'.$this->location_id.'_'.$this->urlTitle($this->province->province_name).'.'.strtolower($this->province_header_photo->extensionName);
 					if($this->province_header_photo->saveAs($location_path.'/'.$fileName)) {
 						if($setting->media_resize == 1)
 							self::resizePhoto($location_path.'/'.$fileName, $media_resize_size['header']);		
