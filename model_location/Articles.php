@@ -47,6 +47,7 @@
 class Articles extends CActiveRecord
 {
 	use UtilityTrait;
+	use GridViewTrait;
 
 	public $defaultColumns = array();
 	public $media_input;
@@ -509,10 +510,7 @@ class Articles extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
+					'filter' => $this->filterYesNo(),
 					'type' => 'raw',
 				);
 			}
@@ -523,10 +521,7 @@ class Articles extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
+					'filter' => $this->filterYesNo(),
 					'type' => 'raw',
 				);
 			}
