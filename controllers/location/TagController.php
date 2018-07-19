@@ -118,7 +118,7 @@ class TagController extends Controller
 		}
 		
 		$model=new ArticleLocationTag('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ArticleLocationTag'])) {
 			$model->attributes=$_GET['ArticleLocationTag'];
 		}

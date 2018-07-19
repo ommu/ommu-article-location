@@ -113,7 +113,7 @@ class AdminController extends Controller
 	public function actionManage() 
 	{
 		$model=new ArticleLocations('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ArticleLocations'])) {
 			$model->attributes=$_GET['ArticleLocations'];
 		}

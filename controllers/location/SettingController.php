@@ -114,7 +114,7 @@ class SettingController extends Controller
 			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 		
 		$category=new ArticleCategory('search');
-		$category->unsetAttributes();  // clear any default values
+		$category->unsetAttributes();	// clear any default values
 		if(isset($_GET['ArticleCategory'])) {
 			$category->attributes=$_GET['ArticleCategory'];
 		}

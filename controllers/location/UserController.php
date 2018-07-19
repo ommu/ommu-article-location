@@ -118,7 +118,7 @@ class UserController extends Controller
 		}
 		
 		$model=new ArticleLocationUser('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ArticleLocationUser'])) {
 			$model->attributes=$_GET['ArticleLocationUser'];
 		}
