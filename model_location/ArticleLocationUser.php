@@ -132,16 +132,16 @@ class ArticleLocationUser extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'location.province' => array(
-				'alias'=>'location_province',
-				'select'=>'province_name'
+				'alias' => 'location_province',
+				'select' => 'province_name'
 			),
 			'user' => array(
-				'alias'=>'user',
-				'select'=>'displayname'
+				'alias' => 'user',
+				'select' => 'displayname'
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
+				'alias' => 'creation',
+				'select' => 'displayname'
 			),
 		);
 

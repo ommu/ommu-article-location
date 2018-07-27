@@ -127,21 +127,21 @@ class ArticleTag extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'article' => array(
-				'alias'=>'article',
-				'select'=>'publish, cat_id, title, creation_id'
+				'alias' => 'article',
+				'select' => 'publish, cat_id, title, creation_id'
 			),
 			'article.tags' => array(
-				'alias'=>'article_tags',
-				'select'=>'tag_id',
+				'alias' => 'article_tags',
+				'select' => 'tag_id',
 				'together'=>true,
 			),
 			'tag' => array(
-				'alias'=>'tag',
-				'select'=>'body'
+				'alias' => 'tag',
+				'select' => 'body'
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
+				'alias' => 'creation',
+				'select' => 'displayname'
 			),
 		);
 

@@ -197,19 +197,19 @@ class Articles extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'view' => array(
-				'alias'=>'view',
+				'alias' => 'view',
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname',
+				'alias' => 'creation',
+				'select' => 'displayname',
 			),
 			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname',
+				'alias' => 'modified',
+				'select' => 'displayname',
 			),
 			'tags' => array(
-				'alias'=>'tags',
-				'select'=>'tag_id',
+				'alias' => 'tags',
+				'select' => 'tag_id',
 				'together'=>true,
 			),
 		);
@@ -414,7 +414,7 @@ class Articles extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter' => $this->filterDatepicker($this, 'published_date'),
+					'filter'=> $this->filterDatepicker($this, 'published_date'),
 				);
 			}
 			if(in_array('media_search', $gridview_column)) {

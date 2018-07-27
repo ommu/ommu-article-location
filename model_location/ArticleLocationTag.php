@@ -134,16 +134,16 @@ class ArticleLocationTag extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'location.province' => array(
-				'alias'=>'location_provinces',
-				'select'=>'province_name'
+				'alias' => 'location_provinces',
+				'select' => 'province_name'
 			),
 			'tag' => array(
-				'alias'=>'tag',
-				'select'=>'body'
+				'alias' => 'tag',
+				'select' => 'body'
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
+				'alias' => 'creation',
+				'select' => 'displayname'
 			),
 		);
 

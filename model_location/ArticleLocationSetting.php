@@ -125,8 +125,8 @@ class ArticleLocationSetting extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname'
+				'alias' => 'modified',
+				'select' => 'displayname'
 			),
 		);
 

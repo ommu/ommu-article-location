@@ -146,21 +146,21 @@ class ArticleMedia extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'article' => array(
-				'alias'=>'article',
-				'select'=>'publish, cat_id, article_type, title, creation_id',
+				'alias' => 'article',
+				'select' => 'publish, cat_id, article_type, title, creation_id',
 			),
 			'article.tags' => array(
-				'alias'=>'article_tags',
-				'select'=>'tag_id',
+				'alias' => 'article_tags',
+				'select' => 'tag_id',
 				'together'=>true,
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname',
+				'alias' => 'creation',
+				'select' => 'displayname',
 			),
 			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname',
+				'alias' => 'modified',
+				'select' => 'displayname',
 			),
 		);
 
