@@ -188,11 +188,11 @@ class SettingController extends Controller
 		$this->dialogGroundUrl = $dialogGroundUrl;
 		$this->dialogWidth = 400;
 		
-		$this->pageTitle = Yii::t('phrase', 'Location Manual Book');
+		$this->pageTitle = Yii::t('phrase', 'Location Manual');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manual', array(
-			'manual_path'=>$manual_path,			
+			'manual_path'=>$manual_path,
 		));
 	}
 

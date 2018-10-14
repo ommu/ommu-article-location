@@ -15,7 +15,7 @@
 
 	$this->breadcrumbs=array(
 		'Article Locations'=>array('manage'),
-		'Create',
+		Yii::t('phrase', 'Create'),
 	);
 ?>
 

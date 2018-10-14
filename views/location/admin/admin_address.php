@@ -16,7 +16,7 @@
 	$this->breadcrumbs=array(
 		'Article Locations'=>array('manage'),
 		$model->location_id=>array('view','id'=>$model->location_id),
-		'Update',
+		Yii::t('phrase', 'Update'),
 	);
 ?>
 
@@ -24,7 +24,6 @@
 <?php $form=$this->beginWidget('application.libraries.yii-traits.system.OActiveForm', array(
 	'id'=>'article-locations-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
@@ -53,7 +52,7 @@
 			<div class="desc">
 				<?php echo $form->textField($model,'office_location', array('maxlength'=>32, 'class'=>'span-4')); ?>
 				<?php echo $form->error($model,'office_location'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'A struct containing metadata defining the location of a place');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'A struct containing metadata defining the location of a place');?></div>
 			</div>
 		</div>
 
@@ -65,7 +64,7 @@
 				<?php echo $form->textField($model,'office_village', array('maxlength'=>32, 'class'=>'span-4', 'placeholder'=>$model->getAttributeLabel('office_village'))); ?>
 				<?php echo $form->textField($model,'office_district', array('maxlength'=>32, 'class'=>'span-4', 'placeholder'=>$model->getAttributeLabel('office_district'))); ?>
 				<?php echo $form->error($model,'office_place'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'The number, street, district and village of the postal address for this business');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'The number, street, district and village of the postal address for this business');?></div>
 			</div>
 		</div>
 		
@@ -76,7 +75,7 @@
 				$province_id = $model->province_id ? $model->province_id : null;
 				echo $form->dropDownList($model,'office_city', OmmuZoneCity::getCity($province_id)); ?>
 				<?php echo $form->error($model,'office_city'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'The city (or locality) line of the postal address for this business');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'The city (or locality) line of the postal address for this business');?></div>
 			</div>
 		</div>
 		
@@ -95,7 +94,7 @@
 			<div class="desc">
 				<?php echo $form->textField($model,'office_zipcode', array('maxlength'=>6, 'class'=>'span-3')); ?>
 				<?php echo $form->error($model,'office_zipcode'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'The postcode (or ZIP code) of the postal address for this business');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'The postcode (or ZIP code) of the postal address for this business');?></div>
 			</div>
 		</div>
 
@@ -104,7 +103,7 @@
 			<div class="desc">
 				<?php echo $form->textField($model,'office_phone', array('maxlength'=>32, 'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'office_phone'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'A telephone number to contact this business');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'A telephone number to contact this business');?></div>
 			</div>
 		</div>
 
@@ -113,7 +112,7 @@
 			<div class="desc">
 				<?php echo $form->textField($model,'office_fax', array('maxlength'=>32, 'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'office_fax'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'A fax number to contact this business');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'A fax number to contact this business');?></div>
 			</div>
 		</div>
 		
@@ -122,7 +121,7 @@
 			<div class="desc">
 				<?php echo $form->textField($model,'office_email', array('maxlength'=>32, 'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'office_email'); ?>
-				<span class="small-px silent"><?php echo Yii::t('phrase', 'An email address to contact this business');?></span>
+				<div class="small-px"><?php echo Yii::t('phrase', 'An email address to contact this business');?></div>
 			</div>
 		</div>
 		
