@@ -4,7 +4,7 @@
  * @var $this SettingController
  * @var $model ArticleLocationSetting
  *
- * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @author Putra Sudaryanto <putra@ommu.co>
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 19 Juny 2017, 04:10 WIB
